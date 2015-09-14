@@ -1,0 +1,37 @@
+<div class="row col-md-6 col-md-offset-3">
+	
+	<div class="alert alert-info">
+		<p>Test Info</p>
+		<p><strong>Username</strong>: chris</p>
+		<p><strong>Password</strong>: supersecret</p>
+		<p><a href="#" ng-click="login.createSample()" class="btn btn-sm btn-primary">Create Sample User</a></p>
+	</div>
+
+	<div class="jumbotron">
+		<h1>Login</h1>		
+
+		<form ng-submit="login.doLogin()">
+			
+			<div class="form-group">
+				<label>Username</label>
+				<input type="text" class="form-control" ng-model="login.loginData.username">
+			</div>
+
+			<div class="form-group">
+				<label>Password</label>
+				<input type="password" class="form-control" ng-model="login.loginData.password">
+			</div>
+
+			<div class="alert alert-danger" ng-if="login.error">
+				{{ login.error }}
+			</div>
+
+			<button type="submit" class="btn btn-block btn-primary">
+				<span ng-if="!login.processing">Login</span>
+				<span ng-if="login.processing" class="spinner"><span class="glyphicon glyphicon-repeat"></span></span>
+			</button>
+
+		</form>
+	</div>
+	
+</div>

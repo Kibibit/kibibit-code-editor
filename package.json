@@ -1,0 +1,32 @@
+{
+  "name": "Kibibyte",
+  "version": "0.0.0",
+  "description": "code editor on the cloud",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "neilkalman@gmail.com",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "colors": "~1.1.2",
+    "express": "~4.13.3",
+    "scribe-js": "~2.0.4",
+    "gulp": "~3.9.0",
+    "body-parser": "~1.13.3",
+    "mongoose": "~4.1.6",
+    "jsonwebtoken": "~5.0.5",
+    "bcrypt-nodejs": "0.0.3",
+    "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "jshint-stylish": "~2.0.1",
+    "gulp-jshint": "~1.11.2",
+    "gulp-beautify": "~1.1.2",
+    "gulp-jsbeautifier": "~1.0.1",
+    "gulp-sass": "~2.0.4",
+    "gulp-rename": "~1.2.2",
+    "gulp-minify-css": "~1.2.1",
+    "gulp-sourcemaps": "~1.5.2"
+  }
+}
