@@ -4,17 +4,20 @@
 // CALL THE PACKAGES --------------------
 var express    = require('express'),        // call express
 app            = express(),                 // define our app using express
-bodyParser     = require('body-parser'),    // get body-parser. will let us pull POST content from our HTTP request so that we can do things like create a user.
 mongoose       = require('mongoose'),
 config         = require('./config'),
 path           = require('path'),
 scribe         = require('scribe-js')(),    // used for logs
 favicon        = require('serve-favicon'),  // set favicon
+bodyParser     = require('body-parser'),
 console        = process.console;
 
 /*app.get('/', function(req, res) {
 	res.send('Hello world, see you at /logs');
 });*/
+
+// create application/json parser 
+var jsonParser = bodyParser.json();
 
 /** ===========
 *   = LOGGING =
@@ -45,7 +48,7 @@ app.use(favicon(path.join(__dirname, 'public', 'assets', 'images', 'favicon.ico'
 *   set the routes for our server's API
 */
 var apiRoutes = require('./app/routes/api')(app, express);
-app.use('/api', apiRoutes);
+app.use('/api', jsonParser, apiRoutes);
 
 /** =============
 *   = FRONT-END =

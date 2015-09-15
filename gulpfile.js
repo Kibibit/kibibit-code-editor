@@ -11,24 +11,31 @@ jshint = require('gulp-jshint');
 gulp.task('default', ['watch']);
 
 // configure the jshint task
-gulp.task('jshint', function() {
-	return gulp.src('./javascript/*.js')
+gulp.task('lint-js', function() {
+	return gulp.src(['./**/*.js', '!./node_modules/', '!./node_modules/**', '!./logs/'])
 	.pipe(jshint())
 	.pipe(jshint.reporter('jshint-stylish'));
 });
 
+gulp.task('lint-sass', function() {
+	return gulp.src('./public/assets/sass/**/*.scss')
+	.pipe(sass().on('error', sass.logError));
+});
+
+gulp.task('lint', ['lint-js', 'lint-sass']);
+
 gulp.task('styles', function() {
-	gulp.src('./public/assets/sass/**/*.scss')
+	return gulp.src('./public/assets/sass/**/*.scss')
 	.pipe(sourcemaps.init())
 	.pipe(sass().on('error', sass.logError))
-	.pipe(minifyCSS())
+	//.pipe(minifyCSS())
 	.pipe(sourcemaps.write())
-	.pipe(rename({ suffix: '.min' }))
+	//.pipe(rename({ suffix: '.min' }))
 	.pipe(gulp.dest('./public/assets/css/'));
 });
 
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', function() {
-	gulp.watch('./javascript/*.js', ['jshint']);
+	gulp.watch(['./**/*.js', '!./node_modules/', '!./node_modules/**', '!./logs/'], ['lint-js']);
 	gulp.watch('./public/assets/sass/**/*.scss', ['styles']);
 });

@@ -1,8 +1,23 @@
 angular.module('mainCtrl', [])
 
-.controller('mainController', function($rootScope, $location, Auth) {
+.controller('mainController', function($rootScope, $location, Auth, $http) {
 
 	var vm = this;
+
+
+	$http.get('/api/directory/'+encodeURIComponent('/home/thatkookooguy/Downloads/test'))
+	.then(function(res) {
+		console.log(res.errno);
+		if (res.errno !== null) {
+			$rootScope.folder = res.data;
+			console.log('got res');
+		}
+	});
+
+	$rootScope.treeOptions = {
+		nodeChildren: "children",
+		dirSelectable: false
+	};
 
 	// get info if a person is logged in
 	vm.loggedIn = Auth.isLoggedIn();
@@ -13,9 +28,9 @@ angular.module('mainCtrl', [])
 
 		// get user information on page load
 		Auth.getUser()
-			.then(function(data) {
-				vm.user = data.data;
-			});	
+		.then(function(data) {
+			vm.user = data.data;
+		});	
 	});	
 
 	// function to handle login form
@@ -26,8 +41,8 @@ angular.module('mainCtrl', [])
 		vm.error = '';
 
 		Auth.login(vm.loginData.username, vm.loginData.password)
-			.success(function(data) {
-				vm.processing = false;			
+		.success(function(data) {
+			vm.processing = false;			
 
 				// if a user successfully logs in, redirect to users page
 				if (data.success)			
@@ -37,6 +52,7 @@ angular.module('mainCtrl', [])
 				
 			});
 	};
+
 
 	// function to handle logging out
 	vm.doLogout = function() {
@@ -49,5 +65,4 @@ angular.module('mainCtrl', [])
 	vm.createSample = function() {
 		Auth.createSampleUser();
 	};
-
 });

@@ -1,13 +1,13 @@
-<div class="jumbotron text-center">
-	<h1>Welcome to the User CRM!</h1>
+<div class="sidebar">
+	<div class="sidebar-header entypo-folder"> {{folder.name}}</div>
+	<treecontrol class="tree-dark" tree-model="folder" options="treeOptions" on-selection="showSelected(node)">
+		<span ng-switch="node.type">
+			<span ng-switch-when="directory" class="entypo-folder" aria-hidden="true"></span>
+			<span ng-switch-when="file" class="entypo-newspaper" aria-hidden="true"></span>
+		</span> {{node.name}}
+	</treecontrol>
+</div>
 
-	<div ng-if="!main.loggedIn">
-		<p>Login to see manage your users.</p>
-		<a href="/login" class="btn btn-primary">Login</a>
-	</div>
-
-	<div ng-if="main.loggedIn">
-		<p>Manage your users.</p>
-		<a href="/users" class="btn btn-primary">View Users</a>
-	</div>
+<div class="editor">
+	kkkkkk
 </div>
