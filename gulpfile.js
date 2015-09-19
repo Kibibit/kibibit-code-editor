@@ -5,6 +5,7 @@ sourcemaps = require('gulp-sourcemaps'),
 sass = require('gulp-sass'),
 minifyCSS = require('gulp-minify-css'),
 rename = require('gulp-rename'),
+prettify = require('gulp-jsbeautifier'),
 jshint = require('gulp-jshint');
 
 // define the default task and add the watch task to it
@@ -26,18 +27,15 @@ gulp.task('lint', ['lint-js', 'lint-sass']);
 
 gulp.task('format-front-end', function() {
 	return gulp.src([
-		/* Ignore folders which are from external libraries that might contain html, javascript, or css/sass*/
-		'!./public/assets/lib/', // exclude libraries folder
-		'!./public/assets/lib/**', // exclude anything in the libraries folder
 		/* JavaScript */
-		'./public/**/*.js', // front-end javascript
+		'./public/app/**/*.js', // front-end javascript
 		/* HTML */
-		'./public/**/*.html', // front-end javascript
-		/* SASS */
-		'./public/assets/sass/**/*.scss',
-	])
+		'./public/app/**/*.html', // front-end javascript
+	], {
+             base: 'public'
+        })
 	.pipe(prettify({
-	    //config: "path/to/.jsbeautifyrc",
+	    //config: "./.jsbeautifyrc",
 	    html: {
 	        braceStyle: "collapse",
 	        indentChar: " ",
@@ -47,10 +45,6 @@ gulp.task('format-front-end', function() {
 	        preserveNewlines: true,
 	        /* unformatted: ["a", "sub", "sup", "b", "i", "u"], */
 	        wrapLineLength: 0
-	    },
-	    css: {
-	        indentChar: " ",
-	        indentSize: 4
 	    },
 	    js: {
 	        braceStyle: "collapse",
@@ -72,7 +66,7 @@ gulp.task('format-front-end', function() {
 	        wrapLineLength: 0
 	    }
 	}))
-	.pipe(gulp.dest('./dist')); // add this to a different folder in order to test first
+	.pipe(gulp.dest('./public')); // add this to a different folder in order to test first
 });
 
 gulp.task('styles', function() {
