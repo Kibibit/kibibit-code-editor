@@ -1,9 +1,15 @@
-angular.module('mainCtrl', [])
+angular.module('mainCtrl', ['ui.ace'])
 
 .controller('mainController', function($rootScope, $location, Auth, $http) {
 
     var vm = this;
 
+$rootScope.code = "alert('hello world');";
+
+    $rootScope.editorOptions = {
+        mode: 'javascript',
+        theme: 'monokai'
+    };
 
     $http.get('/api/directory/' + encodeURIComponent('/home/thatkookooguy/Downloads/test'))
         .then(function(res) {
