@@ -69,6 +69,40 @@ gulp.task('format-front-end', function() {
 	.pipe(gulp.dest('./public')); // add this to a different folder in order to test first
 });
 
+gulp.task('format-server', function() {
+	return gulp.src([
+		/* JavaScript */
+		'./app/**/*.js',
+		'./server.js'
+	], {
+             base: '.'
+        })
+	.pipe(prettify({
+	    js: {
+	        braceStyle: "collapse",
+	        breakChainedMethods: false,
+	        e4x: false,
+	        evalCode: false,
+	        indentChar: " ",
+	        indentLevel: 0,
+	        // indentSize: 4,
+	        indentWithTabs: false,
+	        jslintHappy: false,
+	        keepArrayIndentation: false,
+	        keepFunctionIndentation: false,
+	        maxPreserveNewlines: 10,
+	        preserveNewlines: true,
+	        spaceBeforeConditional: true,
+	        spaceInParen: false,
+	        unescapeStrings: false,
+	        wrapLineLength: 0
+	    }
+	}))
+	.pipe(gulp.dest('.'));
+});
+
+gulp.task('format', ['format-server', 'format-front-end']);
+
 gulp.task('styles', function() {
 	return gulp.src('./public/assets/sass/**/*.scss')
 	.pipe(sourcemaps.init())
