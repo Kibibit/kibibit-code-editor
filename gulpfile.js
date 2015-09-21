@@ -72,9 +72,10 @@ gulp.task('format-front-end', function() {
 gulp.task('format-server', function() {
 	return gulp.src([
 		/* JavaScript */
-		'./app/**/*.js'
+		'./app/**/*.js',
+		'./server.js'
 	], {
-             base: 'app'
+             base: '.'
         })
 	.pipe(prettify({
 	    js: {
@@ -97,7 +98,7 @@ gulp.task('format-server', function() {
 	        wrapLineLength: 0
 	    }
 	}))
-	.pipe(gulp.dest('./app'));
+	.pipe(gulp.dest('.'));
 });
 
 gulp.task('format', ['format-server', 'format-front-end']);
