@@ -1,4 +1,5 @@
 <div class="sidebar">
+    <button class="btn" ng-click="main.openFolder()">{{chooseFolder}}</button>
     <div class="sidebar-header entypo-folder"> {{folder.name}}</div>
     <treecontrol class="tree-dark" tree-model="folder" options="treeOptions" on-selection="showSelected(node)">
         <span ng-switch="node.type">
