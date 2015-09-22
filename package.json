@@ -1,5 +1,5 @@
 {
-  "name": "Kibibyte",
+  "name": "kibibit-code-editor",
   "version": "0.0.0",
   "description": "code editor on the cloud",
   "main": "server.js",

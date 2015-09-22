@@ -4,7 +4,7 @@ angular.module('mainCtrl', ['ui.ace', 'angularResizable'])
 
     var vm = this;
 
-$rootScope.code = "alert('hello world');";
+    $rootScope.code = "alert('hello world');";
 
     $rootScope.editorOptions = {
         mode: 'javascript',
