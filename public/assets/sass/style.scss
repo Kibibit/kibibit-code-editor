@@ -21,6 +21,7 @@
 .sidebar {
 	width: 20%;
 	height: 100vh;
+	min-width: 30px;
 	float: left;
 	background-color: #555;
 	font-size: 70%;
@@ -39,4 +40,11 @@
 	 height: 100vh;
 	// background: blue;
 	// display: flex;
+}
+
+.rg-right {
+	z-index: 10;
+	margin-right: 0;
+	width: 10px;
+	span { display: none; }
 }

@@ -1,4 +1,4 @@
-angular.module('mainCtrl', ['ui.ace'])
+angular.module('mainCtrl', ['ui.ace', 'angularResizable'])
 
 .controller('mainController', function($rootScope, $location, Auth, $http) {
 
@@ -11,7 +11,7 @@ $rootScope.code = "alert('hello world');";
         theme: 'monokai'
     };
 
-    $http.get('/api/directory/' + encodeURIComponent('/home/thatkookooguy/Downloads/test'))
+    $http.get('/api/directory/' + encodeURIComponent('/Users/Tichon/Development/kibibit-code-editor'))
         .then(function(res) {
             console.log(res.errno);
             if (res.errno !== null) {

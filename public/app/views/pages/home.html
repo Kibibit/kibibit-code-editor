@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div class="sidebar" resizable r-directions="['right']">
     <div class="sidebar-header entypo-folder"> {{folder.name}}</div>
     <treecontrol class="tree-dark" tree-model="folder" options="treeOptions" on-selection="showSelected(node)">
         <span ng-switch="node.type">
