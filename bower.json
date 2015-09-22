@@ -1,0 +1,7 @@
+{
+  "name": "kibibit-code-editor",
+  "ignore": [],
+  "dependencies": {
+    "angular-resizable": "~1.2.0"
+  }
+}
