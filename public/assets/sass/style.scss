@@ -19,9 +19,10 @@
 }
 
 .sidebar {
-	width: 20%;
+	width: 10%;
 	height: 100vh;
-	min-width: 50px;
+	min-width: 3vw;
+	max-width: 97vw;
     white-space: nowrap;
 	float: left;
 	background-color: #555;
