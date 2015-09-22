@@ -21,7 +21,7 @@
 .sidebar {
 	width: 10%;
 	height: 100vh;
-	min-width: 3vw;
+	min-width: 60px;
 	max-width: 97vw;
     white-space: nowrap;
 	float: left;
@@ -47,6 +47,5 @@
 .rg-right {
 	z-index: 10;
 	margin-right: 0;
-	width: 10px;
-	span { display: none; }
+	width: 15px;
 }
