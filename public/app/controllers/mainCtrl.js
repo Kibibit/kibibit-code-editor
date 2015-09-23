@@ -1,4 +1,4 @@
-angular.module('mainCtrl', ['ui.ace'])
+angular.module('mainCtrl', ['ui.ace', 'angularResizable'])
 
 .controller('mainController', function($rootScope, $scope, $location, Auth, $http) {
 
@@ -65,7 +65,6 @@ angular.module('mainCtrl', ['ui.ace'])
         vm.getFolder($scope.currentFolder);
         $scope.workFolder = true;
     }
-
 
     $rootScope.treeOptions = {
         nodeChildren: "children",
