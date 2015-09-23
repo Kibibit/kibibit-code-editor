@@ -11,7 +11,17 @@ angular.module('mainCtrl', ['ui.ace'])
         theme: 'monokai'
     };
 
-    $rootScope.chooseFolder = 'Choose Folder'
+    $rootScope.chooseFolder = 'Choose Folder';
+
+    vm.openFile = function(node){
+        $http.get('/api/file/' + encodeURIComponent('/Users/Tichon/Development/'+node.path))
+            .then(function(res) {
+                console.log(res.errno);
+                if (res.errno !== null) {
+                    $rootScope.code = res.data;
+                }
+            })
+    }
 
     vm.openFolder = function(){
         $rootScope.chooseFolder = 'Working...'

@@ -1,10 +1,10 @@
 <div class="sidebar">
     <button class="btn" ng-click="main.openFolder()">{{chooseFolder}}</button>
     <div class="sidebar-header entypo-folder"> {{folder.name}}</div>
-    <treecontrol class="tree-dark" tree-model="folder" options="treeOptions" on-selection="showSelected(node)">
+    <treecontrol class="tree-dark" tree-model="folder" options="treeOptions" on-selection="main.openFile(node)">
         <span ng-switch="node.type">
 			<span ng-switch-when="directory" class="entypo-folder" aria-hidden="true"></span>
-        <span ng-switch-when="file" class="entypo-newspaper" aria-hidden="true"></span>
+        	<span ng-switch-when="file" class="entypo-newspaper" aria-hidden="true"></span>
         </span> {{node.name}}
     </treecontrol>
 </div>
