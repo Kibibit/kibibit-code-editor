@@ -4,8 +4,6 @@ angular.module('mainCtrl', ['ui.ace'])
 
     var vm = this;
 
-    $rootScope.chooseFolder = 'Choose Folder';
-
     $rootScope.editorOptions = {
         mode: 'javascript',
         theme: 'monokai'
@@ -20,8 +18,12 @@ angular.module('mainCtrl', ['ui.ace'])
         $scope.aceDocumentValue = $scope.aceSession.getDocument().getValue();
     };
 
+    $scope.currentFolder = "";
+
+    // get file from the server and update the ace session content
     vm.openFile = function(node) {
-        $http.get('/api/file/' + encodeURIComponent('/Development/' + node.path))
+        filePath = $scope.currentFolder + '/' + node.path;
+        $http.get('/api/file/' + encodeURIComponent('/Development/' + filePath))
             .then(function(res) {
                 console.log(res.errno);
                 if (res.errno !== null) {
@@ -30,9 +32,10 @@ angular.module('mainCtrl', ['ui.ace'])
             })
     }
 
-    vm.openFolder = function() {
-        $rootScope.chooseFolder = 'Working...'
-        $http.get('/api/directory/' + encodeURIComponent('/Development'))
+    // get folder from server, if no folder path defined returns the default projects folder
+    vm.getFolder = function(folderPath) {
+        folderPath == undefined ? folderPath = "" : "";
+        $http.get('/api/directory/' + encodeURIComponent('/Development/' + folderPath))
             .then(function(res) {
                 console.log(res.errno);
                 if (res.errno !== null) {
@@ -43,6 +46,25 @@ angular.module('mainCtrl', ['ui.ace'])
             });
     }
 
+    // binds the selected tree folder to a variable
+    vm.currentFolder = function(node) {
+        $scope.currentFolder = node.path;
+    }
+
+    // show the default projects directory to choose a folder from
+    vm.openProject = function() {
+        $scope.workFolder = false;
+        $scope.projectsFolder = false;
+        $scope.aceSession.setValue(null);
+        vm.getFolder();
+    }
+
+    // show the chosen project folder 
+    vm.openFolder = function() {
+        $scope.projectsFolder = true;
+        vm.getFolder($scope.currentFolder);
+        $scope.workFolder = true;
+    }
 
 
     $rootScope.treeOptions = {
