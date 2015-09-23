@@ -5,6 +5,7 @@ module.exports = function(app, express) {
         dirTree = require('directory-tree'),
         fs = require('fs'),
         path = require("path"),
+        userHome = require('user-home'),
         explicitObjectMapper = require('explicit-object-mapper');
 
     apiRouter.get('/', function(req, res) {
@@ -20,7 +21,7 @@ module.exports = function(app, express) {
     // get the file content with that file_id = full file path
     .get(function(req, res) {
         var fileFullPath = req.params.file_id;
-        fs.readFile(fileFullPath, 'utf8', function(err, data) {
+        fs.readFile(userHome+fileFullPath, 'utf8', function(err, data) {
             if (err) {
                 res.json(err);
                 console.time().tag('FILE CONTENT').error('file-get returned an error: ' + err);
@@ -118,7 +119,7 @@ module.exports = function(app, express) {
     .get(function(req, res) {
         var directoryFullPath = req.params.dir_id;
         try {
-            var tree = dirTree.directoryTree(directoryFullPath);
+            var tree = dirTree.directoryTree(userHome+directoryFullPath);
             res.json(tree);
             console.time().tag('DIRECTORY CONTENT').info('directory requested: ' + directoryFullPath);
         } catch (err) {

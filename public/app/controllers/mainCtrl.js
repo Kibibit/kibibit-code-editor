@@ -14,7 +14,7 @@ angular.module('mainCtrl', ['ui.ace'])
     $rootScope.chooseFolder = 'Choose Folder';
 
     vm.openFile = function(node){
-        $http.get('/api/file/' + encodeURIComponent('/Users/Tichon/Development/'+node.path))
+        $http.get('/api/file/' + encodeURIComponent('/Development/'+node.path))
             .then(function(res) {
                 console.log(res.errno);
                 if (res.errno !== null) {
@@ -25,7 +25,7 @@ angular.module('mainCtrl', ['ui.ace'])
 
     vm.openFolder = function(){
         $rootScope.chooseFolder = 'Working...'
-        $http.get('/api/directory/' + encodeURIComponent('/Users/Tichon/Development'))
+        $http.get('/api/directory/' + encodeURIComponent('/Development'))
             .then(function(res) {
                 console.log(res.errno);
                 if (res.errno !== null) {
