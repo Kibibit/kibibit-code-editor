@@ -16,12 +16,12 @@ angular.module('mainCtrl', ['ui.ace'])
         $scope.aceSession = _editor.getSession();
     };
     // save the content of the editor on-change
-    $scope.aceChanged = function () {
+    $scope.aceChanged = function() {
         $scope.aceDocumentValue = $scope.aceSession.getDocument().getValue();
     };
 
-    vm.openFile = function(node){
-        $http.get('/api/file/' + encodeURIComponent('/Development/'+node.path))
+    vm.openFile = function(node) {
+        $http.get('/api/file/' + encodeURIComponent('/Development/' + node.path))
             .then(function(res) {
                 console.log(res.errno);
                 if (res.errno !== null) {
@@ -30,7 +30,7 @@ angular.module('mainCtrl', ['ui.ace'])
             })
     }
 
-    vm.openFolder = function(){
+    vm.openFolder = function() {
         $rootScope.chooseFolder = 'Working...'
         $http.get('/api/directory/' + encodeURIComponent('/Development'))
             .then(function(res) {
@@ -40,7 +40,7 @@ angular.module('mainCtrl', ['ui.ace'])
                     $rootScope.chooseFolder = 'Choose Folder'
                     console.log('got res');
                 }
-            }); 
+            });
     }
 
 
