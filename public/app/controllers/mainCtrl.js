@@ -1,24 +1,31 @@
 angular.module('mainCtrl', ['ui.ace'])
 
-.controller('mainController', function($rootScope, $location, Auth, $http) {
+.controller('mainController', function($rootScope, $scope, $location, Auth, $http) {
 
     var vm = this;
 
-    $rootScope.code = "alert('hello world');";
+    $rootScope.chooseFolder = 'Choose Folder';
 
     $rootScope.editorOptions = {
         mode: 'javascript',
         theme: 'monokai'
     };
 
-    $rootScope.chooseFolder = 'Choose Folder';
+    // initialize the editor session
+    $scope.aceLoaded = function(_editor) {
+        $scope.aceSession = _editor.getSession();
+    };
+    // save the content of the editor on-change
+    $scope.aceChanged = function () {
+        $scope.aceDocumentValue = $scope.aceSession.getDocument().getValue();
+    };
 
     vm.openFile = function(node){
         $http.get('/api/file/' + encodeURIComponent('/Development/'+node.path))
             .then(function(res) {
                 console.log(res.errno);
                 if (res.errno !== null) {
-                    $rootScope.code = res.data;
+                    $scope.aceSession.setValue(res.data);
                 }
             })
     }
