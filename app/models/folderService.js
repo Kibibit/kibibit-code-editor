@@ -6,16 +6,46 @@ var console = process.console,
 var folderService = {};
 
 folderService.get = function(req, res) {
+    var output = {};
     var directoryFullPath = req.params.dir_id;
-    try {
-        var tree = dirTree.directoryTree(directoryFullPath);
-        res.json(tree);
-        console.time().tag('DIRECTORY CONTENT').info('directory requested: ' + directoryFullPath);
-    } catch (err) {
-        res.json(err);
-        console.time().tag('DIRECTORY CONTENT').error('directory requested not found: ' + directoryFullPath);
-    }
+    fs.readdir(directoryFullPath, function(err, items) {
+        try {
+            output.path = directoryFullPath;
+            output.name = 'Development';
+            output.type = 'directory';
+            output.children = [];
 
+            for (var i = 0; i < items.length; i++) {
+                if (fs.lstatSync(directoryFullPath + '/' + items[i]).isDirectory()) {
+                    output.children.push({
+                        name: items[i],
+                        path: directoryFullPath + '/' + items[i],
+                        type: 'directory',
+                        children: []
+                    });
+                } else {
+                    output.children.push({
+                        name: items[i],
+                        path: directoryFullPath + '/' + items[i],
+                        type: folderService.getFileExtension(items[i])
+                    });
+                }
+            }
+
+            res.json(output);
+        } catch (err) {
+            res.json(err);
+            console.time().tag('DIRECTORY CONTENT').error('directory requested not found: ' + directoryFullPath);
+        }
+    });
+};
+
+folderService.getFileExtension = function(filename) {
+    var a = filename.split(".");
+    if (a.length === 1 || (a[0] === "" && a.length === 2)) {
+        return "";
+    }
+    return a.pop().toLowerCase();
 };
 
 folderService.put = function(req, res) {
