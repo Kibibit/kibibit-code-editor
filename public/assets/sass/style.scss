@@ -1,8 +1,13 @@
-@import url(http://weloveiconfonts.com/api/?family=entypo);
+@import url(http://weloveiconfonts.com/api/?family=openwebicons|entypo);
 
 /* entypo */
 [class*="entypo-"]:before {
 	font-family: 'entypo', sans-serif;
+}
+
+/* openwebicons */
+[class*="openwebicons-"]:before {
+  font-family: 'OpenWeb Icons', sans-serif;
 }
 
 * {
@@ -48,4 +53,16 @@
 	z-index: 10;
 	margin-right: 0;
 	width: 15px;
+}
+
+.blue-text {
+	color: #6BCAE2;
+}
+
+.orange-text {
+	color: #FE8402;
+}
+
+.green-text {
+	color: #87E293;
 }
