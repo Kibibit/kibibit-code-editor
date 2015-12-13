@@ -1,8 +1,10 @@
 angular.module('mainCtrl', ['ui.ace', 'angularResizable'])
 
-.controller('mainController', function($rootScope, $location, Auth, $http) {
+.controller('mainController', function($rootScope, $scope, $location, Auth, $http) {
 
     var vm = this;
+
+    var tmp_path = '/home/thatkookooguy/Development';
 
     $rootScope.code = "alert('hello world');";
 
@@ -11,7 +13,23 @@ angular.module('mainCtrl', ['ui.ace', 'angularResizable'])
         theme: 'monokai'
     };
 
-    $http.get('/api/directory/' + encodeURIComponent('/Users/Tichon/Development/kibibit-code-editor'))
+    // get file from the server and update the ace session content  
+    vm.onSelection = function(node) {
+        if (node.type == 'directory') {
+            $http.get('/api/directory/' + encodeURIComponent(node.path))
+                .then(function(res) {
+                    console.log(res.errno);
+                    if (res.errno !== null) {
+                        node.children = res.data.children;
+                    }
+                });
+            vm.expandedNodes.push(node);
+        } else {
+            // @ortichon: This is where your original openFile function goes ;-)
+        }
+    };
+
+    $http.get('/api/directory/' + encodeURIComponent(tmp_path))
         .then(function(res) {
             console.log(res.errno);
             if (res.errno !== null) {

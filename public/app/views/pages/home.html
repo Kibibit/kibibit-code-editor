@@ -1,9 +1,12 @@
 <div class="sidebar" resizable r-directions="['right']">
     <div class="sidebar-header entypo-folder"> {{folder.name}}</div>
-    <treecontrol class="tree-dark" tree-model="folder" options="treeOptions" on-selection="showSelected(node)">
+    <treecontrol class="tree-dark" tree-model="folder" options="treeOptions" on-selection="main.onSelection(node)" expanded-nodes="main.expandedNodes">
         <span ng-switch="node.type">
 			<span ng-switch-when="directory" class="entypo-folder" aria-hidden="true"></span>
-        <span ng-switch-when="file" class="entypo-newspaper" aria-hidden="true"></span>
+	        <span ng-switch-when="file" class="entypo-newspaper" aria-hidden="true"></span>
+	        <span ng-switch-when="js" class="openwebicons-epub green-text" aria-hidden="true"></span>
+	        <span ng-switch-when="css" class="openwebicons-css3 blue-text" aria-hidden="true"></span>
+	        <span ng-switch-when="html" class="openwebicons-html5 orange-text" aria-hidden="true"></span>
         </span> {{node.name}}
     </treecontrol>
 </div>
