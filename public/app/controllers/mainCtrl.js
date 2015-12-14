@@ -59,9 +59,7 @@ angular.module('mainCtrl', ['ui.ace', 'angularResizable'])
             .then(function(res) {
                 console.log(res.errno);
                 if (res.errno !== null && typeof callback === 'function') {
-                    callback(red);
-                    $scope[folderVariable] = res.data;
-                    console.log('got res: ' + res);
+                    callback(res);
                 }
             });
     }
