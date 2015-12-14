@@ -4,8 +4,6 @@ angular.module('mainCtrl', ['ui.ace', 'angularResizable'])
 
     var vm = this;
 
-    var tmp_path = '/Users/ortichon';
-
     $rootScope.code = "alert('hello world');";
 
     $rootScope.editorOptions = {
@@ -28,6 +26,37 @@ angular.module('mainCtrl', ['ui.ace', 'angularResizable'])
     // binds the selected tree folder to a variable
     vm.currentFolder = function(node) {
         $scope.currentFolder = node.path;
+    };
+
+
+    // show the default projects directory to choose a folder from
+    vm.openProject = function() {
+        $http.get('/api/userHomeDirectory/')
+            .then(function(res) {
+                userHomeDirectory = res.data;
+                vm.getFolder(userHomeDirectory, 'userHomeDirectory');
+                $scope.projectFolder = true;
+            });
+    };
+
+    // open the chosen project folder 
+    vm.openFolder = function() {
+        $scope.aceSession.setValue(null);
+        $scope.projectFolder = false;
+        console.log($scope.currentFolder);
+        vm.getFolder($scope.currentFolder, 'workFolder')
+    };
+
+    // get folder name once
+    vm.getFolder = function(folderToGet, folderVariable) {
+        $http.get('/api/directory/' + encodeURIComponent(folderToGet))
+            .then(function(res) {
+                console.log(res.errno);
+                if (res.errno !== null) {
+                    $scope[folderVariable] = res.data;
+                    console.log('got res: ' + res);
+                }
+            });        
     }
 
 
@@ -53,14 +82,6 @@ angular.module('mainCtrl', ['ui.ace', 'angularResizable'])
         }
     };
 
-    $http.get('/api/directory/' + encodeURIComponent(tmp_path))
-        .then(function(res) {
-            console.log(res.errno);
-            if (res.errno !== null) {
-                $rootScope.folder = res.data;
-                console.log('got res');
-            }
-        });
 
     $rootScope.treeOptions = {
         nodeChildren: "children",
