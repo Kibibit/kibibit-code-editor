@@ -4,7 +4,7 @@ angular.module('mainCtrl', ['ui.ace', 'angularResizable'])
 
     var vm = this;
 
-    var tmp_path = '/home/thatkookooguy/Development';
+    var tmp_path = '/Users/ortichon';
 
     $rootScope.code = "alert('hello world');";
 
@@ -24,51 +24,12 @@ angular.module('mainCtrl', ['ui.ace', 'angularResizable'])
 
     $scope.currentFolder = "";
 
-    // get file from the server and update the ace session content
-    vm.openFile = function(node) {
-        filePath = $scope.currentFolder + '/' + node.path;
-        $http.get('/api/file/' + encodeURIComponent('/Development/' + filePath))
-            .then(function(res) {
-                console.log(res.errno);
-                if (res.errno !== null) {
-                    $scope.aceSession.setValue(res.data);
-                }
-            })
-    }
-
-    // get folder from server, if no folder path defined returns the default projects folder
-    vm.getFolder = function(folderPath) {
-        folderPath == undefined ? folderPath = "" : "";
-        $http.get('/api/directory/' + encodeURIComponent('/Development/' + folderPath))
-            .then(function(res) {
-                console.log(res.errno);
-                if (res.errno !== null) {
-                    $rootScope.folder = res.data;
-                    $rootScope.chooseFolder = 'Choose Folder'
-                    console.log('got res');
-                }
-            });
-    }
 
     // binds the selected tree folder to a variable
     vm.currentFolder = function(node) {
         $scope.currentFolder = node.path;
     }
 
-    // show the default projects directory to choose a folder from
-    vm.openProject = function() {
-        $scope.workFolder = false;
-        $scope.projectsFolder = false;
-        $scope.aceSession.setValue(null);
-        vm.getFolder();
-    }
-
-    // show the chosen project folder 
-    vm.openFolder = function() {
-        $scope.projectsFolder = true;
-        vm.getFolder($scope.currentFolder);
-        $scope.workFolder = true;
-    }
 
     // get file from the server and update the ace session content  
     vm.onSelection = function(node) {
@@ -82,7 +43,13 @@ angular.module('mainCtrl', ['ui.ace', 'angularResizable'])
                 });
             vm.expandedNodes.push(node);
         } else {
-            // @ortichon: This is where your original openFile function goes ;-)
+            $http.get('/api/file/' + encodeURIComponent(node.path))
+                .then(function(res) {
+                    console.log(res.errno);
+                    if (res.errno !== null) {
+                        $scope.aceSession.setValue(res.data);
+                    }
+                })
         }
     };
 
