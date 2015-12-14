@@ -1,10 +1,10 @@
 var console = process.console,
-	userHomeDirectory = require('user-home');
+    userHomeDirectory = require('user-home');
 
 var userHomeDirectoryService = {};
 
 userHomeDirectoryService.get = function(req, res) {
-	res.json(userHomeDirectory);
+    res.json(userHomeDirectory);
     console.time().tag('DIRECTORY CONTENT').info('user home directory sent : ' + userHomeDirectory);
 };
 

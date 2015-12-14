@@ -34,7 +34,10 @@ angular.module('mainCtrl', ['ui.ace', 'angularResizable'])
         $http.get('/api/userHomeDirectory/')
             .then(function(res) {
                 userHomeDirectory = res.data;
-                vm.getFolder(userHomeDirectory, 'userHomeDirectory');
+                vm.getFolder(userHomeDirectory, function(res) {
+                    $scope.userHomeDirectory = res.data;
+                    console.log('got res: ' + res);
+                });
                 $scope.projectFolder = true;
             });
     };
@@ -44,19 +47,23 @@ angular.module('mainCtrl', ['ui.ace', 'angularResizable'])
         $scope.aceSession.setValue(null);
         $scope.projectFolder = false;
         console.log($scope.currentFolder);
-        vm.getFolder($scope.currentFolder, 'workFolder')
+        vm.getFolder($scope.currentFolder, function(res) {
+            $scope.workFolder = res.data;
+            console.log('got res: ' + res);
+        })
     };
 
     // get folder name once
-    vm.getFolder = function(folderToGet, folderVariable) {
+    vm.getFolder = function(folderToGet, callback) {
         $http.get('/api/directory/' + encodeURIComponent(folderToGet))
             .then(function(res) {
                 console.log(res.errno);
-                if (res.errno !== null) {
+                if (res.errno !== null && typeof callback === 'function') {
+                    callback(red);
                     $scope[folderVariable] = res.data;
                     console.log('got res: ' + res);
                 }
-            });        
+            });
     }
 
 
