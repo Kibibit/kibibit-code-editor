@@ -1,4 +1,4 @@
-angular.module('userApp')
+angular.module('kibibitCodeEditor')
 
 .controller('mainController', function($rootScope, $scope, $location, Auth, $http, ModalService) {
 

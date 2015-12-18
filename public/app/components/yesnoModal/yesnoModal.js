@@ -1,4 +1,4 @@
-angular.module('userApp')
+angular.module('kibibitCodeEditor')
 
 .controller('yesnoModalController', ['close', function(close) {
 
