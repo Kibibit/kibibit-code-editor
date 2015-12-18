@@ -1,12 +1,14 @@
 <div class="sidebar" resizable r-directions="['right']">
 
+    <button class="btn" ng-click="main.showAModal()">modal</button>
+
     <!-- temp buttons and tree to open project -->
     <button class="btn" ng-click="main.openProject()">Open Project</button>
 
-    <div class="projectTreeContainer" ng-if="projectFolder">
-        <button class="btn" ng-click="main.openFolder()" ng-disabled="projectsFolder">Open</button>
-        <div class="sidebar-header entypo-folder"> {{userHomeDirectory.name}}</div>
-        <treecontrol class="tree-dark" tree-model="userHomeDirectory" options="treeOptions" on-selection="main.onSelection(node); main.currentFolder(node)" expanded-nodes="main.expandedNodes">
+    <div class="projectTreeContainer" ng-if="main.projectFolder">
+        <button class="btn" ng-click="main.openFolder()">Open</button>
+        <div class="sidebar-header entypo-folder"> {{main.userHomeDirectory.name}}</div>
+        <treecontrol class="tree-dark" tree-model="main.userHomeDirectory" options="main.treeOptions" on-selection="main.onSelection(node); main.setCurrentFolder(node)" expanded-nodes="main.expandedNodes">
             <span ng-switch="node.type">
                 <span ng-switch-when="directory" class="entypo-folder" aria-hidden="true"></span>
                 <span ng-switch-when="file" class="entypo-newspaper" aria-hidden="true"></span>
@@ -18,9 +20,9 @@
     </div>
     <!--  -->
 
-    <div class="treeContainer" ng-if="workFolder">
-        <div class="sidebar-header entypo-folder"> {{workFolder.name}}</div>
-        <treecontrol class="tree-dark" tree-model="workFolder" options="treeOptions" on-selection="main.onSelection(node)" expanded-nodes="main.expandedNodes">
+    <div class="treeContainer" ng-if="main.workFolder">
+        <div class="sidebar-header entypo-folder"> {{main.workFolder.name}}</div>
+        <treecontrol class="tree-dark" tree-model="main.workFolder" options="main.treeOptions" on-selection="main.onSelection(node)" expanded-nodes="main.expandedNodes">
             <span ng-switch="node.type">
                 <span ng-switch-when="directory" class="entypo-folder" aria-hidden="true"></span>
                 <span ng-switch-when="file" class="entypo-newspaper" aria-hidden="true"></span>
@@ -32,4 +34,4 @@
     </div>
 </div>
 
-<div class="editor" ui-ace="{ mode: 'javascript', theme: 'monokai',onLoad: aceLoaded, onChange: aceChanged}" ng-model="code"></div>
+<div class="editor" ui-ace="{ mode: 'javascript', theme: 'monokai',onLoad: main.aceLoaded, onChange: main.aceChanged}" ng-model="main.code"></div>

@@ -6,19 +6,19 @@ angular.module('app.routes', ['ngRoute'])
 
     // route for the home page
         .when('/', {
-        templateUrl: 'app/views/pages/home.html'
+        templateUrl: 'app/views/home.html'
     })
 
     // login page
     .when('/login', {
-        templateUrl: 'app/views/pages/login.html',
+        templateUrl: 'app/views/login.html',
         controller: 'mainController',
         controllerAs: 'login'
     })
 
     // show all users
     .when('/users', {
-        templateUrl: 'app/views/pages/users/all.html',
+        templateUrl: 'app/views/users/all.html',
         controller: 'userController',
         controllerAs: 'user'
     })
@@ -26,14 +26,14 @@ angular.module('app.routes', ['ngRoute'])
     // form to create a new user
     // same view as edit page
     .when('/users/create', {
-        templateUrl: 'app/views/pages/users/single.html',
+        templateUrl: 'app/views/users/single.html',
         controller: 'userCreateController',
         controllerAs: 'user'
     })
 
     // page to edit a user
     .when('/users/:user_id', {
-        templateUrl: 'app/views/pages/users/single.html',
+        templateUrl: 'app/views/users/single.html',
         controller: 'userEditController',
         controllerAs: 'user'
     });
