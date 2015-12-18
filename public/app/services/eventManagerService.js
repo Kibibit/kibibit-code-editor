@@ -1,4 +1,4 @@
-angular.module('eventManagerService', [])
+angular.module('kibibitCodeEditor')
 
 // ===================================================
 // event manager factory to listen to or emit events
