@@ -1,6 +1,6 @@
-angular.module('userService', [])
+angular.module('kibibitCodeEditor')
 
-.factory('User', function($http) {
+.factory('UserService', function($http) {
 
     // create a new object
     var userFactory = {};
