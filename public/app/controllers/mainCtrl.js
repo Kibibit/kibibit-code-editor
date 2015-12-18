@@ -5,16 +5,15 @@ angular.module('userApp')
     var vm = this;
 
     vm.showAModal = function() {
-        /*
         ModalService.showModal({
-          templateUrl: "app/views/yesno.html",
-          controller: "YesNoController"
+          templateUrl: "app/components/yesnoModal/yesnoModalTemplate.html",
+          controller: "yesnoModalController",
+          controllerAs: "yesnoModalCtrl"
         }).then(function(modal) {
           modal.close.then(function(result) {
             $scope.customResult = "All good!";
           });
         });
-        */
       };
 
     $rootScope.code = "alert('hello world');";
