@@ -1,5 +1,6 @@
 angular.module('userApp',
-	['ngAnimate',
+	['angular-loading-bar',
+	'ngAnimate',
 	'app.routes',
 	'authService',
 	'userCtrl',
