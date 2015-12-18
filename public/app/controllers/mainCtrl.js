@@ -1,8 +1,21 @@
-angular.module('mainCtrl', ['ui.ace', 'angularResizable'])
+angular.module('userApp')
 
-.controller('mainController', function($rootScope, $scope, $location, Auth, $http) {
+.controller('mainController', function($rootScope, $scope, $location, Auth, $http, ModalService) {
 
     var vm = this;
+
+    vm.showAModal = function() {
+        /*
+        ModalService.showModal({
+          templateUrl: "app/views/yesno.html",
+          controller: "YesNoController"
+        }).then(function(modal) {
+          modal.close.then(function(result) {
+            $scope.customResult = "All good!";
+          });
+        });
+        */
+      };
 
     $rootScope.code = "alert('hello world');";
 
