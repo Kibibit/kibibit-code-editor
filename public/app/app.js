@@ -1,4 +1,4 @@
-angular.module('userApp',
+angular.module('kibibitCodeEditor',
 	['angular-loading-bar',
 	'ngAnimate',
 	'app.routes',
