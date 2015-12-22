@@ -1,6 +1,6 @@
 angular.module('kibibitCodeEditor')
 
-.controller('mainController', function($location, $http, ModalService) {
+.controller('mainController', function($location, $http, ModalService, FileService, FolderService) {
 
     var vm = this;
 
@@ -59,7 +59,7 @@ angular.module('kibibitCodeEditor')
         vm.aceSession.setValue(null);
         vm.projectFolder = false;
         console.log(vm.currentFolder);
-        vm.getFolder(vm.currentFolder, function(res) {
+        FolderService.getFolder(vm.currentFolder, function(res) {
             vm.workFolder = res.data;
             console.log('got res: ' + res);
         })
@@ -67,35 +67,21 @@ angular.module('kibibitCodeEditor')
 
     // get folder name once
     vm.getFolder = function(folderToGet, callback) {
-        $http.get('/api/directory/' + encodeURIComponent(folderToGet))
-            .then(function(res) {
-                console.log(res.errno);
-                if (res.errno !== null && typeof callback === 'function') {
-                    callback(res);
-                }
-            });
+        FolderService.getFolder(folderToGet, callback);
     }
 
 
     // get file from the server and update the ace session content  
     vm.onSelection = function(node) {
         if (node.type == 'directory') {
-            $http.get('/api/directory/' + encodeURIComponent(node.path))
-                .then(function(res) {
-                    console.log(res.errno);
-                    if (res.errno !== null) {
-                        node.children = res.data.children;
-                    }
-                });
+            FolderService.getFolder(node.path, function(res) {
+                node.children = res.data.children;
+            });
             vm.expandedNodes.push(node);
         } else {
-            $http.get('/api/file/' + encodeURIComponent(node.path))
-                .then(function(res) {
-                    console.log(res.errno);
-                    if (res.errno !== null) {
-                        vm.aceSession.setValue(res.data);
-                    }
-                })
+            FileService.getFile(node.path, function(res) {
+                vm.aceSession.setValue(res.data);
+            });
         }
     };
 
