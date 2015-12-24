@@ -4,6 +4,9 @@ angular.module('kibibitCodeEditor')
 
     var vm = this;
 
+    // Init
+    vm.code = "";
+
     vm.showAModal = function() {
         ModalService.showModal({
           templateUrl: "app/components/yesnoModal/yesnoModalTemplate.html",
@@ -15,22 +18,6 @@ angular.module('kibibitCodeEditor')
           });
         });
       };
-
-    vm.code = "";
-
-    vm.editorOptions = {
-        mode: 'javascript',
-        theme: 'monokai'
-    };
-
-    // initialize the editor session
-    vm.aceLoaded = function(_editor) {
-        vm.aceSession = _editor.getSession();
-    };
-    // save the content of the editor on-change
-    vm.aceChanged = function() {
-        vm.aceDocumentValue = vm.aceSession.getDocument().getValue();
-    };
 
     vm.currentFolder = "";
 
@@ -56,7 +43,7 @@ angular.module('kibibitCodeEditor')
 
     // open the chosen project folder 
     vm.openFolder = function() {
-        vm.aceSession.setValue(null);
+        vm.code = null;
         vm.projectFolder = false;
         console.log(vm.currentFolder);
         FolderService.getFolder(vm.currentFolder, function(res) {
@@ -80,7 +67,7 @@ angular.module('kibibitCodeEditor')
             vm.expandedNodes.push(node);
         } else {
             FileService.getFile(node.path, function(res) {
-                vm.aceSession.setValue(res.data);
+                vm.code = res.data;
             });
         }
     };
