@@ -16,7 +16,7 @@ gulp.task('default', ['watch']);
 // configure the jshint task
 gulp.task('lint-js', function() {
 	return gulp.src(['./**/*.js', '!./node_modules/', '!./node_modules/**', '!./logs/', '!./public/assets/**'])
-	.pipe(jshint({ esversion: 6 }))
+	.pipe(jshint())
 	.pipe(jshint.reporter('jshint-stylish'));
 });
 
