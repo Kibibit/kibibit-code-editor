@@ -1,37 +1,46 @@
 {
-  "name": "kibibit-code-editor",
-  "version": "0.0.0",
-  "description": "code editor on the cloud",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "neilkalman@gmail.com",
-  "license": "BSD-2-Clause",
-  "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
-    "body-parser": "~1.13.3",
-    "colors": "~1.1.2",
-    "directory-tree": "~0.1.1",
-    "explicit-object-mapper": "~1.0.0",
-    "express": "~4.13.3",
-    "fs-extra": "~0.24.0",
-    "gulp": "~3.9.0",
-    "jsonwebtoken": "~5.0.5",
-    "mongoose": "~4.1.6",
-    "rename-keys": "~1.1.2",
-    "scribe-js": "~2.0.4",
-    "serve-favicon": "~2.3.0",
-    "user-home": "^2.0.0"
-  },
-  "devDependencies": {
-    "jshint-stylish": "~2.0.1",
-    "gulp-jshint": "~1.11.2",
-    "gulp-beautify": "~1.1.2",
-    "gulp-jsbeautifier": "~1.0.1",
-    "gulp-sass": "~2.0.4",
-    "gulp-rename": "~1.2.2",
-    "gulp-minify-css": "~1.2.1",
-    "gulp-sourcemaps": "~1.5.2"
-  }
+    "name": "kibibit-code-editor",
+    "version": "0.0.0",
+    "description": "code editor on the cloud",
+    "main": "server.js",
+    "scripts": {
+        "test": "gulp test"
+    },
+    "author": "neilkalman@gmail.com",
+    "license": "BSD-2-Clause",
+    "dependencies": {
+        "bcrypt-nodejs": "0.0.3",
+        "body-parser": "~1.13.3",
+        "colors": "~1.1.2",
+        "directory-tree": "~0.1.1",
+        "explicit-object-mapper": "~1.0.0",
+        "express": "~4.13.3",
+        "fs-extra": "~0.24.0",
+        "jsonwebtoken": "~5.0.5",
+        "mongoose": "~4.1.6",
+        "rename-keys": "~1.1.2",
+        "scribe-js": "~2.0.4",
+        "serve-favicon": "~2.3.0",
+        "user-home": "^2.0.0"
+    },
+    "devDependencies": {
+        "gulp": "~3.9.0",
+        "gulp-beautify": "~1.1.2",
+        "gulp-jsbeautifier": "~1.0.1",
+        "gulp-jshint": "~1.11.2",
+        "gulp-minify-css": "~1.2.1",
+        "gulp-rename": "~1.2.2",
+        "gulp-sass": "~2.0.4",
+        "gulp-sourcemaps": "~1.5.2",
+        "jasmine-core": "^2.4.1",
+        "jshint-stylish": "~2.0.1",
+        "karma": "^0.13.15",
+        "karma-babel-preprocessor": "^6.0.1",
+        "karma-chrome-launcher": "^0.2.2",
+        "karma-jasmine": "^0.3.6",
+        "karma-mocha-reporter": "^1.1.3",
+        "karma-phantomjs-launcher": "^0.2.1",
+        "karma-phantomjs2-launcher": "^0.3.2",
+        "phantomjs": "^1.9.19"
+    }
 }
