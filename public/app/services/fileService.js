@@ -10,6 +10,6 @@ angular.module('kibibitCodeEditor')
                     if (res.errno !== null && angular.isFunction(callback)) {
                         callback(res);
                     }
-                })
-    }
+                });
+    };
 }]);

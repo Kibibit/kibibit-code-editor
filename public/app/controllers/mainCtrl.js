@@ -49,13 +49,13 @@ angular.module('kibibitCodeEditor')
         FolderService.getFolder(vm.currentFolder, function(res) {
             vm.workFolder = res.data;
             console.log('got res: ' + res);
-        })
+        });
     };
 
     // get folder name once
     vm.getFolder = function(folderToGet, callback) {
         FolderService.getFolder(folderToGet, callback);
-    }
+    };
 
 
     // get file from the server and update the ace session content  
