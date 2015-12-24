@@ -6,7 +6,8 @@ sass = require('gulp-sass'),
 minifyCSS = require('gulp-minify-css'),
 rename = require('gulp-rename'),
 prettify = require('gulp-jsbeautifier'),
-jshint = require('gulp-jshint');
+jshint = require('gulp-jshint'),
+concat = require('gulp-concat');
 
 // define the default task and add the watch task to it
 gulp.task('default', ['watch']);
@@ -107,6 +108,7 @@ gulp.task('styles', function() {
 	return gulp.src('./public/assets/sass/**/*.scss')
 	.pipe(sourcemaps.init())
 	.pipe(sass().on('error', sass.logError))
+	.pipe(concat('style.css'))
 	//.pipe(minifyCSS())
 	.pipe(sourcemaps.write())
 	//.pipe(rename({ suffix: '.min' }))
