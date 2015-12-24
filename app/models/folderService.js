@@ -33,8 +33,8 @@ folderService.get = function(req, res) {
             }
 
             res.json(output);
-        } catch (err) {
-            res.json(err);
+        } catch (error) {
+            res.json(error);
             console.time().tag('DIRECTORY CONTENT').error('directory requested not found: ' + directoryFullPath);
         }
     });

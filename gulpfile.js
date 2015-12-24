@@ -7,15 +7,16 @@ minifyCSS = require('gulp-minify-css'),
 rename = require('gulp-rename'),
 prettify = require('gulp-jsbeautifier'),
 jshint = require('gulp-jshint'),
-concat = require('gulp-concat');
+concat = require('gulp-concat'),
+livereload = require('gulp-livereload');
 
 // define the default task and add the watch task to it
 gulp.task('default', ['watch']);
 
 // configure the jshint task
 gulp.task('lint-js', function() {
-	return gulp.src(['./**/*.js', '!./node_modules/', '!./node_modules/**', '!./logs/'])
-	.pipe(jshint())
+	return gulp.src(['./**/*.js', '!./node_modules/', '!./node_modules/**', '!./logs/', '!./public/assets/**'])
+	.pipe(jshint({ esversion: 6 }))
 	.pipe(jshint.reporter('jshint-stylish'));
 });
 
@@ -117,6 +118,7 @@ gulp.task('styles', function() {
 
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', function() {
+	// livereload.listen(); // Test this out!
 	gulp.watch(['./**/*.js', '!./node_modules/', '!./node_modules/**', '!./logs/'], ['lint-js']);
 	gulp.watch('./public/assets/sass/**/*.scss', ['styles']);
 });

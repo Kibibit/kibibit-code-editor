@@ -43,7 +43,7 @@ module.exports = function(app, express) {
 
 
     apiRouter.route('/userHomeDirectory/')
-        .get(userHomeDirectoryService.get)
+        .get(userHomeDirectoryService.get);
 
     return apiRouter;
 };
