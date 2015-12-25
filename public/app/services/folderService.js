@@ -11,5 +11,5 @@ angular.module('kibibitCodeEditor')
                         callback(res);
                     }
                 });
-    }
+    };
 }]);

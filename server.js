@@ -10,11 +10,11 @@ var express = require('express'), // call express
     scribe = require('scribe-js')(), // used for logs
     favicon = require('serve-favicon'), // set favicon
     bodyParser = require('body-parser'),
+    colors = require('colors'),
+    logo = require('./printLogo'),
     console = process.console;
 
-/*app.get('/', function(req, res) {
-	res.send('Hello world, see you at /logs');
-});*/
+colors.enabled = true; //enable colors even through piping.
 
 // create application/json parser 
 var jsonParser = bodyParser.json();
@@ -23,9 +23,31 @@ var jsonParser = bodyParser.json();
  *   = LOGGING =
  *   = =========
  *   set up logging framework in the app
+ *   when NODE_ENV is set to development (like in gulp watch),
+ *   don't log at all (TODO: make an exception for basic stuff
+ *   like: listening on port: XXXX)
  */
-app.use(scribe.express.logger());
-
+if (process.env.NODE_ENV === 'development') {
+    // remove logging completely
+    /*var noop = function() {
+        return console;
+    };
+    var console = {
+        time: noop,
+        date: noop,
+        tag: noop,
+        t: noop,
+        file: noop,
+        f: noop,
+        info: noop,
+        log: noop,
+        error: noop,
+        warning: noop
+    };
+    process.console = console;*/
+} else {
+    app.use(scribe.express.logger());
+}
 app.use('/logs', scribe.webPanel());
 
 /** ================
@@ -65,5 +87,6 @@ app.get('*', function(req, res) {
  *   = ========
  */
 app.listen(config.port, function() {
-    console.time().info('Server listening at port ' + config.port);
+    logo();
+    console.time().info('Server listening at port ' + colors.bgBlue.dim.bold(config.port));
 });
