@@ -66,4 +66,4 @@ angular.module('kibibitCodeEditor')
     // return event manager factory object
     return eventManagerFactory;
 
-})
+});
