@@ -10,6 +10,7 @@ var express = require('express'), // call express
     scribe = require('scribe-js')(), // used for logs
     favicon = require('serve-favicon'), // set favicon
     bodyParser = require('body-parser'),
+    //logo = require('./printLogo.js'),
     console = process.console;
 
 // create application/json parser 
@@ -83,5 +84,6 @@ app.get('*', function(req, res) {
  *   = ========
  */
 app.listen(config.port, function() {
+    //logo();
     console.time().info('Server listening at port ' + config.port);
 });
