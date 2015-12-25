@@ -10,9 +10,11 @@ var express = require('express'), // call express
     scribe = require('scribe-js')(), // used for logs
     favicon = require('serve-favicon'), // set favicon
     bodyParser = require('body-parser'),
+    colors = require('colors'),
     logo = require('./printLogo'),
     console = process.console;
 
+colors.enabled = true; //enable colors even through piping.
 
 // create application/json parser 
 var jsonParser = bodyParser.json();
@@ -46,7 +48,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
     app.use(scribe.express.logger());
 }
-    app.use('/logs', scribe.webPanel());
+app.use('/logs', scribe.webPanel());
 
 /** ================
  *   = STATIC FILES =
@@ -86,5 +88,5 @@ app.get('*', function(req, res) {
  */
 app.listen(config.port, function() {
     logo();
-    console.time().info('Server listening at port ' + config.port);
+    console.time().info('Server listening at port ' + colors.bgBlue.dim.bold(config.port));
 });
