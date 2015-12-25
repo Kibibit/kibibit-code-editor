@@ -8,7 +8,17 @@ rename = require('gulp-rename'),
 prettify = require('gulp-jsbeautifier'),
 jshint = require('gulp-jshint'),
 concat = require('gulp-concat'),
-livereload = require('gulp-livereload');
+livereload = require('gulp-livereload'),
+server = require('gulp-develop-server');
+
+var options = {
+	path: './server.js'
+};
+ 
+var serverFiles = [
+    './app/**/*.js',
+	'./server.js'
+];
 
 // define the default task and add the watch task to it
 gulp.task('default', ['watch']);
@@ -116,9 +126,20 @@ gulp.task('styles', function() {
 	.pipe(gulp.dest('./public/assets/css/'));
 });
 
+gulp.task( 'serve', function() {
+    server.listen(options, livereload.listen);
+});
+
 // configure which files to watch and what tasks to use on file changes
-gulp.task('watch', function() {
-	// livereload.listen(); // Test this out!
+gulp.task('watch', [ 'serve' ], function() {
+	function restart( file ) {
+        server.changed( function( error ) {
+            if( ! error ) livereload.changed( file.path );
+        });
+    }
+
 	gulp.watch(['./**/*.js', '!./node_modules/', '!./node_modules/**', '!./logs/'], ['lint-js']);
 	gulp.watch('./public/assets/sass/**/*.scss', ['styles']);
+	gulp.watch( serverFiles ).on( 'change', restart );
+	gulp.watch(['./public/app/**/*', './public/assets/sass/**/*.scss']).on( 'change', function(file) {livereload.changed( file.path );} );
 });
