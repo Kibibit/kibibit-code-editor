@@ -122,11 +122,11 @@ gulp.task('styles', function() {
 	.pipe(gulp.dest('./public/assets/css/'));
 });
 
-gulp.task( 'serve', function() {
+gulp.task( 'serve', [ 'styles' ], function() {
     server.listen(options, livereload.listen);
 });
 
-gulp.task('debug', shell.task(['node-debug server.js']));
+gulp.task('debug', [ 'styles' ], shell.task(['node-debug server.js']));
 
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', [ 'serve' ], function() {
