@@ -3,7 +3,7 @@ module.exports = function() {
     console.log();
     console.log('      ___                       ___                       ___                       ___'.red);
     console.log('     /\\__\\          ___        /\\  \\          ___        /\\  \\          ___        /\\  \\'.red);
-    console.log('    /'.red + ':'.white + '/  /         /\\  \\      /'.red + '::'.white + '\\  \\        /\\  \\      /'.red + '::'.white + '\\  \\        /\\  \\       \\:\\  \\'.red);
+    console.log('    /'.red + ':'.white + '/  /         /\\  \\      /'.red + '::'.white + '\\  \\        /\\  \\      /'.red + '::'.white + '\\  \\        /\\  \\       \\'.red+':'.white+'\\  \\'.red);
     console.log('   /'.red + ':'.white + '/__/          \\'.red + ':'.white + '\\  \\    /'.red + ':'.white + '/\\'.red + ':'.white + '\\  \\       \\'.red + ':'.white + '\\  \\    /'.red + ':'.white + '/\\'.red + ':'.white + '\\  \\       \\'.red + ':'.white + '\\  \\       \\'.red + ':'.white + '\\  \\'.red);
     console.log('  /'.red + '::'.white + '\\__\\____      /'.red + '::'.white + '\\__\\  /'.red + '::'.white + '\\~\\:\\__\\      /'.red + '::'.white + '\\__\\  /'.red + '::'.white + '\\~\\'.red + ':'.white + '\\__\\      /'.red + '::'.white + '\\__\\      /'.red + '::'.white + '\\  \\'.red);
     console.log(' /'.red + ':'.white + '/\\'.red + ':::::'.white + '\\__\\  __/'.red + ':'.white + '/\\/__/ /'.red + ':'.white + '/\\'.red + ':'.white + '\\ \\'.red + ':'.white + '|__|  __/'.red + ':'.white + '/\\/__/ /'.red + ':'.white + '/\\'.red + ':'.white + '\\ \\'.red + ':'.white + '|__|  __/'.red + ':'.white + '/\\/__/     /'.red + ':'.white + '/\\'.red + ':'.white + '\\__\\'.red);

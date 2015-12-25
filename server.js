@@ -10,8 +10,9 @@ var express = require('express'), // call express
     scribe = require('scribe-js')(), // used for logs
     favicon = require('serve-favicon'), // set favicon
     bodyParser = require('body-parser'),
-    //logo = require('./printLogo.js'),
+    logo = require('./printLogo'),
     console = process.console;
+
 
 // create application/json parser 
 var jsonParser = bodyParser.json();
@@ -25,7 +26,8 @@ var jsonParser = bodyParser.json();
  *   like: listening on port: XXXX)
  */
 if (process.env.NODE_ENV === 'development') {
-    var noop = function() {
+    // remove logging completely
+    /*var noop = function() {
         return console;
     };
     var console = {
@@ -40,12 +42,11 @@ if (process.env.NODE_ENV === 'development') {
         error: noop,
         warning: noop
     };
-    process.console = console;
+    process.console = console;*/
 } else {
     app.use(scribe.express.logger());
-
-    app.use('/logs', scribe.webPanel());
 }
+    app.use('/logs', scribe.webPanel());
 
 /** ================
  *   = STATIC FILES =
@@ -84,6 +85,6 @@ app.get('*', function(req, res) {
  *   = ========
  */
 app.listen(config.port, function() {
-    //logo();
+    logo();
     console.time().info('Server listening at port ' + config.port);
 });
