@@ -10,6 +10,7 @@ jshint = require('gulp-jshint'),
 concat = require('gulp-concat'),
 livereload = require('gulp-livereload'),
 server = require('gulp-develop-server'),
+shell = require('gulp-shell')
 gutil = require('gulp-util');
 
 var options = {
@@ -124,6 +125,8 @@ gulp.task('styles', function() {
 gulp.task( 'serve', function() {
     server.listen(options, livereload.listen);
 });
+
+gulp.task('debug', shell.task(['node-debug server.js']));
 
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', [ 'serve' ], function() {
