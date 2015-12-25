@@ -36,6 +36,7 @@
     "gulp-concat": "~2.6.0",
     "gulp-livereload": "~3.8.1",
     "gulp-develop-server": "~0.5.0",
-    "gulp-util": "~3.0.7"
+    "gulp-util": "~3.0.7",
+    "gulp-shell": "~0.5.1"
   }
 }
