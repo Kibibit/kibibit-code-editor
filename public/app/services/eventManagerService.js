@@ -6,7 +6,7 @@ angular.module('kibibitCodeEditor')
 // controllers & services to communicate
 // with one another.
 // ===================================================
-.factory('eventManagerService', function() {
+.factory('EventManagerService', function() {
 
     // create event manager factory object
     var eventManagerFactory = {};
