@@ -12,6 +12,7 @@ livereload = require('gulp-livereload'),
 server = require('gulp-develop-server'),
 shell = require('gulp-shell'),
 jscs = require('gulp-jscs'),
+argv = require('yargs').argv,
 gutil = require('gulp-util');
 
 var options = {
@@ -22,9 +23,12 @@ FILES.FRONTEND_JS = ['./public/app/**/*.js'];
 FILES.FRONTEND_HTML = ['./public/app/**/*.html'];
 FILES.FRONTEND_SASS = ['./public/assets/sass/**/*.scss'];
 FILES.FRONTEND_ALL = [].concat(FILES.FRONTEND_JS, FILES.FRONTEND_HTML, FILES.FRONTEND_SASS);
-FILES.SERVER_JS = ['./app/**/*.js', './server.js', './config.js'];
+FILES.SERVER_MAIN = ['./server.js'];
+FILES.SERVER_JS_WITHOUT_MAIN = ['./app/**/*.js', './config.js'];
+FILES.SERVER_JS = [].concat(FILES.SERVER_MAIN, FILES.SERVER_JS_WITHOUT_MAIN);
 FILES.BUILD_FILES = ['./gulpfile.js'];
 FILES.JS_ALL = [].concat(FILES.FRONTEND_JS, FILES.SERVER_JS);
+FILES.LINT = [].concat(FILES.FRONTEND_JS, FILES.SERVER_JS_WITHOUT_MAIN);
 
 // define the default task and add the watch task to it
 gulp.task('default', ['watch']);
@@ -95,7 +99,7 @@ gulp.task('watch', ['serve'], function() {
     	livereload.changed(path);
   }
 
-  gulp.watch(FILES.JS_ALL, ['lint-js']);
+  gulp.watch(argv.lint ? FILES.LINT : [], ['lint-js']);
   gulp.watch(FILES.FRONTEND_SASS, ['styles']);
   gulp.watch(FILES.SERVER_JS).on('change', restart);
   gulp.watch(FILES.FRONTEND_ALL).on('change', function(file) {reloadBrowser('Frontend file changed.', file.path);});
