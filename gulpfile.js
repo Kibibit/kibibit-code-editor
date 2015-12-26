@@ -10,11 +10,12 @@ jshint = require('gulp-jshint'),
 concat = require('gulp-concat'),
 livereload = require('gulp-livereload'),
 server = require('gulp-develop-server'),
-shell = require('gulp-shell')
+shell = require('gulp-shell'),
+jscs = require('gulp-jscs'),
 gutil = require('gulp-util');
 
 var options = {
-	path: './server.js'
+  path: './server.js'
 };
 var FILES = {};
 FILES.FRONTEND_JS = ['./public/app/**/*.js'];
@@ -30,121 +31,72 @@ gulp.task('default', ['watch']);
 
 // configure the jshint task
 gulp.task('lint-js', function() {
-	return gulp.src(FILES.JS_ALL)
-	.pipe(jshint())
-	.pipe(jshint.reporter('jshint-stylish'));
+  return gulp.src(FILES.JS_ALL)
+  .pipe(jscs())
+  .pipe(jscs.reporter());
 });
 
 gulp.task('lint-sass', function() {
-	return gulp.src(FILES.FRONTEND_SASS)
-	.pipe(sass().on('error', sass.logError));
+  return gulp.src(FILES.FRONTEND_SASS)
+  .pipe(sass().on('error', sass.logError));
 });
 
 gulp.task('lint', ['lint-js', 'lint-sass']);
 
 gulp.task('format-front-end', function() {
-	return gulp.src([].concat(FILES.FRONTEND_JS, FILES.FRONTEND_HTML), {
-             base: 'public'
-        })
-	.pipe(prettify({
-	    //config: "./.jsbeautifyrc",
-	    html: {
-	        braceStyle: "collapse",
-	        indentChar: " ",
-	        indentScripts: "keep",
-	        indentSize: 4,
-	        maxPreserveNewlines: 10,
-	        preserveNewlines: true,
-	        /* unformatted: ["a", "sub", "sup", "b", "i", "u"], */
-	        wrapLineLength: 0
-	    },
-	    js: {
-	        braceStyle: "collapse",
-	        breakChainedMethods: false,
-	        e4x: false,
-	        evalCode: false,
-	        indentChar: " ",
-	        indentLevel: 0,
-	        indentSize: 4,
-	        indentWithTabs: false,
-	        jslintHappy: false,
-	        keepArrayIndentation: false,
-	        keepFunctionIndentation: false,
-	        maxPreserveNewlines: 10,
-	        preserveNewlines: true,
-	        spaceBeforeConditional: true,
-	        spaceInParen: false,
-	        unescapeStrings: false,
-	        wrapLineLength: 0
-	    }
-	}))
+  return gulp.src([].concat(FILES.FRONTEND_JS), {
+    base: 'public'
+  })
+	.pipe(jscs({fix: true}))
+	.pipe(jscs.reporter())
 	.pipe(gulp.dest('./public')); // add this to a different folder in order to test first
 });
 
 gulp.task('format-server', function() {
-	return gulp.src([].concat(FILES.SERVER_JS, FILES.BUILD_FILES), {
-             base: '.'
-        })
-	.pipe(prettify({
-	    js: {
-	        braceStyle: "collapse",
-	        breakChainedMethods: false,
-	        e4x: false,
-	        evalCode: false,
-	        indentChar: " ",
-	        indentLevel: 0,
-	        // indentSize: 4,
-	        indentWithTabs: false,
-	        jslintHappy: false,
-	        keepArrayIndentation: false,
-	        keepFunctionIndentation: false,
-	        maxPreserveNewlines: 10,
-	        preserveNewlines: true,
-	        spaceBeforeConditional: true,
-	        spaceInParen: false,
-	        unescapeStrings: false,
-	        wrapLineLength: 0
-	    }
-	}))
+  return gulp.src([].concat(FILES.SERVER_JS, FILES.BUILD_FILES), {
+    base: '.'
+  })
+	.pipe(jscs({fix: true}))
+	.pipe(jscs.reporter())
 	.pipe(gulp.dest('.'));
 });
 
 gulp.task('format', ['format-server', 'format-front-end']);
 
 gulp.task('styles', function() {
-	return gulp.src(FILES.FRONTEND_SASS)
-	.pipe(sourcemaps.init())
-	.pipe(sass().on('error', sass.logError))
-	.pipe(concat('style.css'))
-	//.pipe(minifyCSS())
-	.pipe(sourcemaps.write())
-	//.pipe(rename({ suffix: '.min' }))
-	.pipe(gulp.dest('./public/assets/css/'));
+  return gulp.src(FILES.FRONTEND_SASS)
+  .pipe(sourcemaps.init())
+  .pipe(sass().on('error', sass.logError))
+  .pipe(concat('style.css'))
+  //.pipe(minifyCSS())
+  .pipe(sourcemaps.write())
+  //.pipe(rename({ suffix: '.min' }))
+  .pipe(gulp.dest('./public/assets/css/'));
 });
 
-gulp.task( 'serve', [ 'styles' ], function() {
-    server.listen(options, livereload.listen);
+gulp.task('serve', ['styles'], function() {
+  server.listen(options, livereload.listen);
 });
 
-gulp.task('debug', [ 'styles' ], shell.task(['node-debug server.js']));
+gulp.task('debug', ['styles'], shell.task(['node-debug server.js']));
 
 // configure which files to watch and what tasks to use on file changes
-gulp.task('watch', [ 'serve' ], function() {
-	function restart( file ) {
-        server.changed( function( error ) {
-            if( ! error ) {
-            	reloadBrowser('Backend file changed.', file.path);
-            }
-        });
-    }
+gulp.task('watch', ['serve'], function() {
+  function restart(file) {
+    server.changed(function(error) {
+      if (!error) {
+        reloadBrowser('Backend file changed.', file.path);
+      }
+    });
+  }
 
-    function reloadBrowser( message, path ) {
+  function reloadBrowser(message, path) {
     	gutil.log(message ? message : 'Something changed.', gutil.colors.bgBlue.white.bold('Reloading browser...'));
-    	livereload.changed( path );
-    }
+    	livereload.changed(path);
+  }
 
-	gulp.watch(FILES.JS_ALL, ['lint-js']);
-	gulp.watch(FILES.FRONTEND_SASS, ['styles']);
-	gulp.watch(FILES.SERVER_JS).on( 'change', restart );
-	gulp.watch(FILES.FRONTEND_ALL).on( 'change', function(file) {reloadBrowser('Frontend file changed.', file.path);} );
+  gulp.watch(FILES.JS_ALL, ['lint-js']);
+  gulp.watch(FILES.FRONTEND_SASS, ['styles']);
+  gulp.watch(FILES.SERVER_JS).on('change', restart);
+  gulp.watch(FILES.FRONTEND_ALL).on('change', function(file) {reloadBrowser('Frontend file changed.', file.path);});
 });
