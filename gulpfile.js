@@ -17,6 +17,7 @@ var gulp = require('gulp-help')(require('gulp'), {
     shell = require('gulp-shell'),
     jscs = require('gulp-jscs'),
     argv = require('yargs').argv,
+    cache = require('gulp-cached'),
     gutil = require('gulp-util');
 
 var indent = '                        ';
@@ -43,6 +44,7 @@ gulp.task('lint-js', 'lint ' + colors.blue('all JS') + ' files in the following 
     colors.yellow(FILES.JS_ALL.join(',\n' + indent)),
     function() {
         return gulp.src(FILES.JS_ALL)
+            .pipe(cache('linting'))
             .pipe(jscs())
             .pipe(jscs.reporter());
     });
@@ -51,6 +53,7 @@ gulp.task('lint-sass', 'lint ' + colors.blue('all SASS') + ' files in the follow
     colors.yellow(FILES.FRONTEND_SASS.join(',\n' + indent)),
     function() {
         return gulp.src(FILES.FRONTEND_SASS)
+            .pipe(cache('linting'))
             .pipe(sass().on('error', sass.logError));
     });
 
@@ -62,6 +65,7 @@ gulp.task('format-front-end', 'formats the FE files in the following paths:\n' +
         return gulp.src([].concat(FILES.FRONTEND_JS), {
                 base: 'public'
             })
+            .pipe(cache('formating'))
             .pipe(jscs({
                 fix: true
             }))
@@ -75,6 +79,7 @@ gulp.task('format-server', 'formats the BE files in the following paths:\n' + in
         return gulp.src([].concat(FILES.SERVER_JS, FILES.BUILD_FILES), {
                 base: '.'
             })
+            .pipe(cache('formating'))
             .pipe(jscs({
                 fix: true
             }))
