@@ -16,7 +16,7 @@ var express = require('express'), // call express
 
 colors.enabled = true; //enable colors even through piping.
 
-// create application/json parser 
+// create application/json parser
 var jsonParser = bodyParser.json();
 
 /** ===========
@@ -46,7 +46,7 @@ if (process.env.NODE_ENV === 'development') {
     };
     process.console = console;*/
 } else {
-    app.use(scribe.express.logger());
+  app.use(scribe.express.logger());
 }
 app.use('/logs', scribe.webPanel());
 
@@ -79,7 +79,7 @@ app.use('/api', jsonParser, apiRoutes);
  */
 /* NOTE(thatkookooguy): has to be registered after API ROUTES */
 app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
+  res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
 });
 
 /** ==========
@@ -87,6 +87,6 @@ app.get('*', function(req, res) {
  *   = ========
  */
 app.listen(config.port, function() {
-    logo();
-    console.time().info('Server listening at port ' + colors.bgBlue.dim.bold(config.port));
+  logo();
+  console.time().info('Server listening at port ' + colors.bgBlue.dim.bold(config.port));
 });
