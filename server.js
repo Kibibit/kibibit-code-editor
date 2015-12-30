@@ -3,16 +3,16 @@
 
 // CALL THE PACKAGES --------------------
 var express = require('express'), // call express
-    app = express(), // define our app using express
     mongoose = require('mongoose'),
     config = require('./config'),
     path = require('path'),
-    scribe = require('scribe-js')(), // used for logs
     favicon = require('serve-favicon'), // set favicon
     bodyParser = require('body-parser'),
     colors = require('colors'),
-    logo = require('./printLogo'),
-    console = process.console;
+    logo = require('./printLogo');
+var app = express(); // define our app using express
+var scribe = require('scribe-js')(); // used for logs
+var console = process.console;
 
 colors.enabled = true; //enable colors even through piping.
 
@@ -62,7 +62,8 @@ app.use(express.static(__dirname + '/public'));
  *   = ===============
  *   serve the favicon.ico so that modern browsers will show a "tab" and favorites icon
  */
-app.use(favicon(path.join(__dirname, 'public', 'assets', 'images', 'favicon.ico')));
+app.use(favicon(path.join(__dirname,
+    'public', 'assets', 'images', 'favicon.ico')));
 
 /** ==================
  *   = ROUTES FOR API =
@@ -88,5 +89,6 @@ app.get('*', function(req, res) {
  */
 app.listen(config.port, function() {
   logo();
-  console.time().info('Server listening at port ' + colors.bgBlue.dim.bold(config.port));
+  console.time()
+    .info('Server listening at port ' + colors.bgBlue.dim.bold(config.port));
 });

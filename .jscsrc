@@ -29,7 +29,7 @@
         "<",
         "<="
     ],
-    "requireCamelCaseOrUpperCaseIdentifiers": true,
+    "requireCamelCaseOrUpperCaseIdentifiers": {"ignoreProperties": true},
     "maximumLineLength": {
       "value": 80,
       "allExcept": ["comments", "regex"]
