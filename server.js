@@ -3,20 +3,20 @@
 
 // CALL THE PACKAGES --------------------
 var express = require('express'), // call express
-    app = express(), // define our app using express
     mongoose = require('mongoose'),
     config = require('./config'),
     path = require('path'),
-    scribe = require('scribe-js')(), // used for logs
     favicon = require('serve-favicon'), // set favicon
     bodyParser = require('body-parser'),
     colors = require('colors'),
-    logo = require('./printLogo'),
-    console = process.console;
+    logo = require('./printLogo');
+var app = express(); // define our app using express
+var scribe = require('scribe-js')(); // used for logs
+var console = process.console;
 
 colors.enabled = true; //enable colors even through piping.
 
-// create application/json parser 
+// create application/json parser
 var jsonParser = bodyParser.json();
 
 /** ===========
@@ -46,7 +46,7 @@ if (process.env.NODE_ENV === 'development') {
     };
     process.console = console;*/
 } else {
-    app.use(scribe.express.logger());
+  app.use(scribe.express.logger());
 }
 app.use('/logs', scribe.webPanel());
 
@@ -62,7 +62,8 @@ app.use(express.static(__dirname + '/public'));
  *   = ===============
  *   serve the favicon.ico so that modern browsers will show a "tab" and favorites icon
  */
-app.use(favicon(path.join(__dirname, 'public', 'assets', 'images', 'favicon.ico')));
+app.use(favicon(path.join(__dirname,
+    'public', 'assets', 'images', 'favicon.ico')));
 
 /** ==================
  *   = ROUTES FOR API =
@@ -79,7 +80,7 @@ app.use('/api', jsonParser, apiRoutes);
  */
 /* NOTE(thatkookooguy): has to be registered after API ROUTES */
 app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
+  res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
 });
 
 /** ==========
@@ -87,6 +88,7 @@ app.get('*', function(req, res) {
  *   = ========
  */
 app.listen(config.port, function() {
-    logo();
-    console.time().info('Server listening at port ' + colors.bgBlue.dim.bold(config.port));
+  logo();
+  console.time()
+    .info('Server listening at port ' + colors.bgBlue.dim.bold(config.port));
 });
