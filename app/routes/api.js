@@ -1,9 +1,11 @@
 module.exports = function(app, express) {
 
-  var apiRouter = express.Router(),
-      fileService = require('../models/fileService.js'),
+  var fileService = require('../models/fileService.js'),
       folderService = require('../models/folderService.js'),
-      userHomeDirectoryService = require('../models/userHomeDirectoryService.js');
+      userHomeDirectoryService =
+        require('../models/userHomeDirectoryService.js');
+
+  var apiRouter = express.Router();
 
   apiRouter.get('/', function(req, res) {
     res.json({

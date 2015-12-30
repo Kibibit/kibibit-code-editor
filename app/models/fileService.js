@@ -1,7 +1,7 @@
-var console = process.console,
-    dirTree = require('directory-tree'),
+var dirTree = require('directory-tree'),
     fs = require('fs'),
     path = require('path');
+var console = process.console;
 
 var fileService = {};
 
@@ -10,10 +10,12 @@ fileService.get = function(req, res) {
   fs.readFile(fileFullPath, 'utf8', function(err, data) {
     if (err) {
       res.json(err);
-      console.time().tag('FILE CONTENT').error('file-get returned an error: ' + err);
+      console.time().tag('FILE CONTENT')
+        .error('file-get returned an error: ' + err);
     } else {
       res.json(data);
-      console.time().tag('FILE CONTENT').info('file requested: ' + fileFullPath);
+      console.time().tag('FILE CONTENT')
+        .info('file requested: ' + fileFullPath);
     }
   });
 };
@@ -27,18 +29,22 @@ fileService.put = function(req, res) {
       'code': 'File already exists',
       'path': fileFullPath
     });
-    console.time().tag('FILE CONTENT').error('file couldn\'t be saved: ' + fileFullPath);
+    console.time().tag('FILE CONTENT')
+      .error('file couldn\'t be saved: ' + fileFullPath);
   } catch (err) {
     if (req.body.newContent) {
-      fs.writeFile(fileFullPath, req.body.newContent, 'utf8', function(err) {
+      fs.writeFile(fileFullPath,
+        req.body.newContent, 'utf8', function(err) {
         if (err) {
           res.json(err);
-          console.time().tag('FILE CONTENT').error('file couldn\'t be saved: ' + err);
+          console.time().tag('FILE CONTENT')
+            .error('file couldn\'t be saved: ' + err);
         } else {
           res.json({
             message: 'file saved successfully'
           });
-          console.time().tag('FILE CONTENT').info('file saved: ' + fileFullPath);
+          console.time().tag('FILE CONTENT')
+            .info('file saved: ' + fileFullPath);
         }
       });
     }
@@ -53,10 +59,12 @@ fileService.delete = function(req, res) {
     res.json({
       message: 'file deleted successfully'
     });
-    console.time().tag('DELETE CONTENT').info('file deleted: ' + fileFullPath);
+    console.time().tag('DELETE CONTENT')
+      .info('file deleted: ' + fileFullPath);
   } catch (err) {
     res.json(err);
-    console.time().tag('DELETE CONTENT').error('couldn\'t delete file: ' + fileFullPath);
+    console.time().tag('DELETE CONTENT')
+      .error('couldn\'t delete file: ' + fileFullPath);
   }
 };
 
@@ -68,12 +76,14 @@ fileService.putExtraArg = function(req, res) {
       fs.writeFile(fileFullPath, req.body.newContent, 'utf8', function(err) {
         if (err) {
           res.json(err);
-          console.time().tag('FILE CONTENT').error('file couldn\'t be saved: ' + err);
+          console.time().tag('FILE CONTENT')
+            .error('file couldn\'t be saved: ' + err);
         } else {
           res.json({
             message: 'file saved successfully'
           });
-          console.time().tag('FILE CONTENT').info('file saved: ' + fileFullPath);
+          console.time().tag('FILE CONTENT')
+            .info('file saved: ' + fileFullPath);
         }
       });
     } else {

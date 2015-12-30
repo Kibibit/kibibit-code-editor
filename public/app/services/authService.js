@@ -34,22 +34,24 @@ angular.module('kibibitCodeEditor')
   // check if a user is logged in
   // checks if there is a local token
   authFactory.isLoggedIn = function() {
-    if (AuthToken.getToken())
-        return true;
-    else
-        return false;
+    if (AuthToken.getToken()) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   // get the logged in user
   authFactory.getUser = function() {
-    if (AuthToken.getToken())
-            return $http.get('/api/me', {
-              cache: true
-            });
-    else
-            return $q.reject({
-              message: 'User has no token.'
-            });
+    if (AuthToken.getToken()) {
+      return $http.get('/api/me', {
+        cache: true
+      });
+    } else {
+      return $q.reject({
+        message: 'User has no token.'
+      });
+    }
   };
 
   authFactory.createSampleUser = function() {
@@ -78,10 +80,11 @@ angular.module('kibibitCodeEditor')
   // if a token is passed, set the token
   // if there is no token, clear it from local storage
   authTokenFactory.setToken = function(token) {
-    if (token)
-        $window.localStorage.setItem('token', token);
-    else
-        $window.localStorage.removeItem('token');
+    if (token) {
+      $window.localStorage.setItem('token', token);
+    } else {
+      $window.localStorage.removeItem('token');
+    }
   };
 
   return authTokenFactory;
@@ -102,8 +105,9 @@ angular.module('kibibitCodeEditor')
     var token = AuthToken.getToken();
 
     // if the token exists, add it to the header as x-access-token
-    if (token)
-        config.headers['x-access-token'] = token;
+    if (token) {
+      config.headers['x-access-token'] = token;
+    }
 
     return config;
   };

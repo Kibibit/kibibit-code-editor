@@ -34,7 +34,8 @@ angular.module('kibibitCodeEditor')
     // run all of the event's callbacks.
     // pass the data and run in the right context.
     eventManagerFactory.$events[event].forEach(function(callback, index) {
-      eventManagerFactory.$events[event][index].call(eventManagerFactory.$context[event][index], data);
+      eventManagerFactory.$events[event][index]
+        .call(eventManagerFactory.$context[event][index], data);
     });
   };
 

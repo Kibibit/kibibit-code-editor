@@ -1,7 +1,7 @@
-var console = process.console,
-    dirTree = require('directory-tree'),
+var dirTree = require('directory-tree'),
     fs = require('fs'),
     path = require('path');
+var console = process.console;
 
 var folderService = {};
 
@@ -16,7 +16,8 @@ folderService.get = function(req, res) {
       output.children = [];
 
       for (var i = 0; i < items.length; i++) {
-        if (fs.lstatSync(directoryFullPath + '/' + items[i]).isDirectory()) {
+        if (fs.lstatSync(directoryFullPath +
+                          '/' + items[i]).isDirectory()) {
           output.children.push({
             name: items[i],
             path: directoryFullPath + '/' + items[i],
@@ -35,7 +36,8 @@ folderService.get = function(req, res) {
       res.json(output);
     } catch (error) {
       res.json(error);
-      console.time().tag('DIRECTORY CONTENT').error('directory requested not found: ' + directoryFullPath);
+      console.time().tag('DIRECTORY CONTENT')
+        .error('directory requested not found: ' + directoryFullPath);
     }
   });
 };
@@ -57,7 +59,8 @@ folderService.put = function(req, res) {
       res.json({
         message: 'Folder created successfully'
       });
-      console.time().tag('DIRECTORY CONTENT').info('directory created: ' + directoryFullPath);
+      console.time().tag('DIRECTORY CONTENT')
+        .info('directory created: ' + directoryFullPath);
     }
   });
 };
@@ -71,7 +74,8 @@ folderService.delete = function(req, res) {
     }
   });
   res.json(directoryFullPath);
-  console.time().tag('DIRECTORY CONTENT').info('directory deleted: ' + directoryFullPath);
+  console.time().tag('DIRECTORY CONTENT')
+    .info('directory deleted: ' + directoryFullPath);
 };
 
 folderService.putExtraArg = function(req, res) {
@@ -81,7 +85,11 @@ folderService.putExtraArg = function(req, res) {
     if (err) {
       res.json(err);
     } else {
-      console.time().tag('DIRECTORY RENAME').info('directory renamed from: ' + directoryFullPath + '; to: ' + newDirectoryFullPath);
+      console.time().tag('DIRECTORY RENAME')
+        .info('directory renamed from: ' +
+              directoryFullPath +
+              '; to: ' +
+              newDirectoryFullPath);
       res.json({
         message: 'Folder renamed successfully'
       });
@@ -117,7 +125,9 @@ folderService.deleteExtraArg = function(req, res) {
       res.json({
         message: 'Directory deleted (recursively) successfully'
       });
-      console.time().tag('DIRECTORY DELETED').info('directory deleted (recursively) successfully: ' + directoryFullPath);
+      console.time().tag('DIRECTORY DELETED')
+        .info('directory deleted (recursively) successfully: ' +
+              directoryFullPath);
     } else {
       res.json({
         message: 'For a hard delete, 2nd param should be: True'
@@ -125,7 +135,8 @@ folderService.deleteExtraArg = function(req, res) {
     }
   } catch (err) {
     res.json(err);
-    console.time().tag('DIRECTORY DELETED').error('directory wasn\'t found: ' + directoryFullPath);
+    console.time().tag('DIRECTORY DELETED')
+      .error('directory wasn\'t found: ' + directoryFullPath);
   }
 
 };
