@@ -9,13 +9,7 @@
         <button class="btn" ng-click="main.openFolder()">Open</button>
         <div class="sidebar-header entypo-folder"> {{main.userHomeDirectory.name}}</div>
         <treecontrol class="tree-dark" tree-model="main.userHomeDirectory" options="main.treeOptions" on-selection="main.onSelection(node); main.setCurrentFolder(node)" expanded-nodes="main.expandedNodes">
-            <span ng-switch="node.type">
-                <span ng-switch-when="directory" class="entypo-folder" aria-hidden="true"></span>
-                <span ng-switch-when="file" class="entypo-newspaper" aria-hidden="true"></span>
-                <span ng-switch-when="js" class="openwebicons-epub green-text" aria-hidden="true"></span>
-                <span ng-switch-when="css" class="openwebicons-css3 blue-text" aria-hidden="true"></span>
-                <span ng-switch-when="html" class="openwebicons-html5 orange-text" aria-hidden="true"></span>
-            </span> {{node.name}}
+            <file-name file="node"></file-name>
         </treecontrol>
     </div>
     <!--  -->
@@ -23,13 +17,7 @@
     <div class="treeContainer" ng-if="main.workFolder">
         <div class="sidebar-header entypo-folder"> {{main.workFolder.name}}</div>
         <treecontrol class="tree-dark" tree-model="main.workFolder" options="main.treeOptions" on-selection="main.onSelection(node)" expanded-nodes="main.expandedNodes">
-            <span ng-switch="node.type">
-                <span ng-switch-when="directory" class="entypo-folder" aria-hidden="true"></span>
-                <span ng-switch-when="file" class="entypo-newspaper" aria-hidden="true"></span>
-                <span ng-switch-when="js" class="openwebicons-epub green-text" aria-hidden="true"></span>
-                <span ng-switch-when="css" class="openwebicons-css3 blue-text" aria-hidden="true"></span>
-                <span ng-switch-when="html" class="openwebicons-html5 orange-text" aria-hidden="true"></span>
-            </span> {{node.name}}
+            <file-name file="node"></file-name>
         </treecontrol>
     </div>
 </div>
