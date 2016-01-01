@@ -92,8 +92,9 @@ gulp.task('format', 'formats ' + colors.blue('all') + ' the project\'s javascrip
 gulp.task('styles', 'compile SASS to CSS', function() {
   return gulp.src(FILES.FRONTEND_SASS)
       .pipe(sourcemaps.init())
-      .pipe(sass().on('error', sass.logError))
       .pipe(concat('style.css'))
+      .pipe(sass().on('error', sass.logError))
+      
       //.pipe(minifyCSS())
       .pipe(sourcemaps.write())
       //.pipe(rename({ suffix: '.min' }))
