@@ -15,7 +15,7 @@ angular.module('kibibitCodeEditor')
             controllerAs: 'yesnoModalCtrl'
           }).then(function(modal) {
             modal.close.then(function(result) {
-              $scope.customResult = 'All good!';
+              vm.customResult = 'All good!';
             });
           });
         };
