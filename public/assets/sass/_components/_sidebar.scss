@@ -7,6 +7,8 @@
 	float: left;
 	background-color: #555;
 	font-size: 70%;
+	overflow-y: auto;
+	overflow-x: hidden;
 	.sidebar-header {
 		color: rgb(221, 221, 221);
 	}
