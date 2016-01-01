@@ -1,0 +1,35 @@
+.sidebar {
+	width: 10%;
+	height: 100vh;
+	min-width: 60px;
+	max-width: 500px;
+    white-space: nowrap;
+	float: left;
+	background-color: #555;
+	font-size: 70%;
+	.sidebar-header {
+		color: rgb(221, 221, 221);
+	}
+
+	treecontrol {
+		zoom: 70%;
+	}
+}
+
+.rg-right {
+	z-index: 10;
+	margin-right: 0;
+	width: 15px;
+}
+
+.blue-text {
+	color: #6BCAE2;
+}
+
+.orange-text {
+	color: #FE8402;
+}
+
+.green-text {
+	color: #87E293;
+}
