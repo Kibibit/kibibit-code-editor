@@ -1,44 +1,8 @@
-@import url(http://weloveiconfonts.com/api/?family=openwebicons|entypo);
-
-/* entypo */
-[class*="entypo-"]:before {
-	font-family: 'entypo', sans-serif;
-}
-
-/* openwebicons */
-[class*="openwebicons-"]:before {
-  font-family: 'OpenWeb Icons', sans-serif;
-}
-
-* {
-	margin: 0;
-	padding: 0;
-	border: 0;
-}
-
 .container {
 	width: 100vw;
 	height: 100vh;
 	margin: 0;
 	padding: 0;
-}
-
-.sidebar {
-	width: 10%;
-	height: 100vh;
-	min-width: 60px;
-	max-width: 500px;
-    white-space: nowrap;
-	float: left;
-	background-color: #555;
-	font-size: 70%;
-	.sidebar-header {
-		color: rgb(221, 221, 221);
-	}
-
-	treecontrol {
-		zoom: 70%;
-	}
 }
 
 .editor {
@@ -47,22 +11,4 @@
 	 height: 100vh;
 	// background: blue;
 	// display: flex;
-}
-
-.rg-right {
-	z-index: 10;
-	margin-right: 0;
-	width: 15px;
-}
-
-.blue-text {
-	color: #6BCAE2;
-}
-
-.orange-text {
-	color: #FE8402;
-}
-
-.green-text {
-	color: #87E293;
 }
