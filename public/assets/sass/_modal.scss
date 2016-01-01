@@ -1,0 +1,16 @@
+#custom-modal {
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(0,0,0,0.5);
+    #overlay {
+    	margin: auto;
+	    max-width: 700px;
+	    min-height: 200px;
+	    max-height: 300px;
+	    background: white;
+    }
+}
