@@ -9,6 +9,7 @@
     "angular-material": "~0.11.4",
     "angular-route": "~1.4.8",
     "angular-loading-bar": "~0.8.0",
-    "angular-modal-service": "~0.6.9"
+    "angular-modal-service": "~0.6.9",
+    "octicons": "~3.3.0"
   }
 }
