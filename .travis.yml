@@ -1,9 +1,12 @@
 language: node_js
 node_js:
-  - "0.10"
+- '0.10'
 before_script:
-  - npm install -g bower
-  - npm install -g gulp
-  - npm install -g karma
-  - bower install
-  - gulp styles
+- npm install -g bower
+- npm install -g gulp
+- npm install -g karma
+- bower install
+- gulp styles
+notifications:
+  slack:
+    secure: loJ6a7cTrhv5Sv13BDOVhuvJFuJBTBOI/0rAomL0NWFqJqYvHT2Z8Re07Ltildcb+i5ONMVdU49VCJFiDs2xxHm5RnR12wOw07zFwwawSj9A5ujZyIDvkFa9huYvRMPFJvUi0sJL8vWf6EBF6mxRWC23m5fOU/m6wZHy3dsNbgZbonDTONELJcEnZWKxrxdZPOYcU8Lv7lnnhQ0EGwgefvGGzYOlYICd0q6ZjTHvZor6xEK/3foo/nHxHcv2ttfQe8GsS3GMMlIh7/TLL13W2YXAlypNLundt8rRHPXbDpH60brqDlpPBU3flvsGuIS+by1FP1AEs0c4smchULXgz+fJJzuHWgsljg2IyCN4PmcTaMXFDh2nF6PJAzF2Fy3I5hkrqkn2oYHv3qdSzOlrDuOxVmNYa4CndOeJkzrMQ0ZKiae1Lc9VdCm5fvzLglDfpPq+JbyTHdOJOwy6Z0Cw5qwjl/DuZ7/Uow1xO0t6ufTzKjektfmjde38b5cltEPpGU9zRIe0geB5/jkzjEvJuc2WDB2hzcaeY0d1uNenijGFCENXceQ7YdEH0vWmWTpDWr97+5O4rFK8jNGaFC3+uWy8q/BGTlrTX64R5KFXA2La5L4rJtkx0/xqGopizAeA3qlF5btbcj/xxTYpzpH8Ys+hpmUETJPSgDQYEBESEWY=
