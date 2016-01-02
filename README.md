@@ -1,0 +1,1 @@
+[![npm version](https://badge.fury.io/js/scribe-js.svg)](http://badge.fury.io/js/scribe-js)  [![Build Status](https://travis-ci.org/Kibibit/kibibit-code-editor.svg?branch=master)](https://travis-ci.org/Kibibit/kibibit-code-editor)  
