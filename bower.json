@@ -11,5 +11,8 @@
     "angular-loading-bar": "~0.8.0",
     "angular-modal-service": "~0.6.9",
     "octicons": "~3.3.0"
+  },
+  "resolutions": {
+    "angular": "~1.4.8"
   }
 }
