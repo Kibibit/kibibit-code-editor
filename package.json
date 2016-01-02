@@ -4,7 +4,7 @@
   "description": "code editor on the cloud",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp test"
   },
   "author": "neilkalman@gmail.com",
   "license": "BSD-2-Clause",
@@ -43,6 +43,11 @@
     "jscs": "~2.7.0",
     "jscs-angular": "~1.2.1",
     "jshint-stylish": "~2.0.1",
-    "yargs": "~3.31.0"
+    "yargs": "~3.31.0",
+    "karma": "~0.13.16",
+    "jasmine-core": "~2.4.1",
+    "karma-jasmine": "~0.3.6",
+    "phantomjs": "~1.9.19",
+    "karma-phantomjs-launcher": "~0.2.2"
   }
 }

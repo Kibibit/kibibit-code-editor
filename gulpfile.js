@@ -20,6 +20,10 @@ argv = require('yargs').argv,
 cache = require('gulp-cached'),
 gutil = require('gulp-util');
 
+var karma = require('karma').server;
+
+var isTravis = process.env.TRAVIS || false;
+
 var indent = '                        ';
 var options = {
   path: './server.js'
@@ -38,6 +42,14 @@ FILES.LINT = [].concat(FILES.FRONTEND_JS, FILES.SERVER_JS_WITHOUT_MAIN);
 
 // define the default task and add the watch task to it
 gulp.task('default', colors.bgCyan.black('gulp') + ' === ' + colors.bgCyan.black('gulp watch'), ['watch']);
+
+module.exports = gulp.task('test', function(done) {
+  console.log('isTravis', isTravis);
+  karma.start({
+      configFile: __dirname + '/karma.conf.js',
+      singleRun: isTravis
+  }, done);
+});;
 
 // configure the jshint task
 gulp.task('lint-js', 'lint ' + colors.blue('all JS') + ' files in the following paths:\n' + indent +
