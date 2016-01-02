@@ -3,7 +3,7 @@
   "ignore": [],
   "dependencies": {
     "angular-resizable": "~1.2.0",
-    "angular": "~1.4.8",
+    "angular": "1.4.8",
     "angular-animate": "~1.4.8",
     "angular-aria": "~1.4.8",
     "angular-material": "~0.11.4",
