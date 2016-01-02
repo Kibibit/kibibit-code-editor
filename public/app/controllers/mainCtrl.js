@@ -70,8 +70,10 @@ angular.module('kibibitCodeEditor')
       }
     };
 
-    vm.treeOptions = {
-      nodeChildren: 'children',
-      dirSelectable: false
-    };
+    vm.expandedNodes = []
+
+    // vm.treeOptions = {
+    //   nodeChildren: 'children',
+    //   dirSelectable: false
+    // };
   });

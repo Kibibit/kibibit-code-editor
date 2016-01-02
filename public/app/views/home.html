@@ -3,23 +3,16 @@
     <button class="btn" ng-click="main.showAModal()">modal</button>
 
     <!-- temp buttons and tree to open project -->
-    <button class="btn" ng-click="main.openProject()">Open Project</button>
+    <button class="btn" ng-click="main.openProject()">Open Project</button> <br>
+    <button class="btn" ng-click="main.openFolder()" ng-if="main.projectFolder">Open</button>
 
-    <div class="projectTreeContainer" ng-if="main.projectFolder">
-        <button class="btn" ng-click="main.openFolder()">Open</button>
-        <div class="sidebar-header entypo-folder"> {{main.userHomeDirectory.name}}</div>
-        <treecontrol class="tree-dark" tree-model="main.userHomeDirectory" options="main.treeOptions" on-selection="main.onSelection(node); main.setCurrentFolder(node)" expanded-nodes="main.expandedNodes">
-            <file-name file="node"></file-name>
-        </treecontrol>
-    </div>
-    <!--  -->
 
-    <div class="treeContainer" ng-if="main.workFolder">
-        <div class="sidebar-header entypo-folder"> {{main.workFolder.name}}</div>
-        <treecontrol class="tree-dark" tree-model="main.workFolder" options="main.treeOptions" on-selection="main.onSelection(node)" expanded-nodes="main.expandedNodes">
-            <file-name file="node"></file-name>
-        </treecontrol>
-    </div>
+    <!-- the ng-if is temp -> the "open project" tree will be in modal in the future -->
+    <file-tree tree-folder="main.userHomeDirectory" selection-action="[main.onSelection, main.setCurrentFolder]" ng-if="main.projectFolder"></file-tree>
+
+
+    <file-tree tree-folder="main.workFolder" selection-action="[main.onSelection]" ng-if="main.workFolder"></file-tree>
+
 </div>
 
 <code-editor code="main.code"></code-editor>
