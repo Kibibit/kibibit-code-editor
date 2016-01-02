@@ -72,8 +72,4 @@ angular.module('kibibitCodeEditor')
 
     vm.expandedNodes = []
 
-    // vm.treeOptions = {
-    //   nodeChildren: 'children',
-    //   dirSelectable: false
-    // };
   });
