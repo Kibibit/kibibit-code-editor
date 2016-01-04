@@ -5,8 +5,4 @@ angular.module('kibibitCodeEditor',
 	'treeControl',
 	'ui.ace',
 	'angularResizable',
-	'angularModalService',
-	'ngScrollbars'])
-.config(['$compileProvider', function ($compileProvider) {
-    $compileProvider.debugInfoEnabled(false);
-}]);
+	'angularModalService']);

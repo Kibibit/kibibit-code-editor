@@ -43,7 +43,7 @@ FILES.LINT = [].concat(FILES.FRONTEND_JS, FILES.SERVER_JS_WITHOUT_MAIN);
 // define the default task and add the watch task to it
 gulp.task('default', colors.bgCyan.black('gulp') + ' === ' + colors.bgCyan.black('gulp watch'), ['watch']);
 
-module.exports = gulp.task('test', function(done) {
+module.exports = gulp.task('test', ['lint-js'], function(done) {
   console.log('isTravis', isTravis);
   karma.start({
       configFile: __dirname + '/karma.conf.js',
@@ -58,7 +58,8 @@ gulp.task('lint-js', 'lint ' + colors.blue('all JS') + ' files in the following 
       return gulp.src(FILES.JS_ALL)
           .pipe(cache('linting'))
           .pipe(jscs())
-          .pipe(jscs.reporter());
+          .pipe(jscs.reporter())
+          .pipe(jscs.reporter('fail'));
     });
 
 gulp.task('lint-sass', 'lint ' + colors.blue('all SASS') + ' files in the following paths:\n' + indent +
