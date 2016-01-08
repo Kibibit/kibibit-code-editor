@@ -18,7 +18,6 @@
     "fs-extra": "~0.24.0",
     "gulp": "~3.9.0",
     "jsonwebtoken": "~5.0.5",
-    "mongoose": "~4.1.6",
     "rename-keys": "~1.1.2",
     "scribe-js": "~2.0.4",
     "serve-favicon": "~2.3.0",
