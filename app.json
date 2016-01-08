@@ -2,6 +2,7 @@
   "name": "kibibit-code-editor",
   "description": "Remote code editor to your face!",
   "scripts": {
+  	"postdeploy": "node server.js"
   },
   "env": {
   	"NODE_ENV": "development",
