@@ -90,5 +90,5 @@ app.get('*', function(req, res) {
 app.listen(process.env.PORT || config.port, function() {
   logo();
   console.time()
-    .info('Server listening at port ' + colors.bgBlue.dim.bold(config.port));
+    .info('Server listening at port ' + colors.bgBlue.dim.bold(app.address().port));
 });
