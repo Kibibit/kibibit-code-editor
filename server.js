@@ -13,6 +13,8 @@ var app = express(); // define our app using express
 var scribe = require('scribe-js')(); // used for logs
 var console = process.console;
 
+console.log('hello')
+
 colors.enabled = true; //enable colors even through piping.
 
 // create application/json parser
