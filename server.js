@@ -86,8 +86,8 @@ app.get('*', function(req, res) {
  *   = SERVER =
  *   = ========
  */
-app.listen(process.env.PORT || config.port, function() {
+app.listen(process && process.env && process.env.PORT ? process.env.PORT : config.port, function() {
   logo();
   console.time()
-    .info('Server listening at port ' + colors.bgBlue.dim.bold(process.env.PORT || config.port));
+    .info('Server listening at port ' + colors.bgBlue.dim.bold(process && process.env && process.env.PORT ? process.env.PORT : config.port));
 });
