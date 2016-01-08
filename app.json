@@ -1,6 +1,7 @@
 {
   "name": "kibibit-code-editor",
   "description": "Remote code editor to your face!",
+  "success_url": "/",
   "scripts": {
   	"postdeploy": "node server.js"
   },
