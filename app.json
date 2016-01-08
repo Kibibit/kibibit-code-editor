@@ -1,6 +1,7 @@
 {
   "name": "kibibit-code-editor",
   "description": "Remote code editor to your face!",
+  "repository": "https://github.com/Kibibit/kibibit-code-editor",
   "env": {
   	"NODE_ENV": "development",
   	"NPM_CONFIG_PRODUCTION": "false"
