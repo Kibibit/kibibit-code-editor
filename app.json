@@ -2,9 +2,10 @@
   "name": "kibibit-code-editor",
   "description": "Remote code editor to your face!",
   "scripts": {
-    "postdeploy": "npm install -g bower gulp"
   },
   "env": {
+  	"NODE_ENV": "development",
+  	"NPM_CONFIG_PRODUCTION": false
   },
   "addons": [
 
