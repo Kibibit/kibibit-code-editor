@@ -4,7 +4,9 @@
   "description": "code editor on the cloud",
   "main": "server.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "postinstall": "npm install bower gulp -g && bower install",
+    "start":"gulp default"
   },
   "author": "neilkalman@gmail.com",
   "license": "BSD-2-Clause",
@@ -25,6 +27,7 @@
     "user-home": "^2.0.0"
   },
   "devDependencies": {
+    "bower": "^1.7.2",
     "gulp-beautify": "~1.1.2",
     "gulp-cached": "^1.1.0",
     "gulp-concat": "~2.6.0",
@@ -40,14 +43,14 @@
     "gulp-shell": "~0.5.1",
     "gulp-sourcemaps": "~1.5.2",
     "gulp-util": "~3.0.7",
+    "jasmine-core": "~2.4.1",
     "jscs": "~2.7.0",
     "jscs-angular": "~1.2.1",
     "jshint-stylish": "~2.0.1",
-    "yargs": "~3.31.0",
     "karma": "~0.13.16",
-    "jasmine-core": "~2.4.1",
     "karma-jasmine": "~0.3.6",
+    "karma-phantomjs-launcher": "~0.2.2",
     "phantomjs": "~1.9.19",
-    "karma-phantomjs-launcher": "~0.2.2"
+    "yargs": "~3.31.0"
   }
 }
