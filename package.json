@@ -4,10 +4,16 @@
   "description": "code editor on the cloud",
   "main": "server.js",
   "scripts": {
+    "postinstall": "node ./node_modules/bower/bin/bower install && node ./node_modules/gulp/bin/gulp styles",
+    "start":"node server.js",
     "test": "gulp test"
   },
   "author": "neilkalman@gmail.com",
   "license": "BSD-2-Clause",
+  "engines": {
+    "node": "5.2.0",
+    "npm": "3.3.12"
+  },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.13.3",
