@@ -3,9 +3,13 @@
   "version": "0.0.0",
   "description": "code editor on the cloud",
   "main": "server.js",
+  "engines": {
+      "node": "5.2.0",
+      "npm": "3.3.12"
+  },
   "scripts": {
     "test": "gulp test",
-    "postinstall": "npm install bower gulp -g && bower install && gulp styles",
+    "postinstall": "./node_modules/bower/bin/bower install && ./node_modules/gulp/bin/gulp styles",
     "start":"node server.js"
   },
   "author": "neilkalman@gmail.com",
@@ -18,9 +22,7 @@
     "explicit-object-mapper": "~1.0.0",
     "express": "~4.13.3",
     "fs-extra": "~0.24.0",
-    "gulp": "~3.9.0",
     "jsonwebtoken": "~5.0.5",
-    "mongoose": "~4.1.6",
     "rename-keys": "~1.1.2",
     "scribe-js": "~2.0.4",
     "serve-favicon": "~2.3.0",
@@ -28,6 +30,7 @@
   },
   "devDependencies": {
     "bower": "^1.7.2",
+    "gulp": "~3.9.0",
     "gulp-beautify": "~1.1.2",
     "gulp-cached": "^1.1.0",
     "gulp-concat": "~2.6.0",
