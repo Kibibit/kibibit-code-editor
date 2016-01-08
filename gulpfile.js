@@ -48,8 +48,8 @@ gulp.task('heroku:development', '', ['default']);
 module.exports = gulp.task('test', ['lint-js'], function(done) {
   console.log('isTravis', isTravis);
   karma.start({
-      configFile: __dirname + '/karma.conf.js',
-      singleRun: isTravis
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: isTravis
   }, done);
 });
 
@@ -109,7 +109,7 @@ gulp.task('styles', 'compile SASS to CSS', function() {
       .pipe(sourcemaps.init())
       .pipe(concat('style.css'))
       .pipe(sass().on('error', sass.logError))
-      
+
       //.pipe(minifyCSS())
       .pipe(sourcemaps.write())
       //.pipe(rename({ suffix: '.min' }))
