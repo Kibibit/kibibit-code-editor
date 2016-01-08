@@ -6,7 +6,7 @@
     <button class="btn" ng-click="main.openProject()">Open Project</button>
 
     <div class="projectTreeContainer" ng-if="main.projectFolder">
-        <button class="btn" ng-click="main.openFolder()">Open</button>
+        <button class="btn" ng-click="main.openFolder()">Select</button>
         <div class="sidebar-header entypo-folder"> {{main.userHomeDirectory.name}}</div>
         <treecontrol class="tree-dark" tree-model="main.userHomeDirectory" options="main.treeOptions" on-selection="main.onSelection(node); main.setCurrentFolder(node)" expanded-nodes="main.expandedNodes">
             <file-name file="node"></file-name>
