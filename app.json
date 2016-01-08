@@ -4,14 +4,10 @@
   "scripts": {
   },
   "env": {
-  	"NODE_ENV": "development"
+  	"NODE_ENV": "development",
+  	"NPM_CONFIG_PRODUCTION": false
   },
   "addons": [
 
-  ],
-  "buildpacks": [
-	  {
-	  	"url": "https://github.com/krry/heroku-buildpack-nodejs-gulp-bower.git"
-	  }
   ]
 }
