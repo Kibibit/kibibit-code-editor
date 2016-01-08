@@ -4,7 +4,8 @@
   "description": "code editor on the cloud",
   "main": "server.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "postinstall": "bower install"
   },
   "author": "neilkalman@gmail.com",
   "license": "BSD-2-Clause",
