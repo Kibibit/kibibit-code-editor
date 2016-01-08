@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "gulp test",
-    "postinstall": "kibibit-code-editor/node_modules/bower/bin/bower install && kibibit-code-editor/node_modules/gulp/bin/gulp styles",
+    "postinstall": "bower install && ./node_modules/gulp/bin/gulp styles",
     "start":"node server.js"
   },
   "author": "neilkalman@gmail.com",
