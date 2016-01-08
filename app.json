@@ -1,13 +1,17 @@
 {
   "name": "kibibit-code-editor",
   "description": "Remote code editor to your face!",
-  "success_url": "/",
+  "repository": "https://github.com/Kibibit/kibibit-code-editor",
   "env": {
   	"NODE_ENV": "development",
-  	"NPM_CONFIG_PRODUCTION": "false",
-  	"PORT": "5000"
+  	"NPM_CONFIG_PRODUCTION": "false"
   },
   "addons": [
 
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/krry/heroku-buildpack-nodejs-gulp-bower.git"
+    }
   ]
 }
