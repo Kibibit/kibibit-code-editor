@@ -3,7 +3,6 @@
 
 // CALL THE PACKAGES --------------------
 var express = require('express'), // call express
-    mongoose = require('mongoose'),
     config = require('./config'),
     path = require('path'),
     favicon = require('serve-favicon'), // set favicon

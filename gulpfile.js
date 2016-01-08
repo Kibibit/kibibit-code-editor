@@ -43,13 +43,15 @@ FILES.LINT = [].concat(FILES.FRONTEND_JS, FILES.SERVER_JS_WITHOUT_MAIN);
 // define the default task and add the watch task to it
 gulp.task('default', colors.bgCyan.black('gulp') + ' === ' + colors.bgCyan.black('gulp watch'), ['watch']);
 
+gulp.task('heroku:development', '', ['default']);
+
 module.exports = gulp.task('test', ['lint-js'], function(done) {
   console.log('isTravis', isTravis);
   karma.start({
-      configFile: __dirname + '/karma.conf.js',
-      singleRun: isTravis
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: isTravis
   }, done);
-});;
+});
 
 // configure the jshint task
 gulp.task('lint-js', 'lint ' + colors.blue('all JS') + ' files in the following paths:\n' + indent +
@@ -107,7 +109,7 @@ gulp.task('styles', 'compile SASS to CSS', function() {
       .pipe(sourcemaps.init())
       .pipe(concat('style.css'))
       .pipe(sass().on('error', sass.logError))
-      
+
       //.pipe(minifyCSS())
       .pipe(sourcemaps.write())
       //.pipe(rename({ suffix: '.min' }))
