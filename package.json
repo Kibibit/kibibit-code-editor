@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "gulp test",
-    "postinstall": "npm install bower -g && bower install"
+    "postinstall": "npm install bower -g && bower install",
+    "start":"gulp"
   },
   "author": "neilkalman@gmail.com",
   "license": "BSD-2-Clause",
