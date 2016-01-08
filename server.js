@@ -87,7 +87,7 @@ app.get('*', function(req, res) {
  *   = SERVER =
  *   = ========
  */
- var port = process.env && process.env.PORT ? process.env.PORT : config.port;
+var port = process.env && process.env.PORT ? process.env.PORT : config.port;
 app.listen(port, function() {
   logo();
   console.time()
