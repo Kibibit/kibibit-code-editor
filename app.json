@@ -2,11 +2,16 @@
   "name": "kibibit-code-editor",
   "description": "Remote code editor to your face!",
   "scripts": {
-    "postdeploy": "npm install -g bower gulp"
   },
   "env": {
+  	"NODE_ENV": "development"
   },
   "addons": [
 
+  ],
+  "buildpacks": [
+	  {
+	  	"url": "https://github.com/krry/heroku-buildpack-nodejs-gulp-bower.git"
+	  }
   ]
 }
