@@ -3,7 +3,6 @@
 
 // CALL THE PACKAGES --------------------
 var express = require('express'), // call express
-    mongoose = require('mongoose'),
     config = require('./config'),
     path = require('path'),
     favicon = require('serve-favicon'), // set favicon
@@ -87,8 +86,8 @@ app.get('*', function(req, res) {
  *   = SERVER =
  *   = ========
  */
-app.listen(config.port, function() {
+app.listen(process && process.env && process.env.PORT ? process.env.PORT : config.port, function() {
   logo();
   console.time()
-    .info('Server listening at port ' + colors.bgBlue.dim.bold(config.port));
+    .info('Server listening at port ' + colors.bgBlue.dim.bold(process && process.env && process.env.PORT ? process.env.PORT : config.port));
 });

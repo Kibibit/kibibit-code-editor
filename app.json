@@ -9,5 +9,10 @@
   },
   "addons": [
 
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/krry/heroku-buildpack-nodejs-gulp-bower.git"
+    }
   ]
 }
