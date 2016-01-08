@@ -1,0 +1,12 @@
+{
+  "name": "kibibit-code-editor",
+  "description": "Remote code editor to your face!",
+  "scripts": {
+    "postdeploy": "npm install -g bower gulp"
+  },
+  "env": {
+  },
+  "addons": [
+
+  ]
+}
