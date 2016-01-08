@@ -3,7 +3,6 @@
 
 // CALL THE PACKAGES --------------------
 var express = require('express'), // call express
-    mongoose = require('mongoose'),
     config = require('./config'),
     path = require('path'),
     favicon = require('serve-favicon'), // set favicon
@@ -13,6 +12,8 @@ var express = require('express'), // call express
 var app = express(); // define our app using express
 var scribe = require('scribe-js')(); // used for logs
 var console = process.console;
+
+console.log('hello')
 
 colors.enabled = true; //enable colors even through piping.
 
@@ -87,8 +88,8 @@ app.get('*', function(req, res) {
  *   = SERVER =
  *   = ========
  */
-app.listen(config.port, function() {
+app.listen(process.env.PORT || config.port, function() {
   logo();
   console.time()
-    .info('Server listening at port ' + colors.bgBlue.dim.bold(config.port));
+    .info('Server listening at port ' + colors.bgBlue.dim.bold(process.env.PORT || config.port));
 });
