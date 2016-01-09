@@ -1,5 +1,6 @@
 approve_by_comment: true
-approve_regex: 'LGTM'
+approve_regex: 'LGTM|:lgtm:|:lgtm_strong:'
+reject_regex: 'reject( my)? approval|cancel( my)? LGTM|:lgtm_cancel:'
 reviewers:
     required: 1
     members:
