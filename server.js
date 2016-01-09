@@ -90,5 +90,5 @@ var port = process.env && process.env.PORT ? process.env.PORT : config.port;
 app.listen(port, function() {
   logo();
   console.time()
-    .info('Server listening at port ' + colors.bgBlue.dim.bold(port))
+    .info('Server listening at port ' + colors.bgBlue.dim.bold(port));
 });
