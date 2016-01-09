@@ -43,9 +43,7 @@ FILES.LINT = [].concat(FILES.FRONTEND_JS, FILES.SERVER_JS_WITHOUT_MAIN);
 // define the default task and add the watch task to it
 gulp.task('default', colors.bgCyan.black('gulp') + ' === ' + colors.bgCyan.black('gulp watch'), ['watch']);
 
-gulp.task('heroku:development', '', ['default']);
-
-module.exports = gulp.task('test', function(done) {
+gulp.task('test', 'run all tests using karma locally, and travis-ci on GitHub', function(done) {
   console.log('isTravis', isTravis);
   karma.start({
     configFile: __dirname + '/karma.conf.js',
