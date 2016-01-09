@@ -2,3 +2,5 @@ fail_on_violations: true
 jscs:
   enabled: true
   config_file: .jscsrc
+javascript:
+  enabled: false
