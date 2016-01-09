@@ -45,7 +45,7 @@ gulp.task('default', colors.bgCyan.black('gulp') + ' === ' + colors.bgCyan.black
 
 gulp.task('heroku:development', '', ['default']);
 
-module.exports = gulp.task('test', ['lint-js'], function(done) {
+module.exports = gulp.task('test', function(done) {
   console.log('isTravis', isTravis);
   karma.start({
     configFile: __dirname + '/karma.conf.js',
