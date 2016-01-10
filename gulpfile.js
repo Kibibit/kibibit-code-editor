@@ -7,7 +7,7 @@ colors = require('colors'),
 beautify = require('gulp-jsbeautifier'),
 sourcemaps = require('gulp-sourcemaps'),
 sass = require('gulp-sass'),
-minifyCSS = require('gulp-minify-css'),
+cssnano = require('gulp-cssnano'),
 rename = require('gulp-rename'),
 prettify = require('gulp-jsbeautifier'),
 jshint = require('gulp-jshint'),
@@ -118,7 +118,7 @@ gulp.task('styles', 'compile SASS to CSS', function() {
       .pipe(concat('style.css'))
       .pipe(sass().on('error', sass.logError))
 
-      //.pipe(minifyCSS())
+      //.pipe(cssnano())
       .pipe(sourcemaps.write())
       //.pipe(rename({ suffix: '.min' }))
       .pipe(gulp.dest('./public/assets/css/'));
