@@ -117,7 +117,6 @@ gulp.task('styles', 'compile SASS to CSS', function() {
       .pipe(sourcemaps.init())
       .pipe(concat('style.css'))
       .pipe(sass().on('error', sass.logError))
-
       //.pipe(cssnano())
       .pipe(sourcemaps.write())
       //.pipe(rename({ suffix: '.min' }))
