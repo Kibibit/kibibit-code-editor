@@ -34,7 +34,8 @@ angular.module('kibibitCodeEditor')
                 userHomeDirectory = res.data;
                 vm.getFolder(userHomeDirectory, function(res) {
                   vm.userHomeDirectory = res.data;
-                  console.info('using the following user folder: ' + res.data.path);
+                  console.info('using the following user folder: ' +
+                    res.data.path);
                 });
                 vm.projectFolder = true;
               });
