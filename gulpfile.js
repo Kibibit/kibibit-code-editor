@@ -18,7 +18,8 @@ shell = require('gulp-shell'),
 jscs = require('gulp-jscs'),
 argv = require('yargs').argv,
 cache = require('gulp-cached'),
-gutil = require('gulp-util');
+gutil = require('gulp-util'),
+depcheck = require('gulp-depcheck');
 
 var karma = require('karma').server;
 
@@ -51,6 +52,13 @@ gulp.task('test', 'run all tests using karma locally, and travis-ci on GitHub',
       singleRun: isTravis
     }, done);
   }
+);
+
+gulp.task('depcheck', 'checks for unused dependencies ' + colors.blue('(including devs)'),
+  depcheck({
+    ignoreDirs: [ 'test', 'logs' ],
+    ignoreMatches: ['karma-*', 'jscs-*', 'jasmine-*']
+  })
 );
 
 // configure the jshint task
