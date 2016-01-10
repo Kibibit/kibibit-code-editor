@@ -54,9 +54,10 @@ gulp.task('test', 'run all tests using karma locally, and travis-ci on GitHub',
   }
 );
 
-gulp.task('depcheck', 'checks for unused dependencies ' + colors.blue('(including devs)'),
+gulp.task('depcheck',
+  'checks for unused dependencies ' + colors.blue('(including devs)'),
   depcheck({
-    ignoreDirs: [ 'test', 'logs' ],
+    ignoreDirs: ['test', 'logs'],
     ignoreMatches: ['karma-*', 'jscs-*', 'jasmine-*']
   })
 );
