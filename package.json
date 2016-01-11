@@ -8,6 +8,10 @@
     "start": "node server.js",
     "test": "gulp test"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Kibibit/kibibit-code-editor.git"
+  },
   "author": "neilkalman@gmail.com",
   "license": "BSD-2-Clause",
   "engines": {
@@ -16,7 +20,7 @@
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "body-parser": "~1.13.3",
+    "body-parser": "^1.14.2",
     "colors": "~1.1.2",
     "directory-tree": "~0.1.1",
     "explicit-object-mapper": "~1.0.0",
