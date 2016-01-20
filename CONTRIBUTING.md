@@ -1,6 +1,6 @@
 # Testing
 
-ngDialog is in use by many people. In order to ensure quality and prevent regressions, all contributions require unit tests proving that the contribution:
+We want Kibibit to be used by many people. In order to ensure quality and prevent regressions, all contributions require unit tests proving that the contribution:
 
 1. Fixes a bug
 2. Performs new functionality as expected
@@ -16,22 +16,5 @@ If your PR adds new behaviour or modifies existing behaviour, the README should 
 
 > All code in any code-base should look like a single person typed it, no matter how many people contributed.
 
-This section describes the coding style guide of the repo. You might not agree with it and that's fine, but if you're going to send PRs, treat this guide as a law.
-
-##### There are not too much of rules to follow:
-
-- indent style is 4 spaces
-- always use single quotes
-- one space after `if`, `for`, `while`, etc.
-- no spaces between `(`,`)` and statement content
-- use one `var` per variable unless you don't assign any values to it (and it's short enough)
-- always `'use strict'` mode
-- always use strict comparisons: `===` and `!==`
-- use semicolons
-- don't use comma-first notation
-
-##### These tools will help your IDE to remind you with some of the rules listed above:
-
-- [EditorConfig](http://editorconfig.org)
-- [JSHint](http://jshint.com)
-- [ESLint](http://eslint.org)
+You might not agree with our code styling and that's fine, but if you're going to send PRs, treat this [jscs config file](.jscsrc) as a law.
+You can always run jscs to check for any lint errors. just run `gulp lint`. For ***some*** automatic fixes, you can also run `gulp format`
