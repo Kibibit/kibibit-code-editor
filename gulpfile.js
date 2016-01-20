@@ -7,7 +7,7 @@ colors = require('colors'),
 beautify = require('gulp-jsbeautifier'),
 sourcemaps = require('gulp-sourcemaps'),
 sass = require('gulp-sass'),
-minifyCSS = require('gulp-minify-css'),
+cssnano = require('gulp-cssnano'),
 rename = require('gulp-rename'),
 prettify = require('gulp-jsbeautifier'),
 jshint = require('gulp-jshint'),
@@ -18,7 +18,8 @@ shell = require('gulp-shell'),
 jscs = require('gulp-jscs'),
 argv = require('yargs').argv,
 cache = require('gulp-cached'),
-gutil = require('gulp-util');
+gutil = require('gulp-util'),
+depcheck = require('gulp-depcheck');
 
 var karma = require('karma').server;
 
@@ -51,6 +52,14 @@ gulp.task('test', 'run all tests using karma locally, and travis-ci on GitHub',
       singleRun: isTravis
     }, done);
   }
+);
+
+gulp.task('depcheck',
+  'checks for unused dependencies ' + colors.blue('(including devs)'),
+  depcheck({
+    ignoreDirs: ['test', 'logs'],
+    ignoreMatches: ['karma-*', 'jscs-*', 'jasmine-*']
+  })
 );
 
 // configure the jshint task
@@ -109,8 +118,7 @@ gulp.task('styles', 'compile SASS to CSS', function() {
       .pipe(sourcemaps.init())
       .pipe(concat('style.css'))
       .pipe(sass().on('error', sass.logError))
-
-      //.pipe(minifyCSS())
+      //.pipe(cssnano())
       .pipe(sourcemaps.write())
       //.pipe(rename({ suffix: '.min' }))
       .pipe(gulp.dest('./public/assets/css/'));

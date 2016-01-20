@@ -6,7 +6,9 @@ angular.module('kibibitCodeEditor')
   vm.getFolder = function(folderToGet, callback) {
     $http.get('/api/directory/' + encodeURIComponent(folderToGet))
                 .then(function(res) {
-                  console.log(res.errno);
+                  if (res.errno) {
+                    console.error(res.errno);
+                  }
                   if (res.errno !== null && angular.isFunction(callback)) {
                     callback(res);
                   }
