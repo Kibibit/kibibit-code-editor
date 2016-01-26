@@ -1,7 +1,7 @@
 angular.module('kibibitCodeEditor')
 
 .controller('mainController',
-  function($http, ModalService, FileService, FolderService) {
+  function($scope, $http, ngDialog, FileService, FolderService) {
 
     var vm = this;
 
@@ -9,16 +9,13 @@ angular.module('kibibitCodeEditor')
     vm.code = '';
 
     vm.showAModal = function() {
-          ModalService.showModal({
-            templateUrl: 'app/components/yesnoModal/yesnoModalTemplate.html',
-            controller: 'yesnoModalController',
-            controllerAs: 'yesnoModalCtrl'
-          }).then(function(modal) {
-            modal.close.then(function(result) {
-              vm.customResult = 'All good!';
-            });
-          });
-        };
+      ngDialog.open({
+        template: 'app/components/yesnoModal/yesnoModalTemplate.html',
+        controller: 'yesnoModalController',
+            controllerAs: 'yesnoModalCtrl',
+            scope: $scope
+      });
+    };
 
     vm.currentFolder = '';
 

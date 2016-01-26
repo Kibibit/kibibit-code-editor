@@ -1,9 +1,7 @@
 angular.module('kibibitCodeEditor')
 
-.controller('yesnoModalController', ['close', function(close) {
+.controller('yesnoModalController', function() {
 
   var yesnoModalCtrl = this;
 
-  yesnoModalCtrl.close = close;
-
-}]);
+});
