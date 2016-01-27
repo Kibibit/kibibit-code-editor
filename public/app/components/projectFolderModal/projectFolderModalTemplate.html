@@ -1,6 +1,6 @@
 <div class="projectTreeContainer" ng-if="main.projectFolder">
     <div class="sidebar-header entypo-folder"> {{main.userHomeDirectory.name}}</div>
-    <treecontrol class="tree" tree-model="main.userHomeDirectory" options="main.treeOptions" on-selection="main.onSelection(node); main.setCurrentFolder(node)" expanded-nodes="main.expandedNodes">
+    <treecontrol class="tree" tree-model="main.userHomeDirectory" options="main.treeOptions" on-selection="projectFolderModalCtrl.onSelection(node) && main.setCurrentFolder(node)" expanded-nodes="projectFolderModalCtrl.expandedNodes">
         <file-name file="node"></file-name>
     </treecontrol>
 </div>
