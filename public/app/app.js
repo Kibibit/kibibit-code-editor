@@ -5,7 +5,7 @@ angular.module('kibibitCodeEditor',
 	'treeControl',
 	'ui.ace',
 	'angularResizable',
-	'angularModalService'])
+	'ngDialog'])
 .config(['$compileProvider', function($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
 }]);
