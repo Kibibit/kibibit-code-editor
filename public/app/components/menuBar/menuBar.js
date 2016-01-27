@@ -10,7 +10,7 @@ angular.module('kibibitCodeEditor')
 
 .filter('keyboardShortcut', function($window) {
   return function(str) {
-    if (!str) return;
+    if (!str) { return; }
     var keys = str.split('-');
     var isOSX = /Mac OS X/.test($window.navigator.userAgent);
     var seperator = (!isOSX || keys.length > 2) ? '+' : '';
