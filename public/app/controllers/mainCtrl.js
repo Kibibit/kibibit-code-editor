@@ -19,7 +19,8 @@ angular.module('kibibitCodeEditor')
 
     vm.showProjectSelectModal = function() {
       ngDialog.open({
-        template: 'app/components/projectFolderModal/projectFolderModalTemplate.html',
+        template:
+          'app/components/projectFolderModal/projectFolderModalTemplate.html',
         controller: 'projectFolderModalController',
         controllerAs: 'projectFolderModalCtrl',
         className: 'ngdialog-theme-default',
