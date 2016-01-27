@@ -4,7 +4,7 @@
   "description": "code editor on the cloud",
   "main": "server.js",
   "scripts": {
-    "postinstall": "node ./node_modules/bower/bin/bower install && node ./node_modules/gulp/bin/gulp styles",
+    "postinstall": "node ./node_modules/bower/lib/bin/bower install && node ./node_modules/gulp/bin/gulp styles",
     "start": "node server.js",
     "test": "gulp test"
   },
