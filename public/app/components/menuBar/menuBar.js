@@ -26,7 +26,7 @@ angular.module('kibibitCodeEditor')
   };
 })
 
-.controller('menuBarController', function() {
+.controller('menuBarController', function(ngDialog) {
   var vm = this;
   vm.settings = {
     printLayout: true,
@@ -35,11 +35,9 @@ angular.module('kibibitCodeEditor')
     presentationMode: 'edit'
   };
   vm.sampleAction = function(name, ev) {
-    $mdDialog.show($mdDialog.alert()
-      .title(name)
-      .textContent('You triggered the "' + name + '" action')
-      .ok('Great')
-      .targetEvent(ev)
-    );
+    ngDialog.open({
+      template: '<p>You triggered the "' + name + '" action</p>',
+      plain: true
+    });
   };
-  });
+});
