@@ -12,8 +12,18 @@ angular.module('kibibitCodeEditor')
       ngDialog.open({
         template: 'app/components/yesnoModal/yesnoModalTemplate.html',
         controller: 'yesnoModalController',
-            controllerAs: 'yesnoModalCtrl',
-            scope: $scope
+        controllerAs: 'yesnoModalCtrl',
+        scope: $scope
+      });
+    };
+
+    vm.showProjectSelectModal = function() {
+      ngDialog.open({
+        template: 'app/components/projectFolderModal/projectFolderModalTemplate.html',
+        controller: 'projectFolderModalController',
+        controllerAs: 'projectFolderModalCtrl',
+        className: 'ngdialog-theme-default',
+        scope: $scope
       });
     };
 
@@ -29,12 +39,13 @@ angular.module('kibibitCodeEditor')
       $http.get('/api/userHomeDirectory/')
               .then(function(res) {
                 userHomeDirectory = res.data;
-                vm.getFolder(userHomeDirectory, function(res) {
+                FolderService.getFolder(userHomeDirectory, function(res) {
                   vm.userHomeDirectory = res.data;
                   console.info('using the following user folder: ' +
                     res.data.path);
                 });
                 vm.projectFolder = true;
+                vm.showProjectSelectModal();
               });
     };
 
@@ -47,11 +58,7 @@ angular.module('kibibitCodeEditor')
         vm.workFolder = res.data;
         console.log('got res: ' + res);
       });
-    };
-
-    // get folder name once
-    vm.getFolder = function(folderToGet, callback) {
-      FolderService.getFolder(folderToGet, callback);
+      return true;
     };
 
     // get file from the server and update the ace session content
