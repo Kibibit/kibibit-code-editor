@@ -1,8 +1,5 @@
+<menu-bar></menu-bar>
 <div class="sidebar" resizable r-directions="['right']">
-    <button class="btn" ng-click="main.showAModal()">modal</button>
-    <!-- temp buttons and tree to open project -->
-    <button class="btn" ng-click="main.openProject()">Open Project</button>
-    <!--  -->
     <div class="treeContainer" ng-if="main.workFolder">
         <div class="sidebar-header entypo-folder"> {{main.workFolder.name}}</div>
         <treecontrol class="tree-dark" tree-model="main.workFolder" options="main.treeOptions" on-selection="main.onSelection(node)" expanded-nodes="main.expandedNodes">
