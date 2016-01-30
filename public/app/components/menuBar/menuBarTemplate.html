@@ -131,7 +131,12 @@
                         <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.showSpellingSuggestions">Show spelling suggestions</md-menu-item>
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.compactControls">Compact controls</md-menu-item>
-                        <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.fullScreen">Full screen</md-menu-item>
+                        <md-menu-item class="md-indent">
+                            <md-button ng-click="main.goFullscreen()">
+                                Fullscreen
+                                <span class="md-alt-text"> {{ 'F12' | keyboardShortcut }}</span>
+                            </md-button>
+                        </md-menu-item>
                     </md-menu-content>
                 </md-menu>
                 <md-menu>
