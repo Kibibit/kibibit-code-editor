@@ -76,14 +76,14 @@ angular.module('kibibitCodeEditor')
       }
     };
 
-    vm.goFullscreen = function () {
+    vm.goFullscreen = function() {
 
       if (Fullscreen.isEnabled()) {
         Fullscreen.cancel();
       } else {
         Fullscreen.all();
       }
-   }
+    };
 
     vm.treeOptions = {
       nodeChildren: 'children',
