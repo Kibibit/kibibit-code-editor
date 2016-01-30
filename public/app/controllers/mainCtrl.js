@@ -1,7 +1,7 @@
 angular.module('kibibitCodeEditor')
 
 .controller('mainController',
-  function($scope, $http, ngDialog, FileService, FolderService) {
+  function($scope, $http, ngDialog, FileService, FolderService, Fullscreen) {
 
     var vm = this;
 
@@ -75,6 +75,15 @@ angular.module('kibibitCodeEditor')
         });
       }
     };
+
+    vm.goFullscreen = function () {
+
+      if (Fullscreen.isEnabled()) {
+        Fullscreen.cancel();
+      } else {
+        Fullscreen.all();
+      }
+   }
 
     vm.treeOptions = {
       nodeChildren: 'children',
