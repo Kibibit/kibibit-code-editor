@@ -8,6 +8,10 @@ We want Kibibit to be used by many people. In order to ensure quality and preven
 
 In addition, where a contribution is aimed at resolving a bug or implementing a feature that can only be measured in a real browser, an e2e test proving the expected behaviour should be included.
 
+# Link PR and issues
+
+To connect between your PR and a specific Issue, write the following somewhere in your PR: `connects to #{PR number}`
+
 # README
 
 If your PR adds new behaviour or modifies existing behaviour, the README should be updated.
