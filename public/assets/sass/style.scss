@@ -105,3 +105,7 @@ md-toolbar h2.md-toolbar-tools {
 .ngdialog {
   overflow: hidden;
 }
+
+.ui-layout-column, .ui-layout-row, .ui-splitbar {
+  overflow: hidden;
+}
