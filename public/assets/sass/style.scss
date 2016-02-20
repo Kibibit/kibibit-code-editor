@@ -1,14 +1,101 @@
-.container {
+/*.container {
 	width: 100vw;
 	height: 100vh;
 	margin: 0;
 	padding: 0;
+}*/
+
+body {
+      font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.editor {
+code-editor {
 	// display: inline-block;
 	// width: 80%;
-	 height: 100vh;
+	// height: 100vh;
 	// background: blue;
 	// display: flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  .editor {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Styles go here */
+
+.glyphicon-chevron-left,
+.glyphicon-chevron-right,
+.glyphicon-chevron-up,
+.glyphicon-chevron-down{
+  color: #aaa;
+}
+
+.status-bar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-right: 5px;
+  margin-left: 5px;
+  background: rgb(70, 70, 70);
+  color: rgb(255, 188, 0);
+}
+
+body, .ui-splitbar {
+  background: rgb(70, 70, 70);
+  z-index: 5;
+}
+
+.ui-splitbar .glyphicon {
+  color: grey;
+}
+
+.menu-bar-container {
+  background: rgb(70, 70, 70);
+  overflow: hidden;
+}
+
+.sidebar-container, .main-view-container {
+  background: rgb(38, 38, 38);
+  color: rgb(255, 188, 0);
+}
+
+.sidebar-container {
+  padding: 10px;
+  background: rgb(70, 70, 70);
+}
+
+.main-view-container {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
+.tabs {
+  height: 50px;
+}
+
+.main-view {
+  border-top: rgb(70, 70, 70) solid 10px;
+  border-right: rgb(70, 70, 70) solid 10px;
+  flex-grow: 1;
+  position: relative;
+}
+
+.sidebar {
+  white-space: nowrap;
+  overflow: auto;
+}
+
+md-toolbar.md-menu-dark {
+  background-color: rgb(70, 70, 70);
+  color: rgb(255, 188, 0);
+}
+
+md-toolbar h2.md-toolbar-tools {
+  color: rgb(255, 188, 0)
 }

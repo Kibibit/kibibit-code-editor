@@ -7,7 +7,8 @@ angular.module('kibibitCodeEditor',
 	'angularResizable',
 	'ngDialog',
 	'ngMaterial',
-	'FBAngular'])
+	'FBAngular',
+	'ui.layout'])
 .config(['$compileProvider', function($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
 }]);
