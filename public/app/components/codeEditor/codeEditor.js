@@ -34,12 +34,16 @@ angular.module('kibibitCodeEditor')
 
 .directive('kbChangeAceScroll', ['$compile', function($compile) {
   return {
-    scope: true,
+    scope: false,
     link: function(scope, element, attrs) {
-      var scrollbarY = element.find('.ace_scrollbar.ace_scrollbar-v');
-      var scrollbarX = element.find('.ace_scrollbar.ace_scrollbar-h');
-      scrollbarY.attr('ng-scrollbars', '');
-      scrollbarX.attr('ng-scrollbars', '');
+      var scrollbarY = element.parent().find('.ace_scrollbar.ace_scrollbar-v');
+      var scrollbarX = element.parent().find('.ace_scrollbar.ace_scrollbar-h');
+      scope.$watch(function() {
+        return scrollbarY.find('.ace_scrollbar-inner').height();
+      }, updateY);
+      scope.$watch(function() {
+        return scrollbarX.find('.ace_scrollbar-inner').width();
+      }, updateX);
       scope.config = {
         scrollButtons: {
             scrollAmount: 'auto', // scroll amount when button pressed
@@ -49,9 +53,14 @@ angular.module('kibibitCodeEditor')
         axis: 'yx', // enable 2 axis scrollbars by default,
         theme: 'minimal',
         autoHideScrollbar: true
-    };
-      $compile(scrollbarY)(scope);
-      $compile(scrollbarX)(scope);
+      };
+      function updateY(newVal, oldVal) {
+        console.log("update scroll Y");
+      }
+
+      function updateX(newVal, oldVal) {
+        console.log("update scroll X");
+      }
     }
   };
 }]);
