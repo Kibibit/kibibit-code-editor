@@ -67,6 +67,7 @@ body, .ui-splitbar {
 .sidebar-container {
   padding: 10px;
   background: rgb(70, 70, 70);
+  overflow: hidden;
 }
 
 .main-view-container {
@@ -88,7 +89,8 @@ body, .ui-splitbar {
 
 .sidebar {
   white-space: nowrap;
-  overflow: auto;
+  height: 100%;
+  width: 100%;
 }
 
 md-toolbar.md-menu-dark {
@@ -98,4 +100,8 @@ md-toolbar.md-menu-dark {
 
 md-toolbar h2.md-toolbar-tools {
   color: rgb(255, 188, 0)
+}
+
+.ngdialog {
+  overflow: hidden;
 }

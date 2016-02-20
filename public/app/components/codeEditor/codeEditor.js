@@ -30,4 +30,28 @@ angular.module('kibibitCodeEditor')
     onLoad: vm.aceLoaded,
     onChange: vm.aceChanged
   };
-});
+})
+
+.directive('kbChangeAceScroll', ['$compile', function($compile) {
+  return {
+    scope: true,
+    link: function(scope, element, attrs) {
+      var scrollbarY = element.find('.ace_scrollbar.ace_scrollbar-v');
+      var scrollbarX = element.find('.ace_scrollbar.ace_scrollbar-h');
+      scrollbarY.attr('ng-scrollbars', '');
+      scrollbarX.attr('ng-scrollbars', '');
+      scope.config = {
+        scrollButtons: {
+            scrollAmount: 'auto', // scroll amount when button pressed
+            enable: false // enable scrolling buttons by default
+        },
+        scrollInertia: 400, // adjust however you want
+        axis: 'yx', // enable 2 axis scrollbars by default,
+        theme: 'minimal',
+        autoHideScrollbar: true
+    };
+      $compile(scrollbarY)(scope);
+      $compile(scrollbarX)(scope);
+    }
+  };
+}]);
