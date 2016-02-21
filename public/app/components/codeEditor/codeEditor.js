@@ -46,8 +46,8 @@ angular.module('kibibitCodeEditor')
       }, updateX);
       scope.config = {
         scrollButtons: {
-            scrollAmount: 'auto', // scroll amount when button pressed
-            enable: false // enable scrolling buttons by default
+          scrollAmount: 'auto', // scroll amount when button pressed
+          enable: false // enable scrolling buttons by default
         },
         scrollInertia: 400, // adjust however you want
         axis: 'yx', // enable 2 axis scrollbars by default,
@@ -55,11 +55,11 @@ angular.module('kibibitCodeEditor')
         autoHideScrollbar: true
       };
       function updateY(newVal, oldVal) {
-        console.log("update scroll Y");
+        console.log('update scroll Y');
       }
 
       function updateX(newVal, oldVal) {
-        console.log("update scroll X");
+        console.log('update scroll X');
       }
     }
   };
