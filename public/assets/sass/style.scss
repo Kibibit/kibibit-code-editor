@@ -43,6 +43,8 @@ code-editor {
   margin-left: 5px;
   background: rgb(70, 70, 70);
   color: rgb(255, 188, 0);
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 body, .ui-splitbar {
@@ -91,6 +93,8 @@ body, .ui-splitbar {
   white-space: nowrap;
   height: 100%;
   width: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 md-toolbar.md-menu-dark {
@@ -99,7 +103,7 @@ md-toolbar.md-menu-dark {
 }
 
 md-toolbar h2.md-toolbar-tools {
-  color: rgb(255, 188, 0)
+  color: rgb(255, 188, 0);
 }
 
 .ngdialog {
@@ -108,4 +112,13 @@ md-toolbar h2.md-toolbar-tools {
 
 .ui-layout-column, .ui-layout-row, .ui-splitbar {
   overflow: hidden;
+}
+
+treecontrol * {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ace_fold-widget {
+  color: rgb(255, 188, 0) !important;
 }
