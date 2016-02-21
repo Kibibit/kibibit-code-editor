@@ -1,6 +1,6 @@
 $important: rgb(255, 188, 0);
 $color1: rgb(70, 70, 70);
-$color2: grey;
+$color2: #808080;
 $color3: rgb(38, 38, 38);
 
 
@@ -9,7 +9,7 @@ body {
 }
 
 code-editor {
-	bottom: 0;
+  bottom: 0;
   left: 0;
   position: absolute;
   right: 0;
@@ -78,8 +78,8 @@ body,
 }
 
 .main-view {
-  border-top: $color1 solid 10px;
   border-right: $color1 solid 10px;
+  border-top: $color1 solid 10px;
   flex-grow: 1;
   position: relative;
 }
