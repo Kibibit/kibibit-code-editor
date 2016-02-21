@@ -1,76 +1,68 @@
-/*.container {
-	width: 100vw;
-	height: 100vh;
-	margin: 0;
-	padding: 0;
-}*/
+$important: rgb(255, 188, 0);
+$color1: rgb(70, 70, 70);
+$color2: grey;
+$color3: rgb(38, 38, 38);
+
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 code-editor {
-	// display: inline-block;
-	// width: 80%;
-	// height: 100vh;
-	// background: blue;
-	// display: flex;
-  
-  bottom: 0;
+	bottom: 0;
   left: 0;
   position: absolute;
-  top: 0;
   right: 0;
+  top: 0;
+
   .editor {
     height: 100%;
     width: 100%;
   }
 }
 
-/* Styles go here */
-
 .glyphicon-chevron-left,
 .glyphicon-chevron-right,
 .glyphicon-chevron-up,
 .glyphicon-chevron-down {
-  color: #aaa;
+  color: $color2;
 }
 
 .status-bar {
   align-items: center;
-  background: rgb(70, 70, 70);
-  color: rgb(255, 188, 0);
+  background: $color1;
+  color: $important;
   display: flex;
   flex-wrap: nowrap;
-  margin-left: 5px;
-  margin-right: 5px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 body,
 .ui-splitbar {
-  background: rgb(70, 70, 70);
+  background: $color1;
   z-index: 5;
 }
 
 .ui-splitbar .glyphicon {
-  color: grey;
+  color: $color2;
 }
 
 .menu-bar-container {
-  background: rgb(70, 70, 70);
+  background: $color1;
   overflow: hidden;
 }
 
 .sidebar-container,
 .main-view-container {
-  background: rgb(38, 38, 38);
-  color: rgb(255, 188, 0);
+  background: $color3;
+  color: $important;
 }
 
 .sidebar-container {
-  background: rgb(70, 70, 70);
+  background: $color1;
   overflow: hidden;
   padding: 10px;
 }
@@ -86,8 +78,8 @@ body,
 }
 
 .main-view {
-  border-top: rgb(70, 70, 70) solid 10px;
-  border-right: rgb(70, 70, 70) solid 10px;
+  border-top: $color1 solid 10px;
+  border-right: $color1 solid 10px;
   flex-grow: 1;
   position: relative;
 }
@@ -101,12 +93,12 @@ body,
 }
 
 md-toolbar.md-menu-dark {
-  background-color: rgb(70, 70, 70);
-  color: rgb(255, 188, 0);
+  background-color: $color1;
+  color: $important;
 }
 
 md-toolbar h2.md-toolbar-tools {
-  color: rgb(255, 188, 0);
+  color: $important;
 }
 
 .ngdialog {
