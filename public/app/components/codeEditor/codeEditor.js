@@ -12,15 +12,23 @@ angular.module('kibibitCodeEditor')
   };
 })
 
-.controller('codeEditorController', function() {
+.controller('codeEditorController', ['$scope', 'SettingsService', function($scope, SettingsService) {
   var vm = this;
 
   // initialize the editor session
   vm.aceLoaded = function(_editor) {
     vm.aceSession = _editor.getSession();
+    _editor.on("changeSelection", function(blah) {
+      $scope.$apply(function() {
+          var settings = SettingsService.setSettings({
+          cursor: _editor.selection.getCursor()
+        });
+        console.debug("editor's cursor changed position:", settings.cursor);
+      });
+    });
   };
   // save the content of the editor on-change
-  vm.aceChanged = function() {
+  vm.aceChanged = function(_editor) {
     vm.aceDocumentValue = vm.aceSession.getDocument().getValue();
   };
 
@@ -30,7 +38,7 @@ angular.module('kibibitCodeEditor')
     onLoad: vm.aceLoaded,
     onChange: vm.aceChanged
   };
-})
+}])
 
 .directive('kbChangeAceScroll', ['$compile', function($compile) {
   return {
