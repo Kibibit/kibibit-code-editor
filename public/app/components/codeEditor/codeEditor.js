@@ -12,19 +12,20 @@ angular.module('kibibitCodeEditor')
   };
 })
 
-.controller('codeEditorController', ['$scope', 'SettingsService', function($scope, SettingsService) {
+.controller('codeEditorController', ['$scope', '$timeout', 'SettingsService', function($scope, $timeout, SettingsService) {
   var vm = this;
 
   // initialize the editor session
   vm.aceLoaded = function(_editor) {
     vm.aceSession = _editor.getSession();
-    _editor.on("changeSelection", function(blah) {
-      $scope.$apply(function() {
-          var settings = SettingsService.setSettings({
-          cursor: _editor.selection.getCursor()
-        });
-        console.debug("editor's cursor changed position:", settings.cursor);
-      });
+    // save cursor position
+    _editor.on("changeSelection", function() {
+          $timeout(function() {
+            var settings = SettingsService.setSettings({
+              cursor: _editor.selection.getCursor()
+            });
+            console.debug("editor's cursor changed position:", settings.cursor);
+          });
     });
   };
   // save the content of the editor on-change
