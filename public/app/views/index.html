@@ -48,7 +48,7 @@
         </div>
       </div>
       <div ui-layout-container size="30px" class="status-bar">
-        <span>Line 5 - Column 2</span>
+        <span>Line {{main.settings.cursor.row}} - Column {{main.settings.cursor.column}}</span>
       </div>
     </div>
     <!-- <main>
@@ -94,6 +94,7 @@
     <script type="text/javascript" src="app/services/userService.js"></script>
     <script type="text/javascript" src="app/services/fileService.js"></script>
     <script type="text/javascript" src="app/services/folderService.js"></script>
+    <script type="text/javascript" src="app/services/settingsService.js"></script>
 </body>
 
 </html>

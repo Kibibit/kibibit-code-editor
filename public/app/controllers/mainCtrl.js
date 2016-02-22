@@ -1,12 +1,14 @@
 angular.module('kibibitCodeEditor')
 
 .controller('mainController',
-  function($scope, $http, ngDialog, FileService, FolderService, Fullscreen) {
+  function($scope, $http, ngDialog, FileService, FolderService, Fullscreen, SettingsService) {
 
     var vm = this;
 
     // Init
     vm.code = '';
+
+    vm.settings = SettingsService.getSettings();
 
     vm.showAModal = function() {
       ngDialog.open({
