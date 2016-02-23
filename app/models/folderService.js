@@ -32,7 +32,7 @@ folderService.get = function(req, res) {
           });
         }
       }
-
+      output.children.sort(compare);
       res.json(output);
     } catch (error) {
       res.json(error);
@@ -40,6 +40,32 @@ folderService.get = function(req, res) {
         .error('directory requested not found: ' + directoryFullPath);
     }
   });
+
+  function compare(a,b) {
+    if (a.type === 'directory') {
+      if (b.type === 'directory') {
+        if (a.name < b.name)
+          return -1;
+        else if (a.name > b.name)
+          return 1;
+        else
+          return 0;
+      } else {
+        return -1;
+      }
+    } else {
+      if (b.type === 'directory') {
+        return 1;
+      } else {
+        if (a.name < b.name)
+          return -1;
+        else if (a.name > b.name)
+          return 1;
+        else
+          return 0;
+      }
+    }
+  }
 };
 
 folderService.getFileExtension = function(filename) {
