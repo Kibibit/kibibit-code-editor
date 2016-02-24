@@ -144,6 +144,7 @@ treecontrol .tree-expanded .tree-branch-head {
   -webkit-mask-size: cover;
   //background: url('../images/chevron-down.svg') !important;
   background: #91a2a8 !important;
+  pointer-events: none;
 }
 
 treecontrol .tree-collapsed .tree-branch-head {
@@ -152,6 +153,7 @@ treecontrol .tree-collapsed .tree-branch-head {
   -webkit-mask: url(../images/chevron-right.svg) no-repeat 50% 50%;
   -webkit-mask-size: cover;
   background: #91a2a8 !important;
+  pointer-events: none;
 }
 
 file-name.directory {
