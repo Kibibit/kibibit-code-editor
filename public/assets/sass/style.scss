@@ -136,3 +136,20 @@ treecontrol * {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+treecontrol .tree-expanded .tree-branch-head {
+  mask: url(../images/chevron-down.svg) no-repeat 50% 50%;
+  mask-size: cover;
+  -webkit-mask: url(../images/chevron-down.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  //background: url('../images/chevron-down.svg') !important;
+  background: #91a2a8 !important;
+}
+
+treecontrol .tree-collapsed .tree-branch-head {
+  mask: url(../images/chevron-right.svg) no-repeat 50% 50%;
+  mask-size: cover;
+  -webkit-mask: url(../images/chevron-right.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  background: #91a2a8 !important;
+}
