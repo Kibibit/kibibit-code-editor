@@ -36,7 +36,7 @@
                 <div class="treeContainer" ng-if="main.workFolder">
                     <div class="sidebar-header entypo-folder"> {{main.workFolder.name}}</div>
                     <treecontrol class="tree-dark" tree-model="main.workFolder" options="main.treeOptions" on-selection="main.onSelection(node)" expanded-nodes="main.expandedNodes">
-                        <file-name file="node"></file-name>
+                        <file-name ng-class="node.type" file="node"></file-name>
                     </treecontrol>
                 </div>
             </div>
