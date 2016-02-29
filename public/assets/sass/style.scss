@@ -113,13 +113,17 @@ body,
   position: relative;
 }
 
-md-toolbar.md-menu-dark {
-  background-color: $color1;
-  color: $primary;
+md-toolbar {
+  &.md-menu-dark {
+   background-color: $color1;
+   color: $primary;
+ }
 }
 
-md-toolbar h2.md-toolbar-tools {
-  color: $primary;
+md-toolbar h2 {
+  &.md-toolbar-tools {
+    color: $primary;
+  }
 }
 
 .ngdialog {
@@ -137,8 +141,10 @@ treecontrol * {
   -webkit-font-smoothing: antialiased;
 }
 
-file-name.directory {
-  font-weight: normal;
+file-name {
+  &.directory {
+    font-weight: normal;
+  }
 }
 
 treecontrol {
