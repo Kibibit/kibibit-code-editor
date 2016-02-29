@@ -1,12 +1,28 @@
 angular.module('kibibitCodeEditor')
 
-.controller('mainController',
-  function($scope, $http, ngDialog, FileService, FolderService, Fullscreen) {
+.controller('mainController', [
+  '$scope',
+  '$http',
+  'ngDialog',
+  'FileService',
+  'FolderService',
+  'Fullscreen',
+  'SettingsService',
+  function(
+    $scope,
+    $http,
+    ngDialog,
+    FileService,
+    FolderService,
+    Fullscreen,
+    SettingsService) {
 
     var vm = this;
 
     // Init
     vm.code = '';
+
+    vm.settings = SettingsService.getSettings();
 
     vm.showAModal = function() {
       ngDialog.open({
@@ -65,10 +81,15 @@ angular.module('kibibitCodeEditor')
     // get file from the server and update the ace session content
     vm.onSelection = function(node) {
       if (node.type == 'directory') {
-        FolderService.getFolder(node.path, function(res) {
-          node.children = res.data.children;
-        });
-        vm.expandedNodes.push(node);
+        var nodeIndex = vm.expandedNodes.indexOf(node);
+        if (nodeIndex > -1) {
+          vm.expandedNodes.splice(nodeIndex, 1);
+        } else {
+          FolderService.getFolder(node.path, function(res) {
+            node.children = res.data.children;
+          });
+          vm.expandedNodes.push(node);
+        }
       } else {
         FileService.getFile(node.path, function(res) {
           vm.code = res.data;
@@ -87,6 +108,9 @@ angular.module('kibibitCodeEditor')
 
     vm.treeOptions = {
       nodeChildren: 'children',
-      dirSelectable: false
+      dirSelectable: true,
+      isLeaf: function(node) {
+        return node.type !== 'directory';
+      }
     };
-  });
+  }]);
