@@ -137,25 +137,29 @@ treecontrol * {
   -webkit-font-smoothing: antialiased;
 }
 
-treecontrol .tree-expanded .tree-branch-head {
-  mask: url(../images/chevron-down.svg) no-repeat 50% 50%;
-  mask-size: cover;
-  -webkit-mask: url(../images/chevron-down.svg) no-repeat 50% 50%;
-  -webkit-mask-size: cover;
-  //background: url('../images/chevron-down.svg') !important;
-  background: #91a2a8 !important;
-  pointer-events: none;
-}
-
-treecontrol .tree-collapsed .tree-branch-head {
-  mask: url(../images/chevron-right.svg) no-repeat 50% 50%;
-  mask-size: cover;
-  -webkit-mask: url(../images/chevron-right.svg) no-repeat 50% 50%;
-  -webkit-mask-size: cover;
-  background: #91a2a8 !important;
-  pointer-events: none;
-}
-
 file-name.directory {
   font-weight: normal;
+}
+
+treecontrol {
+
+  .tree-expanded,
+  .tree-collapsed {
+    background: #91a2a8 !important;
+    -webkit-mask: url("../images/chevron-right.svg") no-repeat 50% 50%;
+    mask: url("../images/chevron-right.svg") no-repeat 50% 50%;
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    pointer-events: none;
+  }
+
+  .tree-expanded .tree-branch-head {
+    -webkit-mask: url("../images/chevron-down.svg") no-repeat 50% 50%;
+    mask: url("../images/chevron-down.svg") no-repeat 50% 50%;
+  }
+
+  .tree-collapsed .tree-branch-head {
+    -webkit-mask: url("../images/chevron-right.svg") no-repeat 50% 50%;
+    mask: url("../images/chevron-right.svg") no-repeat 50% 50%;
+  }
 }
