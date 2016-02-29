@@ -12,11 +12,17 @@ angular.module('kibibitCodeEditor')
   };
 })
 
-.controller('codeEditorController', ['$scope', '$timeout', 'SettingsService', function($scope, $timeout, SettingsService) {
-  var vm = this;
+.controller('codeEditorController', [
+  '$timeout',
+  'SettingsService',
+  function(
+    $timeout,
+    SettingsService) {
 
-  // initialize the editor session
-  vm.aceLoaded = function(_editor) {
+    var vm = this;
+
+    // initialize the editor session
+    vm.aceLoaded = function(_editor) {
     vm.aceSession = _editor.getSession();
     // save cursor position
     _editor.on('changeSelection', function() {
@@ -24,24 +30,25 @@ angular.module('kibibitCodeEditor')
             var settings = SettingsService.setSettings({
               cursor: _editor.selection.getCursor()
             });
-            console.debug('editor\'s cursor changed position:', settings.cursor);
+            console.debug('editor\'s cursor changed position:',
+              settings.cursor);
           });
     });
   };
-  // save the content of the editor on-change
-  vm.aceChanged = function(_editor) {
+    // save the content of the editor on-change
+    vm.aceChanged = function(_editor) {
     vm.aceDocumentValue = vm.aceSession.getDocument().getValue();
   };
 
-  vm.editorOptions = {
+    vm.editorOptions = {
     mode: 'javascript',
     theme: 'monokai',
     onLoad: vm.aceLoaded,
     onChange: vm.aceChanged
   };
-}])
+  }])
 
-.directive('kbChangeAceScroll', ['$compile', function($compile) {
+.directive('kbChangeAceScroll', function() {
   return {
     scope: false,
     link: function(scope, element, attrs) {
@@ -72,4 +79,4 @@ angular.module('kibibitCodeEditor')
       }
     }
   };
-}]);
+});
