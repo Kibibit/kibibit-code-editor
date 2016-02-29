@@ -148,12 +148,12 @@ treecontrol {
 
   .tree-expanded,
   .tree-collapsed {
-    background: $color2 !important;
-    -webkit-mask: url("../images/chevron-right.svg") no-repeat 50% 50%;
-    mask: url("../images/chevron-right.svg") no-repeat 50% 50%;
-    -webkit-mask-size: cover;
-    mask-size: cover;
-    pointer-events: none;
+    .tree-branch-head {
+      background: $color2 !important;
+      -webkit-mask-size: cover !important;
+      mask-size: cover;
+      pointer-events: none;
+    }
   }
 
   .tree-expanded .tree-branch-head {
