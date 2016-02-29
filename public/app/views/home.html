@@ -1,10 +1,1 @@
-<menu-bar></menu-bar>
-<div class="sidebar" resizable r-directions="['right']">
-    <div class="treeContainer" ng-if="main.workFolder">
-        <div class="sidebar-header entypo-folder"> {{main.workFolder.name}}</div>
-        <treecontrol class="tree-dark" tree-model="main.workFolder" options="main.treeOptions" on-selection="main.onSelection(node)" expanded-nodes="main.expandedNodes">
-            <file-name file="node"></file-name>
-        </treecontrol>
-    </div>
-</div>
 <code-editor code="main.code"></code-editor>

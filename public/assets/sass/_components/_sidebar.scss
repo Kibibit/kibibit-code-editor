@@ -1,25 +1,14 @@
 .sidebar {
-	width: 10%;
-	height: 100vh;
-	min-width: 60px;
-	max-width: 500px;
-    white-space: nowrap;
-	float: left;
-	background-color: #555;
-	font-size: 70%;
-	overflow-y: auto;
-	overflow-x: hidden;
-	.sidebar-header {
-		color: rgb(221, 221, 221);
-	}
-
-	treecontrol {
-		zoom: 70%;
-	}
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  height: 100%;
+  white-space: nowrap;
+  width: 100%;
 }
 
-.rg-right {
-	z-index: 10;
-	margin-right: 0;
-	width: 15px;
+.sidebar-container {
+  background: $color1;
+  color: $primary;
+  overflow: hidden;
+  padding: 10px;
 }

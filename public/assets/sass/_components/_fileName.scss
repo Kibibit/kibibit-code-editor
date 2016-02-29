@@ -1,31 +1,107 @@
-.blue-text {
-	color: #6BCAE2;
-}
+file-name {
+  $granny-smith-icon: #91a2a8;
+  $hippie-blue-icon: #5aa1b5;
+  $copperfield-icon: #d28c5d;
+  $magic-mint-icon: #9febc1;
+  $tall-poppy-icon: #a93c2a;
+  $red-damask-icon: #db7e44;
+  $jungle-mist-icon: #b0d1d1;
+  $caribbean-green-icon: #00dfa7;
+  $macaroni-and-cheese-icon: #fdba75;
+  $sapling-icon: #e1dda3;
+  $denim-icon: #176fb2;
+  $tuscany-icon: #cd6732;
+  $indigo-icon: #5e78c0;
+  $rose-fog-icon: #e1afa9;
+  $mulberry-icon: #d1508a;
+  $indochine-icon: #cf7a08;
+  $key-line-pie-icon: #b3ce20;
+  $spindle-icon: #bbc5e9;
+  $scarlet-icon: #ff2f00;
+  $blaze-orange-icon: #ff5d00;
+  $selective-yellow-icon: rgb(255, 188, 0);
 
-.orange-text {
-	color: #D1813C;
-}
+  .granny-smith-icon {
+    color: $granny-smith-icon;
+  }
 
-.green-text {
-	color: #87E293;
-}
+  .hippie-blue-icon {
+    color: $hippie-blue-icon;
+  }
 
-.glowing-green-text {
-	color: #00DDA1;
-}
+  .copperfield-icon {
+    color: $copperfield-icon;
+  }
 
-.grey-text {
-	color: #93A3A7;
-}
+  .magic-mint-icon {
+    color: $magic-mint-icon;
+  }
 
-.brown-text {
-	color: #CA8E59;
-}
+  .tall-poppy-icon {
+    color: $tall-poppy-icon;
+  }
 
-.light-green-text {
-	color: #A7EBBE;
-}
+  .red-damask-icon {
+    color: $red-damask-icon;
+  }
 
-.emo-pink-text {
-	color: #C74F8C;
+  .jungle-mist-icon {
+    color: $jungle-mist-icon;
+  }
+
+  .caribbean-green-icon {
+    color: $caribbean-green-icon;
+  }
+
+  .macaroni-and-cheese-icon {
+    color: $macaroni-and-cheese-icon;
+  }
+
+  .sapling-icon {
+    color: $sapling-icon;
+  }
+
+  .denim-icon {
+    color: $denim-icon;
+  }
+
+  .tuscany-icon {
+    color: $tuscany-icon;
+  }
+
+  .indigo-icon {
+    color: $indigo-icon;
+  }
+
+  .rose-fog-icon {
+    color: $rose-fog-icon;
+  }
+
+  .mulberry-icon {
+    color: $mulberry-icon;
+  }
+
+  .indochine-icon {
+    color: $indochine-icon;
+  }
+
+  .key-line-pie-icon {
+    color: $key-line-pie-icon;
+  }
+
+  .spindle-icon {
+    color: $spindle-icon;
+  }
+
+  .scarlet-icon {
+    color: $scarlet-icon;
+  }
+
+  .blaze-orange-icon {
+    color: $blaze-orange-icon;
+  }
+
+  .selective-yellow-icon {
+    color: $selective-yellow-icon;
+  }
 }

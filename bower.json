@@ -11,7 +11,9 @@
     "angular-loading-bar": "~0.8.0",
     "octicons": "~3.4.1",
     "ng-dialog": "~0.5.6",
-    "angular-fullscreen": "~1.0.1"
+    "angular-fullscreen": "~1.0.1",
+    "angular-ui-layout": "~1.4.2",
+    "ng-scrollbars": "~0.0.7"
   },
   "resolutions": {
     "angular": "~1.4.8"
