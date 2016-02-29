@@ -44,12 +44,13 @@ folderService.get = function(req, res) {
   function compare(a, b) {
     if (a.type === 'directory') {
       if (b.type === 'directory') {
-        if (a.name < b.name)
+        if (a.name < b.name) {
           return -1;
-        else if (a.name > b.name)
+        } else if (a.name > b.name) {
           return 1;
-        else
+        } else {
           return 0;
+        }
       } else {
         return -1;
       }
@@ -57,12 +58,13 @@ folderService.get = function(req, res) {
       if (b.type === 'directory') {
         return 1;
       } else {
-        if (a.name < b.name)
+        if (a.name < b.name) {
           return -1;
-        else if (a.name > b.name)
+        } else if (a.name > b.name) {
           return 1;
-        else
+        } else {
           return 0;
+        }
       }
     }
   }

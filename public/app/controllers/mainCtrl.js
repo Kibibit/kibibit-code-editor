@@ -1,7 +1,21 @@
 angular.module('kibibitCodeEditor')
 
-.controller('mainController',
-  function($scope, $http, ngDialog, FileService, FolderService, Fullscreen, SettingsService) {
+.controller('mainController', [
+  '$scope',
+  '$http',
+  'ngDialog',
+  'FileService',
+  'FolderService',
+  'Fullscreen',
+  'SettingsService',
+  function(
+    $scope,
+    $http,
+    ngDialog,
+    FileService,
+    FolderService,
+    Fullscreen,
+    SettingsService) {
 
     var vm = this;
 
@@ -99,4 +113,4 @@ angular.module('kibibitCodeEditor')
         return node.type !== 'directory';
       }
     };
-  });
+  }]);

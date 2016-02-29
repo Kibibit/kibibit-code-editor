@@ -1,6 +1,6 @@
 angular.module('kibibitCodeEditor')
 
-.service('SettingsService', ['$http', function($http) {
+.service('SettingsService', function() {
   var vm = this;
 
   /* init */
@@ -17,4 +17,4 @@ angular.module('kibibitCodeEditor')
     settings = angular.extend(settings, newSetting);
     return settings;
   };
-}]);
+});
