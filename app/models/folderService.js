@@ -41,7 +41,7 @@ folderService.get = function(req, res) {
     }
   });
 
-  function compare(a,b) {
+  function compare(a, b) {
     if (a.type === 'directory') {
       if (b.type === 'directory') {
         if (a.name < b.name)

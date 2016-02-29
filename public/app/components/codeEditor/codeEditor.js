@@ -19,12 +19,12 @@ angular.module('kibibitCodeEditor')
   vm.aceLoaded = function(_editor) {
     vm.aceSession = _editor.getSession();
     // save cursor position
-    _editor.on("changeSelection", function() {
-          $timeout(function() {
+    _editor.on('changeSelection', function() {
+      $timeout(function() {
             var settings = SettingsService.setSettings({
               cursor: _editor.selection.getCursor()
             });
-            console.debug("editor's cursor changed position:", settings.cursor);
+            console.debug('editor\'s cursor changed position:', settings.cursor);
           });
     });
   };

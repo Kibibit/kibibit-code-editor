@@ -16,5 +16,5 @@ angular.module('kibibitCodeEditor')
     newSetting = newSetting || {};
     settings = angular.extend(settings, newSetting);
     return settings;
-  }
+  };
 }]);
