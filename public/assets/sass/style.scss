@@ -1,6 +1,6 @@
-/* BASIC COLORS */
+// BASIC COLORS
 $precentage: 10%;
-/* DARK */
+// DARK
 $black: rgb(0, 0, 0);
 $grey1: rgb(38, 38, 38);
 $grey2: rgb(46, 46, 46);
@@ -15,7 +15,7 @@ $candy-yellow: rgb(255, 188, 0);
 $candy-green: rgb(0, 200, 83);
 $candy-blue: rgb(0, 176, 255);
 
-/* COLORS BY ROLE */
+// COLORS BY ROLE
 $darken-main: $grey1;
 $main: $grey2;
 $lighten-main: $grey3;
@@ -94,9 +94,6 @@ body,
 .main-view-container {
   background: $color3;
   color: $primary;
-}
-
-.main-view-container {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -115,14 +112,14 @@ body,
 
 md-toolbar {
   &.md-menu-dark {
-   background-color: $color1;
-   color: $primary;
- }
-}
-
-md-toolbar h2 {
-  &.md-toolbar-tools {
+    background-color: $color1;
     color: $primary;
+  }
+
+  h2 {
+    &.md-toolbar-tools {
+      color: $primary;
+    }
   }
 }
 
@@ -136,11 +133,6 @@ md-toolbar h2 {
   overflow: hidden;
 }
 
-treecontrol * {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
 file-name {
   &.directory {
     font-weight: normal;
@@ -149,9 +141,14 @@ file-name {
 
 treecontrol {
 
+  * {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
   .tree-expanded,
   .tree-collapsed {
-    background: #91a2a8 !important;
+    background: $color2 !important;
     -webkit-mask: url("../images/chevron-right.svg") no-repeat 50% 50%;
     mask: url("../images/chevron-right.svg") no-repeat 50% 50%;
     -webkit-mask-size: cover;
