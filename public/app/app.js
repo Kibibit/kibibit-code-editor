@@ -9,7 +9,9 @@ angular.module('kibibitCodeEditor',
 	'ngMaterial',
 	'FBAngular',
 	'ui.layout',
-	'ngScrollbars'])
+	'ngScrollbars',
+  'ngSanitize',
+  'hc.marked'])
 .config(['$compileProvider', function($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
 }])
@@ -26,4 +28,7 @@ angular.module('kibibitCodeEditor',
     theme: 'minimal-dark',
     autoHideScrollbar: true
   };
+}])
+.config(['markedProvider', function (markedProvider) {
+  markedProvider.setOptions({gfm: true});
 }]);
