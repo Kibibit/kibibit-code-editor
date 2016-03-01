@@ -9,7 +9,8 @@ angular.module('kibibitCodeEditor',
 	'ngMaterial',
 	'FBAngular',
 	'ui.layout',
-	'ngScrollbars'])
+	'ngScrollbars',
+  'jsonFormatter'])
 .config(['$compileProvider', function($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
 }])
