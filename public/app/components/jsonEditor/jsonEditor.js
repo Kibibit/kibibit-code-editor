@@ -33,12 +33,14 @@ angular.module('kibibitCodeEditor')
     // save cursor position
     _editor.on('changeSelection', function() {
       $timeout(function() {
-            var settings = SettingsService.setSettings({
-              cursor: _editor.selection.getCursor()
-            });
-            console.debug('editor\'s cursor changed position:',
-              settings.cursor);
-          });
+        var cursor = _editor.selection.getCursor();
+        cursor.row++;
+        var settings = SettingsService.setSettings({
+          cursor: cursor
+        });
+        console.debug('editor\'s cursor changed position:',
+          settings.cursor);
+      });
     });
   };
     // save the content of the editor on-change
@@ -48,11 +50,10 @@ angular.module('kibibitCodeEditor')
       vm.aceDocumentJson = JSON.parse(vm.aceDocumentValue);
     } catch (e) {}
   };
-
-    vm.editorOptions = {
+  vm.editorOptions = {
     mode: 'json',
     theme: 'monokai',
     onLoad: vm.aceLoaded,
     onChange: vm.aceChanged
   };
-  }]);
+}]);
