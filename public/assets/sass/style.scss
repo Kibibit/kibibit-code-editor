@@ -170,21 +170,25 @@ treecontrol {
 
 json-editor {
   position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: hidden;
 
-    .half-editor {
-          width: 50%;
+  .half-editor {
+    width: 50%;
     height: 100%;
     display: inline-block;
-    }
+  }
 
-    .half-json {
-          width: 49%;
+  .half-json {
+    width: 49%;
     display: inline-block;
     top: 0;
     position: absolute;
-    }
+    bottom: 0;
+    overflow: auto;
+    right: 0;
+  }
 }
