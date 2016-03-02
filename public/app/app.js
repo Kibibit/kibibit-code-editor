@@ -29,5 +29,19 @@ angular.module('kibibitCodeEditor',
   };
 }])
 .config(['markedProvider', function (markedProvider) {
-  markedProvider.setOptions({gfm: true});
+  markedProvider.setOptions({
+    gfm: true,
+    tables: true,
+    highlight: function (code, lang) {
+      if (lang) {
+        try {
+          return hljs.highlight(lang, code, true).value;
+        } catch (e) {
+          return hljs.highlightAuto(code).value;
+        }
+      } else {
+        return hljs.highlightAuto(code).value;
+      }
+    }
+  });
 }]);

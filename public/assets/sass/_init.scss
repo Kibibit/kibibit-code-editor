@@ -345,33 +345,40 @@ h1 {
   font-weight: 400;
   letter-spacing: -0.005em;
   line-height: $display-3-font-size-base;
+  color: rgb(255, 188, 0);
 }
 h2 {
   font-size: $display-2-font-size-base;
   font-weight: 400;
   line-height: rem(6.4);
+  color: rgb(255, 188, 0);
 }
 h3 {
   font-size: $display-1-font-size-base;
   font-weight: 400;
   line-height: rem(4);
+  color: rgb(255, 188, 0);
 }
 h4 {
   font-size: $headline-font-size-base;
   font-weight: 400;
   line-height: rem(3.2);
+  color: rgb(255, 188, 0);
 }
 h5 {
   @include md-title();
+  color: rgb(255, 188, 0);
 }
 h6 {
   @include md-subhead();
+  color: rgb(255, 188, 0);
 }
 /************
  * Body Copy
  ************/
 p {
   @include md-body-1();
+  color: grey;
 }
 .md-body-2 {
   @include md-body-2();
