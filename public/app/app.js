@@ -10,7 +10,6 @@ angular.module('kibibitCodeEditor',
 	'FBAngular',
 	'ui.layout',
 	'ngScrollbars',
-  'ngSanitize',
   'hc.marked'])
 .config(['$compileProvider', function($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
