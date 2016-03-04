@@ -183,12 +183,40 @@ markdown-editor {
   }
 
   .half-json {
-    width: 49%;
+    left: 50%;
     display: inline-block;
     top: 0;
     position: absolute;
     bottom: 0;
     overflow: auto;
     right: 0;
+    padding: 10px;
+  }
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+  bottom: 0px;
+  position: absolute;
+  top: 0px;
+  left: calc(50vw - 225px);
+  max-height: 600px;
+  margin: auto;
+  overflow: hidden;
+  z-index: 10;
+
+  .project-tree-container {
+    position: absolute;
+    top: 28px;
+    bottom: 50px;
+    min-height: 0;
+  }
+
+  .buttons {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 8px;
+    background: #F0F0F0;
   }
 }
