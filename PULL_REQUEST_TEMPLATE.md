@@ -12,7 +12,8 @@
 (Free text here with additional photos, wikis, and additional needed information)
 
 # :warning: MAKE SURE TO GO THROUGH THIS LIST :warning:
-Before you submit a new PR, make sure you did the following things:
+(reviewers ***shouldn't approve a PR without the next three checkboxs checked***)
+Before you submit a PR, make sure you did the following things:
 - [ ] did you link this PR to an issue?
 
 >> Make sure there's an issue open about the change you did *(open one if there isn't)*. link this PR to that issue by writing `resolves #{{issue_number}}`. If this PR had several mission, link each issue in its parallel mission.
