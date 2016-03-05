@@ -13,6 +13,7 @@
 
 # :warning: MAKE SURE TO GO THROUGH THIS LIST :warning:
 (reviewers ***shouldn't approve a PR without the next three checkboxs checked***)
+
 Before you submit a PR, make sure you did the following things:
 - [ ] did you link this PR to an issue?
 
