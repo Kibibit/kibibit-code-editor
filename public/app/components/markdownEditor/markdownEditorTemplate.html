@@ -2,6 +2,6 @@
      ui-ace="markdownEditorCtrl.editorOptions"
      ng-model="markdownEditorCtrl.code"></div>
 <div class="half-json" ng-scrollbars>
-  <div class="wrap" marked="markdownEditorCtrl.code">
+  <div class="wrap" ng-bind-html="markdownEditorCtrl.code | marked | emoji">
   </div>
 </div>

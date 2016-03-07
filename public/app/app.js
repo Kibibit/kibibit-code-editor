@@ -10,7 +10,9 @@ angular.module('kibibitCodeEditor',
 	'FBAngular',
 	'ui.layout',
 	'ngScrollbars',
-  'hc.marked'])
+  'ngSanitize',
+  'hc.marked',
+  'emoji'])
 .config(['$compileProvider', function($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
 }])
@@ -44,4 +46,9 @@ angular.module('kibibitCodeEditor',
       }
     }
   });
+}])
+.filter('marked', ['marked', function(marked) {
+  return function(input) {
+    return marked(input || '');
+  };
 }]);
