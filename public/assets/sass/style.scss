@@ -77,12 +77,12 @@ code-editor {
 }
 
 body,
-.ui-splitbar {
+.ui-layout-column > .ui-splitbar {
   background: $color1;
   z-index: 5;
 }
 
-.ui-splitbar .glyphicon {
+.ui-layout-column > .ui-splitbar .glyphicon {
   color: $color2;
 }
 
@@ -166,4 +166,20 @@ treecontrol {
     -webkit-mask: url("../images/chevron-right.svg") no-repeat 50% 50%;
     mask: url("../images/chevron-right.svg") no-repeat 50% 50%;
   }
+}
+
+.ace_gutter-cell.ace_info {
+  background-image: url("../images/info.png") !important;
+  background-size: contain;
+  background-position: 7px center;
+}
+
+.ace_gutter-cell.ace_warning {
+  background-image: url("../images/warning.png") !important;
+  background-size: contain;
+}
+
+.ace_gutter-cell.ace_error {
+  background-image: url("../images/error.png") !important;
+  background-size: contain;
 }
