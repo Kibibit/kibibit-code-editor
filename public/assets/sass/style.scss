@@ -77,12 +77,12 @@ code-editor {
 }
 
 body,
-.ui-splitbar {
+.ui-layout-column > .ui-splitbar {
   background: $color1;
   z-index: 5;
 }
 
-.ui-splitbar .glyphicon {
+.ui-layout-column > .ui-splitbar .glyphicon {
   color: $color2;
 }
 
