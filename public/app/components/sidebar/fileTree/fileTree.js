@@ -13,9 +13,11 @@ angular.module('kibibitCodeEditor')
 })
 
 .controller('fileTreeController', [
+  '$rootScope',
   'FolderService', 
   'FileService', 
   function(
+    $rootScope,
     FolderService, 
     FileService) {
     
@@ -44,7 +46,7 @@ angular.module('kibibitCodeEditor')
         }
       } else {
         FileService.getFile(node.path, function(res) {
-          vm.code = res.data;
+          $rootScope.$emit('fileSelected', res.data);
         });
       }
     };  
