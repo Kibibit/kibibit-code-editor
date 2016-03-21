@@ -4,7 +4,6 @@ angular.module('kibibitCodeEditor')
   '$scope',
   '$http',
   'ngDialog',
-  'FileService',
   'FolderService',
   'Fullscreen',
   'SettingsService',
@@ -12,7 +11,6 @@ angular.module('kibibitCodeEditor')
     $scope,
     $http,
     ngDialog,
-    FileService,
     FolderService,
     Fullscreen,
     SettingsService) {
@@ -78,39 +76,12 @@ angular.module('kibibitCodeEditor')
       return true;
     };
 
-    // get file from the server and update the ace session content
-    vm.onSelection = function(node) {
-      if (node.type == 'directory') {
-        var nodeIndex = vm.expandedNodes.indexOf(node);
-        if (nodeIndex > -1) {
-          vm.expandedNodes.splice(nodeIndex, 1);
-        } else {
-          FolderService.getFolder(node.path, function(res) {
-            node.children = res.data.children;
-          });
-          vm.expandedNodes.push(node);
-        }
-      } else {
-        FileService.getFile(node.path, function(res) {
-          vm.code = res.data;
-        });
-      }
-    };
-
     vm.goFullscreen = function() {
 
       if (Fullscreen.isEnabled()) {
         Fullscreen.cancel();
       } else {
         Fullscreen.all();
-      }
-    };
-
-    vm.treeOptions = {
-      nodeChildren: 'children',
-      dirSelectable: true,
-      isLeaf: function(node) {
-        return node.type !== 'directory';
       }
     };
   }]);
