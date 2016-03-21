@@ -2,6 +2,7 @@ angular.module('kibibitCodeEditor')
 
 .controller('mainController', [
   '$scope',
+  '$rootScope',
   '$http',
   'ngDialog',
   'FolderService',
@@ -9,6 +10,7 @@ angular.module('kibibitCodeEditor')
   'SettingsService',
   function(
     $scope,
+    $rootScope,
     $http,
     ngDialog,
     FolderService,
@@ -16,6 +18,12 @@ angular.module('kibibitCodeEditor')
     SettingsService) {
 
     var vm = this;
+
+
+    // Listen to file selection event and updates the code editor
+    $rootScope.$on('fileSelected', function(event, file) {
+      vm.code = file;
+    })
 
     // Init
     vm.code = '';
