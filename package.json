@@ -16,7 +16,7 @@
   "license": "BSD-2-Clause",
   "engines": {
     "node": "4.2.3",
-    "npm": "3.3.12"
+    "npm": "3.8.2"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
