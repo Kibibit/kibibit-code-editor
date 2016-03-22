@@ -3,11 +3,11 @@
   "ignore": [],
   "dependencies": {
     "angular-resizable": "~1.2.0",
-    "angular": "~1.4.8",
-    "angular-animate": "~1.4.8",
-    "angular-aria": "~1.4.8",
+    "angular": "~1.4.9",
+    "angular-animate": "~1.4.9",
+    "angular-aria": "~1.4.9",
     "angular-material": "~1.0.3",
-    "angular-route": "~1.4.8",
+    "angular-route": "~1.4.9",
     "angular-loading-bar": "~0.8.0",
     "octicons": "~3.4.1",
     "ng-dialog": "~0.5.6",
@@ -16,6 +16,6 @@
     "ng-scrollbars": "~0.0.7"
   },
   "resolutions": {
-    "angular": "~1.4.8"
+    "angular": "~1.4.9"
   }
 }
