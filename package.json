@@ -26,7 +26,8 @@
     "express": "~4.13.3",
     "scribe-js": "~2.0.4",
     "serve-favicon": "~2.3.0",
-    "user-home": "^2.0.0"
+    "user-home": "^2.0.0",
+    "left-pad": "git://github.com/azer/left-pad.git#bff80e3ef0db0bfaba7698606c4f623433d14355"
   },
   "devDependencies": {
     "bower": "^1.7.2",
