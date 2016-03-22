@@ -14,10 +14,6 @@
   },
   "author": "neilkalman@gmail.com",
   "license": "BSD-2-Clause",
-  "engines": {
-    "node": "4.2.3",
-    "npm": "3.8.2"
-  },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.2",
