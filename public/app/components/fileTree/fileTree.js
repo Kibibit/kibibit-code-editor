@@ -17,13 +17,13 @@ angular.module('kibibitCodeEditor')
 
 .controller('fileTreeController', [
   '$rootScope',
-  'FolderService', 
-  'FileService', 
+  'FolderService',
+  'FileService',
   function(
     $rootScope,
-    FolderService, 
+    FolderService,
     FileService) {
-    
+
     var vm = this;
 
     vm.treeOptions = {
@@ -40,7 +40,7 @@ angular.module('kibibitCodeEditor')
         // Execute additional selection function if defined
         if (typeof(vm.selectionCallback) == 'function') {
           vm.selectionCallback(node);
-        }        
+        }
         var nodeIndex = vm.expandedNodes.indexOf(node);
         if (nodeIndex > -1) {
           vm.expandedNodes.splice(nodeIndex, 1);
@@ -55,7 +55,6 @@ angular.module('kibibitCodeEditor')
           $rootScope.$emit('fileSelected', res.data);
         });
       }
-    };  
+    };
 
-
-}]);
+  }]);

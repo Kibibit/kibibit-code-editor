@@ -1,15 +1,20 @@
 angular.module('kibibitCodeEditor')
 
-.controller('projectFolderModalController', function($rootScope, FolderService) {
+.controller('projectFolderModalController',[
+  '$rootScope',
+  'FolderService',
+   function(
+    $rootScope,
+    FolderService) {
 
-  var vm = this;
+     var vm = this;
 
-  vm.setCurrentFolder = function(node) {
-    vm.currentFolder = node.path
-  }
+     vm.setCurrentFolder = function(node) {
+    vm.currentFolder = node.path;
+  };
 
-  // open the chosen project folder
-  vm.openFolder = function() {
+     // open the chosen project folder
+     vm.openFolder = function() {
     vm.code = null;
     vm.projectFolder = false;
     console.log(vm.currentFolder);
@@ -19,6 +24,6 @@ angular.module('kibibitCodeEditor')
       $rootScope.$emit('workFolderSelected', vm.workFolder);
     });
     return true;
-  };  
+  };
 
-});
+   }]);

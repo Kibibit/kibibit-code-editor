@@ -19,16 +19,15 @@ angular.module('kibibitCodeEditor')
 
     var vm = this;
 
-
     // Listen to file selection event and updates the code editor
     $rootScope.$on('fileSelected', function(event, file) {
       vm.code = file;
-    })
+    });
 
     // Listen to work folder selection event and update the sidebar tree
     $rootScope.$on('workFolderSelected', function(event, workFolder) {
-      vm.workFolder = workFolder;  
-    })
+      vm.workFolder = workFolder;
+    });
 
     // Init
     vm.code = '';
@@ -67,7 +66,7 @@ angular.module('kibibitCodeEditor')
                     res.data.path);
                   vm.projectFolder = true;
                   vm.showProjectSelectModal();
-                });                           
+                });
               });
     };
 
