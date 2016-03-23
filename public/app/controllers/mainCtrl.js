@@ -25,6 +25,11 @@ angular.module('kibibitCodeEditor')
       vm.code = file;
     })
 
+    // Listen to work folder selection event and update the sidebar tree
+    $rootScope.$on('workFolderSelected', function(event, workFolder) {
+      vm.workFolder = workFolder;  
+    })
+
     // Init
     vm.code = '';
 
@@ -46,15 +51,9 @@ angular.module('kibibitCodeEditor')
         controller: 'projectFolderModalController',
         controllerAs: 'projectFolderModalCtrl',
         className: 'ngdialog-theme-default',
-        scope: $scope
+        scope: $scope,
+        data: {userHomeDirectory: vm.userHomeDirectory}
       });
-    };
-
-    vm.currentFolder = '';
-
-    // binds the selected tree folder to a variable
-    vm.setCurrentFolder = function(node) {
-      vm.currentFolder = node.path;
     };
 
     // show the default projects directory to choose a folder from
@@ -66,22 +65,10 @@ angular.module('kibibitCodeEditor')
                   vm.userHomeDirectory = res.data;
                   console.info('using the following user folder: ' +
                     res.data.path);
-                });
-                vm.projectFolder = true;
-                vm.showProjectSelectModal();
+                  vm.projectFolder = true;
+                  vm.showProjectSelectModal();
+                });                           
               });
-    };
-
-    // open the chosen project folder
-    vm.openFolder = function() {
-      vm.code = null;
-      vm.projectFolder = false;
-      console.log(vm.currentFolder);
-      FolderService.getFolder(vm.currentFolder, function(res) {
-        vm.workFolder = res.data;
-        console.log('got res: ' + res);
-      });
-      return true;
     };
 
     vm.goFullscreen = function() {

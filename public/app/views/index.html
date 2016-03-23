@@ -33,7 +33,7 @@
         <div ui-layout="{ flow : 'column', dividerSize: '10' }">
           <div ui-layout-container class="sidebar-container" size="20%">
               <div class="sidebar" ng-scrollbars>
-                <file-tree path="main.workFolder"></file-tree>
+                <file-tree path="main.workFolder" container-class="'tree-container'" tree-class="'tree-dark'"></file-tree>
             </div>
           </div>
           <div ui-layout-container class="main-view-container">
@@ -83,7 +83,7 @@
     <script type="text/javascript" src="app/components/projectFolderModal/projectFolderModal.js"></script>
     <script type="text/javascript" src="app/components/codeEditor/codeEditor.js"></script>
     <script type="text/javascript" src="app/components/fileName/fileName.js"></script>
-    <script type="text/javascript" src="app/components/sidebar/fileTree/fileTree.js"></script>
+    <script type="text/javascript" src="app/components/fileTree/fileTree.js"></script>
     <script type="text/javascript" src="app/components/menuBar/menuBar.js"></script>
     <!-- Services -->
     <!-- <script src="app/services/authService.js"></script> -->

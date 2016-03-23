@@ -4,11 +4,14 @@ angular.module('kibibitCodeEditor')
   return {
     // scope: {},
     bindToController: {
-      path: '='
+      path: '=',
+      containerClass: '=',
+      treeClass: '=',
+      selectionCallback: '='
     },
     controller: 'fileTreeController',
     controllerAs: 'fileTreeCtrl',
-    templateUrl: 'app/components/sidebar/fileTree/fileTreeTemplate.html'
+    templateUrl: 'app/components/fileTree/fileTreeTemplate.html'
   };
 })
 
@@ -22,7 +25,6 @@ angular.module('kibibitCodeEditor')
     FileService) {
     
     var vm = this;
-    console.log('vm.path: ', vm.path);
 
     vm.treeOptions = {
       nodeChildren: 'children',
@@ -35,6 +37,10 @@ angular.module('kibibitCodeEditor')
     // get file from the server and update the ace session content
     vm.onSelection = function(node) {
       if (node.type == 'directory') {
+        // Execute additional selection function if defined
+        if (typeof(vm.selectionCallback) == 'function') {
+          vm.selectionCallback(node);
+        }        
         var nodeIndex = vm.expandedNodes.indexOf(node);
         if (nodeIndex > -1) {
           vm.expandedNodes.splice(nodeIndex, 1);
