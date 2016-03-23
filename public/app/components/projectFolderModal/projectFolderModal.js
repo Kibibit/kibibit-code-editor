@@ -1,20 +1,24 @@
 angular.module('kibibitCodeEditor')
 
-.controller('projectFolderModalController', function(FolderService) {
+.controller('projectFolderModalController', function($rootScope, FolderService) {
 
   var vm = this;
 
-  // get file from the server and update the ace session content
-  vm.onSelection = function(node) {
-    if (node.type == 'directory') {
-      FolderService.getFolder(node.path, function(res) {
-        node.children = res.data.children;
-      });
-      vm.expandedNodes.push(node);
-      return true;
-    } else {
-      return false;
-    }
-  };
+  vm.setCurrentFolder = function(node) {
+    vm.currentFolder = node.path
+  }
+
+  // open the chosen project folder
+  vm.openFolder = function() {
+    vm.code = null;
+    vm.projectFolder = false;
+    console.log(vm.currentFolder);
+    FolderService.getFolder(vm.currentFolder, function(res) {
+      vm.workFolder = res.data;
+      console.log('got res: ' + res);
+      $rootScope.$emit('workFolderSelected', vm.workFolder);
+    });
+    return true;
+  };  
 
 });
