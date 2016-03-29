@@ -185,6 +185,7 @@ treecontrol {
   background-size: contain;
 }
 
+// scss-lint:disable IdSelector
 #loading-bar-spinner .spinner-icon {
   width: 16px;
   height: 16px;
@@ -193,6 +194,7 @@ treecontrol {
   border-left-color: $primary;
 }
 
+// scss-lint:disable IdSelector
 #loading-bar .bar {
   height: 4px;
   background: $primary;
