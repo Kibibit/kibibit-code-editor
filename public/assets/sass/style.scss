@@ -97,6 +97,7 @@ body,
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+  overflow: hidden;
 }
 
 .tabs {
@@ -182,4 +183,18 @@ treecontrol {
 .ace_gutter-cell.ace_error {
   background-image: url("../images/error.png") !important;
   background-size: contain;
+}
+
+#loading-bar-spinner .spinner-icon {
+    border-top-color: orange !important;
+    border-left-color: orange !important;
+    border: solid 11px transparent !important;
+}
+
+#loading-bar .bar {
+    height: 4px;
+
+    .peg {
+      display: none;
+    }
 }
