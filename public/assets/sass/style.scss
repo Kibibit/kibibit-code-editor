@@ -186,9 +186,11 @@ treecontrol {
 }
 
 #loading-bar-spinner .spinner-icon {
-    border-top-color: orange !important;
-    border-left-color: orange !important;
-    border: solid 11px transparent !important;
+    width: 16px;
+    height: 16px;
+    border: solid 4px transparent;
+    border-top-color: orange;
+    border-left-color: orange;
 }
 
 #loading-bar .bar {
