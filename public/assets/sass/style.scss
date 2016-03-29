@@ -187,17 +187,17 @@ treecontrol {
 
 // scss-lint:disable IdSelector
 #loading-bar-spinner .spinner-icon {
-  width: 16px;
-  height: 16px;
   border: solid 4px transparent;
-  border-top-color: $primary;
   border-left-color: $primary;
+  border-top-color: $primary;
+  height: 16px;
+  width: 16px;
 }
 
 // scss-lint:disable IdSelector
 #loading-bar .bar {
-  height: 4px;
   background: $primary;
+  height: 4px;
 
   .peg {
     display: none;
