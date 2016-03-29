@@ -194,7 +194,6 @@ treecontrol {
   width: 16px;
 }
 
-// scss-lint:disable IdSelector
 #loading-bar .bar {
   background: $primary;
   height: 4px;
@@ -203,3 +202,4 @@ treecontrol {
     display: none;
   }
 }
+// scss-lint:enable IdSelector
