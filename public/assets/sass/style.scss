@@ -186,18 +186,18 @@ treecontrol {
 }
 
 #loading-bar-spinner .spinner-icon {
-    width: 16px;
-    height: 16px;
-    border: solid 4px transparent;
-    border-top-color: orange;
-    border-left-color: orange;
+  width: 16px;
+  height: 16px;
+  border: solid 4px transparent;
+  border-top-color: $primary;
+  border-left-color: $primary;
 }
 
 #loading-bar .bar {
-    height: 4px;
-    background: orange;
+  height: 4px;
+  background: $primary;
 
-    .peg {
-      display: none;
-    }
+  .peg {
+    display: none;
+  }
 }
