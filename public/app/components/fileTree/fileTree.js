@@ -1,13 +1,12 @@
 angular.module('kibibitCodeEditor')
 
-.directive('fileTree', function() {
+.directive('kbFileTree', function() {
   return {
-    // scope: {},
+    scope: {},
     bindToController: {
-      path: '=',
-      containerClass: '=',
-      treeClass: '=',
-      selectionCallback: '='
+      path: '=kbFileTreePath',
+      kbFileTreeSelection: '=',
+      kbFileTreeOptions: '='
     },
     controller: 'fileTreeController',
     controllerAs: 'fileTreeCtrl',
@@ -16,15 +15,28 @@ angular.module('kibibitCodeEditor')
 })
 
 .controller('fileTreeController', [
-  '$rootScope',
   'FolderService',
-  'FileService',
+  'EventManagerService',
   function(
-    $rootScope,
     FolderService,
-    FileService) {
+    EventManagerService) {
 
     var vm = this;
+
+    vm.getFolder = function(path) {
+      if (path) {
+        FolderService.getFolder(path, function(folderContent) {
+          vm.path = folderContent.data;
+        });
+      }
+    };
+
+    vm.getFolder(vm.path);
+
+    // Listen to change folder update events
+    EventManagerService.on('fileTreePathUpdated', vm.getFolder);
+
+    vm.userOptions = vm.kbFileTreeOptions || {};
 
     vm.treeOptions = {
       nodeChildren: 'children',
@@ -34,27 +46,38 @@ angular.module('kibibitCodeEditor')
       }
     };
 
-    // get file from the server and update the ace session content
-    vm.onSelection = function(node) {
-      if (node.type == 'directory') {
-        // Execute additional selection function if defined
-        if (typeof(vm.selectionCallback) == 'function') {
-          vm.selectionCallback(node);
-        }
-        var nodeIndex = vm.expandedNodes.indexOf(node);
-        if (nodeIndex > -1) {
-          vm.expandedNodes.splice(nodeIndex, 1);
-        } else {
-          FolderService.getFolder(node.path, function(res) {
-            node.children = res.data.children;
-          });
-          vm.expandedNodes.push(node);
-        }
-      } else {
-        FileService.getFile(node.path, function(res) {
-          $rootScope.$emit('fileSelected', res.data);
-        });
-      }
+    vm.options = {
+      selectionMode: 'file',
+      theme: 'tree-dark'
     };
 
+    angular.extend(vm.options, vm.userOptions);
+
+    // get file from the server and update the ace session content
+    vm.onSelection = function(treeNode) {
+      var file, folder;
+      if (treeNode.type == 'directory') {
+        folder = treeNode;
+        var directoryIndex = vm.expandedNodes.indexOf(folder);
+        var isDirectoryOpen = directoryIndex > -1;
+        if (isDirectoryOpen) {
+          // contract directory
+          vm.expandedNodes.splice(directoryIndex, 1);
+        } else {
+          FolderService.getFolder(folder.path, function(folderContent) {
+            folder.children = folderContent.data.children;
+          });
+          vm.expandedNodes.push(folder);
+        }
+        if (vm.options.selectionMode == 'folder') {
+          vm.kbFileTreeSelection = folder.path;
+        }
+      } else {
+        file = treeNode;
+        if (vm.options.selectionMode == 'file') {
+          vm.kbFileTreeSelection =  file.path;
+        }
+      }
+    };
   }]);
+
