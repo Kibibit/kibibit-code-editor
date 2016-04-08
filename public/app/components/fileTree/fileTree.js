@@ -55,7 +55,8 @@ angular.module('kibibitCodeEditor')
 
     // get file from the server and update the ace session content
     vm.onSelection = function(treeNode) {
-      var file, folder;
+      var file;
+      var folder;
       if (treeNode.type == 'directory') {
         folder = treeNode;
         var directoryIndex = vm.expandedNodes.indexOf(folder);
