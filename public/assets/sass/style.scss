@@ -125,6 +125,13 @@ md-toolbar {
 
 .ngdialog {
   overflow: hidden;
+  .tree-selected {
+    file-name {
+      &.directory {
+        font-weight: bold;
+      }
+    }
+  }
 }
 
 .ui-layout-column,
@@ -138,17 +145,6 @@ file-name {
     font-weight: normal;
   }
 }
-
-.ngdialog {
-  .tree-selected {
-    file-name {
-      &.directory {
-        font-weight: bold;
-      }
-    }
-  }
-}
-
 
 treecontrol {
   display: inline-block;
