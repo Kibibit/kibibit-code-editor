@@ -34,12 +34,10 @@
         <div ui-layout="{ flow : 'column', dividerSize: '10' }">
           <div ui-layout-container class="sidebar-container" size="20%">
               <div class="sidebar" ng-scrollbars>
-                <div class="treeContainer" ng-if="main.workFolder">
-                    <div class="sidebar-header entypo-folder"> {{main.workFolder.name}}</div>
-                    <treecontrol class="tree-dark" tree-model="main.workFolder" options="main.treeOptions" on-selection="main.onSelection(node)" expanded-nodes="main.expandedNodes">
-                        <file-name ng-class="node.type" file="node"></file-name>
-                    </treecontrol>
-                </div>
+                <kb-file-tree 
+                  kb-file-tree-path="main.projectFolderPath" 
+                  kb-file-tree-selection="main.selectedFilePath">
+                </kb-file-tree>
             </div>
           </div>
           <div ui-layout-container class="main-view-container">
@@ -89,6 +87,7 @@
     <script type="text/javascript" src="app/components/projectFolderModal/projectFolderModal.js"></script>
     <script type="text/javascript" src="app/components/codeEditor/codeEditor.js"></script>
     <script type="text/javascript" src="app/components/fileName/fileName.js"></script>
+    <script type="text/javascript" src="app/components/fileTree/fileTree.js"></script>
     <script type="text/javascript" src="app/components/menuBar/menuBar.js"></script>
     <!-- Services -->
     <!-- <script src="app/services/authService.js"></script> -->
@@ -96,6 +95,7 @@
     <script type="text/javascript" src="app/services/fileService.js"></script>
     <script type="text/javascript" src="app/services/folderService.js"></script>
     <script type="text/javascript" src="app/services/settingsService.js"></script>
+    <script type="text/javascript" src="app/services/eventManagerService.js"></script>
 </body>
 
 </html>
