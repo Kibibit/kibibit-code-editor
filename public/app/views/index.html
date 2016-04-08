@@ -33,7 +33,10 @@
         <div ui-layout="{ flow : 'column', dividerSize: '10' }">
           <div ui-layout-container class="sidebar-container" size="20%">
               <div class="sidebar" ng-scrollbars>
-                <file-tree path="main.workFolder" container-class="'tree-container'" tree-class="'tree-dark'"></file-tree>
+                <kb-file-tree 
+                  kb-file-tree-path="main.projectFolderPath" 
+                  kb-file-tree-selection="main.selectedFilePath">
+                </kb-file-tree>
             </div>
           </div>
           <div ui-layout-container class="main-view-container">
@@ -91,6 +94,7 @@
     <script type="text/javascript" src="app/services/fileService.js"></script>
     <script type="text/javascript" src="app/services/folderService.js"></script>
     <script type="text/javascript" src="app/services/settingsService.js"></script>
+    <script type="text/javascript" src="app/services/eventManagerService.js"></script>
 </body>
 
 </html>

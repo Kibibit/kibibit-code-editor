@@ -1,5 +1,13 @@
-<file-tree path="ngDialogData.userHomeDirectory" container-class="'project-tree-container'" tree-class="'tree'" selection-callback="projectFolderModalCtrl.setCurrentFolder"></file-tree>
+<kb-file-tree
+  kb-file-tree-path="ngDialogData.userHomeDirectoryPath" 
+  kb-file-tree-options="{selectionMode: 'folder', theme: 'tree'}"
+  kb-file-tree-selection="ngDialogData.selectedProjectFolder">
+</kb-file-tree>
 <div class="buttons">
-    <button class="btn" ng-click="projectFolderModalCtrl.openFolder() && closeThisDialog(0)">Select</button>
+    <button 
+      class="btn" 
+      ng-click="closeThisDialog(ngDialogData.selectedProjectFolder)">
+        Select
+    </button>
     <button class="btn" ng-click="closeThisDialog(0)">Close</button>
 </div>
