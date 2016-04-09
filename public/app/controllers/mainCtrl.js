@@ -108,7 +108,7 @@ angular.module('kibibitCodeEditor')
         Fullscreen.all();
         SettingsService.setSettings({
           isFullscreen: true
-        })
+        });
       }
     };
 
