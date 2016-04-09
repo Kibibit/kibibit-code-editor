@@ -12,7 +12,7 @@
   $ git checkout -b login_fix
   ```
 
-* **Use *dashes* to separate words.**
+* **Use *dashes* to separate words**, and only lowercase letters.
 
 * Delete your branch from the upstream repository after it's merged, unless
   there is a specific reason not to.
