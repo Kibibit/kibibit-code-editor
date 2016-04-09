@@ -1,3 +1,6 @@
+// scss-lint:disable NestingDepth
+// scss-lint:disable SelectorDepth
+
 // BASIC COLORS
 $precentage: 10%;
 // DARK
@@ -97,6 +100,7 @@ body,
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+  overflow: hidden;
 }
 
 .tabs {
@@ -183,3 +187,23 @@ treecontrol {
   background-image: url("../images/error.png") !important;
   background-size: contain;
 }
+
+// scss-lint:disable IdSelector
+#loading-bar-spinner .spinner-icon {
+  border: solid 4px transparent;
+  border-left-color: $primary;
+  border-top-color: $primary;
+  height: 16px;
+  width: 16px;
+}
+
+#loading-bar .bar {
+  background: $primary;
+  height: 4px;
+  .peg {
+    display: none;
+  }
+}
+// scss-lint:enable IdSelector
+// scss-lint:enable NestingDepth
+// scss-lint:enable SelectorDepth
