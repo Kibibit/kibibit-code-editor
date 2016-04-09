@@ -100,9 +100,15 @@ angular.module('kibibitCodeEditor')
     vm.goFullscreen = function() {
 
       if (Fullscreen.isEnabled()) {
+        SettingsService.setSettings({
+          isFullscreen: false
+        });
         Fullscreen.cancel();
       } else {
         Fullscreen.all();
+        SettingsService.setSettings({
+          isFullscreen: true
+        })
       }
     };
 
