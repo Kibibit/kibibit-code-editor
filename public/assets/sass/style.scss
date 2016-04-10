@@ -47,7 +47,7 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-code-editor {
+kb-code-editor {
   bottom: 0;
   left: 0;
   position: absolute;
@@ -223,6 +223,14 @@ markdown-editor {
       padding: 8px;
       position: absolute;
       right: 0;
+    }
+  }
+
+  .tree-selected {
+    file-name {
+      &.directory {
+        font-weight: bold;
+      }
     }
   }
 }
