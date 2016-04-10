@@ -12,7 +12,8 @@ angular.module('kibibitCodeEditor',
 	'ngScrollbars',
   'ngSanitize',
   'hc.marked',
-  'emoji'])
+  'emoji',
+  'jsonFormatter'])
 .config(['$compileProvider', function($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
 }])
