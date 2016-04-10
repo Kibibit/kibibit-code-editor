@@ -26,8 +26,6 @@ angular.module('kibibitCodeEditor')
 
     var vm = this;
 
-    vm.userOptions = vm.userOptions || {};
-
     vm.treeOptions = {
       nodeChildren: 'children',
       dirSelectable: true,
@@ -41,9 +39,9 @@ angular.module('kibibitCodeEditor')
       theme: 'tree-dark'
     };
 
-    angular.extend(vm.options, vm.userOptions);
+    angular.extend(vm.options, vm.userOptions || {});
 
-    // Handle the updated treePath 
+    // Handle the updated treePath
     vm.updateTreePath = function(path) {
       if (typeof path === 'string' || path instanceof String) {
         FolderService.getFolder(path, function(folderContent) {
@@ -51,7 +49,7 @@ angular.module('kibibitCodeEditor')
         });
         vm.expandedNodes = [];
       }
-    }
+    };
 
     // get file from the server and update the ace session content
     vm.onSelection = function(treeNode) {
