@@ -38,8 +38,8 @@
           <div ui-layout-container class="sidebar-container" size="20%">
               <div class="sidebar" ng-scrollbars>
                 <kb-file-tree 
-                  kb-file-tree-path="main.projectFolderPath" 
-                  kb-file-tree-selection="main.selectedFilePath">
+                  kb-file-tree-path="main.projectFolderPath"
+                  kb-file-tree-selection="main.openFile">
                 </kb-file-tree>
             </div>
           </div>
@@ -110,7 +110,6 @@
     <script type="text/javascript" src="app/services/fileService.js"></script>
     <script type="text/javascript" src="app/services/folderService.js"></script>
     <script type="text/javascript" src="app/services/settingsService.js"></script>
-    <script type="text/javascript" src="app/services/eventManagerService.js"></script>
 </body>
 
 </html>
