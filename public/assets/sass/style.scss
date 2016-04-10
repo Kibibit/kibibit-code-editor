@@ -1,3 +1,6 @@
+// scss-lint:disable NestingDepth
+// scss-lint:disable SelectorDepth
+
 // BASIC COLORS
 $precentage: 10%;
 // DARK
@@ -77,12 +80,12 @@ code-editor {
 }
 
 body,
-.ui-splitbar {
+.ui-layout-column > .ui-splitbar {
   background: $color1;
   z-index: 5;
 }
 
-.ui-splitbar .glyphicon {
+.ui-layout-column > .ui-splitbar .glyphicon {
   color: $color2;
 }
 
@@ -97,6 +100,7 @@ body,
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+  overflow: hidden;
 }
 
 .tabs {
@@ -192,3 +196,39 @@ json-editor {
     right: 0;
   }
 }
+
+.ace_gutter-cell.ace_info {
+  background-image: url("../images/info.png") !important;
+  background-size: contain;
+  background-position: 7px center;
+}
+
+.ace_gutter-cell.ace_warning {
+  background-image: url("../images/warning.png") !important;
+  background-size: contain;
+}
+
+.ace_gutter-cell.ace_error {
+  background-image: url("../images/error.png") !important;
+  background-size: contain;
+}
+
+// scss-lint:disable IdSelector
+#loading-bar-spinner .spinner-icon {
+  border: solid 4px transparent;
+  border-left-color: $primary;
+  border-top-color: $primary;
+  height: 16px;
+  width: 16px;
+}
+
+#loading-bar .bar {
+  background: $primary;
+  height: 4px;
+  .peg {
+    display: none;
+  }
+}
+// scss-lint:enable IdSelector
+// scss-lint:enable NestingDepth
+// scss-lint:enable SelectorDepth

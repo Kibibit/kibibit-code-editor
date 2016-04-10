@@ -11,7 +11,8 @@
                         File
                     </button>
                     <md-menu-content>
-                        <md-menu-item>
+                        <md-menu-item class="md-indent">
+                            <md-icon class="material-icons">insert_drive_file</md-icon>
                             <md-menu>
                                 <md-button ng-click="$mdOpenMenu()">New</md-button>
                                 <md-menu-content>
@@ -33,26 +34,30 @@
                                 </md-menu-content>
                             </md-menu>
                         </md-menu-item>
-                        <md-menu-item>
+                        <md-menu-item class="md-indent">
+                            <md-icon class="material-icons">gradient</md-icon>
                             <md-button ng-click="main.openProject()">
                                 Open Project...
                                 <span class="md-alt-text"> {{ 'M-O' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
-                        <md-menu-item>
+                        <md-menu-item class="md-indent">
+                            <md-icon class="material-icons">save</md-icon>
                             <md-button disabled="disabled" ng-click="menuBarCtrl.sampleAction('Rename', $event)">
-                                Rename
+                                Save
                             </md-button>
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
-                        <md-menu-item>
+                        <md-menu-item class="md-indent">
+                            <md-icon class="material-icons">print</md-icon>
                             <md-button ng-click="menuBarCtrl.sampleAction('Print', $event)">
                                 Print
                                 <span class="md-alt-text">{{ 'M-P' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
-                        <md-menu-item>
+                        <md-menu-item class="md-indent">
+                            <md-icon class="material-icons">share</md-icon>
                             <md-button ng-click="menuBarCtrl.sampleAction('share', $event)">
                                 Share...
                             </md-button>
@@ -65,14 +70,14 @@
                     </button>
                     <md-menu-content>
                         <md-menu-item class="md-indent">
-                            <md-icon md-svg-icon="undo"></md-icon>
+                            <md-icon class="material-icons">undo</md-icon>
                             <md-button ng-click="menuBarCtrl.sampleAction('undo', $event)">
                                 Undo
                                 <span class="md-alt-text">{{ 'M-Z' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
                         <md-menu-item class="md-indent">
-                            <md-icon md-svg-icon="redo"></md-icon>
+                            <md-icon class="material-icons">redo</md-icon>
                             <md-button ng-click="menuBarCtrl.sampleAction('redo', $event)">
                                 Redo
                                 <span class="md-alt-text">{{ 'M-Y' | keyboardShortcut }}</span>
@@ -80,21 +85,21 @@
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item class="md-indent">
-                            <md-icon md-svg-icon="content-cut"></md-icon>
+                            <md-icon class="material-icons">content_cut</md-icon>
                             <md-button ng-click="menuBarCtrl.sampleAction('cut', $event)">
                                 Cut
                                 <span class="md-alt-text">{{ 'M-X' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
                         <md-menu-item class="md-indent">
-                            <md-icon md-svg-icon="content-copy"></md-icon>
+                            <md-icon class="material-icons">content_copy</md-icon>
                             <md-button ng-click="menuBarCtrl.sampleAction('copy', $event)">
                                 Copy
                                 <span class="md-alt-text">{{ 'M-C' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
                         <md-menu-item class="md-indent">
-                            <md-icon md-svg-icon="content-paste"></md-icon>
+                            <md-icon class="material-icons">content_paste</md-icon>
                             <md-button ng-click="menuBarCtrl.sampleAction('paste', $event)">
                                 Paste
                                 <span class="md-alt-text">{{ 'M-P' | keyboardShortcut }}</span>
@@ -102,6 +107,7 @@
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item class="md-indent">
+                            <md-icon class="material-icons">find_in_page</md-icon>
                             <md-button ng-click="menuBarCtrl.sampleAction('Find and replace', $event)">
                                 Find and replace...
                                 <span class="md-alt-text">{{ 'M-S-H' | keyboardShortcut }}</span>
@@ -132,6 +138,7 @@
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.compactControls">Compact controls</md-menu-item>
                         <md-menu-item class="md-indent">
+                            <md-icon class="material-icons">{{ main.settings.isFullscreen ? 'fullscreen_exit' : 'fullscreen' }}</md-icon>
                             <md-button ng-click="main.goFullscreen()">
                                 Fullscreen
                                 <span class="md-alt-text"> {{ 'F12' | keyboardShortcut }}</span>
@@ -191,7 +198,8 @@
                         Testing
                     </button>
                     <md-menu-content>
-                        <md-menu-item>
+                        <md-menu-item class="md-indent">
+                            <md-icon class="material-icons">web_asset</md-icon>
                             <md-button ng-click="main.showAModal()">
                                 Modal Example
                                 <span class="md-alt-text"> {{ 'M-B' | keyboardShortcut }}</span>
