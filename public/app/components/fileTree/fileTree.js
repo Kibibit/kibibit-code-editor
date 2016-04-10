@@ -45,7 +45,7 @@ angular.module('kibibitCodeEditor')
     vm.updateTreePath = function(path) {
       if (typeof path === 'string' || path instanceof String) {
         FolderService.getFolder(path, function(folderContent) {
-          vm.path = folderContent.data;
+          vm.folderContent = folderContent.data;
         });
         vm.expandedNodes = [];
       }
