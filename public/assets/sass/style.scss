@@ -127,10 +127,6 @@ md-toolbar {
   }
 }
 
-.ngdialog {
-  overflow: hidden;
-}
-
 .ui-layout-column,
 .ui-layout-row,
 .ui-splitbar {
@@ -198,30 +194,34 @@ markdown-editor {
   }
 }
 
-.ngdialog.ngdialog-theme-default .ngdialog-content {
-  bottom: 0px;
-  left: calc(50vw - 225px);
-  margin: auto;
-  max-height: 600px;
+.ngdialog {
   overflow: hidden;
-  position: absolute;
-  top: 0px;
-  z-index: 10;
 
-  .project-tree-container {
-    bottom: 50px;
-    min-height: 0;
-    position: absolute;
-    top: 28px;
-  }
-
-  .buttons {
-    background: #F0F0F0;
+  &.ngdialog-theme-default .ngdialog-content {
     bottom: 0;
-    left: 0;
-    padding: 8px;
+    left: calc(50vw - 225px);
+    margin: auto;
+    max-height: 600px;
+    overflow: hidden;
     position: absolute;
-    right: 0;
+    top: 0;
+    z-index: 10;
+
+    .project-tree-container {
+      bottom: 50px;
+      min-height: 0;
+      position: absolute;
+      top: 28px;
+    }
+
+    .buttons {
+      background: $white;
+      bottom: 0;
+      left: 0;
+      padding: 8px;
+      position: absolute;
+      right: 0;
+    }
   }
 }
 
