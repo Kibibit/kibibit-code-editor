@@ -9,7 +9,11 @@ angular.module('kibibitCodeEditor',
 	'ngMaterial',
 	'FBAngular',
 	'ui.layout',
-	'ngScrollbars'])
+	'ngScrollbars',
+  'ngSanitize',
+  'hc.marked',
+  'emoji',
+  'jsonFormatter'])
 .config(['$compileProvider', function($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
 }])
@@ -25,5 +29,27 @@ angular.module('kibibitCodeEditor',
     axis: 'yx', // enable 2 axis scrollbars by default,
     theme: 'minimal-dark',
     autoHideScrollbar: true
+  };
+}])
+.config(['markedProvider', function(markedProvider) {
+  markedProvider.setOptions({
+    gfm: true,
+    tables: true,
+    highlight: function(code, lang) {
+      if (lang) {
+        try {
+          return hljs.highlight(lang, code, true).value;
+        } catch (e) {
+          return hljs.highlightAuto(code).value;
+        }
+      } else {
+        return hljs.highlightAuto(code).value;
+      }
+    }
+  });
+}])
+.filter('marked', ['marked', function(marked) {
+  return function(input) {
+    return marked(input || '');
   };
 }]);

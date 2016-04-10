@@ -1,0 +1,121 @@
+// scss-lint:disable NestingDepth
+// scss-lint:disable SelectorDepth
+// scss-lint:disable ColorVariable
+error-view {
+  background: black;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  @keyframes cursor-blink {
+    0% {
+      opacity: 0;
+    }
+
+    50% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+
+  body {
+    background-color: black;
+  }
+
+  .four-oh-four {
+    background-color: black;
+    background-position: center center;
+    background-repeat: no-repeat;
+    left: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+    position: relative;
+    top: 0;
+    transition: opacity 300ms ease-out;
+    z-index: 2;
+
+    .dJAX_internal {
+      opacity: 0;
+    }
+
+    form,
+    input {
+      position: fixed;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      background-color: black;
+    }
+  }
+
+  .terminal {
+    bottom: 0;
+    left: 0;
+    padding: 4rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .terminal .prompt {
+    color: #1ff042;
+    display: block;
+    font-family: 'AndaleMono', monospace;
+    font-size: 0.9em;
+    font-weight: bold;
+    letter-spacing: 0.15em;
+    line-height: 1;
+    margin-bottom: 0.75em;
+    text-shadow: 0 0 2px rgba(31, 240, 66, 0.75);
+    text-transform: uppercase;
+    white-space: pre-wrap;
+  }
+
+  .terminal .prompt:before {
+    content: '> ';
+    display: inline-block;
+  }
+
+  .terminal .new-output {
+    display: inline-block;
+  }
+
+  .terminal .new-output:after {
+    animation: cursor-blink 1.25s steps(1) infinite;
+    background: #1ff042;
+    box-shadow: 1px 1px 1px rgba(31, 240, 66, 0.65), -1px -1px 1px rgba(31, 240, 66, 0.65), 1px -1px 1px rgba(31, 240, 66, 0.65), -1px 1px 1px rgba(31, 240, 66, 0.65);
+    content: '';
+    display: inline-block;
+    height: 1em;
+    margin-left: 5px;
+    vertical-align: -0.15em;
+    width: 0.75em;
+  }
+
+  .kittens p {
+    letter-spacing: 0;
+    line-height: 1rem;
+    opacity: 0;
+  }
+
+  .kitten-gif {
+    margin: 20px;
+    max-width: 300px;
+  }
+
+  .four-oh-four-form {
+  	left: 0;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+  }
+}
+// scss-lint:enable NestingDepth
+// scss-lint:enable SelectorDepth
+// scss-lint:enable ColorVariable
