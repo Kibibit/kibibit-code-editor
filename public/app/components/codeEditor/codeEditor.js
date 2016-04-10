@@ -1,22 +1,29 @@
 angular.module('kibibitCodeEditor')
 
-.directive('codeEditor', function() {
+.directive('kbCodeEditor', function() {
   return {
     scope: {},
     bindToController: {
-      code: '='
+      openFile: '=kbOpenFile'
     },
     controller: 'codeEditorController',
     controllerAs: 'codeEditorCtrl',
-    templateUrl: 'app/components/codeEditor/codeEditorTemplate.html'
+    templateUrl: 'app/components/codeEditor/codeEditorTemplate.html',
+    link: function(scope, element, attrs, codeEditorCtrl) {
+      scope.$watch('codeEditorCtrl.openFile', function(newOpenFile) {
+        codeEditorCtrl.updateFileContent(newOpenFile);
+      });
+    }
   };
 })
 
 .controller('codeEditorController', [
   '$timeout',
+  'FileService',
   'SettingsService',
   function(
     $timeout,
+    FileService,
     SettingsService) {
 
     var vm = this;
@@ -47,6 +54,14 @@ angular.module('kibibitCodeEditor')
       theme: 'monokai',
       onLoad: vm.aceLoaded,
       onChange: vm.aceChanged
+    };
+
+    vm.updateFileContent = function(filePath) {
+      if (filePath !== '') {
+        FileService.getFile(filePath, function(fileContent) {
+          vm.code = fileContent.data;
+        });
+      }
     };
   }
 ])
