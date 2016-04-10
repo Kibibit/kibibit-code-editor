@@ -1,3 +1,5 @@
+// scss-lint:disable all
+
 @charset "UTF-8";
 @font-face {
   font-family: "OpenWeb Icons";
@@ -31,3 +33,4 @@
 [class*="openwebicons-"]:before {
   font-family: "OpenWeb Icons", sans-serif;
 }
+// scss-lint:enable all
