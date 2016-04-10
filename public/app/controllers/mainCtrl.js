@@ -40,9 +40,15 @@ angular.module('kibibitCodeEditor')
           userHomeDirectoryPath: vm.userHomeDirectoryPath
         }
       }).closePromise.then(function(selectedProjectFolderPath) {
-        vm.projectFolderPath = selectedProjectFolderPath.value;
+        if (!vm.isModalCancel(selectedProjectFolderPath.value)) {
+          vm.projectFolderPath = selectedProjectFolderPath.value;  
+        }
       });
     };
+
+    vm.isModalCancel = function(closeValue) {
+      return angular.isNumber(closeValue) && closeValue === 0
+    }
 
     // show the default projects directory to choose a folder from
     vm.openProject = function() {
