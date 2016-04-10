@@ -1,6 +1,6 @@
 <div class="tree-container" ng-if="fileTreeCtrl.path">
-    <div class="sidebar-header entypo-folder"> {{fileTreeCtrl.path.name}}</div>
-    <treecontrol ng-class="fileTreeCtrl.options.theme" tree-model="fileTreeCtrl.path" options="fileTreeCtrl.treeOptions" on-selection="fileTreeCtrl.onSelection(node)" expanded-nodes="fileTreeCtrl.expandedNodes">
+    <div class="sidebar-header entypo-folder"> {{fileTreeCtrl.folderContent.name}}</div>
+    <treecontrol ng-class="fileTreeCtrl.options.theme" tree-model="fileTreeCtrl.folderContent" options="fileTreeCtrl.treeOptions" on-selection="fileTreeCtrl.onSelection(node)" expanded-nodes="fileTreeCtrl.expandedNodes">
         <file-name ng-class="node.type" file="node"></file-name>
     </treecontrol>
 </div>
