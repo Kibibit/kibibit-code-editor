@@ -1,8 +1,10 @@
-<kb-file-tree
-  kb-file-tree-path="ngDialogData.userHomeDirectoryPath" 
-  kb-file-tree-options="{selectionMode: 'folder', theme: 'tree'}"
-  kb-file-tree-selection="ngDialogData.selectedProjectFolder">
-</kb-file-tree>
+<div class="project-tree-container" ng-scrollbars>
+  <kb-file-tree
+    kb-file-tree-path="ngDialogData.userHomeDirectoryPath" 
+    kb-file-tree-options="{selectionMode: 'folder', theme: 'tree'}"
+    kb-file-tree-selection="ngDialogData.selectedProjectFolder">
+  </kb-file-tree>
+</div>
 <div class="buttons">
     <button 
       class="btn" 
