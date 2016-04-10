@@ -1,3 +1,6 @@
+// scss-lint:disable NestingDepth
+// scss-lint:disable SelectorDepth
+
 // BASIC COLORS
 $precentage: 10%;
 // DARK
@@ -77,12 +80,12 @@ code-editor {
 }
 
 body,
-.ui-splitbar {
+.ui-layout-column > .ui-splitbar {
   background: $color1;
   z-index: 5;
 }
 
-.ui-splitbar .glyphicon {
+.ui-layout-column > .ui-splitbar .glyphicon {
   color: $color2;
 }
 
@@ -97,6 +100,7 @@ body,
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+  overflow: hidden;
 }
 
 .tabs {
@@ -169,58 +173,119 @@ treecontrol {
 }
 
 markdown-editor {
-  position: absolute;
-  top: 0;
   bottom: 0;
-  right: 0;
   left: 0;
   overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
 
   .half-editor {
-    width: 50%;
-    height: 100%;
     display: inline-block;
+    height: 100%;
+    width: 50%;
   }
 
   .half-json {
-    left: 50%;
-    display: inline-block;
-    top: 0;
-    position: absolute;
     bottom: 0;
+    display: inline-block;
+    left: 50%;
     overflow: auto;
-    right: 0;
     padding: 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 }
 
 .ngdialog.ngdialog-theme-default .ngdialog-content {
   bottom: 0px;
+  left: calc(50vw - 225px);
+  margin: auto;
+  max-height: 600px;
+  overflow: hidden;
   position: absolute;
   top: 0px;
-  left: calc(50vw - 225px);
-  max-height: 600px;
-  margin: auto;
-  overflow: hidden;
   z-index: 10;
 
   .project-tree-container {
-    position: absolute;
-    top: 28px;
     bottom: 50px;
     min-height: 0;
+    position: absolute;
+    top: 28px;
   }
 
   .buttons {
-    position: absolute;
+    background: #F0F0F0;
     bottom: 0;
     left: 0;
-    right: 0;
     padding: 8px;
-    background: #F0F0F0;
+    position: absolute;
+    right: 0;
   }
 }
 
 .wrap {
   word-wrap: break-word;
 }
+
+json-editor {
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  .half-editor {
+    display: inline-block;
+    height: 100%;
+    width: 50%;
+  }
+
+  .half-json {
+    bottom: 0;
+    display: inline-block;
+    overflow: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 49%;
+  }
+}
+
+.ace_gutter-cell.ace_info {
+  background-image: url("../images/info.png") !important;
+  background-size: contain;
+  background-position: 7px center;
+}
+
+.ace_gutter-cell.ace_warning {
+  background-image: url("../images/warning.png") !important;
+  background-size: contain;
+}
+
+.ace_gutter-cell.ace_error {
+  background-image: url("../images/error.png") !important;
+  background-size: contain;
+}
+
+// scss-lint:disable IdSelector
+#loading-bar-spinner .spinner-icon {
+  border: solid 4px transparent;
+  border-left-color: $primary;
+  border-top-color: $primary;
+  height: 16px;
+  width: 16px;
+}
+
+#loading-bar .bar {
+  background: $primary;
+  height: 4px;
+  .peg {
+    display: none;
+  }
+}
+// scss-lint:enable IdSelector
+// scss-lint:enable NestingDepth
+// scss-lint:enable SelectorDepth
