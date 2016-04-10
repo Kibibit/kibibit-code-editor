@@ -280,6 +280,10 @@ json-editor {
   background-size: contain;
 }
 
+kb-file-tree {
+  display: block;
+}
+
 // scss-lint:disable IdSelector
 #loading-bar-spinner .spinner-icon {
   border: solid 4px transparent;
