@@ -4,14 +4,14 @@ angular.module('kibibitCodeEditor')
   return {
     scope: {},
     bindToController: {
-      filePath: '=kbFilePath'
+      openFile: '=kbOpenFile'
     },
     controller: 'codeEditorController',
     controllerAs: 'codeEditorCtrl',
     templateUrl: 'app/components/codeEditor/codeEditorTemplate.html',
     link: function(scope, element, attrs, codeEditorCtrl) {
-      scope.$watch('codeEditorCtrl.filePath', function(newFilePath) {
-        codeEditorCtrl.updateFileContent(newFilePath);
+      scope.$watch('codeEditorCtrl.openFile', function(newOpenFile) {
+        codeEditorCtrl.updateFileContent(newOpenFile);
       });
     }
   };

@@ -5,38 +5,28 @@ angular.module('kibibitCodeEditor')
     scope: {},
     bindToController: {
       path: '=kbFileTreePath',
-      kbFileTreeSelection: '=',
-      kbFileTreeOptions: '='
+      selection: '=kbFileTreeSelection',
+      userOptions: '=kbFileTreeOptions'
     },
     controller: 'fileTreeController',
     controllerAs: 'fileTreeCtrl',
-    templateUrl: 'app/components/fileTree/fileTreeTemplate.html'
+    templateUrl: 'app/components/fileTree/fileTreeTemplate.html',
+    link: function(scope, element, attrs, fileTreeCtrl) {
+      scope.$watch('fileTreeCtrl.path', function() {
+        fileTreeCtrl.updateTreePath(fileTreeCtrl.path);
+      });
+    }
   };
 })
 
 .controller('fileTreeController', [
   'FolderService',
-  'EventManagerService',
   function(
-    FolderService,
-    EventManagerService) {
+    FolderService) {
 
     var vm = this;
 
-    vm.getFolder = function(path) {
-      if (path) {
-        FolderService.getFolder(path, function(folderContent) {
-          vm.path = folderContent.data;
-        });
-      }
-    };
-
-    vm.getFolder(vm.path);
-
-    // Listen to change folder update events
-    EventManagerService.on('fileTreePathUpdated', vm.getFolder);
-
-    vm.userOptions = vm.kbFileTreeOptions || {};
+    vm.userOptions = vm.userOptions || {};
 
     vm.treeOptions = {
       nodeChildren: 'children',
@@ -52,6 +42,16 @@ angular.module('kibibitCodeEditor')
     };
 
     angular.extend(vm.options, vm.userOptions);
+
+    // Handle the updated treePath 
+    vm.updateTreePath = function(path) {
+      if (typeof path === 'string' || path instanceof String) {
+        FolderService.getFolder(path, function(folderContent) {
+          vm.path = folderContent.data;
+        });
+        vm.expandedNodes = [];
+      }
+    }
 
     // get file from the server and update the ace session content
     vm.onSelection = function(treeNode) {
@@ -71,12 +71,12 @@ angular.module('kibibitCodeEditor')
           vm.expandedNodes.push(folder);
         }
         if (vm.options.selectionMode == 'folder') {
-          vm.kbFileTreeSelection = folder.path;
+          vm.selection = folder.path;
         }
       } else {
         file = treeNode;
         if (vm.options.selectionMode == 'file') {
-          vm.kbFileTreeSelection =  file.path;
+          vm.selection =  file.path;
         }
       }
     };

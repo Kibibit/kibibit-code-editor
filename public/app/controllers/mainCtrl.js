@@ -6,18 +6,16 @@ angular.module('kibibitCodeEditor')
   'ngDialog',
   'Fullscreen',
   'SettingsService',
-  'EventManagerService',
   function(
     $scope,
     $http,
     ngDialog,
     Fullscreen,
-    SettingsService,
-    EventManagerService) {
+    SettingsService) {
 
     var vm = this;
 
-    vm.selectedFilePath = '';
+    vm.openFile = '';
 
     vm.settings = SettingsService.getSettings();
 
@@ -41,9 +39,8 @@ angular.module('kibibitCodeEditor')
         data: {
           userHomeDirectoryPath: vm.userHomeDirectoryPath
         }
-      }).closePromise.then(function(selectedProjectFolder) {
-        EventManagerService.trigger(
-          'fileTreePathUpdated', selectedProjectFolder.value);
+      }).closePromise.then(function(selectedProjectFolderPath) {
+        vm.projectFolderPath = selectedProjectFolderPath.value;
       });
     };
 
@@ -59,15 +56,9 @@ angular.module('kibibitCodeEditor')
     vm.goFullscreen = function() {
 
       if (Fullscreen.isEnabled()) {
-        SettingsService.setSettings({
-          isFullscreen: false
-        });
         Fullscreen.cancel();
       } else {
         Fullscreen.all();
-        SettingsService.setSettings({
-          isFullscreen: true
-        });
       }
     };
   }]);
