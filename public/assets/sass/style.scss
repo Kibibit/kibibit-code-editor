@@ -127,17 +127,6 @@ md-toolbar {
   }
 }
 
-.ngdialog {
-  overflow: hidden;
-  .tree-selected {
-    file-name {
-      &.directory {
-        font-weight: bold;
-      }
-    }
-  }
-}
-
 .ui-layout-column,
 .ui-layout-row,
 .ui-splitbar {
@@ -236,6 +225,14 @@ markdown-editor {
       right: 0;
     }
   }
+  
+  .tree-selected {
+    file-name {
+      &.directory {
+        font-weight: bold;
+      }
+    }
+  }  
 }
 
 .wrap {
