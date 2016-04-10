@@ -1,0 +1,6 @@
+<div class="half-editor"
+     ui-ace="jsonEditorCtrl.editorOptions"
+     ng-model="jsonEditorCtrl.code"></div>
+<div class="half-json" ng-scrollbars>
+	<json-formatter class="json-formatter-dark" open="1" json="jsonEditorCtrl.aceDocumentJson"></json-formatter>
+</div>

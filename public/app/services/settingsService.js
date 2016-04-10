@@ -5,7 +5,8 @@ angular.module('kibibitCodeEditor')
 
   /* init */
   var settings = {
-    cursor: {row: '0', column: '0'}
+    cursor: {row: '0', column: '0'},
+    isFullscreen: false
   };
 
   vm.getSettings = function() {
