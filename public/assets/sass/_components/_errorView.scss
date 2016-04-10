@@ -1,3 +1,5 @@
+// scss-lint:disable NestingDepth
+// scss-lint:disable SelectorDepth
 error-view {
   background: black;
   bottom: 0;
@@ -7,28 +9,6 @@ error-view {
   right: 0;
   top: 0;
 
-  @-webkit-keyframes cursor-blink {
-    0% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-  @-moz-keyframes cursor-blink {
-    0% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
   @keyframes cursor-blink {
     0% {
       opacity: 0;
@@ -100,8 +80,6 @@ error-view {
   }
 
   .terminal .new-output:after {
-    -webkit-animation: cursor-blink 1.25s steps(1) infinite;
-    -moz-animation: cursor-blink 1.25s steps(1) infinite;
     animation: cursor-blink 1.25s steps(1) infinite;
     background: #1ff042;
     box-shadow: 1px 1px 1px rgba(31, 240, 66, 0.65), -1px -1px 1px rgba(31, 240, 66, 0.65), 1px -1px 1px rgba(31, 240, 66, 0.65), -1px 1px 1px rgba(31, 240, 66, 0.65);
@@ -131,3 +109,5 @@ error-view {
     top: 0;
   }
 }
+// scss-lint:enable NestingDepth
+// scss-lint:enable SelectorDepth
