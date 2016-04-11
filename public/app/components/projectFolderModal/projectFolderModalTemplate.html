@@ -1,4 +1,4 @@
-<div class="project-tree-container" ng-scrollbars>
+<div class="project-tree-container" ng-if="ngDialogData.userHomeDirectoryPath" ng-scrollbars>
   <kb-file-tree
     kb-file-tree-path="ngDialogData.userHomeDirectoryPath" 
     kb-file-tree-options="{selectionMode: 'folder', theme: 'tree'}"
