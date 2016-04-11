@@ -48,7 +48,9 @@ angular.module('kibibitCodeEditor')
 
     vm.isModalCancel = function(closeValue) {
       return (angular.isNumber(closeValue) && closeValue === 0)
-              || (angular.isString(closeValue) && (closeValue === '$document' || closeValue === '$closeButton'));
+              || (angular.isString(closeValue)
+                && (closeValue === '$document'
+                  || closeValue === '$closeButton'));
     };
 
     // show the default projects directory to choose a folder from
