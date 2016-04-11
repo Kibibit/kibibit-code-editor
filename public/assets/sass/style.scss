@@ -42,9 +42,23 @@ $color1: rgb(70, 70, 70);
 $color2: #808080;
 $color3: rgb(38, 38, 38);
 
+.main-app-container {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    transition-delay: 0.8s;
+}
+
+.main-app-container.foo {
+    opacity: 1;
+}
+
+html {
+  background: $color1;
+}
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: $color1;
 }
 
 kb-code-editor {
