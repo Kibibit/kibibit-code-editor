@@ -11,7 +11,7 @@ folderService.get = function(req, res) {
   fs.readdir(directoryFullPath, function(err, items) {
     try {
       output.path = directoryFullPath;
-      output.name = 'Development';
+      output.name = directoryFullPath.split(/\/|\\/).reverse()[0];
       output.type = 'directory';
       output.children = [];
 
