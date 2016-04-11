@@ -43,13 +43,13 @@ $color2: #808080;
 $color3: rgb(38, 38, 38);
 
 .main-app-container {
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    transition-delay: 0.8s;
-}
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  transition-delay: 0.8s;
 
-.main-app-container.foo {
+  &.foo {
     opacity: 1;
+  }
 }
 
 html {
