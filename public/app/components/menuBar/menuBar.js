@@ -46,7 +46,8 @@ angular.module('kibibitCodeEditor')
   vm.hasUndo = function() {
     if (vm.settings.currentUndoManager &&
         vm.settings.currentUndoManager.hasUndo) {
-      return vm.settings.currentUndoManager.hasUndo();
+      vm.enableUndo = vm.settings.currentUndoManager.hasUndo();
+      return vm.enableUndo;
     } else {
       return false;
     }
@@ -55,7 +56,8 @@ angular.module('kibibitCodeEditor')
   vm.hasRedo = function() {
     if (vm.settings.currentUndoManager &&
         vm.settings.currentUndoManager.hasRedo) {
-      return vm.settings.currentUndoManager.hasRedo();
+      vm.enableRedo = vm.settings.currentUndoManager.hasRedo();
+      return vm.enableRedo;
     } else {
       return false;
     }
