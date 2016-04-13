@@ -70,14 +70,14 @@
                     </button>
                     <md-menu-content>
                         <md-menu-item class="md-indent">
-                            <md-icon class="material-icons">undo</md-icon>
+                            <md-icon class="material-icons" ng-style="{color: menuBarCtrl.enableUndo ? '' : 'rgba(0, 0, 0, 0.258824)'}">undo</md-icon>
                             <md-button ng-click="menuBarCtrl.settings.currentUndoManager.undo() && menuBarCtrl.settings.currentEditor.focus()" ng-disabled="!menuBarCtrl.hasUndo()">
                                 Undo
                                 <span class="md-alt-text">{{ 'M-Z' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
                         <md-menu-item class="md-indent">
-                            <md-icon class="material-icons">redo</md-icon>
+                            <md-icon class="material-icons" ng-style="{color: menuBarCtrl.enableRedo ? '' : 'rgba(0, 0, 0, 0.258824)'}">redo</md-icon>
                             <md-button ng-click="menuBarCtrl.settings.currentUndoManager.redo() && menuBarCtrl.settings.currentEditor.focus()" ng-disabled="!menuBarCtrl.hasRedo()">
                                 Redo
                                 <span class="md-alt-text">{{ 'M-Y' | keyboardShortcut }}</span>
