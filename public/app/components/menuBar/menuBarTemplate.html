@@ -71,14 +71,14 @@
                     <md-menu-content>
                         <md-menu-item class="md-indent">
                             <md-icon class="material-icons">undo</md-icon>
-                            <md-button ng-click="menuBarCtrl.sampleAction('undo', $event)">
+                            <md-button ng-click="menuBarCtrl.settings.currentUndoManager.undo() && menuBarCtrl.settings.currentEditor.focus()" ng-disabled="!menuBarCtrl.hasUndo()">
                                 Undo
                                 <span class="md-alt-text">{{ 'M-Z' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
                         <md-menu-item class="md-indent">
                             <md-icon class="material-icons">redo</md-icon>
-                            <md-button ng-click="menuBarCtrl.sampleAction('redo', $event)">
+                            <md-button ng-click="menuBarCtrl.settings.currentUndoManager.redo() && menuBarCtrl.settings.currentEditor.focus()" ng-disabled="!menuBarCtrl.hasRedo()">
                                 Redo
                                 <span class="md-alt-text">{{ 'M-Y' | keyboardShortcut }}</span>
                             </md-button>

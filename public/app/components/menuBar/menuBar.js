@@ -26,7 +26,7 @@ angular.module('kibibitCodeEditor')
   };
 })
 
-.controller('menuBarController', function(ngDialog) {
+.controller('menuBarController', function(SettingsService, ngDialog) {
   var vm = this;
   vm.settings = {
     printLayout: true,
@@ -39,5 +39,23 @@ angular.module('kibibitCodeEditor')
       template: '<p>You triggered the "' + name + '" action</p>',
       plain: true
     });
+  };
+
+  vm.settings = SettingsService.getSettings();
+
+  vm.hasUndo = function() {
+    if (vm.settings.currentUndoManager && vm.settings.currentUndoManager.hasUndo) {
+      return vm.settings.currentUndoManager.hasUndo();
+    } else {
+      return false;
+    }
+  };
+
+  vm.hasRedo = function() {
+    if (vm.settings.currentUndoManager && vm.settings.currentUndoManager.hasRedo) {
+      return vm.settings.currentUndoManager.hasRedo();
+    } else {
+      return false;
+    }
   };
 });
