@@ -30,7 +30,7 @@ angular.module('kibibitCodeEditor')
   SettingsService,
   ngDialog,
   deviceDetector) {
-  
+
   var vm = this;
   vm.settings = {
     printLayout: true,
