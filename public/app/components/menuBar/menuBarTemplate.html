@@ -42,7 +42,7 @@
                             </md-button>
                         </md-menu-item>
                         <md-menu-item class="md-indent">
-                            <md-icon class="material-icons">save</md-icon>
+                            <md-icon class="material-icons" style="color: rgba(0, 0, 0, 0.258824)">save</md-icon>
                             <md-button disabled="disabled" ng-click="menuBarCtrl.sampleAction('Rename', $event)">
                                 Save
                             </md-button>
@@ -86,21 +86,21 @@
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item class="md-indent">
                             <md-icon class="material-icons">content_cut</md-icon>
-                            <md-button ng-click="menuBarCtrl.sampleAction('cut', $event)">
+                            <md-button ngclipboard ngclipboard-success="menuBarCtrl.cutSelection(e);" data-clipboard-text="{{ menuBarCtrl.settings.currentEditor.session.getTextRange(menuBarCtrl.settings.currentEditor.getSelectionRange()) }}">
                                 Cut
                                 <span class="md-alt-text">{{ 'M-X' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
                         <md-menu-item class="md-indent">
                             <md-icon class="material-icons">content_copy</md-icon>
-                            <md-button ng-click="menuBarCtrl.sampleAction('copy', $event)">
+                            <md-button ngclipboard ngclipboard-success="menuBarCtrl.settings.currentEditor.focus()" data-clipboard-text="{{ menuBarCtrl.settings.currentEditor.session.getTextRange(menuBarCtrl.settings.currentEditor.getSelectionRange()) }}">
                                 Copy
                                 <span class="md-alt-text">{{ 'M-C' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
                         <md-menu-item class="md-indent">
-                            <md-icon class="material-icons">content_paste</md-icon>
-                            <md-button ng-click="menuBarCtrl.sampleAction('paste', $event)">
+                            <md-icon class="material-icons" style="color: rgba(0, 0, 0, 0.258824)">content_paste</md-icon>
+                            <md-button ng-click="menuBarCtrl.paste()" disabled="disabled">
                                 Paste
                                 <span class="md-alt-text">{{ 'M-P' | keyboardShortcut }}</span>
                             </md-button>

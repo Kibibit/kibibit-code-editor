@@ -13,7 +13,9 @@ angular.module('kibibitCodeEditor',
   'ngSanitize',
   'hc.marked',
   'emoji',
-  'jsonFormatter'])
+  'jsonFormatter',
+  'ngclipboard',
+  'ng.deviceDetector'])
 .config(['$compileProvider', function($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
 }])
