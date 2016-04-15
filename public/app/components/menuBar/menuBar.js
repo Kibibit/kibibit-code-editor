@@ -1,6 +1,6 @@
 angular.module('kibibitCodeEditor')
 
-.directive('menuBar', function() {
+.directive('kbMenuBar', function() {
   return {
     controller: 'menuBarController',
     controllerAs: 'menuBarCtrl',
@@ -32,12 +32,7 @@ angular.module('kibibitCodeEditor')
   deviceDetector) {
 
   var vm = this;
-  vm.settings = {
-    printLayout: true,
-    showRuler: true,
-    showSpellingSuggestions: true,
-    presentationMode: 'edit'
-  };
+
   vm.sampleAction = function(name, ev) {
     ngDialog.open({
       template: '<p>You triggered the "' + name + '" action</p>',
