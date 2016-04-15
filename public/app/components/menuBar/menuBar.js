@@ -67,30 +67,4 @@ angular.module('kibibitCodeEditor')
     vm.settings.currentEditor.session.replace(vm.settings.currentEditor.selection.getRange(), '');
     vm.settings.currentEditor.focus();
   }
-
-  vm.paste = function() {
-    /*var pastedText = "";
-      if (deviceDetector.browser === 'ie' || deviceDetector.browser === 'ms-edge') {
-         pastedText = window.clipboardData.getData('Text');
-      }
-      else if (deviceDetector.browser === 'firefox') {
-         pastedText = "";
-      }
-      else if (deviceDetector.browser === 'opera') {
-         pastedText = evt.browserEvent.clipboardData.getData('text/plain');
-      }
-      else if (deviceDetector.browser === 'chrome' || deviceDetector.browser === 'safari') {
-        //WebKit based browsers. i.e: Chrome, Safari
-         pastedText = evt.browserEvent.clipboardData.getData('text/plain');
-      }
-    evt.stopEvent();
-    if(pastedText.indexOf('#') == 0){
-        pastedText = pastedText.substr(1,pastedText.length);
-        this.setValue(pastedText);  
-    }*/
-
-    vm.settings.currentEditor.focus();
-    var ev=document.createEvent("KeyboardEvent");
-    ev.initKeyboardEvent('paste',true,true,window,true,false,false,false,86,86);
-  };
 });
