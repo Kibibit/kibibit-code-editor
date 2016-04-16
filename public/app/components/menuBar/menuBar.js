@@ -1,6 +1,6 @@
 angular.module('kibibitCodeEditor')
 
-.directive('menuBar', function() {
+.directive('kbMenuBar', function() {
   return {
     controller: 'menuBarController',
     controllerAs: 'menuBarCtrl',
@@ -26,18 +26,46 @@ angular.module('kibibitCodeEditor')
   };
 })
 
-.controller('menuBarController', function(ngDialog) {
+.controller('menuBarController', function(
+  SettingsService,
+  ngDialog,
+  deviceDetector) {
+
   var vm = this;
-  vm.settings = {
-    printLayout: true,
-    showRuler: true,
-    showSpellingSuggestions: true,
-    presentationMode: 'edit'
-  };
+
   vm.sampleAction = function(name, ev) {
     ngDialog.open({
       template: '<p>You triggered the "' + name + '" action</p>',
       plain: true
     });
+  };
+
+  vm.settings = SettingsService.getSettings();
+
+  vm.hasUndo = function() {
+    if (vm.settings.currentUndoManager &&
+        vm.settings.currentUndoManager.hasUndo) {
+      vm.enableUndo = vm.settings.currentUndoManager.hasUndo();
+      return vm.enableUndo;
+    } else {
+      return false;
+    }
+  };
+
+  vm.hasRedo = function() {
+    if (vm.settings.currentUndoManager &&
+        vm.settings.currentUndoManager.hasRedo) {
+      vm.enableRedo = vm.settings.currentUndoManager.hasRedo();
+      return vm.enableRedo;
+    } else {
+      return false;
+    }
+  };
+
+  vm.cutSelection = function(e) {
+    vm.settings.currentEditor.session.replace(
+      vm.settings.currentEditor.selection.getRange(), '');
+
+    vm.settings.currentEditor.focus();
   };
 });
