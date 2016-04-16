@@ -9,7 +9,7 @@
     font-weight: normal;
     font-style: normal;
 }
-[class*='icon-']:before{
+[class*='kibibit-']:before{
 	display: inline-block;
    font-family: 'Glyphter';
    font-style: normal;
@@ -18,4 +18,4 @@
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale
 }
-.icon-logo:before{content:'\0041';}
+.kibibit-logo:before{content:'\0041';}
