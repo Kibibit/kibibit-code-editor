@@ -77,14 +77,14 @@ angular.module('kibibitCodeEditor')
     };
 
     /* Contains all the watched variables. each variable should have a setter and getter. Those are how we bind extra functions to these variables */
-    function WatchedVariables(){
+    function WatchedVariables() {
       var openFile = '';
 
-      this.__defineGetter__('openFile', function(){
+      this.__defineGetter__('openFile', function() {
         return openFile;
       });
 
-      this.__defineSetter__('openFile', function(val){
+      this.__defineSetter__('openFile', function(val) {
         //console.debug('file clicked. need to open new tab, or highlight correct tab');
         if (!(val in vm.openFiles)) {
           console.debug('new file selected. creating new tab');
