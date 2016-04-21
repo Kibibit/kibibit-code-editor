@@ -5,4 +5,4 @@ jscs:
 javascript:
   enabled: false
 scss:
-  config_file: .scss
+  config_file: .scss.yml
