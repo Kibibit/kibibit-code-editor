@@ -1,3 +1,6 @@
+// scss-lint:disable NestingDepth
+// scss-lint:disable SelectorDepth
+// scss-lint:disable ColorVariable
 kb-menu-bar {
   .project-logo-container {
     height: 105px;
@@ -22,7 +25,7 @@ kb-menu-bar {
       }
 
       .folder {
-      	font-size: 200%;
+        font-size: 200%;
         line-height: 100%;
       }
   	}
@@ -32,3 +35,7 @@ kb-menu-bar {
     padding-top: 28px;
   }
 }
+
+// scss-lint:enable NestingDepth
+// scss-lint:enable SelectorDepth
+// scss-lint:enable ColorVariable
