@@ -4,3 +4,5 @@ jscs:
   config_file: .jscsrc_hound
 javascript:
   enabled: false
+scss:
+  config_file: .scss.yml
