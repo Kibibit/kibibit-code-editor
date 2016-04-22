@@ -1,7 +1,10 @@
 <md-toolbar class="md-menu-dark">
     <div layout="row">
-        <md-toolbar-filler layout layout-align="center center">
-            <md-icon md-svg-icon="call:chat"></md-icon>
+        <md-toolbar-filler layout layout-align="center center" class="project-logo-container">
+            <div class="logo">
+                <i class="material-icons folder" ng-if="main.projectFolderPath">folder</i>
+                <div class="kibibit-logo" ng-if="!main.projectFolderPath"></div>
+            </div>
         </md-toolbar-filler>
         <div>
             <h2 class="md-toolbar-tools">{{main.projectFolderPath}}</h2>
