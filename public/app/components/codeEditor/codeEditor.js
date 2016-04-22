@@ -44,8 +44,6 @@ angular.module('kibibitCodeEditor')
           var settings = SettingsService.setSettings({
             cursor: cursor
           });
-          console.debug('editor\'s cursor changed position:',
-            settings.cursor);
         });
       });
     };

@@ -19,6 +19,11 @@ angular.module('kibibitCodeEditor')
 
     vm.settings = SettingsService.getSettings();
 
+    vm.openFiles = {};
+
+    // parameters that we want additional things to happen each time they're being set or read.
+    vm.watchedVariables = new WatchedVariables();
+
     vm.showAModal = function() {
       ngDialog.open({
         template: 'app/components/yesnoModal/yesnoModalTemplate.html',
@@ -70,4 +75,25 @@ angular.module('kibibitCodeEditor')
         Fullscreen.all();
       }
     };
+
+    /* Contains all the watched variables. each variable should have a setter and getter. Those are how we bind extra functions to these variables */
+    function WatchedVariables() {
+      var openFile = '';
+
+      this.__defineGetter__('openFile', function() {
+        return openFile;
+      });
+
+      this.__defineSetter__('openFile', function(val) {
+        //console.debug('file clicked. need to open new tab, or highlight correct tab');
+        if (!(val in vm.openFiles)) {
+          console.debug('new file selected. creating new tab');
+          vm.openFiles[val] = true;
+        } else {
+          console.debug('file is already opened. highlighting correct tab');
+        }
+
+        openFile = val;
+      });
+    }
   }]);
