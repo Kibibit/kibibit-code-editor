@@ -61,13 +61,4 @@ angular.module('kibibitCodeEditor')
                 vm.showProjectSelectModal();
               });
     };
-
-    vm.goFullscreen = function() {
-
-      if (Fullscreen.isEnabled()) {
-        Fullscreen.cancel();
-      } else {
-        Fullscreen.all();
-      }
-    };
   }]);
