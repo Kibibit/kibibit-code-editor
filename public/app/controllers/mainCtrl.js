@@ -17,7 +17,7 @@ angular.module('kibibitCodeEditor')
 
     vm.openFile = '';
 
-    vm.settings = SettingsService.getSettings();
+    vm.settings = SettingsService.settings;
 
     vm.showAModal = function() {
       ngDialog.open({
