@@ -23,6 +23,7 @@ depcheck = require('gulp-depcheck');
 var karma = require('karma').server;
 
 var isTravis = process.env.TRAVIS || false;
+var isHeroku = process.env.HEROKU || false;
 
 var indent = '                        ';
 var options = {
@@ -147,6 +148,10 @@ gulp.task('watch', 'first, will compile SASS and run the server.\n' + indent +
       function reloadBrowser(message, path) {
         gutil.log(message ? message : 'Something changed.', gutil.colors.bgBlue.white.bold('Reloading browser...'));
         livereload.changed(path);
+      }
+
+      if (isHeroku) {
+        shell.task(['git clone https://github.com/Kibibit/kibibit-code-editor.git']);
       }
 
       gulp.watch(argv.lint ? FILES.LINT : [], ['lint-js']);
