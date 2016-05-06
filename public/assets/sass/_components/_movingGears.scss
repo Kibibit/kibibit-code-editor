@@ -1,0 +1,61 @@
+kb-moving-gears {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  opacity: 0.8;
+
+  .load {
+    width: 100px;
+    height: 80px;
+  }
+
+  .gear {
+    position: absolute;
+    z-index: -10;
+    width: 40px;
+    height: 40px;
+    animation: spin 5s infinite;
+  }
+
+  .two {
+    left: 40px;
+    width: 80px;
+    height: 80px;
+    animation: spin-reverse 5s infinite;
+  }
+
+  .three {
+    top: 45px;
+    left: -10px;
+    width: 60px;
+    height: 60px;
+  }
+
+  @keyframes spin {
+    50% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin-reverse {
+    50% {
+      transform: rotate(-360deg);
+    }
+  }
+
+  .lil-circle {
+    position: absolute;
+    border-radius: 50%;
+    box-shadow: inset 0 0 10px 2px gray, 0 0 50px white;
+    width: 100px;
+    height: 100px;
+    opacity: .65;
+  }
+
+  .blur-circle {
+    position: absolute;
+    top: -19px;
+    left: -19px;
+  }
+}
