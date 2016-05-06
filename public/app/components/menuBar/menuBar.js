@@ -40,7 +40,7 @@ angular.module('kibibitCodeEditor')
     });
   };
 
-  vm.settings = SettingsService.getSettings();
+  vm.settings = SettingsService.settings;
 
   vm.hasUndo = function() {
     if (vm.settings.currentUndoManager &&
@@ -67,5 +67,9 @@ angular.module('kibibitCodeEditor')
       vm.settings.currentEditor.selection.getRange(), '');
 
     vm.settings.currentEditor.focus();
+  };
+
+  vm.toggleFullscreen = function() {
+    vm.settings.isFullscreen = !vm.settings.isFullscreen;
   };
 });
