@@ -32,20 +32,14 @@ angular.module('kibibitCodeEditor')
     vm.aceLoaded = function(_editor) {
       vm.aceSession = _editor.getSession();
       vm.undoManager = _editor.getSession().getUndoManager();
-      SettingsService.setSettings({
-        currentUndoManager: vm.undoManager,
-        currentEditor: _editor
-      });
+      SettingsService.settings.currentUndoManager = vm.undoManager;
+      SettingsService.settings.currentEditor = _editor;
       // save cursor position
       _editor.on('changeSelection', function() {
         $timeout(function() {
           var cursor = _editor.selection.getCursor();
           cursor.row++;
-          var settings = SettingsService.setSettings({
-            cursor: cursor
-          });
-          console.debug('editor\'s cursor changed position:',
-            settings.cursor);
+          SettingsService.settings.cursor = cursor;
         });
       });
     };

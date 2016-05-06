@@ -1,23 +1,53 @@
 angular.module('kibibitCodeEditor')
 
-.service('SettingsService', function() {
+.service('SettingsService', ['Fullscreen', function(Fullscreen) {
   var vm = this;
 
   /* init */
-  var settings = {
-    cursor: {row: '0', column: '0'},
-    isFullscreen: false,
-    currentUndoManager: undefined,
-    currentEditor: undefined
-  };
+  vm.settings = new Settings();
 
-  vm.getSettings = function() {
-    return settings;
-  };
+  function Settings() {
+    var settings = this;
+    /* INIT */
+    var cursor = {row: '0', column: '0'};
+    var isFullscreen = false;
+    var currentUndoManager = undefined;
+    var currentEditor = undefined;
 
-  vm.setSettings = function(newSetting) {
-    newSetting = newSetting || {};
-    settings = angular.extend(settings, newSetting);
-    return settings;
-  };
-});
+    /* EXPOSE SIMPLE VARS */
+    // This are probably better off in state instead of settings. but they're here for now :-)
+    settings.cursor = cursor;
+    settings.currentUndoManager = currentUndoManager;
+    settings.currentEditor = currentEditor;
+
+    settings.__defineSetter__('isFullscreen', function(newValue) {
+
+      console.assert(isBoolean(newValue), {
+        'message': 'isFullscreen should only be a boolean, but was given some other type',
+        'currentValue': isFullscreen,
+        'newValue': newValue
+      });
+
+      if (newValue !== currentFullscreenState()) {
+        if (newValue) {
+          Fullscreen.all();
+        } else {
+          Fullscreen.cancel();
+        }
+      }
+    });
+
+    settings.__defineGetter__('isFullscreen', function() {
+      return currentFullscreenState();
+    });
+  }
+
+  function isBoolean(value) {
+    return value === true || value === false;
+  }
+
+  function currentFullscreenState() {
+    return $(window).data('fullscreen-state');
+  }
+
+}]);

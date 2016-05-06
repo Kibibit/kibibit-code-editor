@@ -144,7 +144,7 @@
                         <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.compactControls">Compact controls</md-menu-item>
                         <md-menu-item class="md-indent">
                             <md-icon class="material-icons">{{ main.settings.isFullscreen ? 'fullscreen_exit' : 'fullscreen' }}</md-icon>
-                            <md-button ng-click="main.goFullscreen()">
+                            <md-button ng-click="menuBarCtrl.toggleFullscreen()">
                                 Fullscreen
                                 <span class="md-alt-text"> {{ 'F12' | keyboardShortcut }}</span>
                             </md-button>
