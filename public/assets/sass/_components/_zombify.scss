@@ -7,48 +7,48 @@
   height: 57px;
   left: 0%;
   cursor: crosshair;
-  -webkit-animation-name: zombiemove, zombiewalk, mirror;
-  -webkit-animation-duration: 50s, 1s, 50s;
-  -webkit-animation-timing-function: linear,steps(2, end), steps(1, end);
-  -webkit-animation-iteration-count: infinite, infinite, infinite;
-  -webkit-animation-direction: normal, normal, normal;
+  animation-name: zombiemove, zombiewalk, mirror;
+  animation-duration: 50s, 1s, 50s;
+  animation-timing-function: linear,steps(2, end), steps(1, end);
+  animation-iteration-count: infinite, infinite, infinite;
+  animation-direction: normal, normal, normal;
 }
 
-@-webkit-keyframes zombiewalk{
+@keyframes zombiewalk{
   from {
-    background-position: 0 0
+    background-position: 0 0;
   }
 
   to {
-    background-position: -126px 0
+    background-position: -126px 0;
   }
 }
 
-@-webkit-keyframes zombiemove{
+@keyframes zombiemove{
   0% {
-    left: 0%
+    left: 0%;
   }
 
   50% {
-    left: 95%
+    left: 95%;
   }
 
   100% {
-    left:0%
+    left:0%;
   }
 }
 
-@-webkit-keyframes mirror {
+@keyframes mirror {
   0% {
-    -webkit-transform: scaleX(1)
+    transform: scaleX(1);
   }
 
   50% {
-    -webkit-transform: scaleX(-1)
+    transform: scaleX(-1);
   }
 
   100% {
-    -webkit-transform: scaleX(1)
+    transform: scaleX(1);
   }
 }
 
@@ -61,38 +61,38 @@
   height: 57px;
   left: 95%;
   cursor: crosshair;
-  -webkit-animation-name: zombiemove-two, zombiewalk, mirror-two;
-  -webkit-animation-duration: 50s, 1s, 50s;
-  -webkit-animation-timing-function: linear, steps(2, end), steps(1, end);
-  -webkit-animation-iteration-count: infinite, infinite, infinite;
-  -webkit-animation-direction: normal, normal, normal;
+  animation-name: zombiemove-two, zombiewalk, mirror-two;
+  animation-duration: 50s, 1s, 50s;
+  animation-timing-function: linear, steps(2, end), steps(1, end);
+  animation-iteration-count: infinite, infinite, infinite;
+  animation-direction: normal, normal, normal;
 }
 
-@-webkit-keyframes zombiemove-two{
+@keyframes zombiemove-two{
   0% {
-    left: 95%
+    left: 95%;
   }
 
   50% {
-    left: 0%
+    left: 0%;
   }
 
   100% {
-    left: 95%
+    left: 95%;
   }
 }
 
-@-webkit-keyframes mirror-two {
+@keyframes mirror-two {
   0% {
-    -webkit-transform: scaleX(-1)
+    transform: scaleX(-1);
   }
 
   50% {
-    -webkit-transform: scaleX(1)
+    transform: scaleX(1);
   }
 
   100% {
-    -webkit-transform: scaleX(-1)
+    transform: scaleX(-1);
   }
 }
 
@@ -107,32 +107,32 @@
   z-index: 99999;
 }
 
-@-webkit-keyframes bounceIn {
+@keyframes bounceIn {
   0% {
     opacity: 0;
-    -webkit-transform: scale(.3);
+    transform: scale(.3);
   }
 
   25% {
     opacity: 1;
-    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
   }
 
   50% {
-    -webkit-transform: scale(.9);
+    transform: scale(.9);
   }
 
   75% {
     opacity: 1;
-    -webkit-transform: scale(1);
+    transform: scale(1);
   }
 
   100% {
     opacity: 0;
-    -webkit-transform: scale(1);
+    transform: scale(1);
   }
 }
 
 .bounceIn {
-  -webkit-animation:bounceIn 1.5s;
+  animation: bounceIn 1.5s;
 }
