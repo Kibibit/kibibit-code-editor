@@ -1,0 +1,138 @@
+.zombie-0 {
+  animation-direction: normal, normal, normal;
+  animation-duration: 50s, 1s, 50s;
+  animation-iteration-count: infinite, infinite, infinite;
+  animation-name: zombiemove, zombiewalk, mirror;
+  animation-timing-function: linear, steps(2, end), steps(1, end);
+  background: url("../images/zombiewalk.png");
+  bottom: 10px;
+  cursor: crosshair;
+  height: 57px;
+  left: 0%;
+  position: fixed;
+  width: 63px;
+  z-index: 999999;
+}
+
+@keyframes zombiewalk{
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: -126px 0;
+  }
+}
+
+@keyframes zombiemove{
+  0% {
+    left: 0%;
+  }
+
+  50% {
+    left: 95%;
+  }
+
+  100% {
+    left:0%;
+  }
+}
+
+@keyframes mirror {
+  0% {
+    transform: scaleX(1);
+  }
+
+  50% {
+    transform: scaleX(-1);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.zombie-1 {
+  animation-direction: normal, normal, normal;
+  animation-duration: 50s, 1s, 50s;
+  animation-iteration-count: infinite, infinite, infinite;
+  animation-name: zombiemove-two, zombiewalk, mirror-two;
+  animation-timing-function: linear, steps(2, end), steps(1, end);
+  background: url("../images/zombiewalk.png");
+  bottom: 10px;
+  cursor: crosshair;
+  height: 57px;
+  left: 95%;
+  position: fixed;
+  width: 63px;
+  z-index: 999999;
+}
+
+@keyframes zombiemove-two{
+  0% {
+    left: 95%;
+  }
+
+  50% {
+    left: 0%;
+  }
+
+  100% {
+    left: 95%;
+  }
+}
+
+@keyframes mirror-two {
+  0% {
+    transform: scaleX(-1);
+  }
+
+  50% {
+    transform: scaleX(1);
+  }
+
+  100% {
+    transform: scaleX(-1);
+  }
+}
+
+#overlay {
+  color: #000;
+  font-size: 72px;
+  font-weight: 600;
+  opacity: 0;
+  position: fixed;
+  right: 35%;
+  top: 50%;
+  z-index: 99999;
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+
+  25% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  50% {
+    transform: scale(0.9);
+  }
+
+  75% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.bounceIn {
+  animation: bounceIn 1.5s;
+}

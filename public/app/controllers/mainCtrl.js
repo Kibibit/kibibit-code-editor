@@ -15,9 +15,11 @@ angular.module('kibibitCodeEditor')
 
     var vm = this;
 
+    window.mainCtrl = vm;
+
     vm.openFile = '';
 
-    vm.settings = SettingsService.getSettings();
+    vm.settings = SettingsService.settings;
 
     vm.showAModal = function() {
       ngDialog.open({
@@ -60,14 +62,5 @@ angular.module('kibibitCodeEditor')
                 vm.userHomeDirectoryPath = res.data;
                 vm.showProjectSelectModal();
               });
-    };
-
-    vm.goFullscreen = function() {
-
-      if (Fullscreen.isEnabled()) {
-        Fullscreen.cancel();
-      } else {
-        Fullscreen.all();
-      }
     };
   }]);
