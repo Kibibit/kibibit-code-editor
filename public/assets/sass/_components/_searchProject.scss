@@ -1,0 +1,80 @@
+$active-color: #FFBC00;
+$inactive-color: grey;
+$font-size: 16px;
+$search-width: $font-size * 20;
+// make this bounce only at end animation
+$bounce: cubic-bezier(0.87, -0.41, 0.19, 1.44);
+
+kb-search-project {
+    /*display: inline-flex;
+    font-size: $font-size;
+    color: $active-color;
+    z-index: 5;*/
+
+    display: inline-block;
+    padding: 0;
+    position: relative;
+    height: auto;
+    margin: auto;
+
+    .search-btn {
+        cursor: pointer;
+        font-size: 14px;
+        padding: 0 10px;
+        margin: 0;
+        border: 0;
+        background-color: transparent;
+        height: 40px;
+
+        .search-icon {
+            font-size: $font-size + 6;
+            position: relative;
+            top: 7px;
+        }
+        
+        &.open {
+            pointer-events: none;
+        }
+    }
+
+    .search-input {
+        outline: none;
+        border: none;
+        border-bottom: $active-color 2px solid;
+        width: 0;
+        transition: all 300ms ease-out, width 400ms $bounce;
+        background: none;
+        color: $active-color;
+        padding: 0;
+        padding-left: 0;
+        padding-right: 0;
+        opacity: 0;
+        font-size: $font-size * 0.85;
+        font-family: Roboto,"Helvetica Neue",sans-serif;
+        font-weight: 300;
+        -webkit-font-smoothing: antialiased;
+
+        &.open {
+            width: $search-width;
+            padding-left: 7px;
+            padding-right: 7px;
+            opacity: 1;
+        }
+        &.blurred {
+            color: $inactive-color;
+            border-bottom: $inactive-color 2px solid;
+            &::selection {
+                background-color: rgba(black, 0);
+                color: $inactive-color;
+            }
+        }
+        &::placeholder {
+            color: $inactive-color;
+        }
+
+        &::selection {
+            background-color: $active-color;
+            color: white;
+        }
+    }
+}
