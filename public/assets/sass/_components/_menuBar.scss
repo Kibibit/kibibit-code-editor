@@ -16,6 +16,9 @@ kb-menu-bar {
       justify-content: center;
       line-height: 100%;
       width: 90px;
+      overflow: hidden;
+      z-index: 1;
+      position: relative;
 
       .kibibit-logo {
         color: darken(#313131, 2%);

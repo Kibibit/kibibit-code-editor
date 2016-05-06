@@ -1,7 +1,9 @@
 <md-toolbar class="md-menu-dark">
     <div layout="row">
+        <kb-user-avatar></kb-user-avatar>
         <md-toolbar-filler layout layout-align="center center" class="project-logo-container">
             <div class="logo">
+                <kb-moving-gears ng-if="main.buildTaskRunning"></kb-moving-gears>
                 <i class="material-icons folder" ng-if="main.projectFolderPath">folder</i>
                 <div class="kibibit-logo" ng-if="!main.projectFolderPath"></div>
             </div>
@@ -206,6 +208,12 @@
                             <md-button ng-click="main.showAModal()">
                                 Modal Example
                                 <span class="md-alt-text"> {{ 'M-B' | keyboardShortcut }}</span>
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item class="md-indent">
+                            <md-icon class="icon-zombie-6"></md-icon>
+                            <md-button ng-click="main.zombify = true">
+                                ZOMBIFY
                             </md-button>
                         </md-menu-item>
                     </md-menu-content>
