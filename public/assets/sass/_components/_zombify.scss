@@ -3,7 +3,7 @@
   animation-duration: 50s, 1s, 50s;
   animation-iteration-count: infinite, infinite, infinite;
   animation-name: zombiemove, zombiewalk, mirror;
-  animation-timing-function: linear,steps(2, end), steps(1, end);
+  animation-timing-function: linear, steps(2, end), steps(1, end);
   background: url("../images/zombiewalk.png");
   bottom: 10px;
   cursor: crosshair;
@@ -119,7 +119,7 @@
   }
 
   50% {
-    transform: scale(.9);
+    transform: scale(0.9);
   }
 
   75% {
