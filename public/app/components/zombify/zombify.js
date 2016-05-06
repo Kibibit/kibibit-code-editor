@@ -39,8 +39,8 @@ angular.module('kibibitCodeEditor')
   function gameOver() {
     end = true;
     alert('GAME OVER! YOU KILLED '
-    	+ score
-    	+ ' ZOMBIES BEFORE BECOMING ZOMBIEFOOD!');
+      + score
+      + ' ZOMBIES BEFORE BECOMING ZOMBIEFOOD!');
     zombiesHolderDiv.parentNode.removeChild(zombiesHolderDiv);
     vm.ngModel = false;
   }
@@ -64,7 +64,7 @@ angular.module('kibibitCodeEditor')
     if (end) {
       return;
     }
-    
+
     var div = document.createElement('div');
     div.setAttribute('class', 'zombie-' + Math.round(Math.random()));
 
@@ -82,7 +82,7 @@ angular.module('kibibitCodeEditor')
 
     zombieCount++;
     if (zombieCount > 20) {
-    	gameOver();
+      gameOver();
     }
   }
 
