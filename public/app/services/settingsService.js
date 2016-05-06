@@ -28,8 +28,8 @@ angular.module('kibibitCodeEditor')
         'newValue': newValue
       });
 
-      if(newValue !== currentFullscreenState()) {
-        if(newValue) {
+      if (newValue !== currentFullscreenState()) {
+        if (newValue) {
           Fullscreen.all();
         } else {
           Fullscreen.cancel();
