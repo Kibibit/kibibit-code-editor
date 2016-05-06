@@ -38,9 +38,9 @@ angular.module('kibibitCodeEditor')
 
   function gameOver() {
     end = true;
-    alert('GAME OVER! YOU KILLED '
-      + score
-      + ' ZOMBIES BEFORE BECOMING ZOMBIEFOOD!');
+    alert('GAME OVER! YOU KILLED ' +
+      score +
+      ' ZOMBIES BEFORE BECOMING ZOMBIEFOOD!');
     zombiesHolderDiv.parentNode.removeChild(zombiesHolderDiv);
     vm.ngModel = false;
   }
