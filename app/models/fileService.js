@@ -12,9 +12,13 @@ fileService.get = function(req, res) {
 
   var isFileOfType = function(type) {
     return mimeType.indexOf(type) !== -1;
-  }
+  };
 
-  var showNoContent = false || isFileOfType('zip') || isFileOfType('program') || isFileOfType('image') || isFileOfType('font');
+  var showNoContent = false ||
+      isFileOfType('zip') ||
+      isFileOfType('program') ||
+      isFileOfType('image') ||
+      isFileOfType('font');
 
   if (showNoContent) {
     res.json({
