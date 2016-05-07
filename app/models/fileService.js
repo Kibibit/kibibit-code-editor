@@ -22,7 +22,7 @@ fileService.get = function(req, res) {
 
   if (showNoContent) {
     res.json({
-      content: "awww man... we can't show " + mimeType + " yet :-(",
+      content: 'awww man... we can\'t show ' + mimeType + ' yet :-(',
       mimeType: mimeType
     });
   } else {
