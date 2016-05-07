@@ -47,7 +47,7 @@ angular.module('kibibitCodeEditor')
     vm.aceChanged = function(_editor) {
       vm.aceDocumentValue = vm.aceSession.getDocument().getValue();
       vm.editorOptions.mode = vm.fileInfo.mimeType ? vm.fileInfo.mimeType.match(/\/(x-)?(.*)$/)[2] : '';
-      vm.aceSession.setMode("ace/mode/" + vm.editorOptions.mode.toLowerCase());
+      vm.aceSession.setMode('ace/mode/' + vm.editorOptions.mode.toLowerCase());
       console.debug('changed mode to ' + vm.editorOptions.mode);
     };
 
