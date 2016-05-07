@@ -8,22 +8,36 @@ var fileService = {};
 
 fileService.get = function(req, res) {
   var fileFullPath = req.params.file_id;
-  var mimeType = mime.lookup(fileFullPath);
-  fs.readFile(fileFullPath, 'utf8', function(err, data) {
-    if (err) {
-      res.json(err);
-      console.time().tag('FILE CONTENT')
-        .error('file-get returned an error: ' + err);
-    } else {
-      var file = {
-        content: data,
-        mimeType: mimeType
-      };
-      res.json(file);
-      console.time().tag('FILE CONTENT')
-        .info('file requested: ' + fileFullPath);
-    }
-  });
+  var mimeType = mime.lookup(fileFullPath) || '';
+
+  var isFileOfType = function(type) {
+    return mimeType.indexOf(type) !== -1;
+  }
+
+  var showNoContent = false || isFileOfType('zip') || isFileOfType('program') || isFileOfType('image') || isFileOfType('font');
+
+  if (showNoContent) {
+    res.json({
+      content: "awww man... we can't show " + mimeType + " yet :-(",
+      mimeType: mimeType
+    });
+  } else {
+    fs.readFile(fileFullPath, 'utf8', function(err, data) {
+      if (err) {
+        res.json(err);
+        console.time().tag('FILE CONTENT')
+          .error('file-get returned an error: ' + err);
+      } else {
+        var file = {
+          content: data,
+          mimeType: mimeType
+        };
+        res.json(file);
+        console.time().tag('FILE CONTENT')
+          .info('file requested: ' + fileFullPath);
+      }
+    });
+  }
 };
 
 fileService.put = function(req, res) {
