@@ -16,6 +16,9 @@ angular.module('kibibitCodeEditor')
 
     /* EXPOSE SIMPLE VARS */
     // This are probably better off in state instead of settings. but they're here for now :-)
+    settings.editorSettings = {
+      lineLength: 80
+    };
     settings.cursor = cursor;
     settings.currentUndoManager = currentUndoManager;
     settings.currentEditor = currentEditor;
@@ -40,8 +43,22 @@ angular.module('kibibitCodeEditor')
     settings.__defineGetter__('isFullscreen', function() {
       return currentFullscreenState();
     });
-  }
 
+    settings.__defineSetter__('lineLength', function(newValue) {
+      console.assert(Number.isInteger(newValue), {
+        'message': 'lineLength should only be a integer, but was given some other type',
+        'currentValue': settings.editorSettings.lineLength,
+        'newValue': newValue
+      });
+
+      if (newValue !== settings.editorSettings.lineLength) {
+        settings.currentEditor.setPrintMarginColumn(newValue);
+        settings.editorSettings.lineLength = newValue;
+      }
+    });
+
+  }
+  
   function isBoolean(value) {
     return value === true || value === false;
   }

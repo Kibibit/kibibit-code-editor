@@ -136,6 +136,16 @@
                                 </md-menu-content>
                             </md-menu>
                         </md-menu-item>
+                        <md-menu-item class="md-indent">
+                          <md-menu>
+                            <md-button ng-click="$mdOpenMenu()">Line length</md-button>
+                            <md-menu-content width="3">
+                              <md-menu-item ng-click="menuBarCtrl.setLineLength(80)">80px</md-menu-item>
+                              <md-menu-item ng-click="menuBarCtrl.setLineLength(120)">120px</md-menu-item>
+                              <md-menu-item ng-click="menuBarCtrl.setLineLength(240)">240px</md-menu-item>
+                            </md-menu-content>
+                          </md-menu>
+                        </md-menu-item>
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.showRuler">Show ruler</md-menu-item>
                         <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.showEquationToolbar">Show equation toolbar</md-menu-item>
