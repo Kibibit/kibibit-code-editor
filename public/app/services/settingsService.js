@@ -50,6 +50,7 @@ angular.module('kibibitCodeEditor')
       var ruler = 80;
       var lineWrap = false;
       var lineWrapColumn = 0;
+      var fontSize = 16;
 
       this.__defineGetter__('ruler', function() {
         return ruler;
@@ -107,6 +108,26 @@ angular.module('kibibitCodeEditor')
             session.setWrapLimit(newValue);
           }
           lineWrapColumn = newValue;
+        }
+      });
+
+      this.__defineGetter__('fontSize', function() {
+        return fontSize;
+      });
+
+      this.__defineSetter__('fontSize', function(newValue) {
+        console.assert(Number.isInteger(newValue), {
+          'message': 'fontSize should only be a integer, but was given some other type',
+          'currentValue': fontSize,
+          'newValue': newValue
+        });
+
+        if (newValue !== fontSize) {
+          if (settings.currentEditor) {
+            var editor = settings.currentEditor;
+            editor.setFontSize(newValue);
+          }
+          fontSize = newValue;
         }
       });
     }
