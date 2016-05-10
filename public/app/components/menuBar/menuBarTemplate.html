@@ -138,16 +138,29 @@
                         </md-menu-item>
                         <md-menu-item class="md-indent">
                           <md-menu>
-                            <md-button ng-click="$mdOpenMenu()">Line length</md-button>
+                            <md-button ng-click="$mdOpenMenu()">Ruler</md-button>
                             <md-menu-content width="3">
-                              <md-menu-item ng-click="menuBarCtrl.setLineLength(80)">80px</md-menu-item>
-                              <md-menu-item ng-click="menuBarCtrl.setLineLength(120)">120px</md-menu-item>
-                              <md-menu-item ng-click="menuBarCtrl.setLineLength(240)">240px</md-menu-item>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.ruler == 0 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.ruler = 0">None</md-button>
+                              </md-menu-item>
+                              <md-menu-divider></md-menu-divider>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.ruler == 80 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.ruler = 80">80px</md-button>
+                              </md-menu-item>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.ruler == 100 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.ruler = 100">100px</md-button>
+                              </md-menu-item>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.ruler == 120 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.ruler = 120">120px</md-button>
+                              </md-menu-item>
                             </md-menu-content>
                           </md-menu>
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
-                        <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.showRuler">Show ruler</md-menu-item>
                         <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.showEquationToolbar">Show equation toolbar</md-menu-item>
                         <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.showSpellingSuggestions">Show spelling suggestions</md-menu-item>
                         <md-menu-divider></md-menu-divider>
