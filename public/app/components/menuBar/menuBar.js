@@ -72,4 +72,8 @@ angular.module('kibibitCodeEditor')
   vm.toggleFullscreen = function() {
     vm.settings.isFullscreen = !vm.settings.isFullscreen;
   };
+
+  vm.toggleLineWrap = function() {
+    vm.settings.lineWrap = !vm.settings.editorSettings.lineWrap
+  }
 });

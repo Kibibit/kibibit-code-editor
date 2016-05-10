@@ -17,7 +17,8 @@ angular.module('kibibitCodeEditor')
     /* EXPOSE SIMPLE VARS */
     // This are probably better off in state instead of settings. but they're here for now :-)
     settings.editorSettings = {
-      ruler: 80
+      ruler: 80,
+      lineWrap: false
     };
     settings.cursor = cursor;
     settings.currentUndoManager = currentUndoManager;
@@ -42,6 +43,23 @@ angular.module('kibibitCodeEditor')
 
     settings.__defineGetter__('isFullscreen', function() {
       return currentFullscreenState();
+    });
+
+    settings.__defineSetter__('lineWrap', function(newValue) {
+      console.assert(isBoolean(newValue), {
+        'message': 'lineWrap should only be a boolean, but was given some other type',
+        'currentValue': settings.editorSettings.lineWrap,
+        'newValue': newValue
+      });
+      if (newValue !== settings.editorSettings.lineWrap) {
+        var session = settings.currentEditor.getSession();
+        session.setUseWrapMode(newValue);
+        settings.editorSettings.lineWrap = newValue;
+      }
+    });
+
+    settings.__defineGetter__('lineWrap', function() {
+      return settings.editorSettings.lineWrap;
     });
 
     settings.__defineSetter__('ruler', function(newValue) {

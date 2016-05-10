@@ -137,6 +137,10 @@
                             </md-menu>
                         </md-menu-item>
                         <md-menu-item class="md-indent">
+                          <md-icon class="material-icons">{{ menuBarCtrl.settings.lineWrap ? 'check' : '' }}</md-icon>
+                          <md-button ng-click="menuBarCtrl.toggleLineWrap()">Line Wrap</md-button>
+                        </md-menu-item>
+                        <md-menu-item class="md-indent">
                           <md-menu>
                             <md-button ng-click="$mdOpenMenu()">Ruler</md-button>
                             <md-menu-content width="3">
