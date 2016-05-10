@@ -137,7 +137,7 @@
                             </md-menu>
                         </md-menu-item>
                         <md-menu-item class="md-indent">
-                          <md-icon class="material-icons">{{ menuBarCtrl.settings.lineWrap ? 'check' : '' }}</md-icon>
+                          <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.lineWrap ? 'check' : '' }}</md-icon>
                           <md-button ng-click="menuBarCtrl.toggleLineWrap()">Line Wrap</md-button>
                         </md-menu-item>
                         <md-menu-item class="md-indent">
@@ -145,21 +145,21 @@
                             <md-button ng-click="$mdOpenMenu()">Line Wrap Column</md-button>
                             <md-menu-content width="3">
                               <md-menu-item class="md-indent">
-                                <md-icon class="material-icons">{{ menuBarCtrl.settings.lineWrapColumn == 0 ? 'check' : '' }}</md-icon>
-                                <md-button ng-click="menuBarCtrl.settings.lineWrapColumn = 0">Automatic</md-button>
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.lineWrapColumn == 0 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.lineWrapColumn = 0">Automatic</md-button>
                               </md-menu-item>
                               <md-menu-divider></md-menu-divider>
                               <md-menu-item class="md-indent">
-                                <md-icon class="material-icons">{{ menuBarCtrl.settings.lineWrapColumn == 80 ? 'check' : '' }}</md-icon>
-                                <md-button ng-click="menuBarCtrl.settings.lineWrapColumn = 80">80px</md-button>
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.lineWrapColumn == 80 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.lineWrapColumn = 80">80px</md-button>
                               </md-menu-item>
                               <md-menu-item class="md-indent">
-                                <md-icon class="material-icons">{{ menuBarCtrl.settings.lineWrapColumn == 100 ? 'check' : '' }}</md-icon>
-                                <md-button ng-click="menuBarCtrl.settings.lineWrapColumn = 100">100px</md-button>
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.lineWrapColumn == 100 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.lineWrapColumn = 100">100px</md-button>
                               </md-menu-item>
                               <md-menu-item class="md-indent">
-                                <md-icon class="material-icons">{{ menuBarCtrl.settings.lineWrapColumn == 120 ? 'check' : '' }}</md-icon>
-                                <md-button ng-click="menuBarCtrl.settings.lineWrapColumn = 120">120px</md-button>
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.lineWrapColumn == 120 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.lineWrapColumn = 120">120px</md-button>
                               </md-menu-item>
                             </md-menu-content>
                           </md-menu>
@@ -169,21 +169,21 @@
                             <md-button ng-click="$mdOpenMenu()">Ruler</md-button>
                             <md-menu-content width="3">
                               <md-menu-item class="md-indent">
-                                <md-icon class="material-icons">{{ menuBarCtrl.settings.ruler == 0 ? 'check' : '' }}</md-icon>
-                                <md-button ng-click="menuBarCtrl.settings.ruler = 0">None</md-button>
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.ruler == 0 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.ruler = 0">None</md-button>
                               </md-menu-item>
                               <md-menu-divider></md-menu-divider>
                               <md-menu-item class="md-indent">
-                                <md-icon class="material-icons">{{ menuBarCtrl.settings.ruler == 80 ? 'check' : '' }}</md-icon>
-                                <md-button ng-click="menuBarCtrl.settings.ruler = 80">80px</md-button>
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.ruler == 80 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.ruler = 80">80px</md-button>
                               </md-menu-item>
                               <md-menu-item class="md-indent">
-                                <md-icon class="material-icons">{{ menuBarCtrl.settings.ruler == 100 ? 'check' : '' }}</md-icon>
-                                <md-button ng-click="menuBarCtrl.settings.ruler = 100">100px</md-button>
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.ruler == 100 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.ruler = 100">100px</md-button>
                               </md-menu-item>
                               <md-menu-item class="md-indent">
-                                <md-icon class="material-icons">{{ menuBarCtrl.settings.ruler == 120 ? 'check' : '' }}</md-icon>
-                                <md-button ng-click="menuBarCtrl.settings.ruler = 120">120px</md-button>
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.ruler == 120 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.ruler = 120">120px</md-button>
                               </md-menu-item>
                             </md-menu-content>
                           </md-menu>

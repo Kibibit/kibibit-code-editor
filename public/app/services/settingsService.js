@@ -13,14 +13,10 @@ angular.module('kibibitCodeEditor')
     var isFullscreen = false;
     var currentUndoManager = undefined;
     var currentEditor = undefined;
+    var editorSettings = new EditorSettings();
 
     /* EXPOSE SIMPLE VARS */
     // This are probably better off in state instead of settings. but they're here for now :-)
-    settings.editorSettings = {
-      ruler: 80,
-      lineWrap: false,
-      lineWrapColumn: 0
-    };
     settings.cursor = cursor;
     settings.currentUndoManager = currentUndoManager;
     settings.currentEditor = currentEditor;
@@ -46,60 +42,74 @@ angular.module('kibibitCodeEditor')
       return currentFullscreenState();
     });
 
-    settings.__defineSetter__('lineWrap', function(newValue) {
-      console.assert(isBoolean(newValue), {
-        'message': 'lineWrap should only be a boolean, but was given some other type',
-        'currentValue': settings.editorSettings.lineWrap,
-        'newValue': newValue
-      });
-      if (newValue !== settings.editorSettings.lineWrap) {
-        var session = settings.currentEditor.getSession();
-        session.setUseWrapMode(newValue);
-        settings.editorSettings.lineWrap = newValue;
-      }
+    settings.__defineGetter__('editorSettings', function() {
+      return editorSettings;
     });
 
-    settings.__defineGetter__('lineWrap', function() {
-      return settings.editorSettings.lineWrap;
-    });
+    function EditorSettings() {
+      var ruler = 80;
+      var lineWrap = false;
+      var lineWrapColumn = 0;
 
-    settings.__defineSetter__('lineWrapColumn', function(newValue) {
-      console.assert(Number.isInteger(newValue), {
-        'message': 'lineWrapColumn should only be a integer, but was given some other type',
-        'currentValue': settings.editorSettings.lineWrapColumn,
-        'newValue': newValue
+      this.__defineGetter__('ruler', function() {
+        return ruler;
       });
 
-      if (newValue !== settings.editorSettings.lineWrapColumn) {
-        var session = settings.currentEditor.getSession();
-        session.setWrapLimitRange(newValue, newValue);
-        settings.editorSettings.lineWrapColumn = newValue;
-      }
-    });
-
-    settings.__defineGetter__('lineWrapColumn', function() {
-      return settings.editorSettings.lineWrapColumn
-    });
-
-    settings.__defineSetter__('ruler', function(newValue) {
-      
-      console.assert(Number.isInteger(newValue), {
-        'message': 'Ruler should only be a integer, but was given some other type',
-        'currentValue': settings.editorSettings.ruler,
-        'newValue': newValue
+      this.__defineSetter__('ruler', function(newValue) {
+        console.assert(Number.isInteger(newValue), {
+          'message': 'Ruler should only be a integer, but was given some other type',
+          'currentValue': ruler,
+          'newValue': newValue
+        });
+        if (newValue !== ruler) {
+          if (settings.currentEditor) {
+            var editor = settings.currentEditor;
+            editor.setShowPrintMargin(newValue != 0);
+            editor.setPrintMarginColumn(newValue);
+          }
+          ruler = newValue;
+        }
       });
 
-      if (newValue !== settings.editorSettings.ruler) {
-        var editor = settings.currentEditor;
-        editor.setShowPrintMargin(newValue != 0);
-        editor.setPrintMarginColumn(newValue);
-        settings.editorSettings.ruler = newValue;
-      }
-    });
+      this.__defineGetter__('lineWrap', function() {
+        return lineWrap;
+      });
 
-    settings.__defineGetter__('ruler', function() {
-      return settings.editorSettings.ruler;
-    });
+      this.__defineSetter__('lineWrap', function(newValue) {
+        console.assert(isBoolean(newValue), {
+          'message': 'lineWrap should only be a boolean, but was given some other type',
+          'currentValue': lineWrap,
+          'newValue': newValue
+        });
+        if (newValue !== lineWrap) {
+          if (settings.currentEditor) {
+            var session = settings.currentEditor.getSession();
+            session.setUseWrapMode(newValue);
+          }
+          lineWrap = newValue;
+        }
+      });
+
+      this.__defineGetter__('lineWrapColumn', function() {
+        return lineWrapColumn;
+      });
+
+      this.__defineSetter__('lineWrapColumn', function(newValue) {
+        console.assert(Number.isInteger(newValue), {
+          'message': 'lineWrapColumn should only be a integer, but was given some other type',
+          'currentValue': lineWrapColumn,
+          'newValue': newValue
+        });
+
+        if (newValue !== lineWrapColumn) {
+          if (settings.currentEditor) {
+            var session = settings.currentEditor.getSession();
+            session.setWrapLimit(newValue);
+          }
+          lineWrapColumn = newValue;
+        }
+      });
+    }
   }
   
   function isBoolean(value) {
