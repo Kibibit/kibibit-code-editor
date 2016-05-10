@@ -18,7 +18,8 @@ angular.module('kibibitCodeEditor')
     // This are probably better off in state instead of settings. but they're here for now :-)
     settings.editorSettings = {
       ruler: 80,
-      lineWrap: false
+      lineWrap: false,
+      lineWrapColumn: 0
     };
     settings.cursor = cursor;
     settings.currentUndoManager = currentUndoManager;
@@ -60,6 +61,24 @@ angular.module('kibibitCodeEditor')
 
     settings.__defineGetter__('lineWrap', function() {
       return settings.editorSettings.lineWrap;
+    });
+
+    settings.__defineSetter__('lineWrapColumn', function(newValue) {
+      console.assert(Number.isInteger(newValue), {
+        'message': 'lineWrapColumn should only be a integer, but was given some other type',
+        'currentValue': settings.editorSettings.lineWrapColumn,
+        'newValue': newValue
+      });
+
+      if (newValue !== settings.editorSettings.lineWrapColumn) {
+        var session = settings.currentEditor.getSession();
+        session.setWrapLimitRange(newValue, newValue);
+        settings.editorSettings.lineWrapColumn = newValue;
+      }
+    });
+
+    settings.__defineGetter__('lineWrapColumn', function() {
+      return settings.editorSettings.lineWrapColumn
     });
 
     settings.__defineSetter__('ruler', function(newValue) {

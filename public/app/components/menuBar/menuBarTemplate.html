@@ -142,6 +142,30 @@
                         </md-menu-item>
                         <md-menu-item class="md-indent">
                           <md-menu>
+                            <md-button ng-click="$mdOpenMenu()">Line Wrap Column</md-button>
+                            <md-menu-content width="3">
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.lineWrapColumn == 0 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.lineWrapColumn = 0">Automatic</md-button>
+                              </md-menu-item>
+                              <md-menu-divider></md-menu-divider>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.lineWrapColumn == 80 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.lineWrapColumn = 80">80px</md-button>
+                              </md-menu-item>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.lineWrapColumn == 100 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.lineWrapColumn = 100">100px</md-button>
+                              </md-menu-item>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.lineWrapColumn == 120 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.lineWrapColumn = 120">120px</md-button>
+                              </md-menu-item>
+                            </md-menu-content>
+                          </md-menu>
+                        </md-menu-item>
+                        <md-menu-item class="md-indent">
+                          <md-menu>
                             <md-button ng-click="$mdOpenMenu()">Ruler</md-button>
                             <md-menu-content width="3">
                               <md-menu-item class="md-indent">
