@@ -74,6 +74,11 @@ angular.module('kibibitCodeEditor')
   };
 
   vm.toggleLineWrap = function() {
-    vm.settings.editorSettings.lineWrap = !vm.settings.editorSettings.lineWrap
-  }
+    vm.settings.editorSettings.lineWrap = !vm.settings.editorSettings.lineWrap;
+  };
+
+  vm.toggleSoftTabs = function() {
+    var editorSettings = vm.settings.editorSettings;
+    editorSettings.isSoftTabs = !editorSettings.isSoftTabs;
+  };
 });

@@ -51,6 +51,8 @@ angular.module('kibibitCodeEditor')
       var lineWrap = false;
       var lineWrapColumn = 0;
       var fontSize = 16;
+      var tabWidth = 4;
+      var isSoftTabs = false;
 
       this.__defineGetter__('ruler', function() {
         return ruler;
@@ -128,6 +130,48 @@ angular.module('kibibitCodeEditor')
             editor.setFontSize(newValue);
           }
           fontSize = newValue;
+        }
+      });
+
+      this.__defineGetter__('tabWidth', function() {
+        return tabWidth;
+      });
+
+      this.__defineSetter__('tabWidth', function(newValue) {
+        console.assert(Number.isInteger(newValue), {
+          'message': 'tabWidth should only be a integer, but was given some other type',
+          'currentValue': tabWidth,
+          'newValue': newValue
+        });
+
+        if (newValue !== tabWidth) {
+          if (settings.currentEditor) {
+            var session = settings.currentEditor.getSession();
+            session.setTabSize(newValue);
+          }
+          tabWidth = newValue;
+        }
+      });
+      
+      this.__defineGetter__('isSoftTabs', function() {
+        return isSoftTabs;
+      });
+      
+      this.__defineSetter__('isSoftTabs', function(newValue) {
+        console.log(newValue);
+        console.assert(isBoolean(newValue), {
+          'message': 'isSoftTabs should only be a boolean, but was given some other type',
+          'currentValue': isSoftTabs,
+          'newValue': newValue
+        }); 
+        
+        if (newValue !== isSoftTabs) {
+          if (settings.currentEditor) {
+            var session = settings.currentEditor.getSession();
+            console.log('here');
+            session.setUseSoftTabs(newValue);
+          }
+          isSoftTabs = newValue;
         }
       });
     }
