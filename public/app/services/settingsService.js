@@ -24,7 +24,7 @@ angular.module('kibibitCodeEditor')
     settings.__defineSetter__('isFullscreen', function(newValue) {
 
       console.assert(isBoolean(newValue), {
-        'message': 'isFullscreen should only be a boolean, but was given some other type',
+        'message': 'isFullscreen should be boolean',
         'currentValue': isFullscreen,
         'newValue': newValue
       });
@@ -60,7 +60,7 @@ angular.module('kibibitCodeEditor')
 
       this.__defineSetter__('ruler', function(newValue) {
         console.assert(Number.isInteger(newValue), {
-          'message': 'Ruler should only be a integer, but was given some other type',
+          'message': 'ruler should be integer',
           'currentValue': ruler,
           'newValue': newValue
         });
@@ -80,7 +80,7 @@ angular.module('kibibitCodeEditor')
 
       this.__defineSetter__('lineWrap', function(newValue) {
         console.assert(isBoolean(newValue), {
-          'message': 'lineWrap should only be a boolean, but was given some other type',
+          'message': 'lineWrap should be boolean',
           'currentValue': lineWrap,
           'newValue': newValue
         });
@@ -99,7 +99,7 @@ angular.module('kibibitCodeEditor')
 
       this.__defineSetter__('lineWrapColumn', function(newValue) {
         console.assert(Number.isInteger(newValue), {
-          'message': 'lineWrapColumn should only be a integer, but was given some other type',
+          'message': 'lineWrapColumn should be boolean',
           'currentValue': lineWrapColumn,
           'newValue': newValue
         });
@@ -119,7 +119,7 @@ angular.module('kibibitCodeEditor')
 
       this.__defineSetter__('fontSize', function(newValue) {
         console.assert(Number.isInteger(newValue), {
-          'message': 'fontSize should only be a integer, but was given some other type',
+          'message': 'fontSize should be integer',
           'currentValue': fontSize,
           'newValue': newValue
         });
@@ -139,7 +139,7 @@ angular.module('kibibitCodeEditor')
 
       this.__defineSetter__('tabWidth', function(newValue) {
         console.assert(Number.isInteger(newValue), {
-          'message': 'tabWidth should only be a integer, but was given some other type',
+          'message': 'tabWidth should be integer',
           'currentValue': tabWidth,
           'newValue': newValue
         });
@@ -160,10 +160,10 @@ angular.module('kibibitCodeEditor')
       this.__defineSetter__('isSoftTabs', function(newValue) {
         console.log(newValue);
         console.assert(isBoolean(newValue), {
-          'message': 'isSoftTabs should only be a boolean, but was given some other type',
+          'message': 'isSoftTabs should be integer',
           'currentValue': isSoftTabs,
           'newValue': newValue
-        }); 
+        });
         
         if (newValue !== isSoftTabs) {
           if (settings.currentEditor) {
