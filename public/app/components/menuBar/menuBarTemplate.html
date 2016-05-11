@@ -204,7 +204,31 @@
                           </md-menu>
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
-                        <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.showEquationToolbar">Show equation toolbar</md-menu-item>
+                        <md-menu-item class="md-indent">
+                          <md-icon class="material-icons">format_indent_increase</md-icon>
+                          <md-menu>
+                            <md-button ng-click="$mdOpenMenu()">Indentation</md-button>
+                            <md-menu-content width="3">
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.isSoftTabs ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.toggleSoftTabs()">Indent Using Spaces</md-button>
+                              </md-menu-item>
+                              <md-menu-divider></md-menu-divider>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.tabWidth == 2 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.tabWidth = 2">Tab Width: 2</md-button>
+                              </md-menu-item>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.tabWidth == 4 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.tabWidth = 4">Tab Width: 4</md-button>
+                              </md-menu-item>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.tabWidth == 8 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.tabWidth = 8">Tab Width: 8</md-button>
+                              </md-menu-item>
+                            </md-menu-content>
+                          </md-menu>
+                        </md-menu-item>
                         <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.showSpellingSuggestions">Show spelling suggestions</md-menu-item>
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.compactControls">Compact controls</md-menu-item>
