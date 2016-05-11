@@ -152,23 +152,21 @@ angular.module('kibibitCodeEditor')
           tabWidth = newValue;
         }
       });
-      
+
       this.__defineGetter__('isSoftTabs', function() {
         return isSoftTabs;
       });
-      
+
       this.__defineSetter__('isSoftTabs', function(newValue) {
-        console.log(newValue);
         console.assert(isBoolean(newValue), {
           'message': 'isSoftTabs should be integer',
           'currentValue': isSoftTabs,
           'newValue': newValue
         });
-        
+
         if (newValue !== isSoftTabs) {
           if (settings.currentEditor) {
             var session = settings.currentEditor.getSession();
-            console.log('here');
             session.setUseSoftTabs(newValue);
           }
           isSoftTabs = newValue;
