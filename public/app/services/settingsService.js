@@ -54,6 +54,7 @@ angular.module('kibibitCodeEditor')
       var lineWrap = false;
       var isSoftTabs = false;
       var lineWrapColumn = 0;
+      var syntaxMode = 'javascript';
 
       this.__defineGetter__('ruler', function() {
         return ruler;
@@ -193,6 +194,26 @@ angular.module('kibibitCodeEditor')
         }
         isGutter = newValue;
       });
+
+      this.__defineGetter__('syntaxMode', function() {
+        return syntaxMode;
+      });
+
+      this.__defineSetter__('syntaxMode', function(newValue) {
+        console.assert(angular.isString(newValue), {
+          'message': 'syntaxMode should be string',
+          'currentValue': syntaxMode,
+          'newValue': newValue
+        });
+        if (newValue !== syntaxMode) {
+          if (settings.currentEditor) {
+            var session = settings.currentEditor.getSession();
+            session.setMode("ace/mode/" + newValue);
+          }
+        }
+        syntaxMode = newValue;
+      });
+
     }
   }
   
