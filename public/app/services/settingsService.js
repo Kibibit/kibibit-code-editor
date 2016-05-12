@@ -48,11 +48,12 @@ angular.module('kibibitCodeEditor')
 
     function EditorSettings() {
       var ruler = 80;
-      var lineWrap = false;
-      var lineWrapColumn = 0;
-      var fontSize = 16;
       var tabWidth = 4;
+      var fontSize = 16;
+      var isGutter = true;
+      var lineWrap = false;
       var isSoftTabs = false;
+      var lineWrapColumn = 0;
 
       this.__defineGetter__('ruler', function() {
         return ruler;
@@ -171,6 +172,26 @@ angular.module('kibibitCodeEditor')
           }
           isSoftTabs = newValue;
         }
+      });
+
+      this.__defineGetter__('isGutter', function() {
+        return isGutter;
+      });
+
+      this.__defineSetter__('isGutter', function(newValue) {
+        console.assert(isBoolean(newValue), {
+          'message': 'isGutter should be boolean',
+          'currentValue': isGutter,
+          'newValue': newValue
+        });
+
+        if (newValue !== isGutter) {
+          if (settings.currentEditor) {
+            var editor = settings.currentEditor;
+            editor.renderer.setShowGutter(newValue);
+          }
+        }
+        isGutter = newValue;
       });
     }
   }
