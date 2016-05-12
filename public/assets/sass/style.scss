@@ -291,8 +291,8 @@ json-editor {
 
 .ace_gutter-cell.ace_info {
   background-image: url("../images/info.png") !important;
-  background-size: contain;
-  background-position: 7px center;
+  background-size: 1em;
+  background-position: 0.3em 0.1em;
 }
 
 .ace_gutter-cell.ace_warning {
