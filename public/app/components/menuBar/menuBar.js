@@ -81,4 +81,10 @@ angular.module('kibibitCodeEditor')
     var editorSettings = vm.settings.editorSettings;
     editorSettings.isSoftTabs = !editorSettings.isSoftTabs;
   };
+
+  vm.toggleGutter = function() {
+    var editorSettings = vm.settings.editorSettings;
+    editorSettings.isGutter = !editorSettings.isGutter;
+  };
+
 });
