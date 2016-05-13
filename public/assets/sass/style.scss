@@ -289,20 +289,25 @@ json-editor {
   }
 }
 
-.ace_gutter-cell.ace_info {
-  background-image: url("../images/info.png") !important;
-  background-size: 1em;
-  background-position: 0.3em 0.1em;
-}
 
-.ace_gutter-cell.ace_warning {
-  background-image: url("../images/warning.png") !important;
-  background-size: contain;
-}
+kb-code-editor {
+  .ace_gutter-cell.ace_info {
+    background-image: url("../images/info.png") !important;
+    background-size: 1em;
+    background-position: 0.3em 0.1em;
+  }
 
-.ace_gutter-cell.ace_error {
-  background-image: url("../images/error.png") !important;
-  background-size: contain;
+  .ace_gutter-cell.ace_warning {
+    background-image: url("../images/warning.png") !important;
+    background-size: 1em;
+    background-position: 0.3em 0.1em;
+  }
+
+  .ace_gutter-cell.ace_error {
+    background-image: url("../images/error.png") !important;
+    background-size: 1em;
+    background-position: 0.3em 0.1em;
+  }
 }
 
 kb-file-tree {
