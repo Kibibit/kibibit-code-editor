@@ -14,6 +14,7 @@ angular.module('kibibitCodeEditor')
     var currentUndoManager = undefined;
     var currentEditor = undefined;
     var modelist = ace.require("ace/ext/modelist");
+    var themelist = ace.require("ace/ext/themelist");
     var editorSettings = new EditorSettings();
 
     /* EXPOSE SIMPLE VARS */
@@ -22,6 +23,7 @@ angular.module('kibibitCodeEditor')
     settings.currentUndoManager = currentUndoManager;
     settings.currentEditor = currentEditor;
     settings.modelist = modelist;
+    settings.themelist = themelist;
 
     settings.__defineSetter__('isFullscreen', function(newValue) {
 
@@ -187,6 +189,7 @@ angular.module('kibibitCodeEditor')
           'currentValue': syntaxMode,
           'newValue': newValue
         });
+
         if (newValue !== syntaxMode) {
           if (settings.currentEditor) {
             var session = settings.currentEditor.getSession();
@@ -201,7 +204,19 @@ angular.module('kibibitCodeEditor')
       });
 
       this.__defineSetter__('theme', function(newValue) {
-        // TODO [Or Tichon]: add theme setter
+        console.assert(angular.isString(newValue), {
+          'message': 'theme should be string',
+          'currentValue': theme,
+          'newValue': newValue
+        });  
+
+        if (newValue !== theme) {
+          if (settings.currentEditor) {
+            var editor = settings.currentEditor;
+            editor.setTheme("ace/theme/" + newValue);
+          }
+        }
+        theme = newValue;
       });
     }
   }
