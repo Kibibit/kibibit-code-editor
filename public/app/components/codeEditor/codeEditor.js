@@ -34,6 +34,17 @@ angular.module('kibibitCodeEditor')
       vm.undoManager = _editor.getSession().getUndoManager();
       SettingsService.settings.currentUndoManager = vm.undoManager;
       SettingsService.settings.currentEditor = _editor;
+      var editorSettings = SettingsService.settings.editorSettings;
+      _editor.setOptions({
+        'wrap': editorSettings.lineWrap,
+        'mode': 'ace/mode/' + editorSettings.syntaxMode,
+        'theme': 'ace/theme/' + editorSettings.theme,
+        'tabSize': editorSettings.tabWidth,
+        'fontSize': editorSettings.fontSize,
+        'showGutter': editorSettings.isGutter,
+        'useSoftTabs': editorSettings.isSoftTabs,
+        'showPrintMargin': editorSettings.ruler,
+      });
       // save cursor position
       _editor.on('changeSelection', function() {
         $timeout(function() {
@@ -49,8 +60,6 @@ angular.module('kibibitCodeEditor')
     };
 
     vm.editorOptions = {
-      mode: 'javascript',
-      theme: 'monokai',
       onLoad: vm.aceLoaded,
       onChange: vm.aceChanged
     };

@@ -49,12 +49,12 @@ angular.module('kibibitCodeEditor')
     function EditorSettings() {
       var ruler = 80;
       var tabWidth = 4;
-      var fontSize = 16;
+      var fontSize = 12;
       var isGutter = true;
       var lineWrap = false;
       var isSoftTabs = false;
-      var lineWrapColumn = 0;
       var syntaxMode = 'javascript';
+      var theme = 'monokai';
 
       this.__defineGetter__('ruler', function() {
         return ruler;
@@ -92,26 +92,6 @@ angular.module('kibibitCodeEditor')
             session.setUseWrapMode(newValue);
           }
           lineWrap = newValue;
-        }
-      });
-
-      this.__defineGetter__('lineWrapColumn', function() {
-        return lineWrapColumn;
-      });
-
-      this.__defineSetter__('lineWrapColumn', function(newValue) {
-        console.assert(Number.isInteger(newValue), {
-          'message': 'lineWrapColumn should be boolean',
-          'currentValue': lineWrapColumn,
-          'newValue': newValue
-        });
-
-        if (newValue !== lineWrapColumn) {
-          if (settings.currentEditor) {
-            var session = settings.currentEditor.getSession();
-            session.setWrapLimit(newValue);
-          }
-          lineWrapColumn = newValue;
         }
       });
 
@@ -214,6 +194,13 @@ angular.module('kibibitCodeEditor')
         syntaxMode = newValue;
       });
 
+      this.__defineGetter__('theme', function() {
+        return theme;
+      });
+
+      this.__defineSetter__('theme', function(newValue) {
+        // TODO [Or Tichon]: add theme setter
+      });
     }
   }
   
