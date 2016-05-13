@@ -167,6 +167,10 @@
                             <md-button ng-click="$mdOpenMenu()">Font Size</md-button>
                             <md-menu-content width="3">
                               <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.fontSize == 12 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.fontSize = 12">12px</md-button>
+                              </md-menu-item>                            
+                              <md-menu-item class="md-indent">
                                 <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.fontSize == 14 ? 'check' : '' }}</md-icon>
                                 <md-button ng-click="menuBarCtrl.settings.editorSettings.fontSize = 14">14px</md-button>
                               </md-menu-item>
@@ -211,9 +215,7 @@
                             </md-menu-content>
                           </md-menu>
                         </md-menu-item>
-                        <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.showSpellingSuggestions">Show spelling suggestions</md-menu-item>
                         <md-menu-divider></md-menu-divider>
-                        <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.compactControls">Compact controls</md-menu-item>
                         <md-menu-item class="md-indent">
                             <md-icon class="material-icons">{{ main.settings.isFullscreen ? 'fullscreen_exit' : 'fullscreen' }}</md-icon>
                             <md-button ng-click="menuBarCtrl.toggleFullscreen()">
