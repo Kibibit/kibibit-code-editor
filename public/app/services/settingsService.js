@@ -13,6 +13,7 @@ angular.module('kibibitCodeEditor')
     var isFullscreen = false;
     var currentUndoManager = undefined;
     var currentEditor = undefined;
+    var modelist = ace.require("ace/ext/modelist");
     var editorSettings = new EditorSettings();
 
     /* EXPOSE SIMPLE VARS */
@@ -20,6 +21,7 @@ angular.module('kibibitCodeEditor')
     settings.cursor = cursor;
     settings.currentUndoManager = currentUndoManager;
     settings.currentEditor = currentEditor;
+    settings.modelist = modelist;
 
     settings.__defineSetter__('isFullscreen', function(newValue) {
 
