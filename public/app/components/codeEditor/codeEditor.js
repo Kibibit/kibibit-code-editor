@@ -46,7 +46,7 @@ angular.module('kibibitCodeEditor')
     // save the content of the editor on-change
     vm.aceChanged = function(_editor) {
       vm.aceDocumentValue = vm.aceSession.getDocument().getValue();
-      vm.editorOptions.mode = vm.fileInfo.mimeType ? vm.fileInfo.mimeType.match(/\/(x-)?(.*)$/)[2] : '';
+      vm.editorOptions.mode = vm.fileInfo && vm.fileInfo.mimeType ? vm.fileInfo.mimeType.match(/\/(x-)?(.*)$/)[2] : '';
       vm.aceSession.setMode('ace/mode/' + vm.editorOptions.mode.toLowerCase());
       console.debug('changed mode to ' + vm.editorOptions.mode);
     };
