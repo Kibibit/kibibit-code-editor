@@ -330,6 +330,19 @@ kb-file-tree {
     display: none;
   }
 }
+
+.status-bar-selector {
+  top: initial !important;
+  bottom: 30px;
+
+  md-option {
+    height: 2em;
+
+    .md-text {
+      font-size: 1em;
+    }
+  }
+}
 // scss-lint:enable IdSelector
 // scss-lint:enable NestingDepth
 // scss-lint:enable SelectorDepth
