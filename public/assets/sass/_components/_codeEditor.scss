@@ -17,7 +17,7 @@ kb-code-editor {
 
   // scss-lint:disable all
   .ace_editor {
-    /* OVERRIDE GUTTER ICONS */
+    // OVERRIDE GUTTER ICONS //
     .ace_gutter-cell.ace_info {
       background-image: url("../images/info.png") !important;
       background-size: contain;
@@ -34,7 +34,7 @@ kb-code-editor {
       background-size: contain;
     }
 
-    /* OVERRIDE HIGHLIGHTED TEXT COLOR */
+    // OVERRIDE HIGHLIGHTED TEXT COLOR //
     .ace_marker-layer .ace_selection {
       background: rgba(yellow, 0.6);
     }
@@ -43,7 +43,7 @@ kb-code-editor {
       border: 1px solid rgba($primary, 0.5);
     }
 
-    /* OVERRIDE SEARCH */
+    // OVERRIDE SEARCH //
     .ace_search.right {
       top: initial;
       bottom: 20px;
