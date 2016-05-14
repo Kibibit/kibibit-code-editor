@@ -122,6 +122,12 @@ kb-code-editor {
   -webkit-font-smoothing: antialiased;
   margin-left: 10px;
   margin-right: 10px;
+
+  md-input-container {
+    .md-select-icon {
+      display: none;
+    }
+  }
 }
 
 body,
