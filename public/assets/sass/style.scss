@@ -83,6 +83,26 @@ kb-code-editor {
     height: 100%;
     width: 100%;
   }
+
+  .ace_gutter {
+    .ace_gutter-cell.ace_info {
+      background-image: url("../images/info.png");
+      background-position: 0.3em 0.1em;
+      background-size: 1em;
+    }
+
+    .ace_gutter-cell.ace_warning {
+      background-image: url("../images/warning.png");
+      background-position: 0.3em 0.1em;
+      background-size: 1em;
+    }
+
+    .ace_gutter-cell.ace_error {
+      background-image: url("../images/error.png");
+      background-position: 0.3em 0.1em;
+      background-size: 1em;    
+    }
+  }
 }
 
 .glyphicon-chevron-left,
@@ -286,27 +306,6 @@ json-editor {
     right: 0;
     top: 0;
     width: 49%;
-  }
-}
-
-
-kb-code-editor {
-  .ace_gutter-cell.ace_info {
-    background-image: url("../images/info.png") !important;
-    background-size: 1em;
-    background-position: 0.3em 0.1em;
-  }
-
-  .ace_gutter-cell.ace_warning {
-    background-image: url("../images/warning.png") !important;
-    background-size: 1em;
-    background-position: 0.3em 0.1em;
-  }
-
-  .ace_gutter-cell.ace_error {
-    background-image: url("../images/error.png") !important;
-    background-size: 1em;
-    background-position: 0.3em 0.1em;
   }
 }
 

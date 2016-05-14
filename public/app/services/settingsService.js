@@ -13,8 +13,8 @@ angular.module('kibibitCodeEditor')
     var isFullscreen = false;
     var currentUndoManager = undefined;
     var currentEditor = undefined;
-    var modelist = ace.require("ace/ext/modelist");
-    var themelist = ace.require("ace/ext/themelist");
+    var modelist = ace.require('ace/ext/modelist');
+    var themelist = ace.require('ace/ext/themelist');
     var editorSettings = new EditorSettings();
 
     /* EXPOSE SIMPLE VARS */
@@ -193,7 +193,7 @@ angular.module('kibibitCodeEditor')
         if (newValue !== syntaxMode) {
           if (settings.currentEditor) {
             var session = settings.currentEditor.getSession();
-            session.setMode("ace/mode/" + newValue);
+            session.setMode('ace/mode/' + newValue);
           }
         }
         syntaxMode = newValue;
@@ -208,19 +208,19 @@ angular.module('kibibitCodeEditor')
           'message': 'theme should be string',
           'currentValue': theme,
           'newValue': newValue
-        });  
+        });
 
         if (newValue !== theme) {
           if (settings.currentEditor) {
             var editor = settings.currentEditor;
-            editor.setTheme("ace/theme/" + newValue);
+            editor.setTheme('ace/theme/' + newValue);
           }
         }
         theme = newValue;
       });
     }
   }
-  
+
   function isBoolean(value) {
     return value === true || value === false;
   }
