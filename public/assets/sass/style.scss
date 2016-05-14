@@ -100,7 +100,7 @@ kb-code-editor {
     .ace_gutter-cell.ace_error {
       background-image: url("../images/error.png");
       background-position: 0.3em 0.1em;
-      background-size: 1em;    
+      background-size: 1em;
     }
   }
 }
@@ -338,8 +338,8 @@ kb-file-tree {
 }
 
 .status-bar-selector {
-  top: initial !important;
   bottom: 30px;
+  top: initial !important;
 
   md-option {
     height: 2em;
