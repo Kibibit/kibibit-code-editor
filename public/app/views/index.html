@@ -55,16 +55,14 @@
           <div ui-layout-container size="30px" class="status-bar">
             <span>Line {{main.settings.cursor.row}} - Column {{main.settings.cursor.column}}</span>
             <md-input-container>
-              <label>Syntax</label>
-              <md-select ng-model="main.settings.editorSettings.syntaxMode">
+              <md-select ng-model="main.settings.editorSettings.syntaxMode" md-container-class="status-bar-selector">
                 <md-option ng-repeat="mode in main.settings.modelist.modesByName" value="{{mode.name}}">
                   {{mode.caption}}
                 </md-option>
               </md-select>
             </md-input-container>
             <md-input-container>
-              <label>Theme</label>
-              <md-select ng-model="main.settings.editorSettings.theme">
+              <md-select ng-model="main.settings.editorSettings.theme" md-container-class="status-bar-selector">
                 <md-option ng-repeat="theme in main.settings.themelist.themesByName" value="{{theme.name}}">
                   {{theme.caption}}
                 </md-option>
