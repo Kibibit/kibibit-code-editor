@@ -113,8 +113,6 @@ kb-code-editor {
 }
 
 .status-bar {
-  position: relative;
-  overflow: hidden;
   align-items: center;
   background: $color1;
   color: $primary;
@@ -124,11 +122,13 @@ kb-code-editor {
   -webkit-font-smoothing: antialiased;
   margin-left: 10px;
   margin-right: 10px;
+  overflow: hidden;
+  position: relative;
 
   .right-side {
+    bottom: 0;
     position: absolute;
     right: 0;
-    bottom: 0;
     text-align: center;
 
     md-input-container {
