@@ -30,6 +30,11 @@ angular.module('kibibitCodeEditor')
 
     // initialize the editor session
     vm.aceLoaded = function(_editor) {
+      var session = vm.fromLocalStorage();
+      if (session) {
+        console.debug('loading from localStorage');
+        _editor.setSession(session);
+      }
       vm.aceSession = _editor.getSession();
       vm.undoManager = _editor.getSession().getUndoManager();
       SettingsService.settings.currentUndoManager = vm.undoManager;
@@ -53,6 +58,49 @@ angular.module('kibibitCodeEditor')
       theme: 'monokai',
       onLoad: vm.aceLoaded,
       onChange: vm.aceChanged
+    };
+
+    var filterHistory = function(deltas) {
+      return deltas.filter(function(d) {
+        return d.group != 'fold';
+      });
+    };
+
+    vm.toLocalStorage = function() {
+      console.debug('writing to localStorage');
+      var data = {
+        selection: vm.aceSession.selection.toJSON(),
+        value: vm.aceSession.getValue(),
+        history: {
+          undo: vm.aceSession.$undoManager.$undoStack.map(filterHistory),
+          redo: vm.aceSession.$undoManager.$redoStack.map(filterHistory)
+        },
+        scrollTop: vm.aceSession.getScrollTop(),
+        scrollLeft: vm.aceSession.getScrollLeft(),
+        options: vm.aceSession.getOptions()
+      };
+      localStorage.setItem('editor', JSON.stringify(data));
+    };
+
+    setInterval(function() {
+      vm.toLocalStorage();
+    }, 10000);
+
+    vm.fromLocalStorage = function() {
+      var data = JSON.parse(localStorage.getItem('editor'));
+      if (!data) {
+        return;
+      }
+
+      var session = ace.createEditSession(data.value);
+      session.$undoManager.$doc = session; // workaround for a bug in ace
+      session.setOptions(data.options);
+      session.$undoManager.$undoStack = data.history.undo;
+      session.$undoManager.$redoStack = data.history.redo;
+      session.selection.fromJSON(data.selection);
+      session.setScrollTop(data.scrollTop);
+      session.setScrollLeft(data.scrollLeft);
+      return session;
     };
 
     vm.updateFileContent = function(filePath) {
