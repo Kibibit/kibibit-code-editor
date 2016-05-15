@@ -72,19 +72,6 @@ body {
   background: $color1;
 }
 
-kb-code-editor {
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-
-  .editor {
-    height: 100%;
-    width: 100%;
-  }
-}
-
 .glyphicon-chevron-left,
 .glyphicon-chevron-right,
 .glyphicon-chevron-up,
@@ -287,22 +274,6 @@ json-editor {
     top: 0;
     width: 49%;
   }
-}
-
-.ace_gutter-cell.ace_info {
-  background-image: url("../images/info.png") !important;
-  background-size: contain;
-  background-position: 7px center;
-}
-
-.ace_gutter-cell.ace_warning {
-  background-image: url("../images/warning.png") !important;
-  background-size: contain;
-}
-
-.ace_gutter-cell.ace_error {
-  background-image: url("../images/error.png") !important;
-  background-size: contain;
 }
 
 kb-file-tree {
