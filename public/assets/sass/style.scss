@@ -83,6 +83,26 @@ kb-code-editor {
     height: 100%;
     width: 100%;
   }
+
+  .ace_gutter {
+    .ace_gutter-cell.ace_info {
+      background-image: url("../images/info.png");
+      background-position: 0.3em 0.1em;
+      background-size: 1em;
+    }
+
+    .ace_gutter-cell.ace_warning {
+      background-image: url("../images/warning.png");
+      background-position: 0.3em 0.1em;
+      background-size: 1em;
+    }
+
+    .ace_gutter-cell.ace_error {
+      background-image: url("../images/error.png");
+      background-position: 0.3em 0.1em;
+      background-size: 1em;
+    }
+  }
 }
 
 .glyphicon-chevron-left,
@@ -100,8 +120,30 @@ kb-code-editor {
   flex-wrap: nowrap;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  overflow: hidden;
+  position: relative;
+
+  .right-side {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+
+    md-input-container {
+      margin: 0;
+
+      md-select:not([disabled]):focus .md-select-value {
+        border-bottom-color: $primary;
+        color: $primary;
+      }
+
+      .md-select-icon {
+        display: none;
+      }
+    }
+  }
 }
 
 body,
@@ -289,22 +331,6 @@ json-editor {
   }
 }
 
-.ace_gutter-cell.ace_info {
-  background-image: url("../images/info.png") !important;
-  background-size: contain;
-  background-position: 7px center;
-}
-
-.ace_gutter-cell.ace_warning {
-  background-image: url("../images/warning.png") !important;
-  background-size: contain;
-}
-
-.ace_gutter-cell.ace_error {
-  background-image: url("../images/error.png") !important;
-  background-size: contain;
-}
-
 kb-file-tree {
   display: block;
 }
@@ -324,6 +350,19 @@ kb-file-tree {
 
   .peg {
     display: none;
+  }
+}
+
+.status-bar-selector {
+  bottom: 30px;
+  top: initial !important;
+
+  md-option {
+    height: 2em;
+
+    .md-text {
+      font-size: 1em;
+    }
   }
 }
 // scss-lint:enable IdSelector
