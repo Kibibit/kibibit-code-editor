@@ -30,7 +30,7 @@ angular.module('kibibitCodeEditor')
 
     // initialize the editor session
     vm.aceLoaded = function(_editor) {
-      var session = vm.fromLocalhost();
+      var session = vm.fromLocalStorage();
       if (session) {
         _editor.setSession(session);
       }
@@ -65,7 +65,7 @@ angular.module('kibibitCodeEditor')
       });
     };
 
-    vm.toLocalhost = function() {
+    vm.toLocalStorage = function() {
       console.debug('writing to localStorage');
       var data = {
         selection: vm.aceSession.selection.toJSON(),
@@ -81,9 +81,9 @@ angular.module('kibibitCodeEditor')
       localStorage.setItem('editor', JSON.stringify(data));
     };
 
-    setInterval(function(){ vm.toLocalhost(); }, 10000);
+    setInterval(function(){ vm.toLocalStorage(); }, 10000);
 
-    vm.fromLocalhost = function() {
+    vm.fromLocalStorage = function() {
       var data = JSON.parse(localStorage.getItem('editor'));
       if (!data) {
         return;
