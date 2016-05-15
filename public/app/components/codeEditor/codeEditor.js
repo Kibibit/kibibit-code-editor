@@ -32,6 +32,7 @@ angular.module('kibibitCodeEditor')
     vm.aceLoaded = function(_editor) {
       var session = vm.fromLocalStorage();
       if (session) {
+        console.debug('loading from localStorage');
         _editor.setSession(session);
       }
       vm.aceSession = _editor.getSession();
@@ -59,9 +60,9 @@ angular.module('kibibitCodeEditor')
       onChange: vm.aceChanged
     };
 
-    var filterHistory = function(deltas){ 
-      return deltas.filter(function (d) {
-        return d.group != "fold";
+    var filterHistory = function(deltas) {
+      return deltas.filter(function(d) {
+        return d.group != 'fold';
       });
     };
 
@@ -71,8 +72,8 @@ angular.module('kibibitCodeEditor')
         selection: vm.aceSession.selection.toJSON(),
         value: vm.aceSession.getValue(),
         history: {
-            undo: vm.aceSession.$undoManager.$undoStack.map(filterHistory),
-            redo: vm.aceSession.$undoManager.$redoStack.map(filterHistory)
+          undo: vm.aceSession.$undoManager.$undoStack.map(filterHistory),
+          redo: vm.aceSession.$undoManager.$redoStack.map(filterHistory)
         },
         scrollTop: vm.aceSession.getScrollTop(),
         scrollLeft: vm.aceSession.getScrollLeft(),
@@ -81,7 +82,9 @@ angular.module('kibibitCodeEditor')
       localStorage.setItem('editor', JSON.stringify(data));
     };
 
-    setInterval(function(){ vm.toLocalStorage(); }, 10000);
+    setInterval(function() {
+      vm.toLocalStorage();
+    }, 10000);
 
     vm.fromLocalStorage = function() {
       var data = JSON.parse(localStorage.getItem('editor'));
