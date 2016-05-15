@@ -56,14 +56,14 @@
             <span>Line {{main.settings.cursor.row}} - Column {{main.settings.cursor.column}}</span>
             <span class="right-side">
               <md-input-container>
-                <md-select ng-model="main.settings.editorSettings.syntaxMode" md-container-class="status-bar-selector">
+                <md-select ng-model="main.settings.editorSettings.syntaxMode" md-container-class="status-bar-selector" aria-label="mode selection">
                   <md-option ng-repeat="mode in main.settings.modelist.modesByName" value="{{mode.name}}">
                     {{mode.caption}}
                   </md-option>
                 </md-select>
               </md-input-container>
               <md-input-container>
-                <md-select ng-model="main.settings.editorSettings.theme" md-container-class="status-bar-selector">
+                <md-select ng-model="main.settings.editorSettings.theme" md-container-class="status-bar-selector" aria-label="theme selection">
                   <md-option ng-repeat="theme in main.settings.themelist.themesByName" value="{{theme.name}}">
                     {{theme.caption}}
                   </md-option>
