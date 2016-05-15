@@ -113,6 +113,8 @@ kb-code-editor {
 }
 
 .status-bar {
+  position: relative;
+  overflow: hidden;
   align-items: center;
   background: $color1;
   color: $primary;
@@ -123,9 +125,23 @@ kb-code-editor {
   margin-left: 10px;
   margin-right: 10px;
 
-  md-input-container {
-    .md-select-icon {
-      display: none;
+  .right-side {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+
+    md-input-container {
+      margin: 0;
+
+      md-select:not([disabled]):focus .md-select-value {
+        border-bottom-color: $primary;
+        color: $primary;
+      }
+
+      .md-select-icon {
+        display: none;
+      }
     }
   }
 }
