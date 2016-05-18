@@ -54,7 +54,7 @@
           </div>
           <div ui-layout-container size="30px" class="status-bar">
             <span>Line {{main.settings.cursor.row}} - Column {{main.settings.cursor.column}}</span>
-            <span class="right-side">
+            <span class="status-bar-float-right">
               <md-input-container>
                 <md-select ng-model="main.settings.editorSettings.syntaxMode" md-container-class="status-bar-selector" aria-label="mode selection">
                   <md-option ng-repeat="mode in main.settings.modelist.modesByName" value="{{mode.name}}">
