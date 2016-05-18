@@ -54,4 +54,8 @@ angular.module('kibibitCodeEditor',
   return function(input) {
     return marked(input || '');
   };
-}]);
+}])
+.constant('CODE_EDITOR', {
+  'MODE_LIST': ace.require('ace/ext/modelist'),
+  'THEME_LIST': ace.require('ace/ext/themelist')
+});

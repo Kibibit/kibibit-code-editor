@@ -43,7 +43,6 @@ angular.module('kibibitCodeEditor')
       editor.setOptions(settings);
     };
 
-
     // initialize the editor session
     vm.aceLoaded = function(_editor) {
       vm.aceSession = _editor.getSession();
