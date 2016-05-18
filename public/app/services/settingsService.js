@@ -187,7 +187,7 @@ angular.module('kibibitCodeEditor')
         });
 
         this.__defineSetter__('syntaxMode', function(newValue) {
-          console.assert(angular.isString(newValue), {
+          console.assert(newValue in settings.modelist.modesByName, {
             'message': 'syntaxMode should be string',
             'currentValue': syntaxMode,
             'newValue': newValue
@@ -207,7 +207,7 @@ angular.module('kibibitCodeEditor')
         });
 
         this.__defineSetter__('theme', function(newValue) {
-          console.assert(angular.isString(newValue), {
+          console.assert(newValue in settings.themelist.themesByName, {
             'message': 'theme should be string',
             'currentValue': theme,
             'newValue': newValue
