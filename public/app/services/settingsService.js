@@ -60,9 +60,9 @@ angular.module('kibibitCodeEditor')
         var lineWrap = false;
         var isReadOnly = false;
         var isSoftTabs = false;
-        var syntaxMode = 'javascript';
+        var syntaxMode = 'text';
 
-        
+
         this.__defineGetter__('ruler', function() {
           return ruler;
         });
