@@ -3,9 +3,11 @@ angular.module('kibibitCodeEditor')
 .service('SettingsService', [
   'Fullscreen',
   'CODE_EDITOR',
+  'TYPE_ERROR_MSGS',
   function(
     Fullscreen,
-    CODE_EDITOR) {
+    CODE_EDITOR,
+    TYPE_ERROR_MSGS) {
 
     var vm = this;
 
@@ -33,7 +35,8 @@ angular.module('kibibitCodeEditor')
       settings.__defineSetter__('isFullscreen', function(newValue) {
 
         console.assert(isBoolean(newValue), {
-          'message': 'isFullscreen should be boolean',
+          'message': TYPE_ERROR_MSGS('isFullscreen', 'boolean',
+            typeof newValue),
           'currentValue': isFullscreen,
           'newValue': newValue
         });
@@ -69,7 +72,7 @@ angular.module('kibibitCodeEditor')
 
         this.__defineSetter__('ruler', function(newValue) {
           console.assert(Number.isInteger(newValue), {
-            'message': 'ruler should be integer',
+            'message': TYPE_ERROR_MSGS('ruler', 'integer', typeof newValue),
             'currentValue': ruler,
             'newValue': newValue
           });
@@ -89,7 +92,7 @@ angular.module('kibibitCodeEditor')
 
         this.__defineSetter__('lineWrap', function(newValue) {
           console.assert(isBoolean(newValue), {
-            'message': 'lineWrap should be boolean',
+            'message': TYPE_ERROR_MSGS('lineWrap', 'boolean', typeof newValue),
             'currentValue': lineWrap,
             'newValue': newValue
           });
@@ -108,7 +111,7 @@ angular.module('kibibitCodeEditor')
 
         this.__defineSetter__('fontSize', function(newValue) {
           console.assert(Number.isInteger(newValue), {
-            'message': 'fontSize should be integer',
+            'message': TYPE_ERROR_MSGS('fontSize', 'integer', typeof newValue),
             'currentValue': fontSize,
             'newValue': newValue
           });
@@ -128,7 +131,7 @@ angular.module('kibibitCodeEditor')
 
         this.__defineSetter__('tabWidth', function(newValue) {
           console.assert(Number.isInteger(newValue), {
-            'message': 'tabWidth should be integer',
+            'message': TYPE_ERROR_MSGS('tabWidth', 'integer', typeof newValue),
             'currentValue': tabWidth,
             'newValue': newValue
           });
@@ -148,7 +151,8 @@ angular.module('kibibitCodeEditor')
 
         this.__defineSetter__('isSoftTabs', function(newValue) {
           console.assert(isBoolean(newValue), {
-            'message': 'isSoftTabs should be integer',
+            'message': TYPE_ERROR_MSGS('isSoftTabs', 'integer',
+              typeof newValue),
             'currentValue': isSoftTabs,
             'newValue': newValue
           });
@@ -168,7 +172,7 @@ angular.module('kibibitCodeEditor')
 
         this.__defineSetter__('isGutter', function(newValue) {
           console.assert(isBoolean(newValue), {
-            'message': 'isGutter should be boolean',
+            'message': TYPE_ERROR_MSGS('isGutter', 'boolean', typeof newValue),
             'currentValue': isGutter,
             'newValue': newValue
           });
@@ -188,7 +192,7 @@ angular.module('kibibitCodeEditor')
 
         this.__defineSetter__('syntaxMode', function(newValue) {
           console.assert(newValue in settings.modelist.modesByName, {
-            'message': 'syntaxMode should be string',
+            'message': TYPE_ERROR_MSGS('syntaxMode', 'string', typeof newValue),
             'currentValue': syntaxMode,
             'newValue': newValue
           });
@@ -208,7 +212,7 @@ angular.module('kibibitCodeEditor')
 
         this.__defineSetter__('theme', function(newValue) {
           console.assert(newValue in settings.themelist.themesByName, {
-            'message': 'theme should be string',
+            'message': TYPE_ERROR_MSGS('theme', 'string', typeof newValue),
             'currentValue': theme,
             'newValue': newValue
           });
@@ -228,7 +232,8 @@ angular.module('kibibitCodeEditor')
 
         this.__defineSetter__('isReadOnly', function(newValue) {
           console.assert(isBoolean(newValue), {
-            'message': 'isReadOnly should be boolean',
+            'message': TYPE_ERROR_MSGS('isReadOnly', 'boolean',
+              typeof newValue),
             'currentValue': isReadOnly,
             'newValue': newValue
           });
