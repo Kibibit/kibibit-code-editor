@@ -72,39 +72,6 @@ body {
   background: $color1;
 }
 
-kb-code-editor {
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-
-  .editor {
-    height: 100%;
-    width: 100%;
-  }
-
-  .ace_gutter {
-    .ace_gutter-cell.ace_info {
-      background-image: url("../images/info.png");
-      background-position: 0.3em 0.1em;
-      background-size: 1em;
-    }
-
-    .ace_gutter-cell.ace_warning {
-      background-image: url("../images/warning.png");
-      background-position: 0.3em 0.1em;
-      background-size: 1em;
-    }
-
-    .ace_gutter-cell.ace_error {
-      background-image: url("../images/error.png");
-      background-position: 0.3em 0.1em;
-      background-size: 1em;
-    }
-  }
-}
-
 .glyphicon-chevron-left,
 .glyphicon-chevron-right,
 .glyphicon-chevron-up,
