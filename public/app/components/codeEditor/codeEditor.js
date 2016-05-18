@@ -27,29 +27,30 @@ angular.module('kibibitCodeEditor')
     SettingsService) {
 
     var vm = this;
+    var editor;
     var editorSettings = SettingsService.settings.editorSettings;
-    var defaultEditorSettings = {
-      'wrap': editorSettings.lineWrap,
-      'mode': 'ace/mode/' + editorSettings.syntaxMode,
-      'theme': 'ace/theme/' + editorSettings.theme,
-      'tabSize': editorSettings.tabWidth,
-      'fontSize': editorSettings.fontSize,
-      'showGutter': editorSettings.isGutter,
-      'useSoftTabs': editorSettings.isSoftTabs,
-      'showPrintMargin': editorSettings.ruler
-    };
 
-    var initCodeEditor = function(editor, settings) {
-      editor.setOptions(settings);
+    var init = function(settings) {
+      editor.setOptions({
+        'wrap': settings.lineWrap,
+        'mode': 'ace/mode/' + settings.syntaxMode,
+        'theme': 'ace/theme/' + settings.theme,
+        'tabSize': settings.tabWidth,
+        'fontSize': settings.fontSize,
+        'showGutter': settings.isGutter,
+        'useSoftTabs': settings.isSoftTabs,
+        'showPrintMargin': settings.ruler
+      });
     };
 
     // initialize the editor session
     vm.aceLoaded = function(_editor) {
+      editor = _editor;
       vm.aceSession = _editor.getSession();
       vm.undoManager = _editor.getSession().getUndoManager();
       SettingsService.settings.currentUndoManager = vm.undoManager;
       SettingsService.settings.currentEditor = _editor;
-      initCodeEditor(_editor, defaultEditorSettings);
+      init(editorSettings);
       // save cursor position
       _editor.on('changeSelection', function() {
         $timeout(function() {
@@ -59,6 +60,7 @@ angular.module('kibibitCodeEditor')
         });
       });
     };
+
     // save the content of the editor on-change
     vm.aceChanged = function(_editor) {
       vm.aceDocumentValue = vm.aceSession.getDocument().getValue();
