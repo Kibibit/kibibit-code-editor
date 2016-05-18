@@ -51,15 +51,16 @@ angular.module('kibibitCodeEditor')
     });
 
     function EditorSettings() {
+      var theme = 'monokai';
       var ruler = 80;
       var tabWidth = 4;
       var fontSize = 12;
       var isGutter = true;
       var lineWrap = false;
+      var isReadOnly = false;
       var isSoftTabs = false;
       var syntaxMode = 'javascript';
-      var theme = 'monokai';
-
+      
       this.__defineGetter__('ruler', function() {
         return ruler;
       });
@@ -218,6 +219,25 @@ angular.module('kibibitCodeEditor')
         }
         theme = newValue;
       });
+
+      this.__defineGetter__('isReadOnly', function() {
+        return isReadOnly;
+      });
+
+      this.__defineSetter__('isReadOnly', function(newValue) {
+        console.assert(isBoolean(newValue), {
+          'message': 'isReadOnly should be boolean',
+          'currentValue': isReadOnly,
+          'newValue': newValue
+        });
+
+        if (newValue !== isReadOnly) {
+          var editor = settings.currentEditor;
+          editor.setReadOnly(newValue);
+        }
+        isReadOnly = newValue;
+      });
+
     }
   }
 
