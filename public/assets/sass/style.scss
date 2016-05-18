@@ -65,6 +65,8 @@ $color3: rgb(38, 38, 38);
 
 html {
   background: $color1;
+  /* REM UNIT */
+  font-size: 14px;
 }
 
 body {
@@ -321,14 +323,13 @@ kb-file-tree {
 }
 
 .status-bar-selector {
-  bottom: 30px;
-  top: initial !important;
+  transform: translateY(-24px);
 
   md-option {
-    height: 2em;
+    height: 2rem;
 
     .md-text {
-      font-size: 1em;
+      font-size: 1rem;
     }
   }
 }
