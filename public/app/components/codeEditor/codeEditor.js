@@ -43,7 +43,7 @@ angular.module('kibibitCodeEditor')
         'fontSize': editorSettings.fontSize,
         'showGutter': editorSettings.isGutter,
         'useSoftTabs': editorSettings.isSoftTabs,
-        'showPrintMargin': editorSettings.ruler,
+        'showPrintMargin': editorSettings.ruler
       });
       // save cursor position
       _editor.on('changeSelection', function() {
