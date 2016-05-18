@@ -60,7 +60,7 @@ angular.module('kibibitCodeEditor')
       var isReadOnly = false;
       var isSoftTabs = false;
       var syntaxMode = 'javascript';
-      
+
       this.__defineGetter__('ruler', function() {
         return ruler;
       });
