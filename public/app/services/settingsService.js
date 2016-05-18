@@ -28,6 +28,7 @@ angular.module('kibibitCodeEditor')
       settings.currentEditor = currentEditor;
       settings.modelist = CODE_EDITOR.MODE_LIST;
       settings.themelist = CODE_EDITOR.THEME_LIST;
+      settings.editorSettings = editorSettings;
 
       settings.__defineSetter__('isFullscreen', function(newValue) {
 
@@ -50,10 +51,6 @@ angular.module('kibibitCodeEditor')
         return currentFullscreenState();
       });
 
-      settings.__defineGetter__('editorSettings', function() {
-        return editorSettings;
-      });
-
       function EditorSettings() {
         var theme = 'monokai';
         var ruler = 80;
@@ -65,6 +62,7 @@ angular.module('kibibitCodeEditor')
         var isSoftTabs = false;
         var syntaxMode = 'javascript';
 
+        
         this.__defineGetter__('ruler', function() {
           return ruler;
         });
