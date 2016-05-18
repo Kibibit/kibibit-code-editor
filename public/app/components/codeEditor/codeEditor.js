@@ -27,6 +27,22 @@ angular.module('kibibitCodeEditor')
     SettingsService) {
 
     var vm = this;
+    var editorSettings = SettingsService.settings.editorSettings;
+    var defaultEditorSettings = {
+      'wrap': editorSettings.lineWrap,
+      'mode': 'ace/mode/' + editorSettings.syntaxMode,
+      'theme': 'ace/theme/' + editorSettings.theme,
+      'tabSize': editorSettings.tabWidth,
+      'fontSize': editorSettings.fontSize,
+      'showGutter': editorSettings.isGutter,
+      'useSoftTabs': editorSettings.isSoftTabs,
+      'showPrintMargin': editorSettings.ruler
+    };
+
+    var initCodeEditor = function(editor, settings) {
+      editor.setOptions(settings);
+    };
+
 
     // initialize the editor session
     vm.aceLoaded = function(_editor) {
@@ -34,17 +50,7 @@ angular.module('kibibitCodeEditor')
       vm.undoManager = _editor.getSession().getUndoManager();
       SettingsService.settings.currentUndoManager = vm.undoManager;
       SettingsService.settings.currentEditor = _editor;
-      var editorSettings = SettingsService.settings.editorSettings;
-      _editor.setOptions({
-        'wrap': editorSettings.lineWrap,
-        'mode': 'ace/mode/' + editorSettings.syntaxMode,
-        'theme': 'ace/theme/' + editorSettings.theme,
-        'tabSize': editorSettings.tabWidth,
-        'fontSize': editorSettings.fontSize,
-        'showGutter': editorSettings.isGutter,
-        'useSoftTabs': editorSettings.isSoftTabs,
-        'showPrintMargin': editorSettings.ruler
-      });
+      initCodeEditor(_editor, defaultEditorSettings);
       // save cursor position
       _editor.on('changeSelection', function() {
         $timeout(function() {
