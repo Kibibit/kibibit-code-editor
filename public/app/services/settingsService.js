@@ -55,6 +55,8 @@ angular.module('kibibitCodeEditor')
       });
 
       function EditorSettings() {
+        var editorSettings = this;
+        /* INIT */
         var theme = 'monokai';
         var ruler = 80;
         var tabWidth = 4;
@@ -66,11 +68,11 @@ angular.module('kibibitCodeEditor')
         var syntaxMode = 'text';
 
 
-        this.__defineGetter__('ruler', function() {
+        editorSettings.__defineGetter__('ruler', function() {
           return ruler;
         });
 
-        this.__defineSetter__('ruler', function(newValue) {
+        editorSettings.__defineSetter__('ruler', function(newValue) {
           console.assert(Number.isInteger(newValue), {
             'message': TYPE_ERROR_MSGS('ruler', 'integer', typeof newValue),
             'currentValue': ruler,
@@ -86,11 +88,11 @@ angular.module('kibibitCodeEditor')
           }
         });
 
-        this.__defineGetter__('lineWrap', function() {
+        editorSettings.__defineGetter__('lineWrap', function() {
           return lineWrap;
         });
 
-        this.__defineSetter__('lineWrap', function(newValue) {
+        editorSettings.__defineSetter__('lineWrap', function(newValue) {
           console.assert(isBoolean(newValue), {
             'message': TYPE_ERROR_MSGS('lineWrap', 'boolean', typeof newValue),
             'currentValue': lineWrap,
@@ -105,11 +107,11 @@ angular.module('kibibitCodeEditor')
           }
         });
 
-        this.__defineGetter__('fontSize', function() {
+        editorSettings.__defineGetter__('fontSize', function() {
           return fontSize;
         });
 
-        this.__defineSetter__('fontSize', function(newValue) {
+        editorSettings.__defineSetter__('fontSize', function(newValue) {
           console.assert(Number.isInteger(newValue), {
             'message': TYPE_ERROR_MSGS('fontSize', 'integer', typeof newValue),
             'currentValue': fontSize,
@@ -125,11 +127,11 @@ angular.module('kibibitCodeEditor')
           }
         });
 
-        this.__defineGetter__('tabWidth', function() {
+        editorSettings.__defineGetter__('tabWidth', function() {
           return tabWidth;
         });
 
-        this.__defineSetter__('tabWidth', function(newValue) {
+        editorSettings.__defineSetter__('tabWidth', function(newValue) {
           console.assert(Number.isInteger(newValue), {
             'message': TYPE_ERROR_MSGS('tabWidth', 'integer', typeof newValue),
             'currentValue': tabWidth,
@@ -145,11 +147,11 @@ angular.module('kibibitCodeEditor')
           }
         });
 
-        this.__defineGetter__('isSoftTabs', function() {
+        editorSettings.__defineGetter__('isSoftTabs', function() {
           return isSoftTabs;
         });
 
-        this.__defineSetter__('isSoftTabs', function(newValue) {
+        editorSettings.__defineSetter__('isSoftTabs', function(newValue) {
           console.assert(isBoolean(newValue), {
             'message': TYPE_ERROR_MSGS('isSoftTabs', 'integer',
               typeof newValue),
@@ -166,11 +168,11 @@ angular.module('kibibitCodeEditor')
           }
         });
 
-        this.__defineGetter__('isGutter', function() {
+        editorSettings.__defineGetter__('isGutter', function() {
           return isGutter;
         });
 
-        this.__defineSetter__('isGutter', function(newValue) {
+        editorSettings.__defineSetter__('isGutter', function(newValue) {
           console.assert(isBoolean(newValue), {
             'message': TYPE_ERROR_MSGS('isGutter', 'boolean', typeof newValue),
             'currentValue': isGutter,
@@ -186,11 +188,11 @@ angular.module('kibibitCodeEditor')
           isGutter = newValue;
         });
 
-        this.__defineGetter__('syntaxMode', function() {
+        editorSettings.__defineGetter__('syntaxMode', function() {
           return syntaxMode;
         });
 
-        this.__defineSetter__('syntaxMode', function(newValue) {
+        editorSettings.__defineSetter__('syntaxMode', function(newValue) {
           console.assert(newValue in settings.modelist.modesByName, {
             'message': TYPE_ERROR_MSGS('syntaxMode', 'string', typeof newValue),
             'currentValue': syntaxMode,
@@ -206,11 +208,11 @@ angular.module('kibibitCodeEditor')
           syntaxMode = newValue;
         });
 
-        this.__defineGetter__('theme', function() {
+        editorSettings.__defineGetter__('theme', function() {
           return theme;
         });
 
-        this.__defineSetter__('theme', function(newValue) {
+        editorSettings.__defineSetter__('theme', function(newValue) {
           console.assert(newValue in settings.themelist.themesByName, {
             'message': TYPE_ERROR_MSGS('theme', 'string', typeof newValue),
             'currentValue': theme,
@@ -226,11 +228,11 @@ angular.module('kibibitCodeEditor')
           theme = newValue;
         });
 
-        this.__defineGetter__('isReadOnly', function() {
+        editorSettings.__defineGetter__('isReadOnly', function() {
           return isReadOnly;
         });
 
-        this.__defineSetter__('isReadOnly', function(newValue) {
+        editorSettings.__defineSetter__('isReadOnly', function(newValue) {
           console.assert(isBoolean(newValue), {
             'message': TYPE_ERROR_MSGS('isReadOnly', 'boolean',
               typeof newValue),
