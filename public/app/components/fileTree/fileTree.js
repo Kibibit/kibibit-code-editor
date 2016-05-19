@@ -57,17 +57,18 @@ angular.module('kibibitCodeEditor')
       var folder;
       if (treeNode.type == 'directory') {
         folder = treeNode;
-        var directoryIndex = vm.expandedNodes.indexOf(folder);
-        var isDirectoryOpen = directoryIndex > -1;
-        if (isDirectoryOpen) {
-          // contract directory
-          vm.expandedNodes.splice(directoryIndex, 1);
+        var folderIndex = vm.expandedNodes.indexOf(folder);
+        var isFolderOpen = folderIndex > -1;
+
+        if (isFolderOpen) {
+          closeFolder(folder);
         } else {
           FolderService.getFolder(folder.path, function(folderContent) {
             folder.children = folderContent.data.children;
           });
           vm.expandedNodes.push(folder);
         }
+
         if (vm.options.selectionMode == 'folder') {
           vm.selection = folder.path;
         }
@@ -78,5 +79,22 @@ angular.module('kibibitCodeEditor')
         }
       }
     };
+
+    var closeFolder = function(folder) {
+      var folderIndex = vm.expandedNodes.indexOf(folder);
+      var isFolderOpen = folderIndex > -1;
+      var subFolders = folder.children;
+
+      //Close all the sub-folders as well
+      if (subFolders && subFolders.length > 0) {
+        subFolders.forEach(function(subFolder) {
+          closeFolder(subFolder);
+        })
+      }
+
+      if (isFolderOpen) {
+        vm.expandedNodes.splice(folderIndex, 1);
+      }
+    }
   }]);
 
