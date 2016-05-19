@@ -89,12 +89,12 @@ angular.module('kibibitCodeEditor')
       if (subFolders && subFolders.length > 0) {
         subFolders.forEach(function(subFolder) {
           closeFolder(subFolder);
-        })
+        });
       }
 
       if (isFolderOpen) {
         vm.expandedNodes.splice(folderIndex, 1);
       }
-    }
+    };
   }]);
 
