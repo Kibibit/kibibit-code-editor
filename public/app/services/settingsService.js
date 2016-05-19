@@ -67,7 +67,6 @@ angular.module('kibibitCodeEditor')
         var isSoftTabs = false;
         var syntaxMode = 'text';
 
-
         editorSettings.__defineGetter__('ruler', function() {
           return ruler;
         });
