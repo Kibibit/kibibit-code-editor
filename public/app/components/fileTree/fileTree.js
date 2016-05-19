@@ -85,7 +85,7 @@ angular.module('kibibitCodeEditor')
       var pathPrefix = folder.path.substr(0, nameIndex) + folder.name;
 
       vm.expandedNodes = vm.expandedNodes.filter(function(node) {
-        return node.path.indexOf(pathPrefix) === -1;
+        return !node.path.startsWith(pathPrefix);
       });
     };
   }]);
