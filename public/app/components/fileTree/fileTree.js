@@ -81,20 +81,12 @@ angular.module('kibibitCodeEditor')
     };
 
     var closeFolder = function(folder) {
-      var folderIndex = vm.expandedNodes.indexOf(folder);
-      var isFolderOpen = folderIndex > -1;
-      var subFolders = folder.children;
-
-      //Close all the sub-folders as well
-      if (subFolders && subFolders.length > 0) {
-        subFolders.forEach(function(subFolder) {
-          closeFolder(subFolder);
-        });
-      }
-
-      if (isFolderOpen) {
-        vm.expandedNodes.splice(folderIndex, 1);
-      }
+      var nameIndex = folder.path.indexOf(folder.name);
+      var pathPrefix = folder.path.substr(0, nameIndex) + folder.name;
+      
+      vm.expandedNodes = vm.expandedNodes.filter(function(node) {
+        return node.path.indexOf(pathPrefix) === -1;
+      });
     };
   }]);
 
