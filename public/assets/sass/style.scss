@@ -81,40 +81,6 @@ body {
   color: $color2;
 }
 
-.status-bar {
-  align-items: center;
-  background: $color1;
-  color: $primary;
-  display: flex;
-  flex-wrap: nowrap;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  margin-left: 10px;
-  margin-right: 10px;
-  overflow: hidden;
-  position: relative;
-
-  .status-bar-float-right {
-    bottom: 0;
-    position: absolute;
-    right: 0;
-    text-align: center;
-
-    md-input-container {
-      margin: 0;
-
-      md-select:not([disabled]):focus .md-select-value {
-        border-bottom-color: $primary;
-        color: $primary;
-      }
-
-      .md-select-icon {
-        display: none;
-      }
-    }
-  }
-}
-
 body,
 .ui-layout-column > .ui-splitbar {
   background: $color1;
@@ -304,6 +270,52 @@ kb-file-tree {
   display: block;
 }
 
+// change styling for all angular-material select input menu
+md-select-menu {
+  md-content {
+    background-color: $color1;
+    color: $color2;
+  }
+
+  md-option {
+    height: 2rem;
+
+    // this is important because we want to override the
+    // original style: &:focus:not([disabled]):not([selected])
+    &:focus:not([disabled]):not([selected]) {
+      background: rgba($darken-main, 0.7);
+    }
+
+    &[selected] {
+      color: $primary;
+
+      // this is important because we want to apply the style
+      // to the selected item (which is excluded in the previous styling rule)
+      &:focus:not([disabled]) {
+        color: $primary;
+        background: rgba($darken-main, 0.7);
+      }
+    }
+
+    .md-text {
+      font-size: 1rem;
+    }
+  }
+}
+
+md-input-container {
+  margin: 0;
+
+  md-select:not([disabled]):focus .md-select-value {
+    border-bottom-color: $primary;
+    color: $primary;
+  }
+
+  .md-select-icon {
+    display: none;
+  }
+}
+
 // scss-lint:disable IdSelector
 #loading-bar-spinner .spinner-icon {
   border: solid 4px transparent;
@@ -319,27 +331,6 @@ kb-file-tree {
 
   .peg {
     display: none;
-  }
-}
-
-.status-bar-selector {
-  transform: translateY(-24px);
-
-  md-option {
-    height: 2rem;
-
-    &[selected] {
-      color: $primary;
-
-      &:focus {
-        color: $primary;
-        background: rgb(238,238,238);
-      }
-    }
-
-    .md-text {
-      font-size: 1rem;
-    }
   }
 }
 // scss-lint:enable IdSelector

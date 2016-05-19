@@ -1,0 +1,32 @@
+.status-bar {
+  align-items: center;
+  background: $color1;
+  color: $primary;
+  display: flex;
+  flex-wrap: nowrap;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  margin-left: 10px;
+  margin-right: 10px;
+  overflow: hidden;
+  position: relative;
+
+  .status-bar-float-right {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+
+    md-input-container {
+      margin: 0;
+
+      .md-select-icon {
+        display: none;
+      }
+    }
+  }
+}
+
+.status-bar-selector {
+  transform: translateY(-24px);
+}
