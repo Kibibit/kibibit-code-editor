@@ -66,7 +66,7 @@ angular.module('kibibitCodeEditor')
       vm.aceDocumentValue = vm.aceSession.getDocument().getValue();
     };
 
-    vm.editorOptions = {
+    vm.attachedEditorFunctions = {
       onLoad: vm.aceLoaded,
       onChange: vm.aceChanged
     };
