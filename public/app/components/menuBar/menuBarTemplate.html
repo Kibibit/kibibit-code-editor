@@ -125,23 +125,94 @@
                         View
                     </button>
                     <md-menu-content>
-                        <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.printLayout">Print layout</md-menu-item>
                         <md-menu-item class="md-indent">
-                            <md-menu>
-                                <md-button ng-click="$mdOpenMenu()">Mode</md-button>
-                                <md-menu-content width="3">
-                                    <md-menu-item type="radio" ng-model="menuBarCtrl.settings.presentationMode" value="'presentation'">Presentation</md-menu-item>
-                                    <md-menu-item type="radio" ng-model="menuBarCtrl.settings.presentationMode" value="'edit'">Edit</md-menu-item>
-                                    <md-menu-item type="radio" ng-model="menuBarCtrl.settings.presentationMode" value="'modifiable'">Modifiable</md-menu-item>
-                                </md-menu-content>
-                            </md-menu>
+                          <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.lineWrap ? 'check' : '' }}</md-icon>
+                          <md-button ng-click="menuBarCtrl.toggleLineWrap()">Line Wrap</md-button>
+                        </md-menu-item>
+                        <md-menu-item class="md-indent">
+                          <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.isGutter ? 'check' : '' }}</md-icon>
+                          <md-button ng-click="menuBarCtrl.toggleGutter()">Show Gutter</md-button>
+                        </md-menu-item>
+                        <md-menu-item class="md-indent">
+                          <md-icon class="material-icons">blur_linear</md-icon>
+                          <md-menu>
+                            <md-button ng-click="$mdOpenMenu()">Ruler</md-button>
+                            <md-menu-content width="3">
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.ruler == 0 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.ruler = 0">None</md-button>
+                              </md-menu-item>
+                              <md-menu-divider></md-menu-divider>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.ruler == 80 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.ruler = 80">80px</md-button>
+                              </md-menu-item>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.ruler == 100 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.ruler = 100">100px</md-button>
+                              </md-menu-item>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.ruler == 120 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.ruler = 120">120px</md-button>
+                              </md-menu-item>
+                            </md-menu-content>
+                          </md-menu>
+                        </md-menu-item>
+                        <md-menu-item class="md-indent">
+                          <md-icon class="material-icons">format_size</md-icon>
+                          <md-menu>
+                            <md-button ng-click="$mdOpenMenu()">Font Size</md-button>
+                            <md-menu-content width="3">
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.fontSize == 12 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.fontSize = 12">12px</md-button>
+                              </md-menu-item>                            
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.fontSize == 14 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.fontSize = 14">14px</md-button>
+                              </md-menu-item>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.fontSize == 16 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.fontSize = 16">16px</md-button>
+                              </md-menu-item>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.fontSize == 18 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.fontSize = 18">18px</md-button>
+                              </md-menu-item>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.fontSize == 20 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.fontSize = 20">20px</md-button>
+                              </md-menu-item>
+                            </md-menu-content>
+                          </md-menu>
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
-                        <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.showRuler">Show ruler</md-menu-item>
-                        <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.showEquationToolbar">Show equation toolbar</md-menu-item>
-                        <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.showSpellingSuggestions">Show spelling suggestions</md-menu-item>
+                        <md-menu-item class="md-indent">
+                          <md-icon class="material-icons">format_indent_increase</md-icon>
+                          <md-menu>
+                            <md-button ng-click="$mdOpenMenu()">Indentation</md-button>
+                            <md-menu-content width="3">
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.isSoftTabs ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.toggleSoftTabs()">Indent Using Spaces</md-button>
+                              </md-menu-item>
+                              <md-menu-divider></md-menu-divider>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.tabWidth == 2 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.tabWidth = 2">Tab Width: 2</md-button>
+                              </md-menu-item>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.tabWidth == 4 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.tabWidth = 4">Tab Width: 4</md-button>
+                              </md-menu-item>
+                              <md-menu-item class="md-indent">
+                                <md-icon class="material-icons">{{ menuBarCtrl.settings.editorSettings.tabWidth == 8 ? 'check' : '' }}</md-icon>
+                                <md-button ng-click="menuBarCtrl.settings.editorSettings.tabWidth = 8">Tab Width: 8</md-button>
+                              </md-menu-item>
+                            </md-menu-content>
+                          </md-menu>
+                        </md-menu-item>
                         <md-menu-divider></md-menu-divider>
-                        <md-menu-item type="checkbox" ng-model="menuBarCtrl.settings.compactControls">Compact controls</md-menu-item>
                         <md-menu-item class="md-indent">
                             <md-icon class="material-icons">{{ main.settings.isFullscreen ? 'fullscreen_exit' : 'fullscreen' }}</md-icon>
                             <md-button ng-click="menuBarCtrl.toggleFullscreen()">
