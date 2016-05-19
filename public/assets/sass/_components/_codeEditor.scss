@@ -19,19 +19,21 @@ kb-code-editor {
   .ace_editor {
     // OVERRIDE GUTTER ICONS //
     .ace_gutter-cell.ace_info {
-      background-image: url("../images/info.png") !important;
-      background-size: contain;
-      background-position: 7px center;
+      background-image: url("../images/info.png");
+      background-position: 0.3em 0.1em;
+      background-size: 1em;
     }
 
     .ace_gutter-cell.ace_warning {
-      background-image: url("../images/warning.png") !important;
-      background-size: contain;
+      background-image: url("../images/warning.png");
+      background-position: 0.3em 0.1em;
+      background-size: 1em;
     }
 
     .ace_gutter-cell.ace_error {
-      background-image: url("../images/error.png") !important;
-      background-size: contain;
+      background-image: url("../images/error.png");
+      background-position: 0.3em 0.1em;
+      background-size: 1em;
     }
 
     // OVERRIDE HIGHLIGHTED TEXT COLOR //

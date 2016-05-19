@@ -27,30 +27,46 @@ angular.module('kibibitCodeEditor')
     SettingsService) {
 
     var vm = this;
+    var editor;
+    var editorSettings = SettingsService.settings.editorSettings;
+
+    var init = function(settings) {
+      editor.setOptions({
+        'wrap': settings.lineWrap,
+        'mode': 'ace/mode/' + settings.syntaxMode,
+        'theme': 'ace/theme/' + settings.theme,
+        'tabSize': settings.tabWidth,
+        'fontSize': settings.fontSize,
+        'showGutter': settings.isGutter,
+        'useSoftTabs': settings.isSoftTabs,
+        'showPrintMargin': settings.ruler
+      });
+    };
 
     // initialize the editor session
     vm.aceLoaded = function(_editor) {
-      vm.aceSession = _editor.getSession();
-      vm.undoManager = _editor.getSession().getUndoManager();
+      editor = _editor;
+      vm.aceSession = editor.getSession();
+      vm.undoManager = editor.getSession().getUndoManager();
       SettingsService.settings.currentUndoManager = vm.undoManager;
-      SettingsService.settings.currentEditor = _editor;
+      SettingsService.settings.currentEditor = editor;
+      init(editorSettings);
       // save cursor position
-      _editor.on('changeSelection', function() {
+      editor.on('changeSelection', function() {
         $timeout(function() {
-          var cursor = _editor.selection.getCursor();
+          var cursor = editor.selection.getCursor();
           cursor.row++;
           SettingsService.settings.cursor = cursor;
         });
       });
     };
+
     // save the content of the editor on-change
     vm.aceChanged = function(_editor) {
       vm.aceDocumentValue = vm.aceSession.getDocument().getValue();
     };
 
-    vm.editorOptions = {
-      mode: 'javascript',
-      theme: 'monokai',
+    vm.attachedEditorFunctions = {
       onLoad: vm.aceLoaded,
       onChange: vm.aceChanged
     };
