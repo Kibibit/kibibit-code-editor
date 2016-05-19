@@ -328,6 +328,15 @@ kb-file-tree {
   md-option {
     height: 2rem;
 
+    &[selected] {
+      background: $primary;
+      color: $black;
+
+      &:focus {
+        color: $black;
+      }
+    }
+
     .md-text {
       font-size: 1rem;
     }
