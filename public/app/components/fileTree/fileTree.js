@@ -81,11 +81,8 @@ angular.module('kibibitCodeEditor')
     };
 
     var closeFolder = function(folder) {
-      var nameIndex = folder.path.indexOf(folder.name);
-      var pathPrefix = folder.path.substr(0, nameIndex) + folder.name;
-
       vm.expandedNodes = vm.expandedNodes.filter(function(node) {
-        return !node.path.startsWith(pathPrefix);
+        return !node.path.startsWith(folder.path);
       });
     };
   }]);
