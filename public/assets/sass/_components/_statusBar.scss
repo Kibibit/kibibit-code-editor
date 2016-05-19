@@ -1,3 +1,4 @@
+// scss-lint:disable PropertyCount
 .status-bar {
   align-items: center;
   background: $color1;
@@ -30,3 +31,4 @@
 .status-bar-selector {
   transform: translateY(-24px);
 }
+// scss-lint:enable PropertyCount

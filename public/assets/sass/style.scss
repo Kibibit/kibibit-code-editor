@@ -292,8 +292,8 @@ md-select-menu {
       // this is important because we want to apply the style
       // to the selected item (which is excluded in the previous styling rule)
       &:focus:not([disabled]) {
-        color: $primary;
         background: rgba($darken-main, 0.7);
+        color: $primary;
       }
     }
 
