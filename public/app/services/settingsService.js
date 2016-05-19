@@ -35,8 +35,8 @@ angular.module('kibibitCodeEditor')
       settings.__defineSetter__('isFullscreen', function(newValue) {
 
         console.assert(isBoolean(newValue), {
-          'message': TYPE_ERROR_MSGS('isFullscreen', 'boolean',
-            typeof newValue),
+          'message':
+            TYPE_ERROR_MSGS('isFullscreen', 'boolean', typeof newValue),
           'currentValue': isFullscreen,
           'newValue': newValue
         });
@@ -152,8 +152,8 @@ angular.module('kibibitCodeEditor')
 
         editorSettings.__defineSetter__('isSoftTabs', function(newValue) {
           console.assert(isBoolean(newValue), {
-            'message': TYPE_ERROR_MSGS('isSoftTabs', 'integer',
-              typeof newValue),
+            'message':
+              TYPE_ERROR_MSGS('isSoftTabs', 'integer', typeof newValue),
             'currentValue': isSoftTabs,
             'newValue': newValue
           });
@@ -233,8 +233,8 @@ angular.module('kibibitCodeEditor')
 
         editorSettings.__defineSetter__('isReadOnly', function(newValue) {
           console.assert(isBoolean(newValue), {
-            'message': TYPE_ERROR_MSGS('isReadOnly', 'boolean',
-              typeof newValue),
+            'message':
+              TYPE_ERROR_MSGS('isReadOnly', 'boolean', typeof newValue),
             'currentValue': isReadOnly,
             'newValue': newValue
           });
