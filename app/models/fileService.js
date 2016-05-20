@@ -1,6 +1,5 @@
 var dirTree = require('directory-tree'),
     fs = require('fs'),
-    path = require('path'),
     mime = require('mime-types');
 var console = process.console;
 
