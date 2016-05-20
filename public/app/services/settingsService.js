@@ -203,8 +203,8 @@ angular.module('kibibitCodeEditor')
               var session = settings.currentEditor.getSession();
               session.setMode('ace/mode/' + newValue);
             }
+            syntaxMode = newValue;
           }
-          syntaxMode = newValue;
         });
 
         editorSettings.__defineGetter__('theme', function() {
@@ -223,8 +223,8 @@ angular.module('kibibitCodeEditor')
               var editor = settings.currentEditor;
               editor.setTheme('ace/theme/' + newValue);
             }
+            theme = newValue;
           }
-          theme = newValue;
         });
 
         editorSettings.__defineGetter__('isReadOnly', function() {
