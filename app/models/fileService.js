@@ -1,23 +1,47 @@
 var dirTree = require('directory-tree'),
     fs = require('fs'),
-    path = require('path');
+    mime = require('mime-types');
 var console = process.console;
 
 var fileService = {};
 
 fileService.get = function(req, res) {
   var fileFullPath = req.params.file_id;
-  fs.readFile(fileFullPath, 'utf8', function(err, data) {
-    if (err) {
-      res.json(err);
-      console.time().tag('FILE CONTENT')
-        .error('file-get returned an error: ' + err);
-    } else {
-      res.json(data);
-      console.time().tag('FILE CONTENT')
-        .info('file requested: ' + fileFullPath);
-    }
-  });
+  var mimeType = mime.lookup(fileFullPath) || '';
+
+  var isFileOfType = function(type) {
+    return mimeType.indexOf(type) !== -1;
+  };
+
+  var showNoContent = false ||
+      isFileOfType('zip') ||
+      isFileOfType('program') ||
+      isFileOfType('image') ||
+      isFileOfType('font');
+
+  // temprorary solution until we have a view selector on the FRONT-END
+  if (showNoContent) {
+    res.json({
+      content: 'awww man... we can\'t show ' + mimeType + ' yet :-(',
+      mimeType: 'text/text'
+    });
+  } else {
+    fs.readFile(fileFullPath, 'utf8', function(err, data) {
+      if (err) {
+        res.json(err);
+        console.time().tag('FILE CONTENT')
+          .error('file-get returned an error: ' + err);
+      } else {
+        var file = {
+          content: data,
+          mimeType: mimeType
+        };
+        res.json(file);
+        console.time().tag('FILE CONTENT')
+          .info('file requested: ' + fileFullPath);
+      }
+    });
+  }
 };
 
 fileService.put = function(req, res) {

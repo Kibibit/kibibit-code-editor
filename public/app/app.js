@@ -16,9 +16,11 @@ angular.module('kibibitCodeEditor',
   'jsonFormatter',
   'ngclipboard',
   'ng.deviceDetector'])
+
 .config(['$compileProvider', function($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
 }])
+
 .config(['ScrollBarsProvider', function(ScrollBarsProvider) {
   // the following settings are defined for all scrollbars unless the
   // scrollbar has local scope configuration
@@ -33,6 +35,7 @@ angular.module('kibibitCodeEditor',
     autoHideScrollbar: true
   };
 }])
+
 .config(['markedProvider', function(markedProvider) {
   markedProvider.setOptions({
     gfm: true,
@@ -50,20 +53,31 @@ angular.module('kibibitCodeEditor',
     }
   });
 }])
+
 .filter('marked', ['marked', function(marked) {
   return function(input) {
     return marked(input || '');
   };
 }])
+
 .constant('CODE_EDITOR', {
   'MODE_LIST': ace.require('ace/ext/modelist'),
   'THEME_LIST': ace.require('ace/ext/themelist')
 })
-.constant('TYPE_ERROR_MSGS', function(varName, typeExpected, typeRecieved) {
-  return [
-    varName,
-    ' should be a ',
-    typeExpected,
-    ' but was given a ',
-    typeRecieved].join('');
+
+.constant('ERROR_MSGS', {
+  'TYPE_ERROR': function(varName, typeExpected, typeRecieved) {
+    return [
+      varName,
+      ' should be a ',
+      typeExpected,
+      ' but was given a ',
+      typeRecieved].join('');
+  },
+  'MATCH_ERROR': function(varName, collectionName) {
+    return [
+      varName,
+      'value should exist in ',
+      collectionName].join('');
+  }
 });
