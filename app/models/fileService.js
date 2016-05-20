@@ -19,6 +19,7 @@ fileService.get = function(req, res) {
       isFileOfType('image') ||
       isFileOfType('font');
 
+  // temprorary solution until we have a view selector on the FRONT-END
   if (showNoContent) {
     res.json({
       content: 'awww man... we can\'t show ' + mimeType + ' yet :-(',
