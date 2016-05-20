@@ -3,11 +3,11 @@ angular.module('kibibitCodeEditor')
 .service('SettingsService', [
   'Fullscreen',
   'CODE_EDITOR',
-  'TYPE_ERROR_MSGS',
+  'ERROR_MSGS',
   function(
     Fullscreen,
     CODE_EDITOR,
-    TYPE_ERROR_MSGS) {
+    ERROR_MSGS) {
 
     var vm = this;
 
@@ -37,7 +37,7 @@ angular.module('kibibitCodeEditor')
 
         console.assert(isBoolean(newValue), {
           'message':
-            TYPE_ERROR_MSGS('isFullscreen', 'boolean', typeof newValue),
+            ERROR_MSGS.TYPE_ERROR('isFullscreen', 'boolean', typeof newValue),
           'currentValue': isFullscreen,
           'newValue': newValue
         });
@@ -74,7 +74,7 @@ angular.module('kibibitCodeEditor')
 
         editorSettings.__defineSetter__('ruler', function(newValue) {
           console.assert(Number.isInteger(newValue), {
-            'message': TYPE_ERROR_MSGS('ruler', 'integer', typeof newValue),
+            'message': ERROR_MSGS.TYPE_ERROR('ruler', 'integer', typeof newValue),
             'currentValue': ruler,
             'newValue': newValue
           });
@@ -94,7 +94,7 @@ angular.module('kibibitCodeEditor')
 
         editorSettings.__defineSetter__('lineWrap', function(newValue) {
           console.assert(isBoolean(newValue), {
-            'message': TYPE_ERROR_MSGS('lineWrap', 'boolean', typeof newValue),
+            'message': ERROR_MSGS.TYPE_ERROR('lineWrap', 'boolean', typeof newValue),
             'currentValue': lineWrap,
             'newValue': newValue
           });
@@ -113,7 +113,7 @@ angular.module('kibibitCodeEditor')
 
         editorSettings.__defineSetter__('fontSize', function(newValue) {
           console.assert(Number.isInteger(newValue), {
-            'message': TYPE_ERROR_MSGS('fontSize', 'integer', typeof newValue),
+            'message': ERROR_MSGS.TYPE_ERROR('fontSize', 'integer', typeof newValue),
             'currentValue': fontSize,
             'newValue': newValue
           });
@@ -133,7 +133,7 @@ angular.module('kibibitCodeEditor')
 
         editorSettings.__defineSetter__('tabWidth', function(newValue) {
           console.assert(Number.isInteger(newValue), {
-            'message': TYPE_ERROR_MSGS('tabWidth', 'integer', typeof newValue),
+            'message': ERROR_MSGS.TYPE_ERROR('tabWidth', 'integer', typeof newValue),
             'currentValue': tabWidth,
             'newValue': newValue
           });
@@ -154,7 +154,7 @@ angular.module('kibibitCodeEditor')
         editorSettings.__defineSetter__('isSoftTabs', function(newValue) {
           console.assert(isBoolean(newValue), {
             'message':
-              TYPE_ERROR_MSGS('isSoftTabs', 'integer', typeof newValue),
+              ERROR_MSGS.TYPE_ERROR('isSoftTabs', 'integer', typeof newValue),
             'currentValue': isSoftTabs,
             'newValue': newValue
           });
@@ -174,7 +174,7 @@ angular.module('kibibitCodeEditor')
 
         editorSettings.__defineSetter__('isGutter', function(newValue) {
           console.assert(isBoolean(newValue), {
-            'message': TYPE_ERROR_MSGS('isGutter', 'boolean', typeof newValue),
+            'message': ERROR_MSGS.TYPE_ERROR('isGutter', 'boolean', typeof newValue),
             'currentValue': isGutter,
             'newValue': newValue
           });
@@ -193,16 +193,10 @@ angular.module('kibibitCodeEditor')
         });
 
         editorSettings.__defineSetter__('syntaxMode', function(newValue) {
-          console.assert(angular.isString(newValue), {
-            'message': TYPE_ERROR_MSGS('syntaxMode', 'string', typeof newValue),
-            'currentValue': syntaxMode,
-            'newValue': newValue
-          });
-
           var matchedMode = CODE_EDITOR.MODE_LIST.modesByName[newValue];
 
           console.assert(matchedMode, {
-            'message': 'syntaxMode value should exist in CODE_EDITOR.MODE_LIST.modesByName',
+            'message': ERROR_MSGS.MATCH_ERROR('syntaxMode', 'CODE_EDITOR.MODE_LIST.modesByName'),
             'currentValue': syntaxMode,
             'newValue': newValue
           });
@@ -221,16 +215,10 @@ angular.module('kibibitCodeEditor')
         });
 
         editorSettings.__defineSetter__('theme', function(newValue) {
-          console.assert(angular.isString(newValue), {
-            'message': TYPE_ERROR_MSGS('theme', 'string', typeof newValue),
-            'currentValue': syntaxMode,
-            'newValue': newValue
-          });
-
           var matchedTheme = CODE_EDITOR.THEME_LIST.themesByName[newValue];
 
           console.assert(matchedTheme, {
-            'message': 'theme value should exist in CODE_EDITOR.THEME_LIST.themesByName',
+            'message': ERROR_MSGS.MATCH_ERROR('theme', 'CODE_EDITOR.THEME_LIST.themesByName'),
             'currentValue': syntaxMode,
             'newValue': newValue
           });
@@ -251,7 +239,7 @@ angular.module('kibibitCodeEditor')
         editorSettings.__defineSetter__('isReadOnly', function(newValue) {
           console.assert(isBoolean(newValue), {
             'message':
-              TYPE_ERROR_MSGS('isReadOnly', 'boolean', typeof newValue),
+              ERROR_MSGS.TYPE_ERROR('isReadOnly', 'boolean', typeof newValue),
             'currentValue': isReadOnly,
             'newValue': newValue
           });
