@@ -37,6 +37,27 @@ kb-menu-bar {
   .md-toolbar-tools {
     padding-top: 28px;
   }
+
+  md-menu-bar md-menu.md-open > button, md-menu-bar md-menu > button:focus {
+    background: rgba($darken-main, 0.7);
+  }
+}
+
+md-menu-content {
+  background-color: $color1;
+  color: $primary;
+
+  md-icon {
+    color: $primary;
+  }
+
+  .md-menu > .md-button:after {
+    color: $primary;
+  }
+
+  md-menu-divider {
+    background-color: rgba($primary, 0.5);
+  }
 }
 
 // scss-lint:enable NestingDepth
