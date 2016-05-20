@@ -28,9 +28,10 @@ angular.module('kibibitCodeEditor')
       settings.cursor = cursor;
       settings.currentUndoManager = currentUndoManager;
       settings.currentEditor = currentEditor;
-      settings.modelist = CODE_EDITOR.MODE_LIST;
-      settings.themelist = CODE_EDITOR.THEME_LIST;
       settings.editorSettings = editorSettings;
+      // Expose ace's list to the view in order to show in input selectors
+      settings.modelist = CODE_EDITOR.MODE_LIST;
+      settings.themelist = CODE_EDITOR.THEME_LIST; 
 
       settings.__defineSetter__('isFullscreen', function(newValue) {
 
@@ -192,8 +193,16 @@ angular.module('kibibitCodeEditor')
         });
 
         editorSettings.__defineSetter__('syntaxMode', function(newValue) {
-          console.assert(newValue in settings.modelist.modesByName, {
+          console.assert(angular.isString(newValue), {
             'message': TYPE_ERROR_MSGS('syntaxMode', 'string', typeof newValue),
+            'currentValue': syntaxMode,
+            'newValue': newValue
+          });
+
+          var matchedMode = CODE_EDITOR.MODE_LIST.modesByName[newValue];
+
+          console.assert(matchedMode, {
+            'message': 'syntaxMode value should exist in CODE_EDITOR.MODE_LIST.modesByName',
             'currentValue': syntaxMode,
             'newValue': newValue
           });
@@ -201,7 +210,7 @@ angular.module('kibibitCodeEditor')
           if (newValue !== syntaxMode) {
             if (settings.currentEditor) {
               var session = settings.currentEditor.getSession();
-              session.setMode('ace/mode/' + newValue);
+              session.setMode(matchedMode.mode);
             }
             syntaxMode = newValue;
           }
@@ -212,16 +221,24 @@ angular.module('kibibitCodeEditor')
         });
 
         editorSettings.__defineSetter__('theme', function(newValue) {
-          console.assert(newValue in settings.themelist.themesByName, {
+          console.assert(angular.isString(newValue), {
             'message': TYPE_ERROR_MSGS('theme', 'string', typeof newValue),
-            'currentValue': theme,
+            'currentValue': syntaxMode,
+            'newValue': newValue
+          });
+
+          var matchedTheme = CODE_EDITOR.THEME_LIST.themesByName[newValue];
+
+          console.assert(matchedTheme, {
+            'message': 'theme value should exist in CODE_EDITOR.THEME_LIST.themesByName',
+            'currentValue': syntaxMode,
             'newValue': newValue
           });
 
           if (newValue !== theme) {
             if (settings.currentEditor) {
               var editor = settings.currentEditor;
-              editor.setTheme('ace/theme/' + newValue);
+              editor.setTheme(matchedTheme.theme);
             }
             theme = newValue;
           }
