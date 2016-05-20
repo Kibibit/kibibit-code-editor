@@ -23,7 +23,7 @@ fileService.get = function(req, res) {
   if (showNoContent) {
     res.json({
       content: 'awww man... we can\'t show ' + mimeType + ' yet :-(',
-      mimeType: 'text'
+      mimeType: 'text/text'
     });
   } else {
     fs.readFile(fileFullPath, 'utf8', function(err, data) {
