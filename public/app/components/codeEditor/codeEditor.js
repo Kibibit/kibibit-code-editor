@@ -85,7 +85,9 @@ angular.module('kibibitCodeEditor')
 
     function getModeFromMimeType(file) {
       var getModeRegex = /\/(x-)?(.*)$/;
-      return file && file.mimeType ? file.mimeType.match(getModeRegex)[2] : 'text';
+      return file && file.mimeType ?
+        file.mimeType.match(getModeRegex)[2] :
+        'text';
     }
   }
 ]);
