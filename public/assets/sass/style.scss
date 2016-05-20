@@ -65,6 +65,8 @@ $color3: rgb(38, 38, 38);
 
 html {
   background: $color1;
+  // REM UNIT //
+  font-size: 14px;
 }
 
 body {
@@ -72,36 +74,11 @@ body {
   background: $color1;
 }
 
-kb-code-editor {
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-
-  .editor {
-    height: 100%;
-    width: 100%;
-  }
-}
-
 .glyphicon-chevron-left,
 .glyphicon-chevron-right,
 .glyphicon-chevron-up,
 .glyphicon-chevron-down {
   color: $color2;
-}
-
-.status-bar {
-  align-items: center;
-  background: $color1;
-  color: $primary;
-  display: flex;
-  flex-wrap: nowrap;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  margin-left: 5px;
-  margin-right: 5px;
 }
 
 body,
@@ -289,24 +266,54 @@ json-editor {
   }
 }
 
-.ace_gutter-cell.ace_info {
-  background-image: url("../images/info.png") !important;
-  background-size: contain;
-  background-position: 7px center;
-}
-
-.ace_gutter-cell.ace_warning {
-  background-image: url("../images/warning.png") !important;
-  background-size: contain;
-}
-
-.ace_gutter-cell.ace_error {
-  background-image: url("../images/error.png") !important;
-  background-size: contain;
-}
-
 kb-file-tree {
   display: block;
+}
+
+// change styling for all angular-material select input menu
+md-select-menu {
+  md-content {
+    background-color: $color1;
+    color: $color2;
+  }
+
+  md-option {
+    height: 2rem;
+
+    // this is important because we want to override the
+    // original style: &:focus:not([disabled]):not([selected])
+    &:focus:not([disabled]):not([selected]) {
+      background: rgba($darken-main, 0.7);
+    }
+
+    &[selected] {
+      color: $primary;
+
+      // this is important because we want to apply the style
+      // to the selected item (which is excluded in the previous styling rule)
+      &:focus:not([disabled]) {
+        background: rgba($darken-main, 0.7);
+        color: $primary;
+      }
+    }
+
+    .md-text {
+      font-size: 1rem;
+    }
+  }
+}
+
+md-input-container {
+  margin: 0;
+
+  md-select:not([disabled]):focus .md-select-value {
+    border-bottom-color: $primary;
+    color: $primary;
+  }
+
+  .md-select-icon {
+    display: none;
+  }
 }
 
 // scss-lint:disable IdSelector

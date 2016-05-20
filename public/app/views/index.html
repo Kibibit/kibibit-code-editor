@@ -54,6 +54,22 @@
           </div>
           <div ui-layout-container size="30px" class="status-bar">
             <span>Line {{main.settings.cursor.row}} - Column {{main.settings.cursor.column}}</span>
+            <span class="status-bar-float-right">
+              <md-input-container>
+                <md-select ng-model="main.settings.editorSettings.syntaxMode" md-container-class="status-bar-selector" aria-label="mode selection">
+                  <md-option ng-repeat="mode in main.settings.modelist.modesByName" value="{{mode.name}}">
+                    {{mode.caption}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container>
+                <md-select ng-model="main.settings.editorSettings.theme" md-container-class="status-bar-selector" aria-label="theme selection">
+                  <md-option ng-repeat="theme in main.settings.themelist.themesByName" value="{{theme.name}}">
+                    {{theme.caption}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </span>
           </div>
         </div>
     </div>
@@ -90,6 +106,8 @@
     <script type='text/javascript' src='assets/lib/bower_components/angular-loading-bar/build/loading-bar.min.js'></script>
     <script type="text/javascript" src="assets/lib/angular-tree-control.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ext-modelist.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ext-themelist.js"></script>
     <script type="text/javascript" src="https://rawgit.com/Kibibit/ui-layout/v1-0-5/src/ui-layout.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/json-formatter/dist/json-formatter.js"></script>
     <script type="text/javascript" src="assets/lib/ui-ace.js"></script>

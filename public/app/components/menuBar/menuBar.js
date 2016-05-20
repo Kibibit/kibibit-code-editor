@@ -72,4 +72,19 @@ angular.module('kibibitCodeEditor')
   vm.toggleFullscreen = function() {
     vm.settings.isFullscreen = !vm.settings.isFullscreen;
   };
+
+  vm.toggleLineWrap = function() {
+    vm.settings.editorSettings.lineWrap = !vm.settings.editorSettings.lineWrap;
+  };
+
+  vm.toggleSoftTabs = function() {
+    var editorSettings = vm.settings.editorSettings;
+    editorSettings.isSoftTabs = !editorSettings.isSoftTabs;
+  };
+
+  vm.toggleGutter = function() {
+    var editorSettings = vm.settings.editorSettings;
+    editorSettings.isGutter = !editorSettings.isGutter;
+  };
+
 });
