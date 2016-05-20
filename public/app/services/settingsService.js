@@ -31,13 +31,13 @@ angular.module('kibibitCodeEditor')
       settings.editorSettings = editorSettings;
       // Expose ace's list to the view in order to show in input selectors
       settings.modelist = CODE_EDITOR.MODE_LIST;
-      settings.themelist = CODE_EDITOR.THEME_LIST; 
+      settings.themelist = CODE_EDITOR.THEME_LIST;
 
       settings.__defineSetter__('isFullscreen', function(newValue) {
 
         console.assert(isBoolean(newValue), {
-          'message':
-            ERROR_MSGS.TYPE_ERROR('isFullscreen', 'boolean', typeof newValue),
+          'message': ERROR_MSGS
+            .TYPE_ERROR('isFullscreen', 'boolean', typeof newValue),
           'currentValue': isFullscreen,
           'newValue': newValue
         });
@@ -74,7 +74,8 @@ angular.module('kibibitCodeEditor')
 
         editorSettings.__defineSetter__('ruler', function(newValue) {
           console.assert(Number.isInteger(newValue), {
-            'message': ERROR_MSGS.TYPE_ERROR('ruler', 'integer', typeof newValue),
+            'message': ERROR_MSGS
+              .TYPE_ERROR('ruler', 'integer', typeof newValue),
             'currentValue': ruler,
             'newValue': newValue
           });
@@ -94,7 +95,8 @@ angular.module('kibibitCodeEditor')
 
         editorSettings.__defineSetter__('lineWrap', function(newValue) {
           console.assert(isBoolean(newValue), {
-            'message': ERROR_MSGS.TYPE_ERROR('lineWrap', 'boolean', typeof newValue),
+            'message': ERROR_MSGS
+              .TYPE_ERROR('lineWrap', 'boolean', typeof newValue),
             'currentValue': lineWrap,
             'newValue': newValue
           });
@@ -113,7 +115,8 @@ angular.module('kibibitCodeEditor')
 
         editorSettings.__defineSetter__('fontSize', function(newValue) {
           console.assert(Number.isInteger(newValue), {
-            'message': ERROR_MSGS.TYPE_ERROR('fontSize', 'integer', typeof newValue),
+            'message': ERROR_MSGS
+              .TYPE_ERROR('fontSize', 'integer', typeof newValue),
             'currentValue': fontSize,
             'newValue': newValue
           });
@@ -133,7 +136,8 @@ angular.module('kibibitCodeEditor')
 
         editorSettings.__defineSetter__('tabWidth', function(newValue) {
           console.assert(Number.isInteger(newValue), {
-            'message': ERROR_MSGS.TYPE_ERROR('tabWidth', 'integer', typeof newValue),
+            'message': ERROR_MSGS
+              .TYPE_ERROR('tabWidth', 'integer', typeof newValue),
             'currentValue': tabWidth,
             'newValue': newValue
           });
@@ -153,8 +157,8 @@ angular.module('kibibitCodeEditor')
 
         editorSettings.__defineSetter__('isSoftTabs', function(newValue) {
           console.assert(isBoolean(newValue), {
-            'message':
-              ERROR_MSGS.TYPE_ERROR('isSoftTabs', 'integer', typeof newValue),
+            'message': ERROR_MSGS
+              .TYPE_ERROR('isSoftTabs', 'integer', typeof newValue),
             'currentValue': isSoftTabs,
             'newValue': newValue
           });
@@ -174,7 +178,8 @@ angular.module('kibibitCodeEditor')
 
         editorSettings.__defineSetter__('isGutter', function(newValue) {
           console.assert(isBoolean(newValue), {
-            'message': ERROR_MSGS.TYPE_ERROR('isGutter', 'boolean', typeof newValue),
+            'message': ERROR_MSGS
+              .TYPE_ERROR('isGutter', 'boolean', typeof newValue),
             'currentValue': isGutter,
             'newValue': newValue
           });
@@ -196,7 +201,8 @@ angular.module('kibibitCodeEditor')
           var matchedMode = CODE_EDITOR.MODE_LIST.modesByName[newValue];
 
           console.assert(matchedMode, {
-            'message': ERROR_MSGS.MATCH_ERROR('syntaxMode', 'CODE_EDITOR.MODE_LIST.modesByName'),
+            'message': ERROR_MSGS
+              .MATCH_ERROR('syntaxMode', 'CODE_EDITOR.MODE_LIST.modesByName'),
             'currentValue': syntaxMode,
             'newValue': newValue
           });
@@ -218,7 +224,8 @@ angular.module('kibibitCodeEditor')
           var matchedTheme = CODE_EDITOR.THEME_LIST.themesByName[newValue];
 
           console.assert(matchedTheme, {
-            'message': ERROR_MSGS.MATCH_ERROR('theme', 'CODE_EDITOR.THEME_LIST.themesByName'),
+            'message': ERROR_MSGS
+              .MATCH_ERROR('theme', 'CODE_EDITOR.THEME_LIST.themesByName'),
             'currentValue': syntaxMode,
             'newValue': newValue
           });
@@ -238,8 +245,8 @@ angular.module('kibibitCodeEditor')
 
         editorSettings.__defineSetter__('isReadOnly', function(newValue) {
           console.assert(isBoolean(newValue), {
-            'message':
-              ERROR_MSGS.TYPE_ERROR('isReadOnly', 'boolean', typeof newValue),
+            'message': ERROR_MSGS
+              .TYPE_ERROR('isReadOnly', 'boolean', typeof newValue),
             'currentValue': isReadOnly,
             'newValue': newValue
           });
