@@ -50,6 +50,8 @@ angular.module('kibibitCodeEditor')
       });
     };
 
+    vm.syntaxMode = function() { return editorSettings.syntaxMode; };
+
     // initialize the editor session
     vm.aceLoaded = function(_editor) {
       editor = _editor;
@@ -71,10 +73,7 @@ angular.module('kibibitCodeEditor')
     // save the content of the editor on-change
     vm.aceChanged = function(_editor) {
       vm.aceDocumentValue = vm.aceSession.getDocument().getValue();
-      var fileMode = getModeFromMimeType(vm.fileInfo);
-      editorSettings.syntaxMode = fileMode;
       parseJson();
-      console.debug('changed mode to ' + fileMode);
     };
 
     vm.attachedEditorFunctions = {
@@ -87,9 +86,24 @@ angular.module('kibibitCodeEditor')
         FileService.getFile(filePath, function(fileInfo) {
           vm.fileInfo = fileInfo.data;
           vm.code = vm.fileInfo.content;
-          vm.syntaxMode = getModeFromMimeType(vm.fileInfo);
-          vm.showCompiledView = showCompiled();
+          var fileMode = getModeFromMimeType(vm.fileInfo);
+          editorSettings.syntaxMode = fileMode;
+          vm.parsedJson = undefined;
+          console.debug('changed mode to ' + fileMode);
         });
+      }
+    };
+
+    vm.shouldShowCompiledView = function() {
+      vm.showCompiledView = editorSettings.syntaxMode === 'json' || editorSettings.syntaxMode === 'markdown';
+      return vm.showCompiledView;
+    };
+
+    function parseJson() {
+      if (editorSettings.syntaxMode === 'json') {
+        try {
+          vm.parsedJson = JSON.parse(vm.aceDocumentValue);
+        } catch (e) {}
       }
     };
 
@@ -98,18 +112,6 @@ angular.module('kibibitCodeEditor')
       return file && file.mimeType ?
         file.mimeType.match(getModeRegex)[2] :
         'text';
-    }
-
-    function showCompiled() {
-      return vm.syntaxMode === 'json' || vm.syntaxMode === 'markdown';
-    }
-
-    function parseJson() {
-      if (vm.syntaxMode === 'json') {
-        try {
-          vm.aceDocumentJson = JSON.parse(vm.aceDocumentValue);
-        } catch (e) {}
-      }
     }
   }
 ]);

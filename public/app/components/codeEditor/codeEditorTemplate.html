@@ -1,7 +1,7 @@
 <div class="editor" ng-class="{ 'half-editor': codeEditorCtrl.showCompiledView }"
      ui-ace="codeEditorCtrl.attachedEditorFunctions"
      ng-model="codeEditorCtrl.code"></div>
-<div class="compiled-view" ng-scrollbars ng-switch="codeEditorCtrl.syntaxMode" ng-if="codeEditorCtrl.showCompiledView">
+<div class="compiled-view" ng-scrollbars ng-switch="codeEditorCtrl.syntaxMode()" ng-if="codeEditorCtrl.shouldShowCompiledView()">
   <div class="wrap" ng-bind-html="codeEditorCtrl.code | marked | emoji" ng-switch-when="markdown"></div>
-  <json-formatter class="json-formatter-dark" open="1" json="codeEditorCtrl.aceDocumentJson" ng-switch-when="json"></json-formatter>
+  <json-formatter class="json-formatter-dark" open="1" json="codeEditorCtrl.parsedJson" ng-switch-when="json"></json-formatter>
 </div>
