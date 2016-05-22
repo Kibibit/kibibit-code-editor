@@ -102,6 +102,7 @@ angular.module('kibibitCodeEditor')
     };
 
     function parseJson() {
+      // the parsedJson variable won't update if the json is invalid
       if (editorSettings.syntaxMode === 'json') {
         try {
           vm.parsedJson = JSON.parse(vm.aceDocumentValue);
