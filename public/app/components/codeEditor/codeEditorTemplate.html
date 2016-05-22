@@ -2,6 +2,6 @@
      ui-ace="codeEditorCtrl.attachedEditorFunctions"
      ng-model="codeEditorCtrl.code"></div>
 <div class="compiled-view" ng-scrollbars ng-switch="codeEditorCtrl.syntaxMode()" ng-if="codeEditorCtrl.shouldShowCompiledView()">
-  <div class="wrap" ng-bind-html="codeEditorCtrl.code | marked | emoji" ng-switch-when="markdown"></div>
+  <div class="wrap" ng-bind-html="codeEditorCtrl.code | marked | emoji" ng-switch-when="markdown" kb-target-blank></div>
   <json-formatter class="json-formatter-dark" open="1" json="codeEditorCtrl.parsedJson" ng-switch-when="json"></json-formatter>
 </div>
