@@ -95,7 +95,9 @@ angular.module('kibibitCodeEditor')
     };
 
     vm.shouldShowCompiledView = function() {
-      vm.showCompiledView = editorSettings.syntaxMode === 'json' || editorSettings.syntaxMode === 'markdown';
+      vm.showCompiledView =
+        editorSettings.syntaxMode === 'json' ||
+        editorSettings.syntaxMode === 'markdown';
       return vm.showCompiledView;
     };
 
