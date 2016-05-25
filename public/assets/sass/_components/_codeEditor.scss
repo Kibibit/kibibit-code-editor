@@ -28,6 +28,39 @@ kb-code-editor {
     top: 0;
   }
 
+  .minimap {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    bottom: 0;
+    z-index: 5;
+    background-color: transparent;
+    opacity: 0.5;
+    transition: all 250ms ease-out;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    .ace_content {
+      background-color: transparent;
+
+      .ace_text-layer .ace_line {
+        display: inline;
+        // background-color: currentColor;
+        font-size: 5px;
+        &:after {
+          content: '';
+          display: block;
+        }
+         * {
+            background-color: currentColor;
+          }
+        }
+    }
+  }
+
   // *************** //
   // OVERRIDE ACE UI //
   // *************** //
