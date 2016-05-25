@@ -9,6 +9,11 @@ fileService.get = function(req, res) {
   var fileFullPath = req.params.file_id;
   var mimeType = mime.lookup(fileFullPath) || '';
 
+  // fix case for ES6 files (currently, highlight them as regular javascript)
+  if (!mimeType && fileFullPath.toLowerCase().endsWith('es6')) {
+    mimeType = 'application/javascript';
+  }
+
   var isFileOfType = function(type) {
     return mimeType.indexOf(type) !== -1;
   };

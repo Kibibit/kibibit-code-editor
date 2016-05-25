@@ -21,14 +21,21 @@ angular.module('kibibitCodeEditor')
   '$timeout',
   'FileService',
   'SettingsService',
+  'JSONFormatterConfig',
   function(
     $timeout,
     FileService,
-    SettingsService) {
+    SettingsService,
+    JSONFormatterConfig) {
 
     var vm = this;
     var editor;
     var editorSettings = SettingsService.settings.editorSettings;
+
+    // config JSON params
+    JSONFormatterConfig.hoverPreviewEnabled = true;
+    JSONFormatterConfig.hoverPreviewArrayCount = 100;
+    JSONFormatterConfig.hoverPreviewFieldCount = 5;
 
     var init = function(settings) {
       editor.setOptions({
@@ -42,6 +49,8 @@ angular.module('kibibitCodeEditor')
         'showPrintMargin': settings.ruler
       });
     };
+
+    vm.syntaxMode = function() { return editorSettings.syntaxMode; };
 
     // initialize the editor session
     vm.aceLoaded = function(_editor) {
@@ -64,9 +73,7 @@ angular.module('kibibitCodeEditor')
     // save the content of the editor on-change
     vm.aceChanged = function(_editor) {
       vm.aceDocumentValue = vm.aceSession.getDocument().getValue();
-      var fileMode = getModeFromMimeType(vm.fileInfo);
-      editorSettings.syntaxMode = fileMode;
-      console.debug('changed mode to ' + fileMode);
+      parseJson();
     };
 
     vm.attachedEditorFunctions = {
@@ -79,7 +86,27 @@ angular.module('kibibitCodeEditor')
         FileService.getFile(filePath, function(fileInfo) {
           vm.fileInfo = fileInfo.data;
           vm.code = vm.fileInfo.content;
+          var fileMode = getModeFromMimeType(vm.fileInfo);
+          editorSettings.syntaxMode = fileMode;
+          vm.parsedJson = undefined;
+          console.debug('changed mode to ' + fileMode);
         });
+      }
+    };
+
+    vm.shouldShowCompiledView = function() {
+      vm.showCompiledView =
+        editorSettings.syntaxMode === 'json' ||
+        editorSettings.syntaxMode === 'markdown';
+      return vm.showCompiledView;
+    };
+
+    function parseJson() {
+      // the parsedJson variable won't update if the json is invalid
+      if (editorSettings.syntaxMode === 'json') {
+        try {
+          vm.parsedJson = JSON.parse(vm.aceDocumentValue);
+        } catch (e) {}
       }
     };
 
