@@ -54,12 +54,7 @@ kb-code-editor {
       line-height: 6px;
 
       .ace_text-layer .ace_line {
-        display: inline;
         font-size: 5px;
-        &:after {
-          content: '';
-          display: block;
-        }
       }
     }
   }
