@@ -100,7 +100,7 @@ angular.module('kibibitCodeEditor')
         theme: 'ace/theme/' + editorSettings.theme,
         mode: 'ace/mode/' + editorSettings.syntaxMode
       });
-    }
+    };
 
     vm.updateFileContent = function(filePath) {
       if (filePath !== '') {
