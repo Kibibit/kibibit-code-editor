@@ -26,6 +26,10 @@ kb-code-editor {
     position: absolute;
     right: 0;
     top: 0;
+
+    .json-formatter-row {
+      color: $white;
+    }
   }
 
   .minimap {
