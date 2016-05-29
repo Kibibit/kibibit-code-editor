@@ -45,6 +45,9 @@ kb-code-editor {
 
     .ace_content {
       background-color: transparent;
+      font-family: "rectangle text";
+      letter-spacing: -1.5px;
+      line-height: 6px;
 
       .ace_text-layer .ace_line {
         display: inline;
@@ -54,10 +57,7 @@ kb-code-editor {
           content: '';
           display: block;
         }
-         * {
-            background-color: currentColor;
-          }
-        }
+      }
     }
   }
 
