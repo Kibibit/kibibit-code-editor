@@ -40,7 +40,7 @@ fileService.get = function(req, res) {
         var file = {
           content: data,
           mimeType: mimeType,
-          tags: getFileTags(fileFullPath)
+          tags: fileService.getFileTags(fileFullPath)
         };
         res.json(file);
         console.time().tag('FILE CONTENT')
@@ -129,26 +129,7 @@ fileService.putExtraArg = function(req, res) {
 
 };
 
-function extraTypes(filepath) {
-  if (filepath.indexOf('.') !== -1) {
-    var fileExtension = filepath.substring(filepath.lastIndexOf('.') + 1, filepath.length);
-    var mime;
-
-    switch(fileExtension) {
-      case 'nsi':
-        mime = 'nsis';
-        break;
-      default:
-        mime = fileExtension;
-    }
-
-    return 'application/' + mime;
-  } else {
-    return undefined;
-  }
-}
-
-function getFileTags(filepath) {
+fileService.getFileTags = function(filepath) {
   var fileTags = [];
   var filenameRegex = /[\\\/]([^\\\/]+)$/;
   var match = filenameRegex.exec(filepath);
@@ -195,6 +176,25 @@ function getFileTags(filepath) {
     });
   }
     return fileTags;
+};
+
+function extraTypes(filepath) {
+  if (filepath.indexOf('.') !== -1) {
+    var fileExtension = filepath.substring(filepath.lastIndexOf('.') + 1, filepath.length);
+    var mime;
+
+    switch(fileExtension) {
+      case 'nsi':
+        mime = 'nsis';
+        break;
+      default:
+        mime = fileExtension;
+    }
+
+    return 'application/' + mime;
+  } else {
+    return undefined;
+  }
 }
 
 module.exports = fileService;
