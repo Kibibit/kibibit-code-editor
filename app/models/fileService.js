@@ -184,7 +184,7 @@ function extraTypes(filepath) {
       filepath.substring(filepath.lastIndexOf('.') + 1, filepath.length);
     var mime;
 
-    switch(fileExtension) {
+    switch (fileExtension) {
       case 'nsi':
         mime = 'nsis';
         break;
