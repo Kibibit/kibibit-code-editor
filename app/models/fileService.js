@@ -140,7 +140,7 @@ fileService.getFileTags = function(filepath) {
     tags.pop();
 
     tags.forEach(function(tag) {
-      switch(tag) {
+      switch (tag) {
         case 'conf':
         case 'config':
         case 'configuration':
@@ -175,12 +175,13 @@ fileService.getFileTags = function(filepath) {
       }
     });
   }
-    return fileTags;
+  return fileTags;
 };
 
 function extraTypes(filepath) {
   if (filepath.indexOf('.') !== -1) {
-    var fileExtension = filepath.substring(filepath.lastIndexOf('.') + 1, filepath.length);
+    var fileExtension =
+      filepath.substring(filepath.lastIndexOf('.') + 1, filepath.length);
     var mime;
 
     switch(fileExtension) {
