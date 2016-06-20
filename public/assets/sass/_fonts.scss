@@ -33,4 +33,12 @@
 [class*="openwebicons-"]:before {
   font-family: "OpenWeb Icons", sans-serif;
 }
+
+@font-face {
+  font-family: 'rectangle text';
+  src: url('rectangle.eot');
+  src: local('☺'),url('rectangle.woff') format('woff2'), url('rectangle.woff') format('woff'), url('rectangle.ttf') format('truetype'), url('rectangle.svg#rectangle') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
 // scss-lint:enable all

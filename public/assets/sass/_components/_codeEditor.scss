@@ -32,6 +32,39 @@ kb-code-editor {
     }
   }
 
+  .minimap {
+    background-color: transparent;
+    bottom: 0;
+    opacity: 0.5;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: all 250ms ease-out;
+    width: 150px;
+    z-index: 5;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    // *************** //
+    // OVERRIDE ACE UI //
+    // *************** //
+
+    // scss-lint:disable all
+    .ace_content {
+      background-color: transparent;
+      font-family: "rectangle text";
+      letter-spacing: -1.5px;
+      line-height: 6px;
+
+      .ace_text-layer .ace_line {
+        font-size: 5px;
+      }
+    }
+    // scss-lint:enable all
+  }
+
   // *************** //
   // OVERRIDE ACE UI //
   // *************** //

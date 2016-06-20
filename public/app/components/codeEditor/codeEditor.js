@@ -31,6 +31,7 @@ angular.module('kibibitCodeEditor')
     var vm = this;
     var editor;
     var editorSettings = SettingsService.settings.editorSettings;
+    var minimap;
 
     // config JSON params
     JSONFormatterConfig.hoverPreviewEnabled = true;
@@ -79,6 +80,26 @@ angular.module('kibibitCodeEditor')
     vm.attachedEditorFunctions = {
       onLoad: vm.aceLoaded,
       onChange: vm.aceChanged
+    };
+
+    vm.minimapAdded = function(_minimap) {
+      minimap = _minimap;
+      _minimap.setOptions({
+        highlightActiveLine: false,
+        readOnly: true,
+        showGutter: false,
+        displayIndentGuides: false,
+        fontSize: 6, //NOTICE: this is set to 6 but in the css is set to 4px to have a little margin between lines
+        theme: 'ace/theme/' + editorSettings.theme,
+        mode: 'ace/mode/' + editorSettings.syntaxMode
+      });
+    };
+
+    vm.minimapChanged = function(_minimap) {
+      minimap.setOptions({
+        theme: 'ace/theme/' + editorSettings.theme,
+        mode: 'ace/mode/' + editorSettings.syntaxMode
+      });
     };
 
     vm.updateFileContent = function(filePath) {
