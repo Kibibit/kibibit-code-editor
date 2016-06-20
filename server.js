@@ -3,6 +3,7 @@
 
 // CALL THE PACKAGES --------------------
 var express = require('express'), // call express
+    helmet = require('helmet'),
     config = require('./config'),
     path = require('path'),
     favicon = require('serve-favicon'), // set favicon
@@ -12,6 +13,10 @@ var express = require('express'), // call express
 var app = express(); // define our app using express
 var scribe = require('scribe-js')(); // used for logs
 var console = process.console;
+
+// hook helmet to our express app. This adds some protection to each communication with the server
+// read more at https://github.com/helmetjs/helmet
+app.use(helmet());
 
 colors.enabled = true; //enable colors even through piping.
 
