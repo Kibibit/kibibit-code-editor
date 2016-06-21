@@ -29,7 +29,8 @@ angular.module('kibibitCodeEditor')
 .controller('menuBarController', function(
   SettingsService,
   ngDialog,
-  deviceDetector) {
+  deviceDetector,
+  FileService) {
 
   var vm = this;
 
@@ -41,6 +42,12 @@ angular.module('kibibitCodeEditor')
   };
 
   vm.settings = SettingsService.settings;
+
+  vm.saveCurrentEditor = function(openFilePath) {
+    if(vm.settings.currentEditor && openFilePath) {
+      FileService.saveFile(openFilePath, vm.settings.currentEditor.getSession().getDocument().getValue(), function() { console.info('saved file: ' + openFilePath) });
+    }
+  };
 
   vm.hasUndo = function() {
     if (vm.settings.currentUndoManager &&
