@@ -44,8 +44,14 @@ angular.module('kibibitCodeEditor')
   vm.settings = SettingsService.settings;
 
   vm.saveCurrentEditor = function(openFilePath) {
-    if(vm.settings.currentEditor && openFilePath) {
-      FileService.saveFile(openFilePath, vm.settings.currentEditor.getSession().getDocument().getValue(), function() { console.info('saved file: ' + openFilePath) });
+    var currentEditor = vm.settings.currentEditor;
+    if (currentEditor && openFilePath) {
+      FileService.saveFile(openFilePath,
+        currentEditor.getSession().getDocument().getValue(),
+        function() {
+          console.info('saved file: ' + openFilePath);
+        }
+      );
     }
   };
 
