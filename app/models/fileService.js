@@ -141,6 +141,9 @@ fileService.getFileTags = function(filepath) {
 
     tags.forEach(function(tag) {
       switch (tag) {
+        case 'min':
+          fileTags.push('minified');
+          break;
         case 'conf':
         case 'config':
         case 'configuration':
@@ -180,8 +183,8 @@ fileService.getFileTags = function(filepath) {
 
 function extraTypes(filepath) {
   if (filepath.indexOf('.') !== -1) {
-    var fileExtension =
-      filepath.substring(filepath.lastIndexOf('.') + 1, filepath.length);
+    var extensionStart = filepath.lastIndexOf('.') + 1;
+    var fileExtension = filepath.substring(extensionStart, filepath.length);
     var mime;
 
     switch (fileExtension) {
