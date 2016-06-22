@@ -12,7 +12,7 @@ var express = require('express'), // call express
     logo = require('./printLogo');
 var app = express(); // define our app using express
 var scribe = require('scribe-js')(); // used for logs
-var console = process.console;
+var console = process.console; //use scribe instead of node's console
 
 // hook helmet to our express app. This adds some protection to each communication with the server
 // read more at https://github.com/helmetjs/helmet
