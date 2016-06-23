@@ -1,6 +1,7 @@
 var dirTree = require('directory-tree'),
     fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    fileService = require('./fileService.js');
 var console = require('./consoleService')('DIRECTORY CONTENT', ['green', 'inverse']);
 
 var folderService = {};
@@ -28,6 +29,7 @@ folderService.get = function(req, res) {
           output.children.push({
             name: items[i],
             path: directoryFullPath + '/' + items[i],
+            tags: fileService.getFileTags(directoryFullPath + '/' + items[i]),
             type: folderService.getFileExtension(items[i])
           });
         }
