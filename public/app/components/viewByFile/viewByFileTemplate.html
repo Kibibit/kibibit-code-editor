@@ -1,0 +1,6 @@
+<div class="view-by-file" ng-switch="viewByFileCtrl.fileType">
+	<kb-code-editor kb-open-file="viewByFileCtrl.openFile" ng-switch-default></kb-code-editor>
+	<div class="img-view-container">
+		<img class="img-view" ng-src="{{ viewByFileCtrl.imageUri }}" ng-switch-when="image">
+	</div>
+</div>
