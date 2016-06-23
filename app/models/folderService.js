@@ -2,7 +2,8 @@ var dirTree = require('directory-tree'),
     fs = require('fs'),
     path = require('path'),
     fileService = require('./fileService.js');
-var console = require('./consoleService')('DIRECTORY CONTENT', ['green', 'inverse']);
+var console = require('./consoleService')
+  ('DIRECTORY CONTENT', ['green', 'inverse']);
 
 var folderService = {};
 

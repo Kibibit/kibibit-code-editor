@@ -1,6 +1,7 @@
 var userHomeDirectory = require('user-home');
 
-var console = require('./consoleService')('USER DIRECTORY', ['yellow', 'inverse']);
+var console = require('./consoleService')
+  ('USER DIRECTORY', ['yellow', 'inverse']);
 var userHomeDirectoryService = {};
 
 userHomeDirectoryService.get = function(req, res) {
