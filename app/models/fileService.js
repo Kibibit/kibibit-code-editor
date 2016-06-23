@@ -7,7 +7,7 @@ var fileService = {};
 
 fileService.get = function(req, res) {
   var fileFullPath = req.params.file_id;
-  var mimeType = mime.lookup(fileFullPath) || '';
+  var mimeType = mime.lookup(fileFullPath) || extraTypes(fileFullPath) || '';
 
   // fix case for ES6 files (currently, highlight them as regular javascript)
   if (!mimeType && fileFullPath.toLowerCase().endsWith('es6')) {
@@ -121,5 +121,77 @@ fileService.putExtraArg = function(req, res) {
   }
 
 };
+
+fileService.getFileTags = function(filepath) {
+  var fileTags = [];
+  var filenameRegex = /[\\\/]([^\\\/]+)$/;
+  var match = filenameRegex.exec(filepath);
+  var match = match.length > 0 ? match[1] : undefined;
+  if (filepath.indexOf('.') !== -1 && match) {
+    var tags = match.split('.');
+    // remove the extension
+    tags.pop();
+
+    tags.forEach(function(tag) {
+      switch (tag) {
+        case 'min':
+          fileTags.push('minified');
+          break;
+        case 'conf':
+        case 'config':
+        case 'configuration':
+          fileTags.push('configuration');
+          break;
+        case 'test':
+        case 'spec':
+        case 'specs':
+          fileTags.push('test');
+          break;
+        case 'template':
+        case 'partial':
+          fileTags.push('template');
+          break;
+        case 'controller':
+        case 'ctrl':
+          fileTags.push('controller');
+          break;
+        case 'service':
+          fileTags.push('service');
+          break;
+        case 'module':
+          fileTags.push('module');
+          break;
+        case 'routes':
+        case 'route':
+          fileTags.push('routes');
+          break;
+        case 'directive':
+          fileTags.push('directive');
+          break;
+      }
+    });
+  }
+  return fileTags;
+};
+
+function extraTypes(filepath) {
+  if (filepath.indexOf('.') !== -1) {
+    var extensionStart = filepath.lastIndexOf('.') + 1;
+    var fileExtension = filepath.substring(extensionStart, filepath.length);
+    var mime;
+
+    switch (fileExtension) {
+      case 'nsi':
+        mime = 'nsis';
+        break;
+      default:
+        mime = fileExtension;
+    }
+
+    return 'application/' + mime;
+  } else {
+    return undefined;
+  }
+}
 
 module.exports = fileService;
