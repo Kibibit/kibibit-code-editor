@@ -12,7 +12,8 @@ var express = require('express'), // call express
     logo = require('./printLogo');
 var app = express(); // define our app using express
 var scribe = require('scribe-js')(); // used for logs
-var console = require('./app/models/consoleService')('MAIN PROCESS', ['magenta', 'inverse']);
+var console = require('./app/models/consoleService')
+  ('MAIN PROCESS', ['magenta', 'inverse']);
 
 // hook helmet to our express app. This adds some protection to each communication with the server
 // read more at https://github.com/helmetjs/helmet
@@ -93,5 +94,6 @@ app.get('*', function(req, res) {
  */
 app.listen(config.port, function() {
   logo();
-  console.info('Server listening at port ' + colors.bgBlue.white.bold(' ' + config.port + ' '));
+  console.info('Server listening at port '
+    + colors.bgBlue.white.bold(' ' + config.port + ' '));
 });
