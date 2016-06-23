@@ -290,6 +290,10 @@ md-input-container {
       right: 0;
       top: 0;
     }
+
+    li.viewer-prev, li.viewer-next {
+      display: none;
+    }
   }
 }
 
