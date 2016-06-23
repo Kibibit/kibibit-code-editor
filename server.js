@@ -94,6 +94,6 @@ app.get('*', function(req, res) {
  */
 app.listen(config.port, function() {
   logo();
-  console.info('Server listening at port '
-    + colors.bgBlue.white.bold(' ' + config.port + ' '));
+  console.info('Server listening at port ' +
+    colors.bgBlue.white.bold(' ' + config.port + ' '));
 });
