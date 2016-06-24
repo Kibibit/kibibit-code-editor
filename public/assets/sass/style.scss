@@ -271,14 +271,15 @@ md-input-container {
   position: absolute;
   right: 0;
   top: 0;
+  
   .img-view-container {
-    height:100%;
-    overflow-x:hidden;
-    text-align:center;
-    vertical-align:top; /* inner img is centered horizontally */
-    width:100%; /* needed */
+    height: 100%;
+    overflow-x: hidden;
+    text-align: center;
+    vertical-align: top; // inner img is centered horizontally
+    width: 100%; // needed
 
-    .img-view{
+    .img-view {
       bottom: 0;
       left: 0;
       margin: auto;
@@ -291,7 +292,8 @@ md-input-container {
       top: 0;
     }
 
-    li.viewer-prev, li.viewer-next {
+    .viewer-prev,
+    .viewer-next {
       display: none;
     }
   }

@@ -27,16 +27,18 @@ angular.module('kibibitCodeEditor')
         FileService.getFile(filePath, function(fileInfo) {
           vm.fileInfo = fileInfo.data;
           vm.fileType = getFileTypeFromMimeType(vm.fileInfo.mimeType);
-          vm.imageUri = vm.fileType === "image" ? vm.fileInfo.content : undefined;
+          vm.imageUri = vm.fileType === 'image'
+            ? vm.fileInfo.content
+            : undefined;
         });
       }
     };
 
     function getFileTypeFromMimeType(mimeType) {
       if (mimeType.indexOf('image') !== -1) {
-        return "image";
+        return 'image';
       } else {
-        return "code";
+        return 'code';
       }
     }
 
