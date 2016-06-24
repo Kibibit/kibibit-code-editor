@@ -265,6 +265,40 @@ md-input-container {
   }
 }
 
+.view-by-file {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  .img-view-container {
+    height: 100%;
+    overflow-x: hidden;
+    text-align: center;
+    vertical-align: top; // inner img is centered horizontally
+    width: 100%; // needed
+
+    .img-view {
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      max-height: 70%;
+      max-width: 70%;
+      object-fit: contain;
+      padding: auto;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    .viewer-prev,
+    .viewer-next {
+      display: none;
+    }
+  }
+}
+
 // scss-lint:disable IdSelector
 #loading-bar-spinner .spinner-icon {
   border: solid 4px transparent;
