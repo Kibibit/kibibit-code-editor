@@ -30,8 +30,7 @@ fileService.get = function(req, res) {
       mimeType: 'text/text'
     });
   } else if (isFileOfType('image')) {
-    console.time().tag('FILE CONTENT')
-          .info('image requested. Serving data URI');
+    console.info('image requested. Serving data URI');
     var dataUri = base64Image(fileFullPath);
     var file = {
       content: dataUri,
