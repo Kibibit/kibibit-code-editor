@@ -2,7 +2,8 @@ var dirTree = require('directory-tree'),
     fs = require('fs'),
     path = require('path'),
     fileService = require('./fileService.js');
-var console = process.console;
+var console = require('./consoleService')
+  ('DIRECTORY CONTENT', ['green', 'inverse']);
 
 var folderService = {};
 
@@ -35,11 +36,11 @@ folderService.get = function(req, res) {
         }
       }
       output.children.sort(compare);
+      console.info('directory requested and sent: ' + directoryFullPath);
       res.json(output);
     } catch (error) {
       res.json(error);
-      console.time().tag('DIRECTORY CONTENT')
-        .error('directory requested not found: ' + directoryFullPath);
+      console.error('directory requested not found: ' + directoryFullPath);
     }
   });
 
@@ -89,8 +90,7 @@ folderService.put = function(req, res) {
       res.json({
         message: 'Folder created successfully'
       });
-      console.time().tag('DIRECTORY CONTENT')
-        .info('directory created: ' + directoryFullPath);
+      console.info('directory created: ' + directoryFullPath);
     }
   });
 };
@@ -104,8 +104,7 @@ folderService.delete = function(req, res) {
     }
   });
   res.json(directoryFullPath);
-  console.time().tag('DIRECTORY CONTENT')
-    .info('directory deleted: ' + directoryFullPath);
+  console.info('directory deleted: ' + directoryFullPath);
 };
 
 folderService.putExtraArg = function(req, res) {
@@ -115,8 +114,7 @@ folderService.putExtraArg = function(req, res) {
     if (err) {
       res.json(err);
     } else {
-      console.time().tag('DIRECTORY RENAME')
-        .info('directory renamed from: ' +
+      console.info('directory renamed from: ' +
               directoryFullPath +
               '; to: ' +
               newDirectoryFullPath);
@@ -155,8 +153,7 @@ folderService.deleteExtraArg = function(req, res) {
       res.json({
         message: 'Directory deleted (recursively) successfully'
       });
-      console.time().tag('DIRECTORY DELETED')
-        .info('directory deleted (recursively) successfully: ' +
+      console.info('directory deleted (recursively) successfully: ' +
               directoryFullPath);
     } else {
       res.json({
@@ -165,8 +162,7 @@ folderService.deleteExtraArg = function(req, res) {
     }
   } catch (err) {
     res.json(err);
-    console.time().tag('DIRECTORY DELETED')
-      .error('directory wasn\'t found: ' + directoryFullPath);
+    console.error('directory wasn\'t found: ' + directoryFullPath);
   }
 
 };
