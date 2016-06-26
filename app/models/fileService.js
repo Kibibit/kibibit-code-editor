@@ -184,8 +184,8 @@ fileService.getFileTags = function(filepath) {
 };
 
 function base64Image(src) {
-    var data = fs.readFileSync(src).toString('base64');
-    return util.format('data:%s;base64,%s', mime.lookup(src), data);
+  var data = fs.readFileSync(src).toString('base64');
+  return util.format('data:%s;base64,%s', mime.lookup(src), data);
 }
 
 function extraTypes(filepath) {
