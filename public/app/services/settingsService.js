@@ -198,7 +198,12 @@ angular.module('kibibitCodeEditor')
         });
 
         editorSettings.__defineSetter__('syntaxMode', function(newValue) {
+          if (!settings.currentEditor) {
+            return;
+          }
+
           var matchedMode = CODE_EDITOR.MODE_LIST.modesByName[newValue];
+          matchedMode = matchedMode ? matchedMode : CODE_EDITOR.MODE_LIST.modesByName['text'];
 
           console.assert(matchedMode, {
             'message': ERROR_MSGS
