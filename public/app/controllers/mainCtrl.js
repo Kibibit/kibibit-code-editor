@@ -4,13 +4,11 @@ angular.module('kibibitCodeEditor')
   '$scope',
   '$http',
   'ngDialog',
-  'Fullscreen',
   'SettingsService',
   function(
     $scope,
     $http,
     ngDialog,
-    Fullscreen,
     SettingsService) {
 
     var vm = this;

@@ -1,13 +1,14 @@
 var dirTree = require('directory-tree'),
     fs = require('fs'),
+    util = require('util'),
     mime = require('mime-types');
-var console = process.console;
+var console = require('./consoleService')('FILE CONTENT', ['blue', 'inverse']);
 
 var fileService = {};
 
 fileService.get = function(req, res) {
   var fileFullPath = req.params.file_id;
-  var mimeType = mime.lookup(fileFullPath) || '';
+  var mimeType = mime.lookup(fileFullPath) || extraTypes(fileFullPath) || '';
 
   // fix case for ES6 files (currently, highlight them as regular javascript)
   if (!mimeType && fileFullPath.toLowerCase().endsWith('es6')) {
@@ -20,9 +21,7 @@ fileService.get = function(req, res) {
 
   var showNoContent = false ||
       isFileOfType('zip') ||
-      isFileOfType('program') ||
-      isFileOfType('image') ||
-      isFileOfType('font');
+      isFileOfType('program');
 
   // temprorary solution until we have a view selector on the FRONT-END
   if (showNoContent) {
@@ -30,20 +29,31 @@ fileService.get = function(req, res) {
       content: 'awww man... we can\'t show ' + mimeType + ' yet :-(',
       mimeType: 'text/text'
     });
+  } else if (isFileOfType('image')) {
+    console.info('image requested. Serving data URI');
+    var dataUri = base64Image(fileFullPath);
+    var file = {
+      content: dataUri,
+      mimeType: mimeType
+    };
+    res.json(file);
+  } else if (isFileOfType('font')) {
+    res.download(fileFullPath); // Set disposition and send it.
   } else {
     fs.readFile(fileFullPath, 'utf8', function(err, data) {
       if (err) {
         res.json(err);
-        console.time().tag('FILE CONTENT')
-          .error('file-get returned an error: ' + err);
+        console.error('file-get returned an error: ' + err);
       } else {
-        var file = {
-          content: data,
-          mimeType: mimeType
-        };
-        res.json(file);
-        console.time().tag('FILE CONTENT')
-          .info('file requested: ' + fileFullPath);
+        fs.stat(fileFullPath, function(err, stats) {
+          var file = {
+            content: data,
+            mimeType: mimeType,
+            lastModified: stats.mtime
+          };
+          res.json(file);
+          console.info('file requested: ' + fileFullPath);
+        });
       }
     });
   }
@@ -58,22 +68,19 @@ fileService.put = function(req, res) {
       'code': 'File already exists',
       'path': fileFullPath
     });
-    console.time().tag('FILE CONTENT')
-      .error('file couldn\'t be saved: ' + fileFullPath);
+    console.error('file couldn\'t be saved: ' + fileFullPath);
   } catch (err) {
     if (req.body.newContent) {
       fs.writeFile(fileFullPath,
         req.body.newContent, 'utf8', function(err) {
         if (err) {
           res.json(err);
-          console.time().tag('FILE CONTENT')
-            .error('file couldn\'t be saved: ' + err);
+          console.error('file couldn\'t be saved: ' + err);
         } else {
           res.json({
             message: 'file saved successfully'
           });
-          console.time().tag('FILE CONTENT')
-            .info('file saved: ' + fileFullPath);
+          console.info('file saved: ' + fileFullPath);
         }
       });
     }
@@ -88,12 +95,10 @@ fileService.delete = function(req, res) {
     res.json({
       message: 'file deleted successfully'
     });
-    console.time().tag('DELETE CONTENT')
-      .info('file deleted: ' + fileFullPath);
+    console.info('file deleted: ' + fileFullPath);
   } catch (err) {
     res.json(err);
-    console.time().tag('DELETE CONTENT')
-      .error('couldn\'t delete file: ' + fileFullPath);
+    console.error('couldn\'t delete file: ' + fileFullPath);
   }
 };
 
@@ -105,14 +110,12 @@ fileService.putExtraArg = function(req, res) {
       fs.writeFile(fileFullPath, req.body.newContent, 'utf8', function(err) {
         if (err) {
           res.json(err);
-          console.time().tag('FILE CONTENT')
-            .error('file couldn\'t be saved: ' + err);
+          console.error('file couldn\'t be saved: ' + err);
         } else {
           res.json({
             message: 'file saved successfully'
           });
-          console.time().tag('FILE CONTENT')
-            .info('file saved: ' + fileFullPath);
+          console.info('file saved: ' + fileFullPath);
         }
       });
     } else {
@@ -125,7 +128,83 @@ fileService.putExtraArg = function(req, res) {
       message: 'For a hard save, 2nd param should be: True'
     });
   }
-
 };
+
+fileService.getFileTags = function(filepath) {
+  var fileTags = [];
+  var filenameRegex = /[\\\/]([^\\\/]+)$/;
+  var match = filenameRegex.exec(filepath);
+  var match = match.length > 0 ? match[1] : undefined;
+  if (filepath.indexOf('.') !== -1 && match) {
+    var tags = match.split('.');
+    // remove the extension
+    tags.pop();
+
+    tags.forEach(function(tag) {
+      switch (tag) {
+        case 'min':
+          fileTags.push('minified');
+          break;
+        case 'conf':
+        case 'config':
+        case 'configuration':
+          fileTags.push('configuration');
+          break;
+        case 'test':
+        case 'spec':
+        case 'specs':
+          fileTags.push('test');
+          break;
+        case 'template':
+        case 'partial':
+          fileTags.push('template');
+          break;
+        case 'controller':
+        case 'ctrl':
+          fileTags.push('controller');
+          break;
+        case 'service':
+          fileTags.push('service');
+          break;
+        case 'module':
+          fileTags.push('module');
+          break;
+        case 'routes':
+        case 'route':
+          fileTags.push('routes');
+          break;
+        case 'directive':
+          fileTags.push('directive');
+          break;
+      }
+    });
+  }
+  return fileTags;
+};
+
+function base64Image(src) {
+  var data = fs.readFileSync(src).toString('base64');
+  return util.format('data:%s;base64,%s', mime.lookup(src), data);
+}
+
+function extraTypes(filepath) {
+  if (filepath.indexOf('.') !== -1) {
+    var extensionStart = filepath.lastIndexOf('.') + 1;
+    var fileExtension = filepath.substring(extensionStart, filepath.length);
+    var mime;
+
+    switch (fileExtension) {
+      case 'nsi':
+        mime = 'nsis';
+        break;
+      default:
+        mime = fileExtension;
+    }
+
+    return 'application/' + mime;
+  } else {
+    return undefined;
+  }
+}
 
 module.exports = fileService;
