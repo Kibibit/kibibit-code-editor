@@ -81,16 +81,14 @@ angular.module('kibibitCodeEditor')
       onChange: vm.aceChanged
     };
 
-    vm.updateFileContent = function(filePath) {
-      if (filePath !== '') {
-        FileService.getFile(filePath, function(fileInfo) {
-          vm.fileInfo = fileInfo.data;
-          vm.code = vm.fileInfo.content;
-          var fileMode = getModeFromMimeType(vm.fileInfo);
-          editorSettings.syntaxMode = fileMode;
-          vm.parsedJson = undefined;
-          console.debug('changed mode to ' + fileMode);
-        });
+    vm.updateFileContent = function(fileObject) {
+      if (fileObject) {
+        vm.fileInfo = fileObject;
+        vm.code = vm.fileInfo.content;
+        var fileMode = getModeFromMimeType(vm.fileInfo);
+        editorSettings.syntaxMode = fileMode;
+        vm.parsedJson = undefined;
+        console.debug('changed mode to ' + fileMode);
       }
     };
 
