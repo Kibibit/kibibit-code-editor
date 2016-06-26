@@ -47,8 +47,8 @@
                             </md-button>
                         </md-menu-item>
                         <md-menu-item class="md-indent">
-                            <md-icon class="material-icons" style="color: rgba(0, 0, 0, 0.258824)">save</md-icon>
-                            <md-button ng-click="menuBarCtrl.saveCurrentEditor(main.openFile)">
+                            <md-icon class="material-icons" ng-style="{color: menuBarCtrl.settings.canCurrentViewSave ? '' : 'rgba(0, 0, 0, 0.258824)'}">save</md-icon>
+                            <md-button ng-click="menuBarCtrl.saveCurrentEditor(main.openFile)" ng-disabled="!menuBarCtrl.settings.canCurrentViewSave">
                                 Save
                             </md-button>
                         </md-menu-item>

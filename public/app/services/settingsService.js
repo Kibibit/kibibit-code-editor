@@ -22,6 +22,7 @@ angular.module('kibibitCodeEditor')
       var currentUndoManager = undefined;
       var currentEditor = undefined;
       var editorSettings = new EditorSettings();
+      var canCurrentViewSave = true;
 
       /* EXPOSE SIMPLE VARS */
       // This are probably better off in state instead of settings. but they're here for now :-)
@@ -32,6 +33,7 @@ angular.module('kibibitCodeEditor')
       // Expose ace's list to the view in order to show in input selectors
       settings.modelist = CODE_EDITOR.MODE_LIST;
       settings.themelist = CODE_EDITOR.THEME_LIST;
+      settings.canCurrentViewSave = canCurrentViewSave;
 
       settings.__defineSetter__('isFullscreen', function(newValue) {
 

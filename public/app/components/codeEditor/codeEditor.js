@@ -30,7 +30,10 @@ angular.module('kibibitCodeEditor')
 
     var vm = this;
     var editor;
-    var editorSettings = SettingsService.settings.editorSettings;
+    var settings = SettingsService.settings;
+    var editorSettings = settings.editorSettings;
+
+    settings.canCurrentViewSave = true;
 
     // config JSON params
     JSONFormatterConfig.hoverPreviewEnabled = true;
