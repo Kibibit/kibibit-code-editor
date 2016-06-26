@@ -1,6 +1,6 @@
 var dirTree = require('directory-tree'),
     fs = require('fs'),
-    util = require("util"),
+    util = require('util'),
     mime = require('mime-types');
 var console = process.console;
 
@@ -191,8 +191,8 @@ fileService.getFileTags = function(filepath) {
 };
 
 function base64Image(src) {
-    var data = fs.readFileSync(src).toString("base64");
-    return util.format("data:%s;base64,%s", mime.lookup(src), data);
+    var data = fs.readFileSync(src).toString('base64');
+    return util.format('data:%s;base64,%s', mime.lookup(src), data);
 }
 
 function extraTypes(filepath) {
