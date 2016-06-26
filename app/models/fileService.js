@@ -1,5 +1,6 @@
 var dirTree = require('directory-tree'),
     fs = require('fs'),
+    util = require('util'),
     mime = require('mime-types');
 var console = require('./consoleService')('FILE CONTENT', ['blue', 'inverse']);
 
@@ -20,9 +21,7 @@ fileService.get = function(req, res) {
 
   var showNoContent = false ||
       isFileOfType('zip') ||
-      isFileOfType('program') ||
-      isFileOfType('image') ||
-      isFileOfType('font');
+      isFileOfType('program');
 
   // temprorary solution until we have a view selector on the FRONT-END
   if (showNoContent) {
@@ -30,6 +29,16 @@ fileService.get = function(req, res) {
       content: 'awww man... we can\'t show ' + mimeType + ' yet :-(',
       mimeType: 'text/text'
     });
+  } else if (isFileOfType('image')) {
+    console.info('image requested. Serving data URI');
+    var dataUri = base64Image(fileFullPath);
+    var file = {
+      content: dataUri,
+      mimeType: mimeType
+    };
+    res.json(file);
+  } else if (isFileOfType('font')) {
+    res.download(fileFullPath); // Set disposition and send it.
   } else {
     fs.readFile(fileFullPath, 'utf8', function(err, data) {
       if (err) {
@@ -119,7 +128,6 @@ fileService.putExtraArg = function(req, res) {
       message: 'For a hard save, 2nd param should be: True'
     });
   }
-
 };
 
 fileService.getFileTags = function(filepath) {
@@ -173,6 +181,11 @@ fileService.getFileTags = function(filepath) {
   }
   return fileTags;
 };
+
+function base64Image(src) {
+  var data = fs.readFileSync(src).toString('base64');
+  return util.format('data:%s;base64,%s', mime.lookup(src), data);
+}
 
 function extraTypes(filepath) {
   if (filepath.indexOf('.') !== -1) {
