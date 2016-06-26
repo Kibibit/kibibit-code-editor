@@ -271,7 +271,7 @@ md-input-container {
   position: absolute;
   right: 0;
   top: 0;
-  
+
   .img-view-container {
     height: 100%;
     overflow-x: hidden;
@@ -292,7 +292,8 @@ md-input-container {
       top: 0;
     }
 
-    li.viewer-prev, li.viewer-next {
+    .viewer-prev,
+    .viewer-next {
       display: none;
     }
   }
