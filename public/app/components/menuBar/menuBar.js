@@ -50,7 +50,8 @@ angular.module('kibibitCodeEditor')
       FileService.saveFile(openFilePath,
         currentEditor.getSession().getDocument().getValue(),
         function() {
-          ToastService.showSimpleToast('success-toast', 'File successfully saved');
+          ToastService.showSimpleToast('success-toast',
+            'File successfully saved');
         }
       );
     }
