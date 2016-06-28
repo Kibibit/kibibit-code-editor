@@ -65,12 +65,12 @@ angular.module('kibibitCodeEditor')
       SettingsService.settings.currentUndoManager = vm.undoManager;
       SettingsService.settings.currentEditor = editor;
       editor.commands.addCommand({
-          name: 'saveFile',
-          bindKey: {
-            win: 'Ctrl-S',
-            mac: 'Command-S',
-            sender: 'editor|cli'
-          },
+        name: 'saveFile',
+        bindKey: {
+          win: 'Ctrl-S',
+          mac: 'Command-S',
+          sender: 'editor|cli'
+        },
         exec: saveCurrentEditor
       });
       init(editorSettings);
@@ -135,7 +135,8 @@ angular.module('kibibitCodeEditor')
       FileService.saveFile(vm.fileInfo.path,
         currentEditor.getSession().getDocument().getValue(),
         function() {
-          ToastService.showSimpleToast('success-toast', 'File successfully saved');
+          ToastService.showSimpleToast('success-toast',
+            'File successfully saved');
         }
       );
     }
