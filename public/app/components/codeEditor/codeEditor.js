@@ -22,11 +22,13 @@ angular.module('kibibitCodeEditor')
   'FileService',
   'SettingsService',
   'JSONFormatterConfig',
+  'ToastService',
   function(
     $timeout,
     FileService,
     SettingsService,
-    JSONFormatterConfig) {
+    JSONFormatterConfig,
+    ToastService) {
 
     var vm = this;
     var editor;
@@ -62,6 +64,15 @@ angular.module('kibibitCodeEditor')
       vm.undoManager = editor.getSession().getUndoManager();
       SettingsService.settings.currentUndoManager = vm.undoManager;
       SettingsService.settings.currentEditor = editor;
+      editor.commands.addCommand({
+          name: 'saveFile',
+          bindKey: {
+            win: 'Ctrl-S',
+            mac: 'Command-S',
+            sender: 'editor|cli'
+          },
+        exec: saveCurrentEditor
+      });
       init(editorSettings);
       // save cursor position
       editor.on('changeSelection', function() {
@@ -117,5 +128,17 @@ angular.module('kibibitCodeEditor')
         file.mimeType.match(getModeRegex)[2] :
         'text';
     }
+
+    function saveCurrentEditor() {
+    var currentEditor = editor;
+    if (currentEditor && vm.fileInfo && vm.fileInfo.path) {
+      FileService.saveFile(vm.fileInfo.path,
+        currentEditor.getSession().getDocument().getValue(),
+        function() {
+          ToastService.showSimpleToast('success-toast', 'File successfully saved');
+        }
+      );
+    }
+  };
   }
 ]);
