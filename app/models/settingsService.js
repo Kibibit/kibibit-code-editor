@@ -8,20 +8,17 @@ var settingsService = {};
 var settingsLocation = userHomeDirectory + '/.kibibit.json';
 
 settingsService.get = function(req, res) {
-  fs.readFile(settingsLocation, 'utf8', function(err, data) {
-    if (err) {
-      res.json(err);
-      console.error('local settings returned an error: ' + err);
-    } else {
-      fs.stat(settingsLocation, function(err, stats) {
-        var file = {
-          settings: data
-        };
-        res.json(file);
-        console.info('settings sent: ' + settingsLocation);
-      });
-    }
-  });
+  try {
+    var savedSettings = JSON.parse(fs.readFileSync(userHomeDirectory + '/.kibibit.json', 'utf8'));
+
+    res.json(savedSettings);
+    console.info('settings sent: ' + settingsLocation);
+
+  } catch(err) {
+    res.json(err);
+    console.error('local settings returned an error: ' + err);
+
+  }
 };
 
 settingsService.put = function(req, res) {
