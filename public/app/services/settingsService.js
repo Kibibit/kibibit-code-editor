@@ -1,10 +1,12 @@
 angular.module('kibibitCodeEditor')
 
 .service('SettingsService', [
+  '$http',
   'Fullscreen',
   'CODE_EDITOR',
   'ERROR_MSGS',
   function(
+    $http,
     Fullscreen,
     CODE_EDITOR,
     ERROR_MSGS) {
@@ -13,6 +15,16 @@ angular.module('kibibitCodeEditor')
 
     /* init */
     vm.settings = new Settings();
+
+    vm.saveToServer = function() {
+      var data = {
+        newContent: vm.settings.save()
+      };
+      $http.put('/api/settings/', data)
+        .then(function(res) {
+          // print error if needed
+        });
+    };
 
     function Settings() {
       var settings = this;
@@ -23,6 +35,7 @@ angular.module('kibibitCodeEditor')
       var currentEditor = undefined;
       var editorSettings = new EditorSettings();
       var canCurrentViewSave = true;
+      var recentlyOpen = [];
 
       /* EXPOSE SIMPLE VARS */
       // This are probably better off in state instead of settings. but they're here for now :-)
@@ -34,6 +47,25 @@ angular.module('kibibitCodeEditor')
       settings.modelist = CODE_EDITOR.MODE_LIST;
       settings.themelist = CODE_EDITOR.THEME_LIST;
       settings.canCurrentViewSave = canCurrentViewSave;
+      settings.recentlyOpen = recentlyOpen;
+
+      settings.__defineSetter__('currentOpenFolder', function(newValue) {
+
+        console.assert(angular.isString(newValue), {
+          'message': ERROR_MSGS
+            .TYPE_ERROR('currentOpenFolder', 'boolean', typeof newValue),
+          'currentValue': currentOpenFolder,
+          'newValue': newValue
+        });
+
+        if (newValue !== currentOpenFolder) {
+          currentOpenFolder = newValue;
+        }
+      });
+
+      settings.__defineGetter__('currentOpenFolder', function() {
+        return currentOpenFolder;
+      });
 
       settings.__defineSetter__('isFullscreen', function(newValue) {
 
@@ -56,6 +88,16 @@ angular.module('kibibitCodeEditor')
       settings.__defineGetter__('isFullscreen', function() {
         return currentFullscreenState();
       });
+
+      settings.save = function() {
+        var onlySaved = {
+          editorSettings: settings.editorSettings,
+          recentlyOpen: settings.recentlyOpen,
+          createdOn: new Date().getTime()
+        };
+
+        return onlySaved;
+      };
 
       function EditorSettings() {
         var editorSettings = this;
@@ -88,6 +130,7 @@ angular.module('kibibitCodeEditor')
               editor.setPrintMarginColumn(newValue);
             }
             ruler = newValue;
+            vm.saveToServer();
           }
         });
 
@@ -108,6 +151,7 @@ angular.module('kibibitCodeEditor')
               session.setUseWrapMode(newValue);
             }
             lineWrap = newValue;
+            vm.saveToServer();
           }
         });
 
@@ -129,6 +173,7 @@ angular.module('kibibitCodeEditor')
               editor.setFontSize(newValue);
             }
             fontSize = newValue;
+            vm.saveToServer();
           }
         });
 
@@ -150,6 +195,7 @@ angular.module('kibibitCodeEditor')
               session.setTabSize(newValue);
             }
             tabWidth = newValue;
+            vm.saveToServer();
           }
         });
 
@@ -171,6 +217,7 @@ angular.module('kibibitCodeEditor')
               session.setUseSoftTabs(newValue);
             }
             isSoftTabs = newValue;
+            vm.saveToServer();
           }
         });
 
@@ -193,6 +240,7 @@ angular.module('kibibitCodeEditor')
             }
           }
           isGutter = newValue;
+          vm.saveToServer();
         });
 
         editorSettings.__defineGetter__('syntaxMode', function() {
@@ -245,6 +293,7 @@ angular.module('kibibitCodeEditor')
               editor.setTheme(matchedTheme.theme);
             }
             theme = newValue;
+            vm.saveToServer();
           }
         });
 

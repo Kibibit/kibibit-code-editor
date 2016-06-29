@@ -42,6 +42,7 @@ angular.module('kibibitCodeEditor')
       }).closePromise.then(function(selectedProjectFolderPath) {
         if (!vm.isModalCancel(selectedProjectFolderPath.value)) {
           vm.projectFolderPath = selectedProjectFolderPath.value;
+          vm.settings.recentlyOpen.push(vm.projectFolderPath);
         }
       });
     };
