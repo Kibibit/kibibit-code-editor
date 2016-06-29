@@ -9,7 +9,8 @@ var settingsLocation = userHomeDirectory + '/.kibibit.json';
 
 settingsService.get = function(req, res) {
   try {
-    var savedSettings = JSON.parse(fs.readFileSync(userHomeDirectory + '/.kibibit.json', 'utf8'));
+    var savedSettings =
+      JSON.parse(fs.readFileSync(userHomeDirectory + '/.kibibit.json', 'utf8'));
 
     res.json(savedSettings);
     console.info('settings sent: ' + settingsLocation);
