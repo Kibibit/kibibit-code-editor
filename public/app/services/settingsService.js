@@ -15,6 +15,7 @@ angular.module('kibibitCodeEditor')
 
     /* init */
     vm.settings = new Settings();
+    getSavedSettingsFromServer();
 
     vm.saveToServer = function() {
       var data = {
@@ -26,14 +27,25 @@ angular.module('kibibitCodeEditor')
         });
     };
 
-    function Settings() {
+    function getSavedSettingsFromServer() {
+      $http.get('/api/settings/')
+        .then(function(res) {
+          var savedSettings = res.data;
+          if (!angular.isString(savedSettings)) {
+            vm.settings.init(savedSettings);
+          }
+        });
+    }
+
+    function Settings(savedSettings) {
+      savedSettings = savedSettings || {};
       var settings = this;
       /* INIT */
-      var cursor = {row: '0', column: '0'};
+      var cursor = savedSettings.cursor || {row: '0', column: '0'};
       var isFullscreen = false;
       var currentUndoManager = undefined;
       var currentEditor = undefined;
-      var editorSettings = new EditorSettings();
+      var editorSettings = new EditorSettings(savedSettings.editorSettings);
       var canCurrentViewSave = true;
       var recentlyOpen = [];
 
@@ -99,18 +111,24 @@ angular.module('kibibitCodeEditor')
         return onlySaved;
       };
 
-      function EditorSettings() {
+      settings.init = function(savedSettings) {
+        cursor = savedSettings.cursor || {row: '0', column: '0'};
+        editorSettings.init(savedSettings.editorSettings);
+      }
+
+      function EditorSettings(savedEditorSettings) {
+        savedEditorSettings = savedEditorSettings || {};
         var editorSettings = this;
         /* INIT */
-        var theme = 'monokai';
-        var ruler = 80;
-        var tabWidth = 4;
-        var fontSize = 12;
-        var isGutter = true;
-        var lineWrap = false;
-        var isReadOnly = false;
-        var isSoftTabs = false;
-        var syntaxMode = 'text';
+        var theme = savedEditorSettings.theme || 'monokai';
+        var ruler = savedEditorSettings.ruler || 80;
+        var tabWidth = savedEditorSettings.tabWidth || 4;
+        var fontSize = savedEditorSettings.fontSize || 12;
+        var isGutter = savedEditorSettings.isGutter || true;
+        var lineWrap = savedEditorSettings.lineWrap || false;
+        var isReadOnly = savedEditorSettings.isReadOnly || false;
+        var isSoftTabs = savedEditorSettings.isSoftTabs || false;
+        var syntaxMode = savedEditorSettings.syntaxMode || 'text';
 
         editorSettings.__defineGetter__('ruler', function() {
           return ruler;
@@ -315,6 +333,18 @@ angular.module('kibibitCodeEditor')
           }
           isReadOnly = newValue;
         });
+
+        editorSettings.init = function(savedEditorSettings) {
+          theme = savedEditorSettings.theme || 'monokai';
+          ruler = savedEditorSettings.ruler;
+          tabWidth = savedEditorSettings.tabWidth || 4;
+          fontSize = savedEditorSettings.fontSize || 12;
+          isGutter = savedEditorSettings.isGutter;
+          lineWrap = savedEditorSettings.lineWrap;
+          isReadOnly = savedEditorSettings.isReadOnly;
+          isSoftTabs = savedEditorSettings.isSoftTabs;
+          syntaxMode = savedEditorSettings.syntaxMode || 'text';
+        };
 
       }
     }
