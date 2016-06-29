@@ -42,7 +42,13 @@ angular.module('kibibitCodeEditor')
     JSONFormatterConfig.hoverPreviewArrayCount = 100;
     JSONFormatterConfig.hoverPreviewFieldCount = 5;
 
-    var init = function(settings) {
+    var initEditor = function(editor, settings) {
+      saveOnKeyboardShortcut(editor);
+      listenToCursorPosition(editor);
+      setEditorSettings(editor, settings);
+    };
+
+    var setEditorSettings = function(editor, settings) {
       editor.setOptions({
         'wrap': settings.lineWrap,
         'mode': 'ace/mode/' + settings.syntaxMode,
@@ -55,15 +61,20 @@ angular.module('kibibitCodeEditor')
       });
     };
 
-    vm.syntaxMode = function() { return editorSettings.syntaxMode; };
+    var listenToCursorPosition = function(editor) {
+      editor.on('changeSelection', function() {
+        $timeout(function() {
+          var cursor = editor.selection.getCursor();
+          cursor.row++;
+          SettingsService.settings.cursor = cursor;
+        });
+      });
+    };
 
-    // initialize the editor session
-    vm.aceLoaded = function(_editor) {
-      editor = _editor;
-      vm.aceSession = editor.getSession();
-      vm.undoManager = editor.getSession().getUndoManager();
-      SettingsService.settings.currentUndoManager = vm.undoManager;
-      SettingsService.settings.currentEditor = editor;
+    var saveOnKeyboardShortcut = function(editor) {
+      // Set {{ACTION}} + S to save inside ace.js
+      // This is needed because ace.js is listening to events inside of ace,
+      // so we need to hook to that
       editor.commands.addCommand({
         name: 'saveFile',
         bindKey: {
@@ -73,15 +84,18 @@ angular.module('kibibitCodeEditor')
         },
         exec: saveCurrentEditor
       });
-      init(editorSettings);
-      // save cursor position
-      editor.on('changeSelection', function() {
-        $timeout(function() {
-          var cursor = editor.selection.getCursor();
-          cursor.row++;
-          SettingsService.settings.cursor = cursor;
-        });
-      });
+    };
+
+    vm.syntaxMode = function() { return editorSettings.syntaxMode; };
+
+    // initialize the editor session
+    vm.aceLoaded = function(_editor) {
+      editor = _editor;
+      vm.aceSession = editor.getSession();
+      vm.undoManager = editor.getSession().getUndoManager();
+      SettingsService.settings.currentUndoManager = vm.undoManager;
+      SettingsService.settings.currentEditor = editor;
+      initEditor(editor, editorSettings);
     };
 
     // save the content of the editor on-change
