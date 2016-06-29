@@ -3,7 +3,8 @@ module.exports = function(app, express) {
   var fileService = require('../models/fileService.js'),
       folderService = require('../models/folderService.js'),
       userHomeDirectoryService =
-        require('../models/userHomeDirectoryService.js');
+        require('../models/userHomeDirectoryService.js'),
+      settingsService = require('../models/settingsService.js');
 
   var apiRouter = express.Router();
 
@@ -42,6 +43,10 @@ module.exports = function(app, express) {
 
   apiRouter.route('/userHomeDirectory/')
       .get(userHomeDirectoryService.get);
+
+  apiRouter.route('/settings/')
+      .get(settingsService.get)
+      .put(settingsService.put);
 
   return apiRouter;
 };

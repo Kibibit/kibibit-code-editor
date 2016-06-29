@@ -42,7 +42,94 @@ angular.module('kibibitCodeEditor')
     JSONFormatterConfig.hoverPreviewArrayCount = 100;
     JSONFormatterConfig.hoverPreviewFieldCount = 5;
 
-    var init = function(settings) {
+    vm.aceChanged = aceChanged;
+    vm.aceLoaded = aceLoaded;
+    vm.attachedEditorFunctions = {
+      onLoad: vm.aceLoaded,
+      onChange: vm.aceChanged
+    };
+    vm.shouldShowCompiledView = shouldShowCompiledView;
+    vm.syntaxMode = syntaxMode;
+    vm.updateFileContent = updateFileContent;
+
+    ////////////
+
+    function aceChanged() {
+      vm.aceDocumentValue = vm.aceSession.getDocument().getValue();
+      parseJson();
+    }
+
+    function aceLoaded(editor) {
+      vm.aceSession = editor.getSession();
+      vm.undoManager = editor.getSession().getUndoManager();
+      SettingsService.settings.currentUndoManager = vm.undoManager;
+      SettingsService.settings.currentEditor = editor;
+      initEditor(editor, editorSettings);
+    }
+
+    function getModeFromMimeType(file) {
+      var getModeRegex = /\/(x-)?(.*)$/;
+      return file && file.mimeType ?
+        file.mimeType.match(getModeRegex)[2] :
+        'text';
+    }
+
+    function initEditor(editor, settings) {
+      saveOnKeyboardShortcut(editor);
+      listenToCursorPosition(editor);
+      setEditorSettings(editor, settings);
+    }
+
+    function listenToCursorPosition(editor) {
+      editor.on('changeSelection', function() {
+        $timeout(function() {
+          var cursor = editor.selection.getCursor();
+          cursor.row++;
+          SettingsService.settings.cursor = cursor;
+        });
+      });
+    }
+
+    function parseJson() {
+      // the parsedJson variable won't update if the json is invalid
+      if (editorSettings.syntaxMode === 'json') {
+        try {
+          vm.parsedJson = JSON.parse(vm.aceDocumentValue);
+        } catch (e) {}
+      }
+    }
+
+    function saveCurrentEditor() {
+      var currentEditor = editor;
+      if (currentEditor && vm.fileInfo && vm.fileInfo.path) {
+        FileService.saveFile(vm.fileInfo.path,
+          currentEditor.getSession().getDocument().getValue(),
+          function() {
+            ToastService.showSimpleToast('success-toast',
+              'File successfully saved');
+          }
+        );
+      }
+    }
+
+    /**
+     * Set {{ACTION}} + S to save inside ace.js
+     * This is needed because ace.js is listening to events inside of ace,
+     * so we need to hook to that
+     */
+    function saveOnKeyboardShortcut(editor) {
+      editor.commands.addCommand({
+        name: 'saveFile',
+        bindKey: {
+          win: 'Ctrl-S',
+          mac: 'Command-S',
+          sender: 'editor|cli'
+        },
+        exec: saveCurrentEditor
+      });
+    }
+
+    function setEditorSettings(editor, settings) {
       editor.setOptions({
         'wrap': settings.lineWrap,
         'mode': 'ace/mode/' + settings.syntaxMode,
@@ -53,49 +140,20 @@ angular.module('kibibitCodeEditor')
         'useSoftTabs': settings.isSoftTabs,
         'showPrintMargin': settings.ruler
       });
-    };
+    }
 
-    vm.syntaxMode = function() { return editorSettings.syntaxMode; };
+    function shouldShowCompiledView() {
+      vm.showCompiledView =
+        editorSettings.syntaxMode === 'json' ||
+        editorSettings.syntaxMode === 'markdown';
+      return vm.showCompiledView;
+    }
 
-    // initialize the editor session
-    vm.aceLoaded = function(_editor) {
-      editor = _editor;
-      vm.aceSession = editor.getSession();
-      vm.undoManager = editor.getSession().getUndoManager();
-      SettingsService.settings.currentUndoManager = vm.undoManager;
-      SettingsService.settings.currentEditor = editor;
-      editor.commands.addCommand({
-        name: 'saveFile',
-        bindKey: {
-          win: 'Ctrl-S',
-          mac: 'Command-S',
-          sender: 'editor|cli'
-        },
-        exec: saveCurrentEditor
-      });
-      init(editorSettings);
-      // save cursor position
-      editor.on('changeSelection', function() {
-        $timeout(function() {
-          var cursor = editor.selection.getCursor();
-          cursor.row++;
-          SettingsService.settings.cursor = cursor;
-        });
-      });
-    };
+    function syntaxMode() {
+      return editorSettings.syntaxMode;
+    }
 
-    // save the content of the editor on-change
-    vm.aceChanged = function(_editor) {
-      vm.aceDocumentValue = vm.aceSession.getDocument().getValue();
-      parseJson();
-    };
-
-    vm.attachedEditorFunctions = {
-      onLoad: vm.aceLoaded,
-      onChange: vm.aceChanged
-    };
-
-    vm.updateFileContent = function(fileObject) {
+    function updateFileContent(fileObject) {
       if (fileObject) {
         vm.fileInfo = fileObject;
         vm.code = vm.fileInfo.content;
@@ -104,42 +162,7 @@ angular.module('kibibitCodeEditor')
         vm.parsedJson = undefined;
         console.debug('changed mode to ' + fileMode);
       }
-    };
-
-    vm.shouldShowCompiledView = function() {
-      vm.showCompiledView =
-        editorSettings.syntaxMode === 'json' ||
-        editorSettings.syntaxMode === 'markdown';
-      return vm.showCompiledView;
-    };
-
-    function parseJson() {
-      // the parsedJson variable won't update if the json is invalid
-      if (editorSettings.syntaxMode === 'json') {
-        try {
-          vm.parsedJson = JSON.parse(vm.aceDocumentValue);
-        } catch (e) {}
-      }
-    };
-
-    function getModeFromMimeType(file) {
-      var getModeRegex = /\/(x-)?(.*)$/;
-      return file && file.mimeType ?
-        file.mimeType.match(getModeRegex)[2] :
-        'text';
     }
 
-    function saveCurrentEditor() {
-    var currentEditor = editor;
-    if (currentEditor && vm.fileInfo && vm.fileInfo.path) {
-      FileService.saveFile(vm.fileInfo.path,
-        currentEditor.getSession().getDocument().getValue(),
-        function() {
-          ToastService.showSimpleToast('success-toast',
-            'File successfully saved');
-        }
-      );
-    }
-  };
   }
 ]);
