@@ -20,8 +20,11 @@ angular.module('kibibitCodeEditor')
 })
 
 .controller('fullImageViewController', [
-  function() {
+  'SettingsService',
+  function(SettingsService) {
     var vm = this;
+
+    SettingsService.settings.canCurrentViewSave = false;
 
     vm.addFullImageView = function(element) {
       if (window.Viewer) {

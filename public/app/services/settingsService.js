@@ -1,10 +1,12 @@
 angular.module('kibibitCodeEditor')
 
 .service('SettingsService', [
+  '$http',
   'Fullscreen',
   'CODE_EDITOR',
   'ERROR_MSGS',
   function(
+    $http,
     Fullscreen,
     CODE_EDITOR,
     ERROR_MSGS) {
@@ -13,15 +15,39 @@ angular.module('kibibitCodeEditor')
 
     /* init */
     vm.settings = new Settings();
+    getSavedSettingsFromServer();
 
-    function Settings() {
+    vm.saveToServer = function() {
+      var data = {
+        newContent: vm.settings.save()
+      };
+      $http.put('/api/settings/', data)
+        .then(function(res) {
+          // print error if needed
+        });
+    };
+
+    function getSavedSettingsFromServer() {
+      $http.get('/api/settings/')
+        .then(function(res) {
+          var savedSettings = res.data;
+          if (!angular.isString(savedSettings)) {
+            vm.settings.init(savedSettings);
+          }
+        });
+    }
+
+    function Settings(savedSettings) {
+      savedSettings = savedSettings || {};
       var settings = this;
       /* INIT */
-      var cursor = {row: '0', column: '0'};
+      var cursor = savedSettings.cursor || {row: '0', column: '0'};
       var isFullscreen = false;
       var currentUndoManager = undefined;
       var currentEditor = undefined;
-      var editorSettings = new EditorSettings();
+      var editorSettings = new EditorSettings(savedSettings.editorSettings);
+      var canCurrentViewSave = true;
+      var recentlyOpen = [];
 
       /* EXPOSE SIMPLE VARS */
       // This are probably better off in state instead of settings. but they're here for now :-)
@@ -32,6 +58,26 @@ angular.module('kibibitCodeEditor')
       // Expose ace's list to the view in order to show in input selectors
       settings.modelist = CODE_EDITOR.MODE_LIST;
       settings.themelist = CODE_EDITOR.THEME_LIST;
+      settings.canCurrentViewSave = canCurrentViewSave;
+      settings.recentlyOpen = recentlyOpen;
+
+      settings.__defineSetter__('currentOpenFolder', function(newValue) {
+
+        console.assert(angular.isString(newValue), {
+          'message': ERROR_MSGS
+            .TYPE_ERROR('currentOpenFolder', 'boolean', typeof newValue),
+          'currentValue': currentOpenFolder,
+          'newValue': newValue
+        });
+
+        if (newValue !== currentOpenFolder) {
+          currentOpenFolder = newValue;
+        }
+      });
+
+      settings.__defineGetter__('currentOpenFolder', function() {
+        return currentOpenFolder;
+      });
 
       settings.__defineSetter__('isFullscreen', function(newValue) {
 
@@ -55,18 +101,34 @@ angular.module('kibibitCodeEditor')
         return currentFullscreenState();
       });
 
-      function EditorSettings() {
+      settings.save = function() {
+        var onlySaved = {
+          editorSettings: settings.editorSettings,
+          recentlyOpen: settings.recentlyOpen,
+          createdOn: new Date().getTime()
+        };
+
+        return onlySaved;
+      };
+
+      settings.init = function(savedSettings) {
+        cursor = savedSettings.cursor || {row: '0', column: '0'};
+        editorSettings.init(savedSettings.editorSettings);
+      };
+
+      function EditorSettings(savedEditorSettings) {
+        savedEditorSettings = savedEditorSettings || {};
         var editorSettings = this;
         /* INIT */
-        var theme = 'monokai';
-        var ruler = 80;
-        var tabWidth = 4;
-        var fontSize = 12;
-        var isGutter = true;
-        var lineWrap = false;
-        var isReadOnly = false;
-        var isSoftTabs = false;
-        var syntaxMode = 'text';
+        var theme = savedEditorSettings.theme || 'monokai';
+        var ruler = savedEditorSettings.ruler || 80;
+        var tabWidth = savedEditorSettings.tabWidth || 4;
+        var fontSize = savedEditorSettings.fontSize || 12;
+        var isGutter = savedEditorSettings.isGutter || true;
+        var lineWrap = savedEditorSettings.lineWrap || false;
+        var isReadOnly = savedEditorSettings.isReadOnly || false;
+        var isSoftTabs = savedEditorSettings.isSoftTabs || false;
+        var syntaxMode = savedEditorSettings.syntaxMode || 'text';
 
         editorSettings.__defineGetter__('ruler', function() {
           return ruler;
@@ -86,6 +148,7 @@ angular.module('kibibitCodeEditor')
               editor.setPrintMarginColumn(newValue);
             }
             ruler = newValue;
+            vm.saveToServer();
           }
         });
 
@@ -106,6 +169,7 @@ angular.module('kibibitCodeEditor')
               session.setUseWrapMode(newValue);
             }
             lineWrap = newValue;
+            vm.saveToServer();
           }
         });
 
@@ -127,6 +191,7 @@ angular.module('kibibitCodeEditor')
               editor.setFontSize(newValue);
             }
             fontSize = newValue;
+            vm.saveToServer();
           }
         });
 
@@ -148,6 +213,7 @@ angular.module('kibibitCodeEditor')
               session.setTabSize(newValue);
             }
             tabWidth = newValue;
+            vm.saveToServer();
           }
         });
 
@@ -169,6 +235,7 @@ angular.module('kibibitCodeEditor')
               session.setUseSoftTabs(newValue);
             }
             isSoftTabs = newValue;
+            vm.saveToServer();
           }
         });
 
@@ -191,6 +258,7 @@ angular.module('kibibitCodeEditor')
             }
           }
           isGutter = newValue;
+          vm.saveToServer();
         });
 
         editorSettings.__defineGetter__('syntaxMode', function() {
@@ -243,6 +311,7 @@ angular.module('kibibitCodeEditor')
               editor.setTheme(matchedTheme.theme);
             }
             theme = newValue;
+            vm.saveToServer();
           }
         });
 
@@ -264,6 +333,18 @@ angular.module('kibibitCodeEditor')
           }
           isReadOnly = newValue;
         });
+
+        editorSettings.init = function(savedEditorSettings) {
+          theme = savedEditorSettings.theme || 'monokai';
+          ruler = savedEditorSettings.ruler;
+          tabWidth = savedEditorSettings.tabWidth || 4;
+          fontSize = savedEditorSettings.fontSize || 12;
+          isGutter = savedEditorSettings.isGutter;
+          lineWrap = savedEditorSettings.lineWrap;
+          isReadOnly = savedEditorSettings.isReadOnly;
+          isSoftTabs = savedEditorSettings.isSoftTabs;
+          syntaxMode = savedEditorSettings.syntaxMode || 'text';
+        };
 
       }
     }
