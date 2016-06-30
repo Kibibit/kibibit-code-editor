@@ -168,6 +168,12 @@ treecontrol {
     -webkit-mask: url("../images/chevron-right.svg") no-repeat 50% 50%;
     mask: url("../images/chevron-right.svg") no-repeat 50% 50%;
   }
+
+  li .tree-label {
+    left: -16px;
+    padding-left: 16px;
+    position: relative;
+  }
 }
 
 .ngdialog {
