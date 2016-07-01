@@ -38,7 +38,11 @@ fileService.get = function(req, res) {
     };
     res.json(file);
   } else if (isFileOfType('font')) {
-    res.download(fileFullPath); // Set disposition and send it.
+    var file = {
+      mimeType: mimeType,
+      path: fileFullPath
+    };
+    res.json(file);
   } else {
     fs.readFile(fileFullPath, 'utf8', function(err, data) {
       if (err) {
