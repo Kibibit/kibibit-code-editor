@@ -6,7 +6,7 @@ downloadService.get = function(req, res) {
   try {
     var fileFullPath = req.params.file_id;
     res.download(fileFullPath);
-  } catch(err) {
+  } catch (err) {
     console.error('Couldn\'t send file to client');
   }
 };
