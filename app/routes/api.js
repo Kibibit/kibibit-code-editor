@@ -3,7 +3,8 @@ module.exports = function(app, express) {
   var fileService = require('../models/fileService.js'),
       folderService = require('../models/folderService.js'),
       userHomeDirectoryService =
-        require('../models/userHomeDirectoryService.js');
+        require('../models/userHomeDirectoryService.js'),
+      downloadService = require('../models/downloadService.js');
 
   var apiRouter = express.Router();
 
@@ -39,6 +40,9 @@ module.exports = function(app, express) {
       .put(folderService.putExtraArg)
       // hard delete the directory content with this id. This means all the files inside are deleted recursively
       .delete(folderService.deleteExtraArg);
+
+  apiRouter.route('/download/:file_id')
+      .get(downloadService.get);
 
   apiRouter.route('/userHomeDirectory/')
       .get(userHomeDirectoryService.get);
