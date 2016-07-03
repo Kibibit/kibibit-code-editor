@@ -17,12 +17,22 @@ angular.module('kibibitCodeEditor')
 })
 
 .controller('fontViewerController', [
-  function() {
+  '$http',
+  function($http) {
     var vm = this;
 
     vm.updateFontView = function(fontObject) {
-      console.log('fontObject: ', fontObject);
+      //TODO create a download service much like file/folder service
+      $http.get('/api/download/' + encodeURIComponent(fontObject.path)).then(
+        function(res) {
+          console.log('res: ',res);
+        },
+        function(err) {
+          console.log('err: ', err);
+        }
+      )
     }
+
 
   }
 ]);
