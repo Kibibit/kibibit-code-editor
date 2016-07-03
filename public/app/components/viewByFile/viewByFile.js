@@ -35,6 +35,8 @@ angular.module('kibibitCodeEditor')
     function getFileTypeFromMimeType(mimeType) {
       if (mimeType.indexOf('image') !== -1) {
         return 'image';
+      } else if (mimeType.indexOf('font') !== -1) {
+        return 'font'
       } else {
         return 'code';
       }
