@@ -8,6 +8,7 @@ angular.module('kibibitCodeEditor')
     },
     controller: 'fontViewerController',
     controllerAs: 'fontViewerCtrl',
+    templateUrl: 'app/components/fontViewer/fontViewerTemplate.html',
     link: function(scope, element, attrs, fontViewerCtrl) {
       scope.$watch('fontViewerCtrl.openFont', function(newOpenFont) {
         console.log('element: ',element);
@@ -21,126 +22,72 @@ angular.module('kibibitCodeEditor')
   function() {
     var vm = this;
 
+    vm.fontSize = 100;
+
     vm.updateFontView = function (fontObject) {
+      var path = '/api/download/' + encodeURIComponent(fontObject.path);
+      opentype.load(path, function(err, font) {
+        if (err) {
+          alert('Font could not be loaded: ' + err);
+        } else {
+          console.log('font: ', font);
+          vm.font = font;
+          vm.redrawFont();
+        }
 
-      // remove previous svg from dom if exists
-      d3.select(".font-view-container").selectAll("svg").remove();
-      
+      });
+    };
 
-      var width = 960;
-      var height = 500;
-      var size = 120;
-      var font = new Font();
-      var text = 'f';
+    vm.redrawFont = function() {
+      var canvas = document.getElementById('font-canvas');
+      var ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Construct a Path object containing the letter shapes of the given text.
+      // The other parameters are x, y and fontSize.
+      // Note that y is the position of the baseline.
+      var baseline = 150;
+      var path = vm.font.getPath('f', 0, baseline, vm.fontSize);
+      // If you just want to draw the text you can also use font.draw(ctx, text, x, y, fontSize).
+      path.draw(ctx);
 
-      font.onload = loaded;
-      font.onerror = function (err) {
-        alert(err);
-      };
-      font.fontFamily = 'fontName';
-      font.src = '/api/download/' + encodeURIComponent(fontObject.path);
+      //adjust the ascent and descent to font size
+      var descent = vm.font.descender * vm.fontSize / 1000;
+      var ascent = vm.font.ascender * vm.fontSize /1000;
 
-      var svg = d3.select(".font-view-container").append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .append('g')
-        .attr('transform', 'translate('+[width/4, height/2-size/2]+')');
+      ctx.beginPath();
+      ctx.moveTo(0, baseline);
+      ctx.lineTo(500,baseline);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+      ctx.stroke();
 
-      svg.append('text')
-        .classed('text', true)
-        .style("dominant-baseline", "alphabetic")
-        .style("text-anchor", "left")
-        .style("font-size", size)
-        .attr('x', width/4)
-        .text(text);
+      ctx.font = "20px Ariel";
+      ctx.fillStyle = "white";
+      ctx.fillText('baseline', 520, baseline);
 
-      function show_font_metrics(metrics) {
-        console.log(metrics);
-        svg.append('line')
-          .attr({x1:0, x2:2*width/4})
-          .style({stroke: 'green'});
-        svg.append('text')
-          .text('baseline')
-          .attr({x: 2*width/4+10})
-          .style({'dominant-baseline': 'central', fill: 'green'});
-        var y_a = -size*metrics.ascent;
-        svg.append('line')
-          .attr({x1:0, x2:2*width/4, y1: y_a, y2: y_a })
-          .style({stroke: 'gray'});
-        svg.append('text')
-          .text('ascent')
-          .attr({x: 2*width/4+10, y: y_a})
-          .style({'dominant-baseline': 'central', fill: 'gray'});
-        var y_d = -size*metrics.descent;
-        svg.append('line')
-          .attr({x1:0, x2:2*width/4, y1: y_d, y2: y_d })
-          .style({stroke: 'gray'});
-        svg.append('text')
-          .text('descent')
-          .attr({x: 2*width/4+10, y: y_d })
-          .style({'dominant-baseline': 'central', fill: 'gray'});
-      }
+      ctx.beginPath();
+      ctx.moveTo(0, baseline - descent);
+      ctx.lineTo(500,baseline - descent);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(0, 0, 255, 0.5)';
+      ctx.stroke();
 
-      function show_text_metrics(metrics) {
-        console.log(metrics);
-        // the bounding box around a text's pixels
-        svg.append('rect')
-          .attr({x: width/4+metrics.bounds.minx, y: -metrics.bounds.maxy
-            ,width: metrics.bounds.maxx-metrics.bounds.minx
-            ,height: metrics.bounds.maxy-metrics.bounds.miny})
-          .style({fill: 'none', stroke: 'steelblue'});
-        // leading -- the vertical distance between two baselines
-        var y_leading = metrics.leading;
-        svg.append('line')
-          .attr({x1: 0, y1: -y_leading
-            ,x2: 2*width/4, y2: -y_leading})
-          .style({fill: 'none', stroke: 'lightgreen'});
-        svg.append('line')
-          .attr({x1: 0, y1: y_leading
-            ,x2: 2*width/4, y2: y_leading})
-          .style({fill: 'none', stroke: 'lightgreen'});
-        // the width and height of a text
-        svg.append('rect')
-          .attr({x: width/4, y: -metrics.bounds.maxy
-            ,width: metrics.width
-            ,height: metrics.height})
-          .style({fill: 'none', stroke: 'orange'});
+      ctx.font = "20px Ariel";
+      ctx.fillStyle = "blue";
+      ctx.fillText('descent', 520, baseline - descent);
 
-        svg.append('text')
-          .text('bounds')
-          .style('fill', 'steelblue')
-          .attr('x', width/4+metrics.bounds.maxx+10)
-          .attr('y', -metrics.bounds.maxy);
+      ctx.beginPath();
+      ctx.moveTo(0, baseline - ascent);
+      ctx.lineTo(500,baseline - ascent);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(0, 255, 0, 0.5)';
+      ctx.stroke();
 
-        svg.append('text')
-          .text('width & height')
-          .style('fill', 'orange')
-          .attr('x', width/4+metrics.bounds.maxx+10)
-          .attr('y', -metrics.bounds.maxy+20);
-      }
+      ctx.font = "20px Ariel";
+      ctx.fillStyle = "green";
+      ctx.fillText('ascent', 520, baseline - ascent);
 
-      function loaded() {
-        show_font_metrics(font.metrics);
-        console.time('measureText');
-        var tm = font.measureText(text, size);
-        console.timeEnd('measureText');
-        show_text_metrics(tm);
-
-        var d = [];
-        svg.select('.text')
-          .style('font-family', font.fontFamily)
-          .each(function() { d.push(this.getBBox()) });
-        d3.select('svg .term').selectAll('rect')
-          .data(d).enter()
-          .append('rect')
-          .attr('x', function(d) {return d.x})
-          .attr('y', function(d) {return d.y})
-          .attr('width', function(d) {return d.width})
-          .attr('height', function(d) {return d.height})
-          .style('stroke', 'gray')
-          .style('stroke-dasharray', '6 6')
-          .style('fill', 'none')
-      }
     }
+
   }
 ]);
