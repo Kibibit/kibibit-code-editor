@@ -4,7 +4,7 @@ angular.module('kibibitCodeEditor')
   return {
     scope: {},
     bindToController: {
-      openFont: "=kbOpenFont"
+      openFont: '=kbOpenFont'
     },
     controller: 'fontViewerController',
     controllerAs: 'fontViewerCtrl',
@@ -24,7 +24,7 @@ angular.module('kibibitCodeEditor')
 
     vm.fontSize = 100;
 
-    vm.updateFontView = function (fontObject) {
+    vm.updateFontView = function(fontObject) {
       var path = '/api/download/' + encodeURIComponent(fontObject.path);
       opentype.load(path, function(err, font) {
         if (err) {
@@ -52,7 +52,7 @@ angular.module('kibibitCodeEditor')
 
       //adjust the ascent and descent to font size
       var descent = vm.font.descender * vm.fontSize / 1000;
-      var ascent = vm.font.ascender * vm.fontSize /1000;
+      var ascent = vm.font.ascender * vm.fontSize / 1000;
 
       ctx.beginPath();
       ctx.moveTo(0, baseline);
@@ -61,8 +61,8 @@ angular.module('kibibitCodeEditor')
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
       ctx.stroke();
 
-      ctx.font = "20px Ariel";
-      ctx.fillStyle = "white";
+      ctx.font = '20px Ariel';
+      ctx.fillStyle = 'white';
       ctx.fillText('baseline', 520, baseline);
 
       ctx.beginPath();
@@ -72,8 +72,8 @@ angular.module('kibibitCodeEditor')
       ctx.strokeStyle = 'rgba(0, 0, 255, 0.5)';
       ctx.stroke();
 
-      ctx.font = "20px Ariel";
-      ctx.fillStyle = "blue";
+      ctx.font = '20px Ariel';
+      ctx.fillStyle = 'blue';
       ctx.fillText('descent', 520, baseline - descent);
 
       ctx.beginPath();
@@ -83,11 +83,11 @@ angular.module('kibibitCodeEditor')
       ctx.strokeStyle = 'rgba(0, 255, 0, 0.5)';
       ctx.stroke();
 
-      ctx.font = "20px Ariel";
-      ctx.fillStyle = "green";
+      ctx.font = '20px Ariel';
+      ctx.fillStyle = 'green';
       ctx.fillText('ascent', 520, baseline - ascent);
 
-    }
+    };
 
   }
 ]);

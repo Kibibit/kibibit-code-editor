@@ -36,7 +36,7 @@ angular.module('kibibitCodeEditor')
       if (mimeType.indexOf('image') !== -1) {
         return 'image';
       } else if (mimeType.indexOf('font') !== -1) {
-        return 'font'
+        return 'font';
       } else {
         return 'code';
       }
