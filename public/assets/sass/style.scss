@@ -42,8 +42,10 @@ $color1: rgb(70, 70, 70);
 $color2: #808080;
 $color3: rgb(38, 38, 38);
 
-md-toast.md-success-toast-theme .md-toast-content {
-  background-color: $candy-green;
+md-toast {
+  &.md-success-toast-theme .md-toast-content {
+    background-color: $candy-green;
+  }
 }
 
 .main-app-container {
