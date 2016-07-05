@@ -30,7 +30,8 @@ angular.module('kibibitCodeEditor')
   SettingsService,
   ngDialog,
   deviceDetector,
-  FileService) {
+  FileService,
+  ToastService) {
 
   var vm = this;
 
@@ -49,7 +50,7 @@ angular.module('kibibitCodeEditor')
       FileService.saveFile(openFilePath,
         currentEditor.getSession().getDocument().getValue(),
         function() {
-          console.info('saved file: ' + openFilePath);
+          ToastService.showSimpleToast('success-toast', 'File successfully saved');
         }
       );
     }
