@@ -46,7 +46,7 @@ angular.module('kibibitCodeEditor')
       // The other parameters are x, y and fontSize.
       // Note that y is the position of the baseline.
       var baseline = 150;
-      var path = vm.font.getPath('f', 0, baseline, vm.fontSize);
+      var path = vm.font.getPath('Hi Neil', 0, baseline, vm.fontSize);
       // If you just want to draw the text you can also use font.draw(ctx, text, x, y, fontSize).
       path.draw(ctx);
 
