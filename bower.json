@@ -23,7 +23,8 @@
     "ng-device-detector": "~3.0.1",
     "viewerjs": "fengyuanchen/viewerjs#~0.4.0",
     "Font.js": "*",
-    "d3": "^4.1.0"
+    "d3": "3.4.13",
+    "opentype.js": "^0.6.3"
   },
   "resolutions": {
     "angular": "1.5.7"
