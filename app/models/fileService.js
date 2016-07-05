@@ -110,7 +110,7 @@ fileService.putExtraArg = function(req, res) {
   var fileFullPath = req.params.file_id;
   var isHardSave = req.params.extra_arg;
   if (isHardSave === 'true') {
-    if (req.body.newContent || 0 === req.body.newContent.length) {
+    if (req.body.newContent) {
       fs.writeFile(fileFullPath, req.body.newContent, 'utf8', function(err) {
         if (err) {
           res.json(err);
