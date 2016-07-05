@@ -34,7 +34,8 @@ fileService.get = function(req, res) {
     var dataUri = base64Image(fileFullPath);
     var file = {
       content: dataUri,
-      mimeType: mimeType
+      mimeType: mimeType,
+      path: fileFullPath
     };
     res.json(file);
   } else if (isFileOfType('font')) {
@@ -53,7 +54,8 @@ fileService.get = function(req, res) {
           var file = {
             content: data,
             mimeType: mimeType,
-            lastModified: stats.mtime
+            lastModified: stats.mtime,
+            path: fileFullPath
           };
           res.json(file);
           console.info('file requested: ' + fileFullPath);
