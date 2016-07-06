@@ -4,7 +4,6 @@ node_js:
 before_script:
 - npm install -g bower
 - npm install -g gulp
-- npm install -g karma
 - bower install
 - gulp styles
 notifications:
