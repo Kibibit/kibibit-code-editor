@@ -114,7 +114,7 @@ angular.module('kibibitCodeEditor')
       settings.init = function(savedSettings) {
         cursor = savedSettings.cursor || {row: '0', column: '0'};
         editorSettings.init(savedSettings.editorSettings);
-      }
+      };
 
       function EditorSettings(savedEditorSettings) {
         savedEditorSettings = savedEditorSettings || {};

@@ -14,7 +14,7 @@ settingsService.get = function(req, res) {
     res.json(savedSettings);
     console.info('settings sent: ' + settingsLocation);
 
-  } catch(err) {
+  } catch (err) {
     res.json(err);
     console.error('local settings returned an error: ' + err);
 
