@@ -59,7 +59,8 @@ angular.module('kibibitCodeEditor')
       parseJson();
     }
 
-    function aceLoaded(editor) {
+    function aceLoaded(_editor) {
+      editor = _editor;
       vm.aceSession = editor.getSession();
       vm.undoManager = editor.getSession().getUndoManager();
       SettingsService.settings.currentUndoManager = vm.undoManager;
