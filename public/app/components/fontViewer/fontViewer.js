@@ -61,7 +61,7 @@ angular.module('kibibitCodeEditor')
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
       ctx.stroke();
 
-      ctx.font = '20px Ariel';
+      ctx.font = '20px Roboto, "Helvetica Neue", sans-serif';
       ctx.fillStyle = 'white';
       ctx.fillText('baseline', 520, baseline);
 
@@ -72,7 +72,7 @@ angular.module('kibibitCodeEditor')
       ctx.strokeStyle = 'rgba(0, 0, 255, 0.5)';
       ctx.stroke();
 
-      ctx.font = '20px Ariel';
+      ctx.font = '20px Roboto, "Helvetica Neue", sans-serif';
       ctx.fillStyle = 'blue';
       ctx.fillText('descent', 520, baseline - descent);
 
@@ -83,7 +83,7 @@ angular.module('kibibitCodeEditor')
       ctx.strokeStyle = 'rgba(0, 255, 0, 0.5)';
       ctx.stroke();
 
-      ctx.font = '20px Ariel';
+      ctx.font = '20px Roboto, "Helvetica Neue", sans-serif';
       ctx.fillStyle = 'green';
       ctx.fillText('ascent', 520, baseline - ascent);
 
