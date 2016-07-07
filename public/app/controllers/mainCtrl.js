@@ -19,6 +19,11 @@ angular.module('kibibitCodeEditor')
 
     vm.settings = SettingsService.settings;
 
+    if (sessionStorage.projectFolderPath) {
+      vm.projectFolderPath = sessionStorage.projectFolderPath;
+      console.debug('last project loaded from session storage');
+    }
+
     vm.showAModal = function() {
       ngDialog.open({
         template: 'app/components/yesnoModal/yesnoModalTemplate.html',
@@ -42,6 +47,8 @@ angular.module('kibibitCodeEditor')
       }).closePromise.then(function(selectedProjectFolderPath) {
         if (!vm.isModalCancel(selectedProjectFolderPath.value)) {
           vm.projectFolderPath = selectedProjectFolderPath.value;
+          sessionStorage.projectFolderPath = vm.projectFolderPath;
+          console.debug('project path saved to session storage');
           vm.settings.recentlyOpen.push(vm.projectFolderPath);
         }
       });
