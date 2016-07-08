@@ -29,6 +29,9 @@ angular.module('kibibitCodeEditor')
           vm.fileType = getFileTypeFromMimeType(vm.fileInfo.mimeType);
           vm.imageUri = vm.fileType === 'image' ? vm.fileInfo.content : undefined;
         });
+      } else {
+        vm.fileType = 'code';
+        vm.fileInfo = undefined;
       }
     };
 

@@ -24,6 +24,18 @@ angular.module('kibibitCodeEditor')
       console.debug('last project loaded from session storage');
     }
 
+    if (sessionStorage.openFile) {
+      vm.openFile = sessionStorage.openFile;
+      console.debug('last file loaded from session storage');
+    }
+
+    $scope.$watch(function() {
+      return vm.openFile;
+    }, function(newVal) {
+      sessionStorage.openFile = newVal;
+      console.debug('last file saved to session storage');
+    });
+
     vm.showAModal = function() {
       ngDialog.open({
         template: 'app/components/yesnoModal/yesnoModalTemplate.html',
@@ -69,4 +81,10 @@ angular.module('kibibitCodeEditor')
                 vm.showProjectSelectModal();
               });
     };
+
+    vm.emptyEditor = function() {
+      vm.projectFolderPath = '';
+      sessionStorage.projectFolderPath = vm.projectFolderPath;
+      vm.openFile = '';
+    }
   }]);

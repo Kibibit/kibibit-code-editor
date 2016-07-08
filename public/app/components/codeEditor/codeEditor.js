@@ -162,6 +162,9 @@ angular.module('kibibitCodeEditor')
         editorSettings.syntaxMode = fileMode;
         vm.parsedJson = undefined;
         console.debug('changed mode to ' + fileMode);
+      } else {
+        vm.code = '';
+        editorSettings.syntaxMode = 'text';
       }
     }
 
