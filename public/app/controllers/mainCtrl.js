@@ -62,6 +62,9 @@ angular.module('kibibitCodeEditor')
           sessionStorage.projectFolderPath = vm.projectFolderPath;
           console.debug('project path saved to session storage');
           vm.settings.recentlyOpen.push(vm.projectFolderPath);
+          if (vm.openFile !== '') {
+            vm.openFile = '';
+          }
         }
       });
     };
