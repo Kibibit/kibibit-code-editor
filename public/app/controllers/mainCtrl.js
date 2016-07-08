@@ -86,5 +86,5 @@ angular.module('kibibitCodeEditor')
       vm.projectFolderPath = '';
       sessionStorage.projectFolderPath = vm.projectFolderPath;
       vm.openFile = '';
-    }
+    };
   }]);
