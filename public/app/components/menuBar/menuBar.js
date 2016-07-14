@@ -27,9 +27,9 @@ angular.module('kibibitCodeEditor')
 })
 
 .controller('menuBarController', function(
+  $window,
   SettingsService,
   ngDialog,
-  deviceDetector,
   FileService,
   ToastService) {
 
@@ -43,6 +43,11 @@ angular.module('kibibitCodeEditor')
   };
 
   vm.settings = SettingsService.settings;
+
+  vm.newEditorWindow = function() {
+    var newWindow = window.location.href.replace(window.location.pathname, '');
+    $window.open('http://localhost:3141/', '_blank');
+  };
 
   vm.saveCurrentEditor = function(openFilePath) {
     var currentEditor = vm.settings.currentEditor;

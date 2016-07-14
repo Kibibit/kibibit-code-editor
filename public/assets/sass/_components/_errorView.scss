@@ -57,6 +57,7 @@ error-view {
   .terminal {
     bottom: 0;
     left: 0;
+    overflow: auto;
     padding: 4rem;
     position: absolute;
     right: 0;
