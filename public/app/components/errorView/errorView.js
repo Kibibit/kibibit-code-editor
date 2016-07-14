@@ -98,7 +98,7 @@ angular.module('kibibitCodeEditor')
       setTimeout(function() {
         var gif;
 
-        $.get('http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=kittens', function(result) {
+        $.get('//api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=kittens', function(result) {
           gif = result.data.image_url;
           $('.terminal').append('<img class="kitten-gif" src="' + gif + '"">');
           resetForm(true);
