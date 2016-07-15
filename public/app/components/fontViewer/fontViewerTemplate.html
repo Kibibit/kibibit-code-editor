@@ -1,3 +1,24 @@
-<input type="range" id="myRange" min="30" max="150" value="fontViewerCtrl.fontSize" ng-model="fontViewerCtrl.fontSize"
-       ng-change="fontViewerCtrl.redrawFont()">
-<canvas width="940" height="500" id="font-canvas"></canvas>
+<!--<input type="range" id="myRange" min="30" max="150" value="fontViewerCtrl.fontSize" ng-model="fontViewerCtrl.fontSize"-->
+       <!--ng-change="fontViewerCtrl.redrawFont()">-->
+
+
+<!--<input id="file" type="file">-->
+<span class="info" id="font-name">{{fontViewerCtrl.fontName}}</span>
+<!--<div id="message"></div>-->
+
+<div>
+  Glyphs <span id="pagination"></span>
+  <br>
+  <div id="glyph-list-end"></div>
+</div>
+<div style="position: relative">
+  <div id="glyph-display">
+    <canvas id="glyph-bg" width="500" height="500"></canvas>
+    <canvas id="glyph" width="500" height="500"></canvas>
+  </div>
+  <div id="glyph-data"></div>
+  <div style="clear: both"></div>
+</div>
+
+<!--<canvas width="940" height="500" id="font-canvas"></canvas>-->
+
