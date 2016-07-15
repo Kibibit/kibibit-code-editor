@@ -1,0 +1,108 @@
+#font-data h3 {
+  font-weight: normal;
+  margin: 0;
+  cursor: pointer;
+  background-color: #f8f8f8;
+}
+
+#font-data h3.expanded::before {
+  font-size: 85%;
+  content: "â–¼ ";
+}
+
+#font-data h3.collapsed::before {
+  font-size: 85%;
+  content: "â–º ";
+}
+
+#font-data h3.collapsed + dl {
+  display: none;
+}
+
+#font-data dl {
+  margin-top: 0;
+  padding-left: 2em;
+  color: #707070;
+}
+
+#font-data dt {
+  float: left;
+}
+
+#font-data dd {
+  margin-left: 12em;
+  word-break: break-all;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+#font-data .langtag {
+  font-size: 85%;
+  color: #999;
+  white-space: nowrap;
+}
+
+#font-data .langname {
+  padding-right: 0.5em;
+}
+
+#file {
+  float: left;
+  font-size: 11px;
+  color: #999;
+}
+
+/* Glyph Inspector */
+
+#pagination span {
+  margin: 0 0.3em;
+  color: #505050;
+  cursor: pointer;
+}
+
+#pagination span.page-selected {
+  font-weight: bold;
+  color: black;
+}
+
+canvas.item {
+  float: left;
+  border: solid 1px #a0a0a0;
+  margin-right: -1px;
+  margin-bottom: -1px;
+  cursor: pointer;
+}
+
+canvas.item:hover {
+  background-color: #e0e0e0;
+}
+
+#glyph-list-end {
+  clear: both;
+  height: 20px;
+}
+
+#glyph-display {
+  float: left;
+  border: solid 1px #a0a0a0;
+  position: relative;
+  width: 500px;
+  height: 500px;
+}
+
+#glyph, glyph-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#glyph-data { float: left; margin-left: 2em; }
+#glyph-data dl { margin: 0; }
+#glyph-data dt { float: left; }
+#glyph-data dd { margin-left: 12em; }
+
+#glyph-data pre { font-size: 11px; }
+pre:not(.contour) { margin: 0; }
+pre.contour { margin: 0 0 1em 2em; border-bottom: solid 1px #a0a0a0; }
+span.oncurve { color: blue; }
+span.offcurve { color: red; }
