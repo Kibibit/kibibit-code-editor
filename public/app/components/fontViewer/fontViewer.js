@@ -32,8 +32,6 @@ angular.module('kibibitCodeEditor')
         } else {
           console.log('font: ', font);
           vm.font = font;
-          vm.fontName = font.names.fullName.en;
-          // vm.redrawFont();
           onFontLoaded()
         }
 
@@ -91,10 +89,12 @@ angular.module('kibibitCodeEditor')
     //
     // };
 
-    var cellCount = 100,
-      cellWidth = 44,
-      cellHeight = 40,
-      cellMarginTop = 1,
+    var cellCount = 100;
+    // var cellWidth = 44;
+    var cellWidth = 34;
+    // var cellHeight = 40;
+    var cellHeight = 30;
+    var cellMarginTop = 1,
       cellMarginBottom = 8,
       cellMarginLeftRight = 1,
       glyphMargin = 5,
@@ -355,16 +355,19 @@ angular.module('kibibitCodeEditor')
       ctx.clearRect(0, 0, w, h);
       ctx.fillStyle = '#a0a0a0';
       hline('Baseline', 0);
-      hline('yMax', vm.font.tables.head.yMax);
-      hline('yMin', vm.font.tables.head.yMin);
+      // hline('yMax', vm.font.tables.head.yMax);
+      // hline('yMin', vm.font.tables.head.yMin);
       hline('Ascender', vm.font.tables.hhea.ascender);
       hline('Descender', vm.font.tables.hhea.descender);
-      hline('Typo Ascender', vm.font.tables.os2.sTypoAscender);
-      hline('Typo Descender', vm.font.tables.os2.sTypoDescender);
+      // hline('Typo Ascender', vm.font.tables.os2.sTypoAscender);
+      // hline('Typo Descender', vm.font.tables.os2.sTypoDescender);
     }
 
     function onFontLoaded() {
       window.font = vm.font;
+
+      var fontName = vm.font.names.fullName.en;
+      document.getElementById('font-name').innerHTML = fontName;
 
       var w = cellWidth - cellMarginLeftRight * 2,
         h = cellHeight - cellMarginTop - cellMarginBottom,
@@ -393,8 +396,15 @@ angular.module('kibibitCodeEditor')
 
       initGlyphDisplay();
       displayGlyphPage(0);
-      displayGlyph(-1);
-      displayGlyphData(-1);
+
+      var initialGlyphIndex = getRandomIntInclusive(0, vm.font.numGlyphs);
+
+      displayGlyph(initialGlyphIndex);
+      displayGlyphData(initialGlyphIndex);
+    }
+
+    function getRandomIntInclusive(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     // function onReadFile(e) {

@@ -6,15 +6,14 @@
 <span class="info" id="font-name">{{fontViewerCtrl.fontName}}</span>
 <!--<div id="message"></div>-->
 
-<div>
-  Glyphs <span id="pagination"></span>
-  <br>
+<div class="glyphs-table-container">
   <div id="glyph-list-end"></div>
+  Glyphs <span id="pagination"></span>
 </div>
-<div style="position: relative">
+<div class="glyph-view-container">
   <div id="glyph-display">
-    <canvas id="glyph-bg" width="500" height="500"></canvas>
-    <canvas id="glyph" width="500" height="500"></canvas>
+    <canvas id="glyph-bg" width="250" height="250"></canvas>
+    <canvas id="glyph" width="250" height="250"></canvas>
   </div>
   <div id="glyph-data"></div>
   <div style="clear: both"></div>

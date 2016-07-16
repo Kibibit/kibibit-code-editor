@@ -86,8 +86,8 @@ canvas.item:hover {
   float: left;
   border: solid 1px #a0a0a0;
   position: relative;
-  width: 500px;
-  height: 500px;
+  width: 250px;
+  height: 250px;
 }
 
 #glyph, glyph-bg {
@@ -106,3 +106,14 @@ pre:not(.contour) { margin: 0; }
 pre.contour { margin: 0 0 1em 2em; border-bottom: solid 1px #a0a0a0; }
 span.oncurve { color: blue; }
 span.offcurve { color: red; }
+
+.glyphs-table-container {
+  position: absolute;
+  left: 0;
+  width: 400px;
+}
+
+.glyph-view-container {
+  position: absolute;
+  left: 420px;
+}
