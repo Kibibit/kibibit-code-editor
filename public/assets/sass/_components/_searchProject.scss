@@ -1,5 +1,5 @@
-$active-color: #FFBC00;
-$inactive-color: grey;
+$active-color: $candy-yellow;
+$inactive-color: $grey4;
 $font-size: 16px;
 $search-width: $font-size * 20;
 // make this bounce only at end animation
@@ -74,7 +74,7 @@ kb-search-project {
 
         &::selection {
             background-color: $active-color;
-            color: white;
+            color: $white;
         }
     }
 }
