@@ -64,7 +64,7 @@ kb-search-project {
             color: $inactive-color;
             border-bottom: $inactive-color 2px solid;
             &::selection {
-                background-color: rgba(black, 0);
+                background-color: rgba($black, 0);
                 color: $inactive-color;
             }
         }
