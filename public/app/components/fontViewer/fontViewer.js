@@ -38,76 +38,32 @@ angular.module('kibibitCodeEditor')
       });
     };
 
-    // vm.redrawFont = function() {
-    //   var canvas = document.getElementById('font-canvas');
-    //   var ctx = canvas.getContext('2d');
-    //   ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //   // Construct a Path object containing the letter shapes of the given text.
-    //   // The other parameters are x, y and fontSize.
-    //   // Note that y is the position of the baseline.
-    //   var baseline = 150;
-    //   var path = vm.font.getPath('Hi Neil', 0, baseline, vm.fontSize);
-    //   // If you just want to draw the text you can also use font.draw(ctx, text, x, y, fontSize).
-    //   path.draw(ctx);
-    //
-    //   //adjust the ascent and descent to font size
-    //   var descent = vm.font.descender * vm.fontSize / 1000;
-    //   var ascent = vm.font.ascender * vm.fontSize / 1000;
-    //
-    //   ctx.beginPath();
-    //   ctx.moveTo(0, baseline);
-    //   ctx.lineTo(500,baseline);
-    //   ctx.lineWidth = 1;
-    //   ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
-    //   ctx.stroke();
-    //
-    //   ctx.font = '20px Roboto, "Helvetica Neue", sans-serif';
-    //   ctx.fillStyle = 'white';
-    //   ctx.fillText('baseline', 520, baseline);
-    //
-    //   ctx.beginPath();
-    //   ctx.moveTo(0, baseline - descent);
-    //   ctx.lineTo(500,baseline - descent);
-    //   ctx.lineWidth = 1;
-    //   ctx.strokeStyle = 'rgba(0, 0, 255, 0.5)';
-    //   ctx.stroke();
-    //
-    //   ctx.font = '20px Roboto, "Helvetica Neue", sans-serif';
-    //   ctx.fillStyle = 'blue';
-    //   ctx.fillText('descent', 520, baseline - descent);
-    //
-    //   ctx.beginPath();
-    //   ctx.moveTo(0, baseline - ascent);
-    //   ctx.lineTo(500,baseline - ascent);
-    //   ctx.lineWidth = 1;
-    //   ctx.strokeStyle = 'rgba(0, 255, 0, 0.5)';
-    //   ctx.stroke();
-    //
-    //   ctx.font = '20px Roboto, "Helvetica Neue", sans-serif';
-    //   ctx.fillStyle = 'green';
-    //   ctx.fillText('ascent', 520, baseline - ascent);
-    //
-    // };
-
     var cellCount = 100;
     // var cellWidth = 44;
     var cellWidth = 34;
     // var cellHeight = 40;
     var cellHeight = 30;
-    var cellMarginTop = 1,
-      cellMarginBottom = 8,
-      cellMarginLeftRight = 1,
-      glyphMargin = 5,
-      pixelRatio = window.devicePixelRatio || 1;
+    var cellMarginTop = 1;
+    var cellMarginBottom = 8;
+    var cellMarginLeftRight = 1;
+    var glyphMargin = 5;
+    var pixelRatio = window.devicePixelRatio || 1;
 
-    var pageSelected, font, fontScale, fontSize, fontBaseline, glyphScale, glyphSize, glyphBaseline;
+    var pageSelected;
+    var font;
+    var fontScale;
+    var fontSize;
+    var fontBaseline;
+    var glyphScale;
+    var glyphSize;
+    var glyphBaseline;
 
     function enableHighDPICanvas(canvas) {
       if (typeof canvas === 'string') {
         canvas = document.getElementById(canvas);
       }
       var pixelRatio = window.devicePixelRatio || 1;
-      if (pixelRatio === 1) return;
+      if (pixelRatio === 1) { return; }
       var oldWidth = canvas.width;
       var oldHeight = canvas.height;
       canvas.width = oldWidth * pixelRatio;
@@ -129,24 +85,26 @@ angular.module('kibibitCodeEditor')
 
     function pathCommandToString(cmd) {
       var str = '<strong>' + cmd.type + '</strong> ' +
-        ((cmd.x !== undefined) ? 'x='+cmd.x+' y='+cmd.y+' ' : '') +
-        ((cmd.x1 !== undefined) ? 'x1='+cmd.x1+' y1='+cmd.y1+' ' : '') +
-        ((cmd.x2 !== undefined) ? 'x2='+cmd.x2+' y2='+cmd.y2 : '');
+        ((cmd.x !== undefined) ? 'x=' + cmd.x + ' y=' + cmd.y + ' ' : '') +
+        ((cmd.x1 !== undefined) ? 'x1=' + cmd.x1 + ' y1=' + cmd.y1 + ' ' : '') +
+        ((cmd.x2 !== undefined) ? 'x2=' + cmd.x2 + ' y2=' + cmd.y2 : '');
       return str;
     }
 
     function contourToString(contour) {
       return '<pre class="contour">' + contour.map(function(point) {
-          return '<span class="' + (point.onCurve ? 'on' : 'off') + 'curve">x=' + point.x + ' y=' + point.y + '</span>';
+          return '<span class="' +
+                 (point.onCurve ? 'on' : 'off') +
+                 'curve">x=' + point.x + ' y=' + point.y + '</span>';
         }).join('\n') + '</pre>';
     }
 
     function formatUnicode(unicode) {
       unicode = unicode.toString(16);
       if (unicode.length > 4) {
-        return ("000000" + unicode.toUpperCase()).substr(-6)
+        return ('000000' + unicode.toUpperCase()).substr(-6);
       } else {
-        return ("0000" + unicode.toUpperCase()).substr(-4)
+        return ('0000' + unicode.toUpperCase()).substr(-4);
       }
     }
 
@@ -156,24 +114,26 @@ angular.module('kibibitCodeEditor')
         container.innerHTML = '';
         return;
       }
-      var glyph = vm.font.glyphs.get(glyphIndex),
-        html;
-      html = '<dt>name</dt><dd>'+glyph.name+'</dd>';
+      var glyph = vm.font.glyphs.get(glyphIndex);
+      var html;
+      html = '<dt>name</dt><dd>' + glyph.name + '</dd>';
 
       if (glyph.unicodes.length > 0) {
-        html += '<dt>unicode</dt><dd>'+ glyph.unicodes.map(formatUnicode).join(', ') +'</dd>';
+        html += '<dt>unicode</dt><dd>' +
+          glyph.unicodes.map(formatUnicode).join(', ') + '</dd>';
       }
-      html += '<dl><dt>index</dt><dd>'+glyph.index+'</dd>';
+      html += '<dl><dt>index</dt><dd>' + glyph.index + '</dd>';
 
-      if (glyph.xMin !== 0 || glyph.xMax !== 0 || glyph.yMin !== 0 || glyph.yMax !== 0) {
-        html += '<dt>xMin</dt><dd>'+glyph.xMin+'</dd>' +
-          '<dt>xMax</dt><dd>'+glyph.xMax+'</dd>' +
-          '<dt>yMin</dt><dd>'+glyph.yMin+'</dd>' +
-          '<dt>yMax</dt><dd>'+glyph.yMax+'</dd>';
+      if (glyph.xMin !== 0 || glyph.xMax !== 0 ||
+          glyph.yMin !== 0 || glyph.yMax !== 0) {
+        html += '<dt>xMin</dt><dd>' + glyph.xMin+'</dd>' +
+          '<dt>xMax</dt><dd>' + glyph.xMax + '</dd>' +
+          '<dt>yMin</dt><dd>' + glyph.yMin + '</dd>' +
+          '<dt>yMax</dt><dd>' + glyph.yMax + '</dd>';
       }
-      html += '<dt>advanceWidth</dt><dd>'+glyph.advanceWidth+'</dd>';
+      html += '<dt>advanceWidth</dt><dd>' + glyph.advanceWidth + '</dd>';
       if(glyph.leftSideBearing !== undefined) {
-        html += '<dt>leftSideBearing</dt><dd>'+glyph.leftSideBearing+'</dd>';
+        html += '<dt>leftSideBearing</dt><dd>' + glyph.leftSideBearing + '</dd>';
       }
       html += '</dl>';
       // if (glyph.numberOfContours > 0) {
@@ -182,16 +142,19 @@ angular.module('kibibitCodeEditor')
       // } else if (glyph.isComposite) {
       //   html += '<br>This composite glyph is a combination of :<ul><li>' +
       //     glyph.components.map(function(component) {
-      //       return 'glyph '+component.glyphIndex+' at dx='+component.dx+', dy='+component.dy;
+      //       return 'glyph ' + component.glyphIndex +
+      //              ' at dx=' + component.dx + ', dy=' + component.dy;
       //     }).join('</li><li>') + '</li></ul>';
       // } else if (glyph.path) {
-      //   html += 'path:<br><pre>  ' + glyph.path.commands.map(pathCommandToString).join('\n  ') + '\n</pre>';
+      //   html += 'path:<br><pre>  ' +
+      //           glyph.path.commands.map(pathCommandToString).join('\n  ') +
+      //           '\n</pre>';
       // }
       container.innerHTML = html;
     }
 
-    var arrowLength = 10,
-      arrowAperture = 4;
+    // var arrowLength = 10;
+    // var arrowAperture = 4;
 
     // function drawArrow(ctx, x1, y1, x2, y2) {
     //   var dx = x2 - x1,
@@ -276,13 +239,13 @@ angular.module('kibibitCodeEditor')
         markSize = 10;
 
       ctx.fillStyle = '#606060';
-      ctx.fillRect(xmin-markSize+1, glyphBaseline, markSize, 1);
+      ctx.fillRect(xmin-markSize + 1, glyphBaseline, markSize, 1);
       ctx.fillRect(xmin, glyphBaseline, 1, markSize);
       ctx.fillRect(xmax, glyphBaseline, markSize, 1);
       ctx.fillRect(xmax, glyphBaseline, 1, markSize);
       ctx.textAlign = 'center';
-      ctx.fillText('0', xmin, glyphBaseline+markSize+10);
-      ctx.fillText(glyph.advanceWidth, xmax, glyphBaseline+markSize+10);
+      ctx.fillText('0', xmin, glyphBaseline + markSize + 10);
+      ctx.fillText(glyph.advanceWidth, xmax, glyphBaseline + markSize + 10);
 
       ctx.fillStyle = '#000000';
       var path = glyph.getPath(x0, glyphBaseline, glyphSize);
@@ -309,7 +272,7 @@ angular.module('kibibitCodeEditor')
         x0 = xmin;
 
       ctx.fillStyle = '#a0a0a0';
-      ctx.fillRect(xmin-cellMarkSize+1, fontBaseline, cellMarkSize, 1);
+      ctx.fillRect(xmin-cellMarkSize + 1, fontBaseline, cellMarkSize, 1);
       ctx.fillRect(xmin, fontBaseline, 1, cellMarkSize);
       ctx.fillRect(xmax, fontBaseline, cellMarkSize, 1);
       ctx.fillRect(xmax, fontBaseline, 1, cellMarkSize);
@@ -320,10 +283,10 @@ angular.module('kibibitCodeEditor')
 
     function displayGlyphPage(pageNum) {
       pageSelected = pageNum;
-      document.getElementById('p'+pageNum).className = 'page-selected';
+      document.getElementById('p' + pageNum).className = 'page-selected';
       var firstGlyph = pageNum * cellCount;
       for(var i = 0; i < cellCount; i++) {
-        renderGlyphItem(document.getElementById('g'+i), firstGlyph+i);
+        renderGlyphItem(document.getElementById('g' + i), firstGlyph + i);
       }
     }
 
@@ -348,7 +311,7 @@ angular.module('kibibitCodeEditor')
 
       function hline(text, yunits) {
         var ypx = glyphBaseline - yunits * glyphScale;
-        ctx.fillText(text, 2, ypx+3);
+        ctx.fillText(text, 2, ypx + 3);
         ctx.fillRect(80, ypx, w, 1);
       }
 
@@ -383,7 +346,7 @@ angular.module('kibibitCodeEditor')
       var numPages = Math.ceil(vm.font.numGlyphs / cellCount);
       for(var i = 0; i < numPages; i++) {
         var link = document.createElement('span');
-        var lastIndex = Math.min(vm.font.numGlyphs-1, (i+1)*cellCount-1);
+        var lastIndex = Math.min(vm.font.numGlyphs-1, (i + 1)*cellCount-1);
         link.textContent = i*cellCount + '-' + lastIndex;
         link.id = 'p' + i;
         link.addEventListener('click', pageSelect, false);
@@ -448,7 +411,7 @@ angular.module('kibibitCodeEditor')
         canvas.width = cellWidth;
         canvas.height = cellHeight;
         canvas.className = 'item';
-        canvas.id = 'g'+i;
+        canvas.id = 'g' + i;
         canvas.addEventListener('click', cellSelect, false);
         enableHighDPICanvas(canvas);
         parent.insertBefore(canvas, marker);
