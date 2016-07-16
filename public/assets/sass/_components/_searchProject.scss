@@ -33,12 +33,12 @@ kb-search-project {
   }
 
   .search-input {
-    -webkit-font-smoothing: antialiased;
     background: none;
     border-bottom: $active-color 2px solid;
-    border: none;
+    border: 0;
     color: $active-color;
     font-family: Roboto,"Helvetica Neue",sans-serif;
+    -webkit-font-smoothing: antialiased;
     font-size: $font-size * 0.85;
     font-weight: 300;
     opacity: 0;
