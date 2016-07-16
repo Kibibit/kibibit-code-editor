@@ -1,4 +1,5 @@
 kb-font-viewer {
+
   display: flex;
 
   //#font-data h3 {
@@ -57,16 +58,20 @@ kb-font-viewer {
 
   /* Glyph Inspector */
 
-  #pagination span {
+  .pagination span {
     color: $grey3;
     cursor: pointer;
     margin: 0 0.3em;
+    &.page-selected {
+      color: $black;
+      font-weight: bold;
+    }
   }
 
-  #pagination span.page-selected {
-    color: $black;
-    font-weight: bold;
-  }
+  //.pagination span.page-selected {
+  //  color: $black;
+  //  font-weight: bold;
+  //}
 
   canvas.item {
     //background: rgba(255, 255, 255, 0.1);

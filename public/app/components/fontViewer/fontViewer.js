@@ -368,7 +368,7 @@ angular.module('kibibitCodeEditor')
       fontSize = fontScale * vm.font.unitsPerEm;
       fontBaseline = cellMarginTop + h * head.yMax / maxHeight;
 
-      var pagination = document.getElementById('pagination');
+      var pagination = document.getElementsByClassName('pagination')[0];
       pagination.innerHTML = '';
       var fragment = document.createDocumentFragment();
       var numPages = Math.ceil(vm.font.numGlyphs / cellCount);
