@@ -1,76 +1,77 @@
 kb-font-viewer {
   display: flex;
 
-  #font-data h3 {
-    background-color: #f8f8f8;
-    cursor: pointer;
-    font-weight: normal;
-    margin: 0;
-  }
+  //#font-data h3 {
+  //  background-color: #f8f8f8;
+  //  cursor: pointer;
+  //  font-weight: normal;
+  //  margin: 0;
+  //}
 
-  #font-data h3.expanded::before {
-    content: "â–¼ ";
-    font-size: 85%;
-  }
+  //#font-data h3.expanded::before {
+  //  content: "â–¼ ";
+  //  font-size: 85%;
+  //}
 
-  #font-data h3.collapsed::before {
-    content: "â–º ";
-    font-size: 85%;
-  }
+  //#font-data h3.collapsed::before {
+  //  content: "â–º ";
+  //  font-size: 85%;
+  //}
 
-  #font-data h3.collapsed + dl {
-    display: none;
-  }
+  //#font-data h3.collapsed + dl {
+  //  display: none;
+  //}
 
-  #font-data dl {
-    color: #707070;
-    margin-top: 0;
-    padding-left: 2em;
-  }
+  //#font-data dl {
+  //  color: #707070;
+  //  margin-top: 0;
+  //  padding-left: 2em;
+  //}
 
-  #font-data dt {
-    float: left;
-  }
+  //#font-data dt {
+  //  float: left;
+  //}
 
-  #font-data dd {
-    margin-left: 12em;
-    max-height: 100px;
-    overflow-y: auto;
-    word-break: break-all;
-  }
+  //#font-data dd {
+  //  margin-left: 12em;
+  //  max-height: 100px;
+  //  overflow-y: auto;
+  //  word-break: break-all;
+  //}
 
-  #font-data .langtag {
-    color: #999;
-    font-size: 85%;
-    white-space: nowrap;
-  }
+  //#font-data .langtag {
+  //  color: #999;
+  //  font-size: 85%;
+  //  white-space: nowrap;
+  //}
 
-  #font-data .langname {
-    padding-right: 0.5em;
-  }
+  //#font-data .langname {
+  //  padding-right: 0.5em;
+  //}
 
-  #file {
-    color: #999;
-    float: left;
-    font-size: 11px;
-  }
+  //#file {
+  //  color: #999;
+  //  float: left;
+  //  font-size: 11px;
+  //}
 
   /* Glyph Inspector */
 
   #pagination span {
-    color: #505050;
+    color: $grey3;
     cursor: pointer;
     margin: 0 0.3em;
   }
 
   #pagination span.page-selected {
-    color: #000000;
+    color: $black;
     font-weight: bold;
   }
 
   canvas.item {
-    background: rgba(255, 255, 255, 0.1);
-    border: solid 1px #a0a0a0;
+    //background: rgba(255, 255, 255, 0.1);
+    background: $grey3;
+    border: solid 1px $grey4;
     cursor: pointer;
     float: left;
     margin-bottom: -1px;
@@ -78,7 +79,7 @@ kb-font-viewer {
   }
 
   canvas.item:hover {
-    background-color: #e0e0e0;
+    background: $dark-white;
   }
 
   #glyph-list-end {
@@ -87,7 +88,7 @@ kb-font-viewer {
   }
 
   #glyph-display {
-    border: solid 1px #a0a0a0;
+    border: solid 1px $grey4;
     float: left;
     height: 250px;
     position: relative;
@@ -126,15 +127,16 @@ kb-font-viewer {
     margin: 0;
   }
   pre.contour {
-    border-bottom: solid 1px #a0a0a0;
+    border-bottom: solid 1px $grey4;
     margin: 0 0 1em 2em;
   }
-  span.oncurve {
-    color: #0000ff;
-  }
-  span.offcurve {
-    color: #ff0000;
-  }
+  // Used for dots that we don't use
+  //span.oncurve {
+  //  color: #0000ff;
+  //}
+  //span.offcurve {
+  //  color: #ff0000;
+  //}
 
   .glyphs-table-container {
     margin-left: 10px;

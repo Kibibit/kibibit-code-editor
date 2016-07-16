@@ -11,7 +11,6 @@ angular.module('kibibitCodeEditor')
     templateUrl: 'app/components/fontViewer/fontViewerTemplate.html',
     link: function(scope, element, attrs, fontViewerCtrl) {
       scope.$watch('fontViewerCtrl.openFont', function(newOpenFont) {
-        console.log('element: ',element);
         fontViewerCtrl.updateFontView(newOpenFont);
       });
     }
@@ -30,9 +29,8 @@ angular.module('kibibitCodeEditor')
         if (err) {
           alert('Font could not be loaded: ' + err);
         } else {
-          console.log('font: ', font);
           vm.font = font;
-          onFontLoaded()
+          onFontLoaded();
         }
 
       });
@@ -144,14 +142,15 @@ angular.module('kibibitCodeEditor')
 
       // if (glyph.xMin !== 0 || glyph.xMax !== 0 ||
       //     glyph.yMin !== 0 || glyph.yMax !== 0) {
-      //   html += '<dt>xMin</dt><dd>' + glyph.xMin+'</dd>' +
+      //   html += '<dt>xMin</dt><dd>' + glyph.xMin + '</dd>' +
       //     '<dt>xMax</dt><dd>' + glyph.xMax + '</dd>' +
       //     '<dt>yMin</dt><dd>' + glyph.yMin + '</dd>' +
       //     '<dt>yMax</dt><dd>' + glyph.yMax + '</dd>';
       // }
       // html += '<dt>advanceWidth</dt><dd>' + glyph.advanceWidth + '</dd>';
       // if(glyph.leftSideBearing !== undefined) {
-      //   html += '<dt>leftSideBearing</dt><dd>' + glyph.leftSideBearing + '</dd>';
+      //   html += '<dt>leftSideBearing</dt><dd>' + glyph.leftSideBearing +
+      //           '</dd>';
       // }
       // html += '</dl>';
       // if (glyph.numberOfContours > 0) {
@@ -198,8 +197,14 @@ angular.module('kibibitCodeEditor')
      * at the end of each contour.
      */
     function drawPathWithArrows(ctx, path) {
-      var i, cmd, x1, y1, x2, y2;
+      var i;
+      var cmd;
+      var x1;
+      var y1;
+      var x2;
+      var y2;
       var arrows = [];
+
       ctx.beginPath();
       for (i = 0; i < path.commands.length; i += 1) {
         cmd = path.commands[i];
