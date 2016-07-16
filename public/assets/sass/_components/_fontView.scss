@@ -109,11 +109,15 @@ span.offcurve { color: red; }
 
 .glyphs-table-container {
   position: absolute;
-  left: 0;
+  left: 10px;
   width: 400px;
 }
 
 .glyph-view-container {
   position: absolute;
-  left: 420px;
+  left: 430px;
+}
+
+#font-name {
+  margin-left: 10px;
 }
