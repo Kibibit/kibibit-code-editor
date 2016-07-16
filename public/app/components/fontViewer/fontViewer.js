@@ -296,16 +296,18 @@ angular.module('kibibitCodeEditor')
     }
 
     function initGlyphDisplay() {
-      var glyphBgCanvas = document.getElementById('glyph-bg'),
-        w = glyphBgCanvas.width / pixelRatio,
-        h = glyphBgCanvas.height / pixelRatio,
-        glyphW = w - glyphMargin*2,
-        glyphH = h - glyphMargin*2,
-        head = vm.font.tables.head,
-        maxHeight = head.yMax - head.yMin,
-        ctx = glyphBgCanvas.getContext('2d');
+      var glyphBgCanvas = document.getElementById('glyph-bg');
+      var w = glyphBgCanvas.width / pixelRatio;
+      var h = glyphBgCanvas.height / pixelRatio;
+      var glyphW = w - glyphMargin * 2;
+      var glyphH = h - glyphMargin * 2;
+      var head = vm.font.tables.head;
+      var maxHeight = head.yMax - head.yMin;
+      var ctx = glyphBgCanvas.getContext('2d');
 
-      glyphScale = Math.min(glyphW/(head.xMax - head.xMin), glyphH/maxHeight);
+      glyphScale = Math.min(
+        glyphW / (head.xMax - head.xMin), glyphH / maxHeight
+      );
       glyphSize = glyphScale * vm.font.unitsPerEm;
       glyphBaseline = glyphMargin + glyphH * head.yMax / maxHeight;
 
@@ -332,22 +334,25 @@ angular.module('kibibitCodeEditor')
       var fontName = vm.font.names.fullName.en;
       document.getElementById('font-name').innerHTML = fontName;
 
-      var w = cellWidth - cellMarginLeftRight * 2,
-        h = cellHeight - cellMarginTop - cellMarginBottom,
-        head = vm.font.tables.head,
-        maxHeight = head.yMax - head.yMin;
-      fontScale = Math.min(w/(head.xMax - head.xMin), h/maxHeight);
+      var w = cellWidth - cellMarginLeftRight * 2;
+      var h = cellHeight - cellMarginTop - cellMarginBottom;
+      var head = vm.font.tables.head;
+      var maxHeight = head.yMax - head.yMin;
+
+      fontScale = Math.min(w / (head.xMax - head.xMin), h / maxHeight);
       fontSize = fontScale * vm.font.unitsPerEm;
       fontBaseline = cellMarginTop + h * head.yMax / maxHeight;
 
-      var pagination = document.getElementById("pagination");
+      var pagination = document.getElementById('pagination');
       pagination.innerHTML = '';
       var fragment = document.createDocumentFragment();
       var numPages = Math.ceil(vm.font.numGlyphs / cellCount);
-      for(var i = 0; i < numPages; i++) {
+      for (var i = 0; i < numPages; i++) {
         var link = document.createElement('span');
-        var lastIndex = Math.min(vm.font.numGlyphs-1, (i + 1)*cellCount-1);
-        link.textContent = i*cellCount + '-' + lastIndex;
+        var lastIndex = Math.min(
+          vm.font.numGlyphs - 1, (i + 1) * cellCount - 1
+        );
+        link.textContent = i * cellCount + '-' + lastIndex;
         link.id = 'p' + i;
         link.addEventListener('click', pageSelect, false);
         fragment.appendChild(link);

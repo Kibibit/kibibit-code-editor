@@ -1,20 +1,20 @@
 kb-font-viewer {
 
   #font-data h3 {
+    background-color: #f8f8f8;
+    cursor: pointer;
     font-weight: normal;
     margin: 0;
-    cursor: pointer;
-    background-color: #f8f8f8;
   }
 
   #font-data h3.expanded::before {
-    font-size: 85%;
     content: "â–¼ ";
+    font-size: 85%;
   }
 
   #font-data h3.collapsed::before {
-    font-size: 85%;
     content: "â–º ";
+    font-size: 85%;
   }
 
   #font-data h3.collapsed + dl {
@@ -22,9 +22,9 @@ kb-font-viewer {
   }
 
   #font-data dl {
+    color: #707070;
     margin-top: 0;
     padding-left: 2em;
-    color: #707070;
   }
 
   #font-data dt {
@@ -33,14 +33,14 @@ kb-font-viewer {
 
   #font-data dd {
     margin-left: 12em;
-    word-break: break-all;
     max-height: 100px;
     overflow-y: auto;
+    word-break: break-all;
   }
 
   #font-data .langtag {
-    font-size: 85%;
     color: #999;
+    font-size: 85%;
     white-space: nowrap;
   }
 
@@ -49,30 +49,30 @@ kb-font-viewer {
   }
 
   #file {
+    color: #999;
     float: left;
     font-size: 11px;
-    color: #999;
   }
 
   /* Glyph Inspector */
 
   #pagination span {
-    margin: 0 0.3em;
     color: #505050;
     cursor: pointer;
+    margin: 0 0.3em;
   }
 
   #pagination span.page-selected {
+    color: #000000;
     font-weight: bold;
-    color: black;
   }
 
   canvas.item {
-    float: left;
     border: solid 1px #a0a0a0;
-    margin-right: -1px;
-    margin-bottom: -1px;
     cursor: pointer;
+    float: left;
+    margin-bottom: -1px;
+    margin-right: -1px;
   }
 
   canvas.item:hover {
@@ -135,14 +135,14 @@ kb-font-viewer {
   }
 
   .glyphs-table-container {
-    position: absolute;
     left: 10px;
+    position: absolute;
     width: 400px;
   }
 
   .glyph-view-container {
-    position: absolute;
     left: 430px;
+    position: absolute;
   }
 
   #font-name {
