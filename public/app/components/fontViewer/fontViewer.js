@@ -265,14 +265,14 @@ angular.module('kibibitCodeEditor')
       ctx.fillStyle = '#606060';
       ctx.font = '9px sans-serif';
       ctx.fillText(glyphIndex, 1, cellHeight-1);
-      var glyph = vm.font.glyphs.get(glyphIndex),
-        glyphWidth = glyph.advanceWidth * fontScale,
-        xmin = (cellWidth - glyphWidth)/2,
-        xmax = (cellWidth + glyphWidth)/2,
-        x0 = xmin;
+      var glyph = vm.font.glyphs.get(glyphIndex);
+      var glyphWidth = glyph.advanceWidth * fontScale;
+      var xmin = (cellWidth - glyphWidth) / 2;
+      var xmax = (cellWidth + glyphWidth) / 2;
+      var x0 = xmin;
 
       ctx.fillStyle = '#a0a0a0';
-      ctx.fillRect(xmin-cellMarkSize + 1, fontBaseline, cellMarkSize, 1);
+      ctx.fillRect(xmin - cellMarkSize + 1, fontBaseline, cellMarkSize, 1);
       ctx.fillRect(xmin, fontBaseline, 1, cellMarkSize);
       ctx.fillRect(xmax, fontBaseline, cellMarkSize, 1);
       ctx.fillRect(xmax, fontBaseline, 1, cellMarkSize);
@@ -285,7 +285,7 @@ angular.module('kibibitCodeEditor')
       pageSelected = pageNum;
       document.getElementById('p' + pageNum).className = 'page-selected';
       var firstGlyph = pageNum * cellCount;
-      for(var i = 0; i < cellCount; i++) {
+      for (var i = 0; i < cellCount; i++) {
         renderGlyphItem(document.getElementById('g' + i), firstGlyph + i);
       }
     }
@@ -399,10 +399,11 @@ angular.module('kibibitCodeEditor')
     // }
 
     function cellSelect(event) {
-      if (!vm.font) return;
-      var firstGlyphIndex = pageSelected*cellCount,
-        cellIndex = +event.target.id.substr(1),
-        glyphIndex = firstGlyphIndex + cellIndex;
+      if (!vm.font) { return };
+      var firstGlyphIndex = pageSelected * cellCount;
+      var cellIndex = +event.target.id.substr(1);
+      var glyphIndex = firstGlyphIndex + cellIndex;
+
       if (glyphIndex < vm.font.numGlyphs) {
         displayGlyph(glyphIndex);
         displayGlyphData(glyphIndex);
@@ -410,9 +411,10 @@ angular.module('kibibitCodeEditor')
     }
 
     function prepareGlyphList() {
-      var marker = document.getElementById('glyph-list-end'),
-        parent = marker.parentElement;
-      for(var i = 0; i < cellCount; i++) {
+      var marker = document.getElementById('glyph-list-end');
+      var parent = marker.parentElement;
+
+      for (var i = 0; i < cellCount; i++) {
         var canvas = document.createElement('canvas');
         canvas.width = cellWidth;
         canvas.height = cellHeight;
@@ -431,15 +433,5 @@ angular.module('kibibitCodeEditor')
     enableHighDPICanvas('glyph');
 
     prepareGlyphList();
-    // opentype.load(fontFileName, function(err, font) {
-    //   var amount, glyph, ctx, x, y, fontSize;
-    //   if (err) {
-    //     showErrorMessage(err.toString());
-    //     return;
-    //   }
-    //   onFontLoaded(font);
-    // });
-
-
   }
 ]);
