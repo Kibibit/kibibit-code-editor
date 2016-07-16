@@ -25,10 +25,18 @@ angular.module('kibibitCodeEditor')
     vm.updateFileContent = function(filePath) {
       if (filePath !== '') {
         FileService.getFile(filePath, function(fileInfo) {
-          vm.fileInfo = fileInfo.data;
-          vm.fileType = getFileTypeFromMimeType(vm.fileInfo.mimeType);
-          vm.imageUri = vm.fileType === 'image' ? vm.fileInfo.content : undefined;
+          if (fileInfo.data.errno) {
+            vm.fileType = 'error';
+          } else {
+            vm.fileInfo = fileInfo.data;
+            vm.fileType = getFileTypeFromMimeType(vm.fileInfo.mimeType);
+            vm.imageUri = vm.fileType === 'image' ?
+              vm.fileInfo.content : undefined;
+          }
         });
+      } else {
+        vm.fileType = 'code';
+        vm.fileInfo = undefined;
       }
     };
 

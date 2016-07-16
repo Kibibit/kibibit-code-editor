@@ -4,7 +4,8 @@ module.exports = function(app, express) {
       folderService = require('../models/folderService.js'),
       userHomeDirectoryService =
         require('../models/userHomeDirectoryService.js'),
-      downloadService = require('../models/downloadService.js');
+      downloadService = require('../models/downloadService.js'),
+      settingsService = require('../models/settingsService.js');
 
   var apiRouter = express.Router();
 
@@ -46,6 +47,10 @@ module.exports = function(app, express) {
 
   apiRouter.route('/userHomeDirectory/')
       .get(userHomeDirectoryService.get);
+
+  apiRouter.route('/settings/')
+      .get(settingsService.get)
+      .put(settingsService.put);
 
   return apiRouter;
 };

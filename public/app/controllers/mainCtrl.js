@@ -5,19 +5,39 @@ angular.module('kibibitCodeEditor')
   '$http',
   'ngDialog',
   'SettingsService',
+  'SessionStorageService',
   function(
     $scope,
     $http,
     ngDialog,
-    SettingsService) {
+    SettingsService,
+    SessionStorageService) {
 
     var vm = this;
 
     window.mainCtrl = vm;
 
     vm.openFile = '';
+    vm.openProject = {};
 
     vm.settings = SettingsService.settings;
+
+    if (SessionStorageService.projectFolderPath) {
+      vm.projectFolderPath = sessionStorage.projectFolderPath;
+      console.debug('last project loaded from session storage');
+    }
+
+    if (SessionStorageService.openFile) {
+      vm.openFile = sessionStorage.openFile;
+      console.debug('last file loaded from session storage');
+    }
+
+    $scope.$watch(function() {
+      return vm.openFile;
+    }, function(newVal) {
+      SessionStorageService.openFile = newVal;
+      console.debug('last file saved to session storage');
+    });
 
     vm.showAModal = function() {
       ngDialog.open({
@@ -42,6 +62,12 @@ angular.module('kibibitCodeEditor')
       }).closePromise.then(function(selectedProjectFolderPath) {
         if (!vm.isModalCancel(selectedProjectFolderPath.value)) {
           vm.projectFolderPath = selectedProjectFolderPath.value;
+          SessionStorageService.projectFolderPath = vm.projectFolderPath;
+          console.debug('project path saved to session storage');
+          vm.settings.recentlyOpen.push(vm.projectFolderPath);
+          if (vm.openFile !== '') {
+            vm.openFile = '';
+          }
         }
       });
     };
@@ -60,5 +86,11 @@ angular.module('kibibitCodeEditor')
                 vm.userHomeDirectoryPath = res.data;
                 vm.showProjectSelectModal();
               });
+    };
+
+    vm.emptyEditor = function() {
+      vm.projectFolderPath = '';
+      SessionStorageService.projectFolderPath = vm.projectFolderPath;
+      vm.openFile = '';
     };
   }]);

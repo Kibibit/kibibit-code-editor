@@ -3,4 +3,5 @@
 	<div class="img-view-container" ng-switch-when="image">
 		<img kb-full-image-view class="img-view" ng-src="{{ viewByFileCtrl.imageUri }}">
 	</div>
+	<error-view ng-switch-when="error"></error-view>
 </div>
