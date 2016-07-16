@@ -195,7 +195,7 @@ angular.module('kibibitCodeEditor')
       for (i = 0; i < path.commands.length; i += 1) {
         cmd = path.commands[i];
         if (cmd.type === 'M') {
-          if(x1 !== undefined) {
+          if (x1 !== undefined) {
             arrows.push([ctx, x1, y1, x2, y2]);
           }
           ctx.moveTo(cmd.x, cmd.y);
@@ -234,21 +234,23 @@ angular.module('kibibitCodeEditor')
     }
 
     function displayGlyph(glyphIndex) {
-      var canvas = document.getElementById('glyph'),
-        ctx = canvas.getContext('2d'),
-        width = canvas.width / pixelRatio,
-        height = canvas.height / pixelRatio;
+      var canvas = document.getElementById('glyph');
+      var ctx = canvas.getContext('2d');
+      var width = canvas.width / pixelRatio;
+      var height = canvas.height / pixelRatio;
+
       ctx.clearRect(0, 0, width, height);
-      if(glyphIndex < 0) return;
-      var glyph = vm.font.glyphs.get(glyphIndex),
-        glyphWidth = glyph.advanceWidth * glyphScale,
-        xmin = (width - glyphWidth)/2,
-        xmax = (width + glyphWidth)/2,
-        x0 = xmin,
-        markSize = 10;
+      if (glyphIndex < 0) { return; }
+
+      var glyph = vm.font.glyphs.get(glyphIndex);
+      var glyphWidth = glyph.advanceWidth * glyphScale;
+      var xmin = (width - glyphWidth) / 2;
+      var xmax = (width + glyphWidth) / 2;
+      var x0 = xmin;
+      var markSize = 10;
 
       ctx.fillStyle = '#606060';
-      ctx.fillRect(xmin-markSize + 1, glyphBaseline, markSize, 1);
+      ctx.fillRect(xmin - markSize + 1, glyphBaseline, markSize, 1);
       ctx.fillRect(xmin, glyphBaseline, 1, markSize);
       ctx.fillRect(xmax, glyphBaseline, markSize, 1);
       ctx.fillRect(xmax, glyphBaseline, 1, markSize);
@@ -269,11 +271,11 @@ angular.module('kibibitCodeEditor')
       var cellMarkSize = 4;
       var ctx = canvas.getContext('2d');
       ctx.clearRect(0, 0, cellWidth, cellHeight);
-      if (glyphIndex >= vm.font.numGlyphs) return;
+      if (glyphIndex >= vm.font.numGlyphs) { return; }
 
       ctx.fillStyle = '#606060';
       ctx.font = '9px sans-serif';
-      ctx.fillText(glyphIndex, 1, cellHeight-1);
+      ctx.fillText(glyphIndex, 1, cellHeight - 1);
       var glyph = vm.font.glyphs.get(glyphIndex);
       var glyphWidth = glyph.advanceWidth * fontScale;
       var xmin = (cellWidth - glyphWidth) / 2;
@@ -408,7 +410,8 @@ angular.module('kibibitCodeEditor')
     // }
 
     function cellSelect(event) {
-      if (!vm.font) { return };
+      console.log('event: ', event);
+      if (!vm.font) { return; }
       var firstGlyphIndex = pageSelected * cellCount;
       var cellIndex = +event.target.id.substr(1);
       var glyphIndex = firstGlyphIndex + cellIndex;

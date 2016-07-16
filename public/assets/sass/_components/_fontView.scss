@@ -68,6 +68,7 @@ kb-font-viewer {
   }
 
   canvas.item {
+    background: rgba(255, 255, 255, 0.1);
     border: solid 1px #a0a0a0;
     cursor: pointer;
     float: left;
