@@ -1,4 +1,5 @@
 kb-font-viewer {
+  display: flex;
 
   #font-data h3 {
     background-color: #f8f8f8;
@@ -136,14 +137,18 @@ kb-font-viewer {
   }
 
   .glyphs-table-container {
-    left: 280px;
+    margin-left: 10px;
     margin-right: 10px;
-    position: absolute;
+
+    .glyphs-table {
+      min-width: 231px;
+    }
   }
 
   .glyph-view-container {
-    left: 10px;
-    position: absolute;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-left: 10px;
     width: 250px;
   }
 
