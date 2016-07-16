@@ -360,7 +360,8 @@ angular.module('kibibitCodeEditor')
       initGlyphDisplay();
       displayGlyphPage(0);
 
-      var initialGlyphIndex = getRandomIntInclusive(0, vm.font.numGlyphs);
+      var glyphRange = vm.font.numGlyphs > 100 ? 100 : vm.font.numGlyphs;
+      var initialGlyphIndex = getRandomIntInclusive(0, glyphRange);
 
       displayGlyph(initialGlyphIndex);
       displayGlyphData(initialGlyphIndex);
