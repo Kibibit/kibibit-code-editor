@@ -18,30 +18,30 @@ angular.module('kibibitCodeEditor')
 
       /* BLUR ON ESC */
       input.keyup(function(e) {
-          if (e.keyCode == 27) {
-              input.blur();
-          }
+        if (e.keyCode == 27) {
+          input.blur();
+        }
       });
 
       /* CHANGE CLASSES ON FOCUS\BLUR */
       input.focus(function() {
-          input.addClass('open');
-          searchBtn.addClass('open');
-          input.removeClass('blurred');
+        input.addClass('open');
+        searchBtn.addClass('open');
+        input.removeClass('blurred');
       });
 
       input.blur(function() {
-          if (input.val() === '') {
-              input.removeClass('open');
-              searchBtn.removeClass('open');
-          }
-          input.addClass('blurred');
+        if (input.val() === '') {
+          input.removeClass('open');
+          searchBtn.removeClass('open');
+        }
+        input.addClass('blurred');
       });
 
       function openSearch() {
-          if (!input.hasClass('open')) {
-              input.focus();
-          }
+        if (!input.hasClass('open')) {
+          input.focus();
+        }
       }
     }
   };
