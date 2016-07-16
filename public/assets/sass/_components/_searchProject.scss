@@ -1,0 +1,80 @@
+$active-color: $candy-yellow;
+// make this bounce only at end animation
+$bounce: cubic-bezier(0.87, -0.41, 0.19, 1.44);
+$font-size: 16px;
+$inactive-color: $grey4;
+$search-width: $font-size * 20;
+
+kb-search-project {
+    /*display: inline-flex;
+    font-size: $font-size;
+    color: $active-color;
+    z-index: 5;*/
+
+    display: inline-block;
+    height: auto;
+    margin: auto;
+    padding: 0;
+    position: relative;
+
+    .search-btn {
+        background-color: transparent;
+        border: 0;
+        cursor: pointer;
+        font-size: 14px;
+        height: 40px;
+        margin: 0;
+        padding: 0 10px;
+
+        .search-icon {
+            font-size: $font-size + 6;
+            position: relative;
+            top: 7px;
+        }
+        
+        &.open {
+            pointer-events: none;
+        }
+    }
+
+    .search-input {
+        -webkit-font-smoothing: antialiased;
+        background: none;
+        border-bottom: $active-color 2px solid;
+        border: none;
+        color: $active-color;
+        font-family: Roboto,"Helvetica Neue",sans-serif;
+        font-size: $font-size * 0.85;
+        font-weight: 300;
+        opacity: 0;
+        outline: none;
+        padding-left: 0;
+        padding-right: 0;
+        padding: 0;
+        transition: all 300ms ease-out, width 400ms $bounce;
+        width: 0;
+
+        &.open {
+            opacity: 1;
+            padding-left: 7px;
+            padding-right: 7px;
+            width: $search-width;
+        }
+        &.blurred {
+            border-bottom: $inactive-color 2px solid;
+            color: $inactive-color;
+            &::selection {
+                background-color: rgba($black, 0);
+                color: $inactive-color;
+            }
+        }
+        &::placeholder {
+            color: $inactive-color;
+        }
+
+        &::selection {
+            background-color: $active-color;
+            color: $white;
+        }
+    }
+}
