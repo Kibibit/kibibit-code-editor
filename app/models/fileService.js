@@ -21,20 +21,23 @@ fileService.get = function(req, res) {
 
   var showNoContent = false ||
       isFileOfType('zip') ||
-      isFileOfType('program');
+      isFileOfType('program') ||
+      isFileOfType('application/x-apple-diskimage');
 
   // temprorary solution until we have a view selector on the FRONT-END
   if (showNoContent) {
     res.json({
       content: 'awww man... we can\'t show ' + mimeType + ' yet :-(',
-      mimeType: 'text/text'
+      mimeType: 'text/text',
+      errno: -1
     });
   } else if (isFileOfType('image')) {
     console.info('image requested. Serving data URI');
     var dataUri = base64Image(fileFullPath);
     var file = {
       content: dataUri,
-      mimeType: mimeType
+      mimeType: mimeType,
+      path: fileFullPath
     };
     res.json(file);
   } else if (isFileOfType('font')) {
@@ -53,7 +56,8 @@ fileService.get = function(req, res) {
           var file = {
             content: data,
             mimeType: mimeType,
-            lastModified: stats.mtime
+            lastModified: stats.mtime,
+            path: fileFullPath
           };
           res.json(file);
           console.info('file requested: ' + fileFullPath);
@@ -110,7 +114,7 @@ fileService.putExtraArg = function(req, res) {
   var fileFullPath = req.params.file_id;
   var isHardSave = req.params.extra_arg;
   if (isHardSave === 'true') {
-    if (req.body.newContent || 0 === req.body.newContent.length) {
+    if (req.body.newContent) {
       fs.writeFile(fileFullPath, req.body.newContent, 'utf8', function(err) {
         if (err) {
           res.json(err);
