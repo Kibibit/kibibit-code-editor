@@ -135,17 +135,18 @@ kb-font-viewer {
   }
 
   .glyphs-table-container {
-    left: 10px;
+    left: 280px;
+    margin-right: 10px;
     position: absolute;
-    width: 400px;
   }
 
   .glyph-view-container {
-    left: 430px;
+    left: 10px;
     position: absolute;
+    width: 250px;
   }
 
-  #font-name {
-    margin-left: 10px;
+  .unicode {
+    float: right;
   }
 }

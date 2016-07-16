@@ -3,14 +3,14 @@
 
 
 <!--<input id="file" type="file">-->
-<span class="info" id="font-name">{{fontViewerCtrl.fontName}}</span>
+
 <!--<div id="message"></div>-->
 
-<div class="glyphs-table-container">
-  <div id="glyph-list-end"></div>
-  Glyphs <span id="pagination"></span>
-</div>
 <div class="glyph-view-container">
+  <span class="glyph-description">
+    <span class="info" id="selected-glyph-name"></span>
+    <span class="info unicode" id="selected-glyph-unicode"></span>
+  </span>
   <div id="glyph-display">
     <canvas id="glyph-bg" width="250" height="250"></canvas>
     <canvas id="glyph" width="250" height="250"></canvas>
@@ -19,5 +19,10 @@
   <div style="clear: both"></div>
 </div>
 
-<!--<canvas width="940" height="500" id="font-canvas"></canvas>-->
-
+<div class="glyphs-table-container">
+  <span class="info" id="font-name"></span>
+  <div class="glyphs-table">
+    <div id="glyph-list-end"></div>
+    Glyphs <span id="pagination"></span>
+  </div>
+</div>

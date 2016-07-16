@@ -115,14 +115,23 @@ angular.module('kibibitCodeEditor')
         return;
       }
       var glyph = vm.font.glyphs.get(glyphIndex);
-      var html;
-      html = '<dt>name</dt><dd>' + glyph.name + '</dd>';
 
+      // Display glyph name and unicode
+      var glyphName = document.getElementById('selected-glyph-name');
+      var nameDesc = 'Name: ' + glyph.name;
+      glyphName.innerHTML = nameDesc;
+
+      var glyphCode = document.getElementById('selected-glyph-unicode');
+      var unicodeDesc = '';
       if (glyph.unicodes.length > 0) {
-        html += '<dt>unicode</dt><dd>' +
-          glyph.unicodes.map(formatUnicode).join(', ') + '</dd>';
+        var unicode = glyph.unicodes.map(formatUnicode).join(', ');
+        unicodeDesc = 'Unicode: ' + unicode;
       }
-      html += '<dl><dt>index</dt><dd>' + glyph.index + '</dd>';
+      glyphCode.innerHTML = unicodeDesc;
+
+      var html;
+
+      html = '<dl><dt>index</dt><dd>' + glyph.index + '</dd>';
 
       if (glyph.xMin !== 0 || glyph.xMax !== 0 ||
           glyph.yMin !== 0 || glyph.yMax !== 0) {
@@ -332,7 +341,7 @@ angular.module('kibibitCodeEditor')
       window.font = vm.font;
 
       var fontName = vm.font.names.fullName.en;
-      document.getElementById('font-name').innerHTML = fontName;
+      document.getElementById('font-name').innerHTML = 'Font: ' + fontName;
 
       var w = cellWidth - cellMarginLeftRight * 2;
       var h = cellHeight - cellMarginTop - cellMarginBottom;
