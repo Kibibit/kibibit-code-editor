@@ -150,4 +150,8 @@ kb-font-viewer {
   .unicode {
     float: right;
   }
+
+  .item.selected-glyph {
+    background: $candy-yellow;
+  }
 }

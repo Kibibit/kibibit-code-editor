@@ -410,11 +410,20 @@ angular.module('kibibitCodeEditor')
     // }
 
     function cellSelect(event) {
-      console.log('event: ', event);
       if (!vm.font) { return; }
       var firstGlyphIndex = pageSelected * cellCount;
       var cellIndex = +event.target.id.substr(1);
       var glyphIndex = firstGlyphIndex + cellIndex;
+      console.log('glyphIndex: ', glyphIndex);
+
+      var currentGlyph = document.getElementsByClassName('selected-glyph');
+      console.log('selectedGlyph: ', currentGlyph);
+      if (currentGlyph[0]) {
+        currentGlyph[0].className = 'item';
+      }
+      var selectedGlyph = document.getElementById('g' + glyphIndex);
+      selectedGlyph.className += ' selected-glyph';
+
 
       if (glyphIndex < vm.font.numGlyphs) {
         displayGlyph(glyphIndex);
