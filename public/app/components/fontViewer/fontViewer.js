@@ -116,11 +116,12 @@ angular.module('kibibitCodeEditor')
       }
       var glyph = vm.font.glyphs.get(glyphIndex);
 
-      // Display glyph name and unicode
+      // Display glyph name
       var glyphName = document.getElementById('selected-glyph-name');
       var nameDesc = 'Name: ' + glyph.name;
       glyphName.innerHTML = nameDesc;
 
+      // Display glyph unicode number
       var glyphCode = document.getElementById('selected-glyph-unicode');
       var unicodeDesc = '';
       if (glyph.unicodes.length > 0) {
@@ -129,22 +130,30 @@ angular.module('kibibitCodeEditor')
       }
       glyphCode.innerHTML = unicodeDesc;
 
-      var html;
+      var glyphWidth = document.getElementById('selected-glyph-width');
+      var advancedWidth = 'Width: ' + glyph.advanceWidth;
+      glyphWidth.innerHTML = advancedWidth;
 
-      html = '<dl><dt>index</dt><dd>' + glyph.index + '</dd>';
+      var glyphIndex = document.getElementById('selected-glyph-index');
+      var index = 'Index: ' + glyph.index;
+      glyphIndex.innerHTML = index;
 
-      if (glyph.xMin !== 0 || glyph.xMax !== 0 ||
-          glyph.yMin !== 0 || glyph.yMax !== 0) {
-        html += '<dt>xMin</dt><dd>' + glyph.xMin+'</dd>' +
-          '<dt>xMax</dt><dd>' + glyph.xMax + '</dd>' +
-          '<dt>yMin</dt><dd>' + glyph.yMin + '</dd>' +
-          '<dt>yMax</dt><dd>' + glyph.yMax + '</dd>';
-      }
-      html += '<dt>advanceWidth</dt><dd>' + glyph.advanceWidth + '</dd>';
-      if(glyph.leftSideBearing !== undefined) {
-        html += '<dt>leftSideBearing</dt><dd>' + glyph.leftSideBearing + '</dd>';
-      }
-      html += '</dl>';
+      // var html;
+
+      // html = '<dl><dt>index</dt><dd>' + glyph.index + '</dd>';
+
+      // if (glyph.xMin !== 0 || glyph.xMax !== 0 ||
+      //     glyph.yMin !== 0 || glyph.yMax !== 0) {
+      //   html += '<dt>xMin</dt><dd>' + glyph.xMin+'</dd>' +
+      //     '<dt>xMax</dt><dd>' + glyph.xMax + '</dd>' +
+      //     '<dt>yMin</dt><dd>' + glyph.yMin + '</dd>' +
+      //     '<dt>yMax</dt><dd>' + glyph.yMax + '</dd>';
+      // }
+      // html += '<dt>advanceWidth</dt><dd>' + glyph.advanceWidth + '</dd>';
+      // if(glyph.leftSideBearing !== undefined) {
+      //   html += '<dt>leftSideBearing</dt><dd>' + glyph.leftSideBearing + '</dd>';
+      // }
+      // html += '</dl>';
       // if (glyph.numberOfContours > 0) {
       //   var contours = glyph.getContours();
       //   html += 'contours:<br>' + contours.map(contourToString).join('\n');
@@ -159,7 +168,7 @@ angular.module('kibibitCodeEditor')
       //           glyph.path.commands.map(pathCommandToString).join('\n  ') +
       //           '\n</pre>';
       // }
-      container.innerHTML = html;
+      // container.innerHTML = html;
     }
 
     // var arrowLength = 10;
