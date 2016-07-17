@@ -461,9 +461,6 @@ angular.module('kibibitCodeEditor')
       }
     }
 
-    // var fileButton = document.getElementById('file');
-    // fileButton.addEventListener('change', onReadFile, false);
-
     enableHighDPICanvas('glyph-bg');
     enableHighDPICanvas('glyph');
 
