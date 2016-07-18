@@ -1,8 +1,6 @@
 
 kb-font-viewer {
 
-  display: flex;
-
   //#font-data h3 {
   //  background-color: #f8f8f8;
   //  cursor: pointer;
@@ -58,14 +56,18 @@ kb-font-viewer {
   //}
 
   /* Glyph Inspector */
+  .pagination {
+    margin: 0;
 
-  .pagination span {
-    color: $grey3;
-    cursor: pointer;
-    margin: 0 0.3em;
-    &.page-selected {
-      color: $black;
-      font-weight: bold;
+    span {
+      color: $grey4;
+      cursor: pointer;
+      margin: 0 0.3em;
+
+      &.page-selected {
+        color: $candy-yellow;
+        font-weight: bold;
+      }
     }
   }
 
@@ -90,7 +92,6 @@ kb-font-viewer {
 
   #glyph-list-end {
     clear: both;
-    height: 20px;
   }
 
   #glyph-display {
@@ -144,6 +145,10 @@ kb-font-viewer {
   //  color: #ff0000;
   //}
 
+  .main-section {
+    display: flex;
+  }
+
   .glyphs-table-container {
     margin-left: 10px;
     margin-right: 10px;
@@ -166,6 +171,12 @@ kb-font-viewer {
 
   .item.selected-glyph {
     background: $candy-yellow;
+  }
+
+  .font-view-header {
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-top: 0;
   }
 
 }

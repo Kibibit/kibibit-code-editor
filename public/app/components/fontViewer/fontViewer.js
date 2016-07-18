@@ -36,6 +36,10 @@ angular.module('kibibitCodeEditor')
       });
     };
 
+    var selectedGlyphIndex;
+    var selectedGlyphPageIndex = '0';
+    var currentPage = '0';
+
     var cellCount = 100;
     // var cellWidth = 44;
     var cellWidth = 34;
@@ -316,8 +320,16 @@ angular.module('kibibitCodeEditor')
     }
 
     function pageSelect(event) {
+      currentPage = event.target.id.substr(1);
       document.getElementsByClassName('page-selected')[0].className = '';
       displayGlyphPage(+event.target.id.substr(1));
+
+      if (currentPage === selectedGlyphPageIndex) {
+        selectCurrentGlyph(selectedGlyphIndex);
+      } else {
+        deselectCurrentGlyph();
+      }
+
     }
 
     function initGlyphDisplay() {
@@ -391,10 +403,11 @@ angular.module('kibibitCodeEditor')
       displayGlyphPage(0);
 
       var glyphRange = vm.font.numGlyphs > 100 ? 100 : vm.font.numGlyphs;
-      var initialGlyphIndex = getRandomIntInclusive(0, glyphRange);
+      selectedGlyphIndex = getRandomIntInclusive(0, glyphRange);
+      selectCurrentGlyph(selectedGlyphIndex);
 
-      displayGlyph(initialGlyphIndex);
-      displayGlyphData(initialGlyphIndex);
+      displayGlyph(selectedGlyphIndex);
+      displayGlyphData(selectedGlyphIndex);
     }
 
     function getRandomIntInclusive(min, max) {
@@ -428,20 +441,28 @@ angular.module('kibibitCodeEditor')
       var firstGlyphIndex = pageSelected * cellCount;
       var cellIndex = +event.target.id.substr(1);
       var glyphIndex = firstGlyphIndex + cellIndex;
-      console.log('glyphIndex: ', glyphIndex);
 
-      var currentGlyph = document.getElementsByClassName('selected-glyph');
-      console.log('selectedGlyph: ', currentGlyph);
-      if (currentGlyph[0]) {
-        currentGlyph[0].className = 'item';
-      }
-      var selectedGlyph = document.getElementById('g' + glyphIndex);
-      selectedGlyph.className += ' selected-glyph';
-
-
+      selectCurrentGlyph(glyphIndex);
       if (glyphIndex < vm.font.numGlyphs) {
         displayGlyph(glyphIndex);
         displayGlyphData(glyphIndex);
+      }
+    }
+
+    function selectCurrentGlyph(index) {
+      //we use mod100 in order to get the right index(0-99) after the 1st page
+      index %= 100;
+      selectedGlyphIndex = index;
+      selectedGlyphPageIndex = currentPage;
+      deselectCurrentGlyph();
+      var selectedGlyph = document.getElementById('g' + index);
+      selectedGlyph.className += ' selected-glyph';
+    }
+
+    function deselectCurrentGlyph() {
+      var glyphToDeselect = document.getElementsByClassName('selected-glyph');
+      if (glyphToDeselect[0]) {
+        glyphToDeselect[0].className = 'item';
       }
     }
 

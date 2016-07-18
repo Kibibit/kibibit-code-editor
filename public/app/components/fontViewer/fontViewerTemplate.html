@@ -1,25 +1,28 @@
 <!--<input type="range" id="myRange" min="30" max="150" value="fontViewerCtrl.fontSize" ng-model="fontViewerCtrl.fontSize"-->
        <!--ng-change="fontViewerCtrl.redrawFont()">-->
 
-<div class="glyph-view-container">
-  <div class="glyph-description">
-    <span class="info" id="selected-glyph-name"></span>
-    <span class="info unicode" id="selected-glyph-unicode"></span>
+<h2 class="font-view-header" id="font-name"></h2>
+<div class="main-section">
+  <div class="glyph-view-container">
+    <div class="glyph-description">
+      <span class="info" id="selected-glyph-name"></span>
+      <span class="info unicode" id="selected-glyph-unicode"></span>
+    </div>
+    <div id="glyph-display">
+      <canvas id="glyph-bg" width="250" height="250"></canvas>
+      <canvas id="glyph" width="250" height="250"></canvas>
+    </div>
+    <div class="glyph-data">
+      <span class="info" id="selected-glyph-width"></span>
+      <span class="info index" id="selected-glyph-index"></span>
+    </div>
   </div>
-  <div id="glyph-display">
-    <canvas id="glyph-bg" width="250" height="250"></canvas>
-    <canvas id="glyph" width="250" height="250"></canvas>
-  </div>
-  <div class="glyph-data">
-    <span class="info" id="selected-glyph-width"></span>
-    <span class="info index" id="selected-glyph-index"></span>
-  </div>
-</div>
 
-<div class="glyphs-table-container">
-  <span class="info" id="font-name"></span>
-  <div class="glyphs-table">
-    <div id="glyph-list-end"></div>
-    Glyphs <span class="pagination"></span>
+  <div class="glyphs-table-container">
+    Glyphs
+    <div class="glyphs-table">
+      <div id="glyph-list-end"></div>
+    </div>
+    Page <span class="pagination"></span>
   </div>
 </div>
