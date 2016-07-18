@@ -182,4 +182,25 @@ kb-font-viewer {
     margin-top: 0;
   }
 
+  .footer {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    height: 50px;
+    box-shadow: -1px 1px 37px 6px rgba(0,0,0,0.75);
+
+    input {
+      height: 50px;
+      width: 100%;
+      border: none;
+      border-bottom: 2px solid #ffbc00;
+      color: #ffbc00;
+      padding: 10px;
+      font-size: 200%;
+      outline: none;
+      background-color: lighten(black, 15%);
+    }
+  }
+
 }

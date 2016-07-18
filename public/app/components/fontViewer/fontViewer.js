@@ -323,7 +323,7 @@ angular.module('kibibitCodeEditor')
       currentPage = event.target.id.substr(1);
       document.getElementsByClassName('page-selected')[0].className = '';
       displayGlyphPage(+event.target.id.substr(1));
-
+      
       if (currentPage === selectedGlyphPageIndex) {
         selectCurrentGlyph(selectedGlyphIndex);
       } else {
