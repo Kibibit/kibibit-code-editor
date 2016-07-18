@@ -152,9 +152,12 @@ kb-font-viewer {
   .glyphs-table-container {
     margin-left: 10px;
     margin-right: 10px;
+    min-width: 228px;
 
     .glyphs-table {
-      min-width: 231px;
+      max-height: 250px;
+      overflow-y: auto;
+      padding-bottom: 1px;
     }
   }
 
