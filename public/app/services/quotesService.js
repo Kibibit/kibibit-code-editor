@@ -4,7 +4,7 @@ angular.module('kibibitCodeEditor')
   var vm = this;
 
   vm.getQuotes = function(numberOfQuotes) {
-    var quotesPromise = $http.get('/api/quotes/' + (numberOfQuotes || ''))
+    var quotesPromise = $http.get('/api/quotes/' + (numberOfQuotes || ''));
     quotesPromise.then(function(res) {
       if (angular.isNumber(res.errno)) {
         console.error(res.errno);
