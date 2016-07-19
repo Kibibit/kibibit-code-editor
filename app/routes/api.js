@@ -5,6 +5,7 @@ module.exports = function(app, express) {
       userHomeDirectoryService =
         require('../models/userHomeDirectoryService.js'),
       downloadService = require('../models/downloadService.js'),
+      quotesService = require('../models/quotesService.js'),
       settingsService = require('../models/settingsService.js');
 
   var apiRouter = express.Router();
@@ -51,6 +52,9 @@ module.exports = function(app, express) {
   apiRouter.route('/settings/')
       .get(settingsService.get)
       .put(settingsService.put);
+
+  apiRouter.route('/quotes/:num?')
+    .get(quotesService.get);
 
   return apiRouter;
 };
