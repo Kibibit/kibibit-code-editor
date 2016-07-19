@@ -2,6 +2,7 @@ fail_on_violations: true
 jscs:
   enabled: true
   config_file: .jscsrc_hound
+  ignore_file: .javascript_ignore
 javascript:
   enabled: false
 scss:
