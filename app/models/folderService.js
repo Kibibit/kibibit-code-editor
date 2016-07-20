@@ -1,5 +1,4 @@
-var dirTree = require('directory-tree'),
-    fs = require('fs'),
+var fs = require('fs'),
     path = require('path'),
     fileService = require('./fileService.js');
 var console = require('./consoleService')
