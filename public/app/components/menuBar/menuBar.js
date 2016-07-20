@@ -109,8 +109,10 @@ angular.module('kibibitCodeEditor')
     var selectionText = editor.getSelectedText();
     var selection = vm.settings.currentEditor.selection.getRange();
     var camelCased = selectionText.replace(
-        /[_-\s]([a-zA-Z])/g,
-        function(g) { return g[1].toUpperCase(); }
+      /[_-\s]([a-zA-Z])/g,
+      function(g) {
+        return g[1].toUpperCase();
+      }
     );
     camelCased = camelCased[0].toLowerCase() + camelCased.substring(1);
     vm.settings.currentEditor.session.replace(
