@@ -1,5 +1,4 @@
-var dirTree = require('directory-tree'),
-    fs = require('fs'),
+var fs = require('fs'),
     util = require('util'),
     mime = require('mime-types');
 var console = require('./consoleService')('FILE CONTENT', ['blue', 'inverse']);
