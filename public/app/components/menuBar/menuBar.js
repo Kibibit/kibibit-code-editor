@@ -110,9 +110,7 @@ angular.module('kibibitCodeEditor')
     var selection = vm.settings.currentEditor.selection.getRange();
     var camelCased = selectionText.replace(
         /[_-\s]([a-zA-Z])/g,
-        function (g) {
-            return g[1].toUpperCase();
-        }
+        function(g) { return g[1].toUpperCase(); }
     );
     camelCased = camelCased[0].toLowerCase() + camelCased.substring(1);
     vm.settings.currentEditor.session.replace(
@@ -127,7 +125,7 @@ angular.module('kibibitCodeEditor')
     var selection = vm.settings.currentEditor.selection.getRange();
     var titleCased = selectionText.replace(
       /[_-\s]([a-zA-Z])|([a-z])([A-Z])/g,
-      function (g, singleLetter, firstLetter, secondLetter) {
+      function(g, singleLetter, firstLetter, secondLetter) {
         return secondLetter ?
           firstLetter + ' ' + secondLetter.toUpperCase() :
           ' ' + singleLetter.toUpperCase();
@@ -147,7 +145,7 @@ angular.module('kibibitCodeEditor')
     var selection = vm.settings.currentEditor.selection.getRange();
     var titleCased = selectionText.replace(
       /[_-\s]([a-zA-Z])|([a-z])([A-Z])/g,
-      function (g, singleLetter, firstLetter, secondLetter) {
+      function(g, singleLetter, firstLetter, secondLetter) {
         return secondLetter ?
           firstLetter + '-' + secondLetter.toLowerCase() :
           '-' + singleLetter.toLowerCase();
@@ -167,7 +165,7 @@ angular.module('kibibitCodeEditor')
     var selection = vm.settings.currentEditor.selection.getRange();
     var titleCased = selectionText.replace(
       /[_-\s]([a-zA-Z])|([a-z])([A-Z])/g,
-      function (g, singleLetter, firstLetter, secondLetter) {
+      function(g, singleLetter, firstLetter, secondLetter) {
         return secondLetter ?
           firstLetter + '_' + secondLetter.toLowerCase() :
           '_' + singleLetter.toLowerCase();
