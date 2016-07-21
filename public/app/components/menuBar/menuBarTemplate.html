@@ -280,26 +280,27 @@
                             <md-button
                             ng-click="menuBarCtrl.changeSelectionToSnakeCase()">snake_case</md-button>
                         </md-menu-item>
-                        <md-menu-divider ng-if="isMultiLineSelection"></md-menu-divider>
-                        <md-menu-item ng-if="isMultiLineSelection">
-                            <md-button
-                            ng-click="menuBarCtrl.execEditorCommand('sortlines')">
-                                Sort Lines
-                                <span class="md-alt-text">{{ 'M-A-S' | keyboardShortcut }}</span>
-                            </md-button>
-                        </md-menu-item>
-                        <md-menu-item ng-if="isMultiLineSelection">
+                        <md-menu-divider></md-menu-divider>
+                        <md-menu-item>
                             <md-button
                             ng-click="menuBarCtrl.execEditorCommand('togglecomment')">
                                 Toggle Comment
                                 <span class="md-alt-text">{{ 'M-/' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
-                        <md-menu-item ng-if="isMultiLineSelection">
+                        <md-menu-item>
                             <md-button
                             ng-click="menuBarCtrl.execEditorCommand('toggleBlockComment')">
                                 Toggle Block Comment
                                 <span class="md-alt-text">{{ 'M-S-/' | keyboardShortcut }}</span>
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-divider ng-if="isMultiLineSelection"></md-menu-divider>
+                        <md-menu-item ng-if="isMultiLineSelection">
+                            <md-button
+                            ng-click="menuBarCtrl.execEditorCommand('sortlines')">
+                                Sort Lines
+                                <span class="md-alt-text">{{ 'M-A-S' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
                     </md-menu-content>
