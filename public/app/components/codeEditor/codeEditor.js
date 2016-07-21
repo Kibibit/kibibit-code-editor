@@ -65,6 +65,7 @@ angular.module('kibibitCodeEditor')
       vm.undoManager = editor.getSession().getUndoManager();
       SettingsService.settings.currentUndoManager = vm.undoManager;
       SettingsService.settings.currentEditor = editor;
+      editor.$blockScrolling = Infinity;
       initEditor(editor, editorSettings);
     }
 
@@ -139,7 +140,8 @@ angular.module('kibibitCodeEditor')
         'fontSize': settings.fontSize,
         'showGutter': settings.isGutter,
         'useSoftTabs': settings.isSoftTabs,
-        'showPrintMargin': settings.ruler
+        'showPrintMargin': settings.ruler,
+        'scrollPastEnd': true
       });
     }
 

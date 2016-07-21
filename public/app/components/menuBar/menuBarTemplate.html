@@ -106,7 +106,16 @@
                         <md-menu-item class="md-indent">
                             <md-icon class="material-icons" style="color: rgba(0, 0, 0, 0.258824)">content_paste</md-icon>
                             <md-button ng-click="menuBarCtrl.paste()" disabled="disabled">
-                                Paste
+                                Paste 
+                                <md-icon
+                                class="material-icons"
+                                ng-mouseenter="infoHover = true"
+                                ng-mouseleave="infoHover = false">
+                                    {{ infoHover ? 'info' : 'info_outline' }}
+                                    <md-tooltip md-direction="right">
+                                        Web browsers don't allow sites to paste content. You can use the keyboard shortcut
+                                    </md-tooltip>
+                                </md-icon>
                                 <span class="md-alt-text">{{ 'M-P' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
