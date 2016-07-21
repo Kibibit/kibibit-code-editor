@@ -4,14 +4,20 @@ angular.module('kibibitCodeEditor')
   var vm = this;
 
   vm.getQuotes = function(numberOfQuotes) {
-    var quotesPromise = $http.get('/api/quotes/' + (numberOfQuotes || ''));
-    quotesPromise.then(function(res) {
+    var deferred = $q.defer();
+
+    $http.get('/api/quotes/' + (numberOfQuotes || '')).then(function(res) {
       if (angular.isNumber(res.errno)) {
         console.error(res.errno);
+        deferred.reject(res);
+      } else {
+        deferred.resolve(res.data);
       }
+    }, function(httpError) {
+      deferred.reject(httpError);
     });
 
-    return quotesPromise;
+    return deferred.promise;
   };
 
 }]);
