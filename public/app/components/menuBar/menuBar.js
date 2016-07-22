@@ -225,4 +225,9 @@ angular.module('kibibitCodeEditor')
     });
   };
 
+  vm.focusEditor = function() {
+    var editor = vm.settings.currentEditor;
+    editor.focus();
+  };
+
 });

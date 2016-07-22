@@ -22,19 +22,10 @@
                                 <md-button ng-click="$mdOpenMenu()">New</md-button>
                                 <md-menu-content>
                                     <md-menu-item>
-                                        <md-button ng-click="main.emptyEditor()">Empty Editor</md-button>
+                                        <md-button ng-click="main.openFile = ''; menuBarCtrl.focusEditor();">File</md-button>
                                     </md-menu-item>
                                     <md-menu-item>
-                                        <md-button ng-click="menuBarCtrl.sampleAction('New Spreadsheet', $event)">Spreadsheet</md-button>
-                                    </md-menu-item>
-                                    <md-menu-item>
-                                        <md-button ng-click="menuBarCtrl.sampleAction('New Presentation', $event)">Presentation</md-button>
-                                    </md-menu-item>
-                                    <md-menu-item>
-                                        <md-button ng-click="menuBarCtrl.sampleAction('New Form', $event)">Form</md-button>
-                                    </md-menu-item>
-                                    <md-menu-item>
-                                        <md-button ng-click="menuBarCtrl.sampleAction('New Drawing', $event)">Drawing</md-button>
+                                        <md-button ng-click="main.emptyEditor(); menuBarCtrl.focusEditor();">Empty Editor</md-button>
                                     </md-menu-item>
                                 </md-menu-content>
                             </md-menu>
