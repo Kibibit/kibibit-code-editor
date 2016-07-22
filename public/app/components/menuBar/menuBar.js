@@ -145,7 +145,8 @@ angular.module('kibibitCodeEditor')
     var editor = vm.settings.currentEditor;
     var selectionText = editor.getSelectedText();
     var selection = vm.settings.currentEditor.selection.getRange();
-    var titleCased = selectionText.replace(
+    selectionText = selectionText
+    var kebabCased = selectionText.replace(
       /[_-\s]([a-zA-Z])|([a-z])([A-Z])/g,
       function(g, singleLetter, firstLetter, secondLetter) {
         return secondLetter ?
@@ -154,9 +155,9 @@ angular.module('kibibitCodeEditor')
       }
     );
 
-    titleCased = titleCased[0].toLowerCase() + titleCased.substring(1);
+    kebabCased = kebabCased.toLowerCase();
     vm.settings.currentEditor.session.replace(
-    selection, titleCased);
+    selection, kebabCased);
 
     editor.focus();
   };
@@ -165,7 +166,7 @@ angular.module('kibibitCodeEditor')
     var editor = vm.settings.currentEditor;
     var selectionText = editor.getSelectedText();
     var selection = vm.settings.currentEditor.selection.getRange();
-    var titleCased = selectionText.replace(
+    var snakeCased = selectionText.replace(
       /[_-\s]([a-zA-Z])|([a-z])([A-Z])/g,
       function(g, singleLetter, firstLetter, secondLetter) {
         return secondLetter ?
@@ -174,9 +175,9 @@ angular.module('kibibitCodeEditor')
       }
     );
 
-    titleCased = titleCased[0].toLowerCase() + titleCased.substring(1);
+    snakeCased = snakeCased.toLowerCase();
     vm.settings.currentEditor.session.replace(
-    selection, titleCased);
+    selection, snakeCased);
 
     editor.focus();
   };
