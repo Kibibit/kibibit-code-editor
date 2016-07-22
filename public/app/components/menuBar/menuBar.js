@@ -30,6 +30,7 @@ angular.module('kibibitCodeEditor')
 
 .controller('menuBarController', function(
   $window,
+  $timeout,
   SettingsService,
   ngDialog,
   FileService,
@@ -215,6 +216,13 @@ angular.module('kibibitCodeEditor')
     var endLine = selectionRange.end.row;
 
     return endLine > startLine;
+  };
+
+  vm.openPrintDialog = function() {
+    // timeout to let the menu close before the print dialog appears
+    $timeout(function() {
+      $window.print();
+    });
   };
 
 });
