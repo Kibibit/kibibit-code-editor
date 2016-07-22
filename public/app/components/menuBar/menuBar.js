@@ -146,7 +146,6 @@ angular.module('kibibitCodeEditor')
     var editor = vm.settings.currentEditor;
     var selectionText = editor.getSelectedText();
     var selection = vm.settings.currentEditor.selection.getRange();
-    selectionText = selectionText
     var kebabCased = selectionText.replace(
       /[_-\s]([a-zA-Z])|([a-z])([A-Z])/g,
       function(g, singleLetter, firstLetter, secondLetter) {
