@@ -25,6 +25,6 @@
     "opentype.js": "^0.6.3"
   },
   "resolutions": {
-    "angular": "1.5.7"
+    "angular": "1.5.8"
   }
 }
