@@ -15,7 +15,7 @@ angular.module('kibibitCodeEditor')
       });
       scope.$watch('fontViewerCtrl.previewText', function(textToRender) {
         if (fontViewerCtrl.font) {
-          fontViewerCtrl.drawPreviewText(textToRender)
+          fontViewerCtrl.drawPreviewText(textToRender);
         }
       });
     }
@@ -510,8 +510,8 @@ angular.module('kibibitCodeEditor')
       var snapPath = vm.font.getPath(textToRender, 10, 25, 20);
       var snapCtx = document.getElementById('preview-canvas').getContext('2d');
       snapCtx.clearRect(0, 0, previewWidth, 40);
-      snapPath.fill = "rgb(255, 188, 0)";
-      snapPath.stroke = "rgb(255, 188, 0)";
+      snapPath.fill = 'rgb(255, 188, 0)';
+      snapPath.stroke = 'rgb(255, 188, 0)';
       snapPath.draw(snapCtx);
 
     };
