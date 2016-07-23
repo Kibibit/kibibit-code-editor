@@ -23,7 +23,8 @@ angular.module('kibibitCodeEditor')
 })
 
 .controller('fontViewerController', [
-  function() {
+  'QuotesService',
+  function(QuotesService) {
     var vm = this;
 
     vm.fontSize = 100;
@@ -36,10 +37,19 @@ angular.module('kibibitCodeEditor')
         } else {
           vm.font = font;
           onFontLoaded();
+          getQuotes();
         }
 
       });
     };
+
+    function getQuotes() {
+      QuotesService.getQuotes().then(function(quoteList) {
+        vm.previewText = quoteList[0];
+      }, function(error) {
+        console.error(error);
+      });
+    }
 
     var selectedGlyphIndex;
     var selectedGlyphPageIndex = '0';
@@ -336,7 +346,7 @@ angular.module('kibibitCodeEditor')
       currentPage = event.target.id.substr(1);
       document.getElementsByClassName('page-selected')[0].className = '';
       displayGlyphPage(+event.target.id.substr(1));
-      
+
       if (currentPage === selectedGlyphPageIndex) {
         selectCurrentGlyph(selectedGlyphIndex);
       } else {
@@ -496,6 +506,7 @@ angular.module('kibibitCodeEditor')
     }
 
     vm.drawPreviewText = function(textToRender) {
+      console.log('textToRender: ', textToRender);
       var snapPath = vm.font.getPath(textToRender, 10, 25, 20);
       var snapCtx = document.getElementById('preview-canvas').getContext('2d');
       snapCtx.clearRect(0, 0, previewWidth, 40);
