@@ -1,5 +1,4 @@
-var dirTree = require('directory-tree'),
-    fs = require('fs'),
+var fs = require('fs'),
     util = require('util'),
     mime = require('mime-types');
 var console = require('./consoleService')('FILE CONTENT', ['blue', 'inverse']);
@@ -22,7 +21,8 @@ fileService.get = function(req, res) {
   var showNoContent = false ||
       isFileOfType('zip') ||
       isFileOfType('program') ||
-      isFileOfType('application/x-apple-diskimage');
+      isFileOfType('application/x-apple-diskimage') ||
+      isFileOfType('application/vnd.ms-fontobject');
 
   // temprorary solution until we have a view selector on the FRONT-END
   if (showNoContent) {
