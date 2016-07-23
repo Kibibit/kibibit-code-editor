@@ -76,6 +76,29 @@ angular.module('kibibitCodeEditor')
     var glyphBaseline;
     var previewWidth;
 
+    var ignoreChars = [
+      'NULL',
+      'uni0002',
+      'nonmarkingreturn',
+      'space',
+      'nonbreakingspace',
+      'uni2000',
+      'uni2001',
+      'uni2002',
+      'uni2003',
+      'uni2004',
+      'uni2005',
+      'uni2006',
+      'uni2007',
+      'uni2008',
+      'uni2009',
+      'uni200A',
+      'uni200B',
+      'uniFEFF',
+      'NULL.001',
+      'uni0009'
+    ];
+
     function fixPreviewCanvasSize() {
       var previewInput = document.getElementById('preview-input');
       previewWidth = previewInput.offsetWidth;
@@ -434,7 +457,13 @@ angular.module('kibibitCodeEditor')
     }
 
     function getRandomIntInclusive(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
+      do {
+        var index = Math.floor(Math.random() * (max - min + 1)) + min;
+        var tempGlyph = vm.font.glyphs.get(index);
+        console.log('here');
+      }
+      while (ignoreChars.indexOf(tempGlyph.name) != -1);
+      return index;
     }
 
     // function onReadFile(e) {
