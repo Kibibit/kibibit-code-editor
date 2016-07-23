@@ -13,6 +13,11 @@ angular.module('kibibitCodeEditor')
       scope.$watch('fontViewerCtrl.openFont', function(newOpenFont) {
         fontViewerCtrl.updateFontView(newOpenFont);
       });
+      scope.$watch('fontViewerCtrl.previewText', function(textToRender) {
+        if (fontViewerCtrl.font) {
+          fontViewerCtrl.drawPreviewText(textToRender)
+        }
+      });
     }
   };
 })
@@ -59,6 +64,14 @@ angular.module('kibibitCodeEditor')
     var glyphScale;
     var glyphSize;
     var glyphBaseline;
+    var previewWidth;
+
+    function fixPreviewCanvasSize() {
+      var previewInput = document.getElementById('preview-input');
+      previewWidth = previewInput.offsetWidth;
+      var previewCanvas = document.getElementById('preview-canvas');
+      previewCanvas.width = previewWidth;
+    }
 
     function enableHighDPICanvas(canvas) {
       if (typeof canvas === 'string') {
@@ -369,7 +382,7 @@ angular.module('kibibitCodeEditor')
       window.font = vm.font;
 
       var fontName = vm.font.names.fullName.en;
-      document.getElementById('font-name').innerHTML = 'Font: ' + fontName;
+      document.getElementById('font-name').innerHTML = fontName;
 
       var w = cellWidth - cellMarginLeftRight * 2;
       var h = cellHeight - cellMarginTop - cellMarginBottom;
@@ -481,6 +494,18 @@ angular.module('kibibitCodeEditor')
         parent.insertBefore(canvas, marker);
       }
     }
+
+    vm.drawPreviewText = function(textToRender) {
+      var snapPath = vm.font.getPath(textToRender, 10, 25, 20);
+      var snapCtx = document.getElementById('preview-canvas').getContext('2d');
+      snapCtx.clearRect(0, 0, previewWidth, 40);
+      snapPath.fill = "rgb(255, 188, 0)";
+      snapPath.stroke = "rgb(255, 188, 0)";
+      snapPath.draw(snapCtx);
+
+    };
+
+    fixPreviewCanvasSize();
 
     enableHighDPICanvas('glyph-bg');
     enableHighDPICanvas('glyph');
