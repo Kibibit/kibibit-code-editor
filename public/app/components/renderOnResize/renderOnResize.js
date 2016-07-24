@@ -7,7 +7,7 @@ angular.module('kibibitCodeEditor')
       scope.$watch(function() {
         return element.width();
       }, _.debounce(function(newValue, oldValue) {
-          EventManagerService.trigger('resized');
+        EventManagerService.trigger('resized');
       }, 500));
     }
   };
