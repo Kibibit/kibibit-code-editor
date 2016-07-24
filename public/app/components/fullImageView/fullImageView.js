@@ -20,8 +20,10 @@ angular.module('kibibitCodeEditor')
 })
 
 .controller('fullImageViewController', [
+  '$scope',
   'SettingsService',
-  function(SettingsService) {
+  'EventManagerService',
+  function($scope, SettingsService, EventManagerService) {
     var vm = this;
 
     SettingsService.settings.canCurrentViewSave = false;
@@ -40,6 +42,18 @@ angular.module('kibibitCodeEditor')
         });
       }
     };
+
+    function resize() {
+      if (vm.viewer) {
+        vm.viewer.resize();
+      }
+    }
+
+    EventManagerService.on('resized', resize);
+
+    $scope.$on('$destroy', function() {
+      EventManagerService.off('resized', resize);
+    });
 
   }
 ]);
