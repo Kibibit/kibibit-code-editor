@@ -28,7 +28,15 @@ angular.module('kibibitCodeEditor')
 
     SettingsService.settings.canCurrentViewSave = false;
 
-    vm.addFullImageView = function(element) {
+    vm.addFullImageView = addFullImageView;
+
+    EventManagerService.on('resized', resizeFullImageView);
+
+    EventManagerService.onComponentDestroy($scope, function() {
+      EventManagerService.off('resized', resizeFullImageView);
+    });
+
+    function addFullImageView(element) {
       if (window.Viewer) {
         element.css({
           visibility: 'hidden'
@@ -41,19 +49,13 @@ angular.module('kibibitCodeEditor')
           navbar: false
         });
       }
-    };
+    }
 
-    function resize() {
+    function resizeFullImageView() {
       if (vm.viewer) {
         vm.viewer.resize();
       }
     }
-
-    EventManagerService.on('resized', resize);
-
-    $scope.$on('$destroy', function() {
-      EventManagerService.off('resized', resize);
-    });
 
   }
 ]);

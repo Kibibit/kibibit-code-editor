@@ -66,6 +66,10 @@ angular.module('kibibitCodeEditor')
     }
   };
 
+  eventManagerFactory.onComponentDestroy = function(scope, callback) {
+    scope.$on('$destroy', callback);
+  };
+
   // return event manager factory object
   return eventManagerFactory;
 
