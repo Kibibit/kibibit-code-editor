@@ -77,6 +77,7 @@ angular.module('kibibitCodeEditor')
     var previewWidth;
 
     var ignoreChars = [
+      '.notdef',
       'NULL',
       'uni0002',
       'nonmarkingreturn',
@@ -185,62 +186,7 @@ angular.module('kibibitCodeEditor')
       var glyphIndex = document.getElementById('selected-glyph-index');
       var index = 'Index: ' + glyph.index;
       glyphIndex.innerHTML = index;
-
-      // var html;
-
-      // html = '<dl><dt>index</dt><dd>' + glyph.index + '</dd>';
-
-      // if (glyph.xMin !== 0 || glyph.xMax !== 0 ||
-      //     glyph.yMin !== 0 || glyph.yMax !== 0) {
-      //   html += '<dt>xMin</dt><dd>' + glyph.xMin + '</dd>' +
-      //     '<dt>xMax</dt><dd>' + glyph.xMax + '</dd>' +
-      //     '<dt>yMin</dt><dd>' + glyph.yMin + '</dd>' +
-      //     '<dt>yMax</dt><dd>' + glyph.yMax + '</dd>';
-      // }
-      // html += '<dt>advanceWidth</dt><dd>' + glyph.advanceWidth + '</dd>';
-      // if(glyph.leftSideBearing !== undefined) {
-      //   html += '<dt>leftSideBearing</dt><dd>' + glyph.leftSideBearing +
-      //           '</dd>';
-      // }
-      // html += '</dl>';
-      // if (glyph.numberOfContours > 0) {
-      //   var contours = glyph.getContours();
-      //   html += 'contours:<br>' + contours.map(contourToString).join('\n');
-      // } else if (glyph.isComposite) {
-      //   html += '<br>This composite glyph is a combination of :<ul><li>' +
-      //     glyph.components.map(function(component) {
-      //       return 'glyph ' + component.glyphIndex +
-      //              ' at dx=' + component.dx + ', dy=' + component.dy;
-      //     }).join('</li><li>') + '</li></ul>';
-      // } else if (glyph.path) {
-      //   html += 'path:<br><pre>  ' +
-      //           glyph.path.commands.map(pathCommandToString).join('\n  ') +
-      //           '\n</pre>';
-      // }
-      // container.innerHTML = html;
     }
-
-    // var arrowLength = 10;
-    // var arrowAperture = 4;
-
-    // function drawArrow(ctx, x1, y1, x2, y2) {
-    //   var dx = x2 - x1,
-    //     dy = y2 - y1,
-    //     segmentLength = Math.sqrt(dx*dx + dy*dy),
-    //     unitx = dx / segmentLength,
-    //     unity = dy / segmentLength,
-    //     basex = x2 - arrowLength * unitx,
-    //     basey = y2 - arrowLength * unity,
-    //     normalx = arrowAperture * unity,
-    //     normaly = -arrowAperture * unitx;
-    //   ctx.beginPath();
-    //   ctx.moveTo(x2, y2);
-    //   ctx.lineTo(basex + normalx, basey + normaly);
-    //   ctx.lineTo(basex - normalx, basey - normaly);
-    //   ctx.lineTo(x2, y2);
-    //   ctx.closePath();
-    //   ctx.fill();
-    // }
 
     /**
      * This function is Path.prototype.draw with an arrow
@@ -460,33 +406,10 @@ angular.module('kibibitCodeEditor')
       do {
         var index = Math.floor(Math.random() * (max - min + 1)) + min;
         var tempGlyph = vm.font.glyphs.get(index);
-        console.log('here');
       }
       while (ignoreChars.indexOf(tempGlyph.name) != -1);
       return index;
     }
-
-    // function onReadFile(e) {
-    //   document.getElementById('font-name').innerHTML = '';
-    //   var file = e.target.files[0];
-    //   var reader = new FileReader();
-    //   reader.onload = function(e) {
-    //     try {
-    //       font = opentype.parse(e.target.result);
-    //       showErrorMessage('');
-    //       onFontLoaded(font);
-    //     } catch (err) {
-    //       showErrorMessage(err.toString());
-    //       if (err.stack) console.log(err.stack);
-    //       throw(err);
-    //     }
-    //   }
-    //   reader.onerror = function(err) {
-    //     showErrorMessage(err.toString());
-    //   }
-    //
-    //   reader.readAsArrayBuffer(file);
-    // }
 
     function cellSelect(event) {
       if (!vm.font) { return; }
@@ -535,7 +458,6 @@ angular.module('kibibitCodeEditor')
     }
 
     vm.drawPreviewText = function(textToRender) {
-      console.log('textToRender: ', textToRender);
       var snapPath = vm.font.getPath(textToRender, 10, 25, 20);
       var snapCtx = document.getElementById('preview-canvas').getContext('2d');
       snapCtx.clearRect(0, 0, previewWidth, 40);

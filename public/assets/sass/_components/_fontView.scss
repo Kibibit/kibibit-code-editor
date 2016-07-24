@@ -7,83 +7,6 @@ kb-font-viewer {
   right: 0;
   top: 0;
 
-  .pagination {
-    margin: 0;
-
-    span {
-      color: $grey4;
-      cursor: pointer;
-      margin: 0 0.3em;
-
-      &.page-selected {
-        color: $candy-yellow;
-        font-weight: bold;
-      }
-    }
-  }
-
-  canvas.item {
-    background: $grey3;
-    border: solid 1px $grey4;
-    cursor: pointer;
-    float: left;
-    margin-bottom: -1px;
-    margin-right: -1px;
-  }
-
-  canvas.item:hover {
-    background: $dark-white;
-  }
-
-  #glyph-list-end {
-    clear: both;
-  }
-
-  #glyph-display {
-    border: solid 1px $grey4;
-    float: left;
-    height: 250px;
-    position: relative;
-    width: 250px;
-  }
-
-  #glyph,
-  #glyph-bg {
-    left: 0;
-    position: absolute;
-    top: 0;
-  }
-
-  #glyph-data {
-    float: left;
-    margin-left: 2em;
-
-    dl {
-      margin: 0;
-    }
-
-    dt {
-      float: left;
-    }
-
-    dd {
-      margin-left: 12em;
-    }
-
-    pre {
-      font-size: 11px;
-    }
-  }
-
-  pre:not(.contour) {
-    margin: 0;
-  }
-
-  pre.contour {
-    border-bottom: solid 1px $grey4;
-    margin: 0 0 1em 2em;
-  }
-
   .main-section {
     display: flex;
   }
@@ -97,6 +20,42 @@ kb-font-viewer {
       height: 250px;
       overflow-y: auto;
       padding-bottom: 1px;
+
+      .glyph-list-end {
+        clear: both;
+      }
+
+      .item {
+        background: $grey3;
+        border: solid 1px $grey4;
+        cursor: pointer;
+        float: left;
+        margin-bottom: -1px;
+        margin-right: -1px;
+
+        &:hover {
+          background: $dark-white;
+        }
+
+        &.selected-glyph {
+          background: $candy-yellow;
+        }
+      }
+    }
+
+    .pagination {
+      margin: 0;
+
+      span {
+        color: $grey4;
+        cursor: pointer;
+        margin: 0 0.3em;
+
+        &.page-selected {
+          color: $candy-yellow;
+          font-weight: bold;
+        }
+      }
     }
   }
 
@@ -105,15 +64,26 @@ kb-font-viewer {
     flex-shrink: 0;
     margin-left: 10px;
     width: 250px;
+
+    .glyph-display {
+      border: solid 1px $grey4;
+      float: left;
+      height: 250px;
+      position: relative;
+      width: 250px;
+
+      .glyph,
+      .glyph-bg {
+        left: 0;
+        position: absolute;
+        top: 0;
+      }
+    }
   }
 
   .info.unicode,
   .info.index {
     float: right;
-  }
-
-  .item.selected-glyph {
-    background: $candy-yellow;
   }
 
   .font-view-header {
