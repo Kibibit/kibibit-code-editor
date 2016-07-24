@@ -53,8 +53,8 @@ angular.module('kibibitCodeEditor')
       if (fn) {
         eventManagerFactory.$events[event].forEach(function(element, index) {
           if (eventManagerFactory.$events[event][index] === fn) {
-            eventManagerFactory.$events[event].slice(index, 1);
-            eventManagerFactory.$context[event].slice(index, 1);
+            eventManagerFactory.$events[event].splice(index, 1);
+            eventManagerFactory.$context[event].splice(index, 1);
           }
         });
       }
