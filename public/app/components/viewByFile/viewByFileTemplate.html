@@ -3,5 +3,7 @@
 	<div class="img-view-container" ng-switch-when="image">
 		<img kb-full-image-view class="img-view" ng-src="{{ viewByFileCtrl.imageUri }}">
 	</div>
+	<kb-font-viewer ng-switch-when="font" kb-open-font="viewByFileCtrl.fileInfo">
+	</kb-font-viewer>
 	<error-view ng-switch-when="error"></error-view>
 </div>
