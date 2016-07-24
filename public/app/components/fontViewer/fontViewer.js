@@ -56,9 +56,7 @@ angular.module('kibibitCodeEditor')
     var currentPage = '0';
 
     var cellCount = 100;
-    // var cellWidth = 44;
     var cellWidth = 34;
-    // var cellHeight = 40;
     var cellHeight = 30;
     var cellMarginTop = 1;
     var cellMarginBottom = 8;
@@ -121,16 +119,6 @@ angular.module('kibibitCodeEditor')
       canvas.style.height = oldHeight + 'px';
       canvas.getContext('2d').scale(pixelRatio, pixelRatio);
     }
-
-    // function showErrorMessage(message) {
-    //   var el = document.getElementById('message');
-    //   if (!message || message.trim().length === 0) {
-    //     el.style.display = 'none';
-    //   } else {
-    //     el.style.display = 'block';
-    //   }
-    //   el.innerHTML = message;
-    // }
 
     function pathCommandToString(cmd) {
       var str = '<strong>' + cmd.type + '</strong> ' +
@@ -238,9 +226,6 @@ angular.module('kibibitCodeEditor')
         ctx.stroke();
       }
       ctx.fillStyle = '#000000';
-      // arrows.forEach(function(arrow) {
-      //   drawArrow.apply(null, arrow);
-      // });
     }
 
     function displayGlyph(glyphIndex) {
@@ -274,7 +259,6 @@ angular.module('kibibitCodeEditor')
       path.stroke = '#000000';
       path.strokeWidth = 1.5;
       drawPathWithArrows(ctx, path);
-      // glyph.drawPoints(ctx, x0, glyphBaseline, glyphSize);
     }
 
     function renderGlyphItem(canvas, glyphIndex) {
@@ -321,7 +305,6 @@ angular.module('kibibitCodeEditor')
       } else {
         deselectCurrentGlyph();
       }
-
     }
 
     function initGlyphDisplay() {
@@ -349,12 +332,8 @@ angular.module('kibibitCodeEditor')
       ctx.clearRect(0, 0, w, h);
       ctx.fillStyle = '#a0a0a0';
       hline('Baseline', 0);
-      // hline('yMax', vm.font.tables.head.yMax);
-      // hline('yMin', vm.font.tables.head.yMin);
       hline('Ascender', vm.font.tables.hhea.ascender);
       hline('Descender', vm.font.tables.hhea.descender);
-      // hline('Typo Ascender', vm.font.tables.os2.sTypoAscender);
-      // hline('Typo Descender', vm.font.tables.os2.sTypoDescender);
     }
 
     function onFontLoaded() {
