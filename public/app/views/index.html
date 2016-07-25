@@ -36,21 +36,29 @@
           <div ui-layout-container size="104px" class="menu-bar-container">
             <kb-menu-bar></kb-menu-bar>
           </div>
-          
+            <div class="mobile-sidebar" ng-class="{'open': main.isSidebarOpen}" ng-scrollbars>
+                <kb-file-tree 
+                kb-file-tree-path="main.projectFolderPath"
+                kb-file-tree-selection="main.openFile">
+                </kb-file-tree>
+                <button class="close" ng-click="main.isSidebarOpen = !main.isSidebarOpen">
+                    <i class="material-icons">close</i>
+                </button>
+            </div>
           <div ui-layout-container="central" style="z-index: 6;"> 
             <div ui-layout="{ flow : 'column', dividerSize: '10' }">
-              <div ui-layout-container class="sidebar-container" size="20%">
-                  <div class="sidebar" ng-scrollbars>
-                    <kb-file-tree 
-                      kb-file-tree-path="main.projectFolderPath"
-                      kb-file-tree-selection="main.openFile">
-                    </kb-file-tree>
+                <div ui-layout-container class="sidebar-container" size="20%">
+                    <div class="sidebar" ng-scrollbars>
+                        <kb-file-tree 
+                            kb-file-tree-path="main.projectFolderPath"
+                            kb-file-tree-selection="main.openFile">
+                        </kb-file-tree>
+                    </div>
                 </div>
-              </div>
-              <div ui-layout-container class="main-view-container">
-                <div class="tabs"></div>
-                <div class="main-view" ng-view></div>
-              </div>
+                <div ui-layout-container class="main-view-container">
+                    <div class="tabs"></div>
+                    <div class="main-view" ng-view></div>
+                </div>
             </div>
           </div>
           <div ui-layout-container size="30px" class="status-bar">

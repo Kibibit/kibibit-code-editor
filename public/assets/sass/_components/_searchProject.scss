@@ -11,6 +11,10 @@ kb-search-project {
   padding: 0;
   position: relative;
 
+  @include phone {
+    display: none;
+  }
+
   .search-btn {
     background-color: transparent;
     border: 0;

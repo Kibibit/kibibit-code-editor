@@ -11,6 +11,9 @@
         <div>
             <h2 class="md-toolbar-tools">{{main.projectFolderPath}}</h2>
             <md-menu-bar>
+                <button class="hamburger" ng-click="main.isSidebarOpen = !main.isSidebarOpen">
+                    <i class="material-icons">menu</i>
+                </button>
                 <md-menu>
                     <button ng-click="$mdOpenMenu()">
                         File
