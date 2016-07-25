@@ -3,6 +3,7 @@
 
 // CALL THE PACKAGES --------------------
 var express = require('express'), // call express
+    compression = require('compression'),
     helmet = require('helmet'),
     config = require('./config'),
     path = require('path'),
@@ -18,6 +19,11 @@ var console = require('./app/models/consoleService')
 // hook helmet to our express app. This adds some protection to each communication with the server
 // read more at https://github.com/helmetjs/helmet
 app.use(helmet());
+
+// compress all requests
+app.use(compression({
+    threshold : 0
+}));
 
 colors.enabled = true; //enable colors even through piping.
 
