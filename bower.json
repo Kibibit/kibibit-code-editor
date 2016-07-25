@@ -24,6 +24,6 @@
     "viewerjs": "fengyuanchen/viewerjs#~0.4.0"
   },
   "resolutions": {
-    "angular": "1.5.7"
+    "angular": "1.5.8"
   }
 }
