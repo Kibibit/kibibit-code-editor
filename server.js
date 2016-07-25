@@ -22,7 +22,7 @@ app.use(helmet());
 
 // compress all requests
 app.use(compression({
-    threshold : 0
+  threshold: 0
 }));
 
 colors.enabled = true; //enable colors even through piping.
