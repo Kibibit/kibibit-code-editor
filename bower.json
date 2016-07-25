@@ -21,9 +21,10 @@
     "velocity": "~1.2.3",
     "ngclipboard": "~1.1.1",
     "ng-device-detector": "~3.0.1",
-    "viewerjs": "fengyuanchen/viewerjs#~0.4.0"
+    "viewerjs": "fengyuanchen/viewerjs#~0.4.0",
+    "amplitude": "^2.0.0"
   },
   "resolutions": {
-    "angular": "1.5.7"
+    "angular": "1.5.8"
   }
 }
