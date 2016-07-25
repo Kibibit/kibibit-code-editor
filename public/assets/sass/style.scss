@@ -115,9 +115,9 @@ body,
   overflow: hidden;
 
   @include phone {
-    position: absolute;
     bottom: 0;
     left: 0 !important;
+    position: absolute;
     right: 0;
     top: 0;
     width: 100% !important;
@@ -139,27 +139,27 @@ body,
   display: none;
 
   @include phone {
+    background: $color1;
+    bottom: 0;
     display: block;
+    left: 0;
     position: absolute;
     top: 0;
-    left: 0;
-    bottom: 0;
-    width: 100vw;
     transform: translateX(-100vw);
     transition: all linear 250ms;
+    width: 100vw;
     z-index: 91;
-    background: $color1;
 
     &.open {
       transform: none;
     }
 
     .close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
       color: $primary;
       padding: 5px;
+      position: absolute;
+      right: 10px;
+      top: 10px;
     }
   }
 }
