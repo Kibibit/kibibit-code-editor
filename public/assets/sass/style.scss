@@ -147,8 +147,8 @@ body,
     left: 0;
     position: absolute;
     top: 0;
-    transform: translateX(-100vw);
-    transition: all linear 250ms;
+    transform: translateX(-150vw);
+    transition: transform ease-in-out 250ms;
     width: 100vw;
     z-index: 91;
 
