@@ -104,6 +104,18 @@ body,
 .menu-bar-container {
   background: $color1;
   overflow: hidden;
+
+  @include phone {
+    height: 48px !important;
+    overflow: hidden;
+  }
+}
+
+@include phone {
+  .main-area {
+    height: calc(100vh - 52px - 30px) !important;
+    top: 52px !important;
+  }
 }
 
 .main-view-container {
@@ -188,6 +200,10 @@ md-toolbar {
   h2 {
     &.md-toolbar-tools {
       color: $primary;
+
+      @include phone {
+        display: none;
+      }
     }
   }
 }
