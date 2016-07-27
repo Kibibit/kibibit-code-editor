@@ -40,7 +40,8 @@
             <div class="mobile-sidebar" ng-class="{'open': main.isSidebarOpen}" ng-scrollbars>
                 <kb-file-tree 
                 kb-file-tree-path="main.projectFolderPath"
-                kb-file-tree-selection="main.openFile">
+                kb-file-tree-selection="main.openFile"
+                kb-on-file-selection="main.isSidebarOpen = false;">
                 </kb-file-tree>
                 <button class="close" ng-click="main.isSidebarOpen = !main.isSidebarOpen">
                     <i class="material-icons">close</i>
