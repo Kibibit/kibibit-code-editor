@@ -244,11 +244,12 @@ treecontrol {
 
   &.ngdialog-theme-default .ngdialog-content {
     bottom: 0;
-    left: calc(50vw - 225px);
+    left: 0;
     margin: auto;
     max-height: 600px;
     overflow: hidden;
     position: absolute;
+    right: 0;
     top: 0;
     z-index: 10;
 
