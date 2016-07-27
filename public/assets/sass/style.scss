@@ -152,6 +152,7 @@ body,
 
 .mobile-sidebar {
   display: none;
+  color: $primary;
 
   @include phone {
     background: $color1;
@@ -168,6 +169,10 @@ body,
 
     &.open {
       transform: none;
+    }
+
+    .tree-container {
+      padding: 24px;
     }
 
     .close {
