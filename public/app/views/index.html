@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="kibibitCodeEditor" ng-controller="themeController as themeCtrl">
 
 <head>
     <meta charset="UTF-8">
@@ -28,9 +28,10 @@
     <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/viewerjs/dist/viewer.css">
     <link href='//goo.gl/QatcDl' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" ng-href="assets/css/style.{{themeCtrl.theme}}.css">
 </head>
 
-<body ng-app="kibibitCodeEditor">
+<body>
     <div ng-controller="mainController as main" class="main-app-container" ng-class="{'app-initiated':true}">
         <div ui-layout="{ dividerSize: '0' }"  >
           <div ui-layout-container size="104px" class="menu-bar-container">
@@ -124,6 +125,7 @@
     <!-- Routes -->
     <script type="text/javascript" src="app/app.routes.js"></script>
     <!-- Views -->
+    <script type="text/javascript" src="app/controllers/themeCtrl.js"></script>
     <script type="text/javascript" src="app/controllers/mainCtrl.js"></script>
     <!-- <script src="app/controllers/userCtrl.js"></script> -->
     <!-- Components -->
@@ -149,6 +151,7 @@
     <script type="text/javascript" src="app/services/toastService.js"></script>
     <script type="text/javascript" src="app/services/sessionStorageService.js"></script>
     <script type="text/javascript" src="app/services/quotesService.js"></script>
+    <script type="text/javascript" src="app/services/projectService.js"></script>
 </body>
 
 </html>
