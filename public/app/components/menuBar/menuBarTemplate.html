@@ -4,7 +4,8 @@
         <md-toolbar-filler layout layout-align="center center" class="project-logo-container">
             <div class="logo">
                 <kb-moving-gears ng-if="main.buildTaskRunning"></kb-moving-gears>
-                <i class="material-icons folder" ng-if="main.projectFolderPath">folder</i>
+                <!--<i class="material-icons folder" ng-if="main.projectFolderPath">folder</i>-->
+                <img style="width: 70%;" ng-src="{{ main.projectService.getProjectLogo(main.projectFolderPath) }}" ng-if="main.projectFolderPath">
                 <div class="kibibit-logo" ng-if="!main.projectFolderPath"></div>
             </div>
         </md-toolbar-filler>

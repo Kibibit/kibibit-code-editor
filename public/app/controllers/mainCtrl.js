@@ -6,12 +6,14 @@ angular.module('kibibitCodeEditor')
   'ngDialog',
   'SettingsService',
   'SessionStorageService',
+  'ProjectService',
   function(
     $scope,
     $http,
     ngDialog,
     SettingsService,
-    SessionStorageService) {
+    SessionStorageService,
+    ProjectService) {
 
     var vm = this;
 
@@ -21,6 +23,7 @@ angular.module('kibibitCodeEditor')
     vm.openProject = {};
 
     vm.settings = SettingsService.settings;
+    vm.projectService = ProjectService;
 
     if (SessionStorageService.projectFolderPath) {
       vm.projectFolderPath = sessionStorage.projectFolderPath;
