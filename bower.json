@@ -22,7 +22,7 @@
     "ngclipboard": "~1.1.1",
     "ng-device-detector": "~3.0.1",
     "viewerjs": "fengyuanchen/viewerjs#~0.4.0",
-    "amplitude": "^2.0.0"
+    "underscore": "^1.8.3"
   },
   "resolutions": {
     "angular": "1.5.8"
