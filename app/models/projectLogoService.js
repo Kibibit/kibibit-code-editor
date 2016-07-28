@@ -9,14 +9,14 @@ projectLogoService.get = function(req, res) {
   var fileFullPath = req.params.file_id;
   fileFullPath += '/.logo.png';
   try {
-  	var stat = fs.statSync(fileFullPath);
-  	res.sendFile(fileFullPath, {dotfiles: 'allow'});
+    var stat = fs.statSync(fileFullPath);
+    res.sendFile(fileFullPath, {dotfiles: 'allow'});
   } catch (error) {
-  	res.json({
+    res.json({
       content: 'no logo',
       errno: -1
     });
-  	console.error(error);
+    console.error(error);
   }
 };
 
