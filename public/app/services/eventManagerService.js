@@ -33,6 +33,10 @@ angular.module('kibibitCodeEditor')
   eventManagerFactory.trigger = function(event, data) {
     // run all of the event's callbacks.
     // pass the data and run in the right context.
+    eventManagerFactory.$events[event] =
+      eventManagerFactory.$events[event] || [];
+    eventManagerFactory.$context[event] =
+      eventManagerFactory.$context[event] || [];
     eventManagerFactory.$events[event].forEach(function(callback, index) {
       eventManagerFactory.$events[event][index]
         .call(eventManagerFactory.$context[event][index], data);
@@ -51,8 +55,8 @@ angular.module('kibibitCodeEditor')
       if (fn) {
         eventManagerFactory.$events[event].forEach(function(element, index) {
           if (eventManagerFactory.$events[event][index] === fn) {
-            eventManagerFactory.$events[event].slice(index, 1);
-            eventManagerFactory.$context[event].slice(index, 1);
+            eventManagerFactory.$events[event].splice(index, 1);
+            eventManagerFactory.$context[event].splice(index, 1);
           }
         });
       }
@@ -62,6 +66,10 @@ angular.module('kibibitCodeEditor')
         delete eventManagerFactory.$context[event];
       }
     }
+  };
+
+  eventManagerFactory.onComponentDestroy = function(scope, callback) {
+    scope.$on('$destroy', callback);
   };
 
   // return event manager factory object
