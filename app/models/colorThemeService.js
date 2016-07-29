@@ -17,7 +17,7 @@ colorThemeService.put = function(req, res) {
     .pipe(sass())
     .pipe(gulp.dest('./public/assets/css/'));
   res.json({
-    status: 'OK'
+    themeName: 'project'
   });
 };
 

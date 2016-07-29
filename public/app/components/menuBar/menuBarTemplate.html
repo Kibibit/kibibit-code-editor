@@ -4,9 +4,8 @@
         <md-toolbar-filler layout layout-align="center center" class="project-logo-container">
             <div class="logo">
                 <kb-moving-gears ng-if="main.buildTaskRunning"></kb-moving-gears>
-                <!--<i class="material-icons folder" ng-if="main.projectFolderPath">folder</i>-->
-                <img style="width: 70%;" ng-src="{{ main.projectService.getProjectLogo(main.projectFolderPath) }}" ng-if="main.projectFolderPath">
-                <div class="kibibit-logo" ng-if="!main.projectFolderPath"></div>
+                <i class="material-icons folder" ng-if="!main.projectLogoUrl && main.projectFolderPath">folder</i>
+                <img style="width: 75%" ng-src="/api/download/{{main.projectLogoUrl}}" ng-if="main.projectLogoUrl" color-thief color-thief-dominant="themeCtrl.myDominantColor">
             </div>
         </md-toolbar-filler>
         <div>
@@ -23,7 +22,7 @@
                                 <md-button ng-click="$mdOpenMenu()">New</md-button>
                                 <md-menu-content>
                                     <md-menu-item>
-                                        <md-button ng-click="main.emptyEditor()">Empty Editor</md-button>
+                                        <md-button ng-click="main.emptyEditor(); themeCtrl.theme = undefined">Empty Editor</md-button>
                                     </md-menu-item>
                                     <md-menu-item>
                                         <md-button ng-click="menuBarCtrl.sampleAction('New Spreadsheet', $event)">Spreadsheet</md-button>

@@ -8,21 +8,22 @@ angular.module('kibibitCodeEditor')
     var vm = this;
 
     vm.getProjectLogo = function(folderToGet) {
-      return $http.get('/api/projectLogo/' + encodeURIComponent(folderToGet))
-        .then(function() {
-
-        }, function() {
-
-        });
+      return $http.get('/api/projectLogo/' + encodeURIComponent(folderToGet));
     };
 
     vm.saveNewTheme = function(colorHex) {
-      $http.put('/api/createTheme/' + encodeURIComponent(colorHex))
-        .then(function(res) {
-          console.log(res.errno);
-          SessionStorageService.theme = 'project';
-          $window.location.reload();
-        });
+      return $http.put('/api/createTheme/' + encodeURIComponent(colorHex));
     };
+
+    vm.rgbToHex = rgbToHex;
+
+    function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+    }
+
+    function rgbToHex(rgb) {
+        return "#" + componentToHex(rgb[0]) + componentToHex(rgb[1]) + componentToHex(rgb[2]);
+    }
   }
 ]);

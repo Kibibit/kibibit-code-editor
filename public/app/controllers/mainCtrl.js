@@ -71,6 +71,13 @@ angular.module('kibibitCodeEditor')
           if (vm.openFile !== '') {
             vm.openFile = '';
           }
+
+          ProjectService.getProjectLogo(vm.projectFolderPath)
+            .then(function(res) {
+              vm.projectLogoUrl = encodeURIComponent(res.data.logoPath);
+            }, function(error) {
+              console.error('no logo for this project');
+            });
         }
       });
     };
@@ -95,5 +102,6 @@ angular.module('kibibitCodeEditor')
       vm.projectFolderPath = '';
       SessionStorageService.projectFolderPath = vm.projectFolderPath;
       vm.openFile = '';
+      SessionStorageService.theme = undefined;
     };
   }]);
