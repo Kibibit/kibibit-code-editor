@@ -1,0 +1,123 @@
+kb-font-viewer {
+
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  .main-section {
+    display: flex;
+  }
+
+  .glyphs-table-container {
+    margin-left: 10px;
+    margin-right: 10px;
+    min-width: 228px;
+
+    .glyphs-table {
+      height: 250px;
+      overflow-y: auto;
+      padding-bottom: 1px;
+
+      .glyph-list-end {
+        clear: both;
+      }
+
+      .item {
+        background: $grey3;
+        border: solid 1px $grey4;
+        cursor: pointer;
+        float: left;
+        margin-bottom: -1px;
+        margin-right: -1px;
+
+        &:hover {
+          background: $bright;
+        }
+
+        &.selected-glyph {
+          background: $primary;
+        }
+      }
+    }
+
+    .pagination {
+      margin: 0;
+
+      span {
+        color: $grey4;
+        cursor: pointer;
+        margin: 0 0.3em;
+
+        &.page-selected {
+          color: $primary;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .glyph-view-container {
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-left: 10px;
+    width: 250px;
+
+    .glyph-display {
+      border: solid 1px $grey4;
+      float: left;
+      height: 250px;
+      position: relative;
+      width: 250px;
+
+      .glyph,
+      .glyph-bg {
+        left: 0;
+        position: absolute;
+        top: 0;
+      }
+    }
+  }
+
+  .info.unicode,
+  .info.index {
+    float: right;
+  }
+
+  .font-view-header {
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-top: 0;
+  }
+
+  .footer {
+    height: 150px;
+    padding: 10px;
+
+    .compiled-text-container {
+      border: 1px solid;
+      overflow: hidden;
+      padding: 0;
+
+      .padding {
+        margin: 8px;
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+    }
+
+    .preview-input {
+      background-color: lighten($black, 15%);
+      border: 0;
+      border-bottom: 2px solid $primary;
+      color: $primary;
+      font-size: 200%;
+      height: 50px;
+      outline: none;
+      padding: 10px;
+      width: 100%;
+    }
+  }
+}
