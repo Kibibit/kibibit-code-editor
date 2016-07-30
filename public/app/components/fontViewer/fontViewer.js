@@ -29,58 +29,28 @@ angular.module('kibibitCodeEditor')
   function(QuotesService) {
     var vm = this;
 
-    vm.updateFontView = function(fontObject) {
-      var path = '/api/download/' + encodeURIComponent(fontObject.path);
-      opentype.load(path, function(err, font) {
-        if (err) {
-          alert('Font could not be loaded: ' + err);
-        } else {
-          vm.font = font;
-          onFontLoaded();
-          getQuotes();
-        }
-
-      });
-    };
-
-    function getQuotes() {
-      QuotesService.getQuotes().then(function(quoteList) {
-        vm.previewText = quoteList[0];
-      }, function(error) {
-        console.error(error);
-      });
-    }
-
-    var selectedGlyphIndex;
-    var selectedGlyphPageIndex = '0';
-    var currentPage = '0';
-
     var cellCount = 100;
-    var cellWidth = 34;
     var cellHeight = 30;
-    var cellMarginTop = 1;
     var cellMarginBottom = 8;
     var cellMarginLeftRight = 1;
-    var glyphMargin = 5;
-    var pixelRatio = window.devicePixelRatio || 1;
-
-    var pageSelected;
+    var cellMarginTop = 1;
+    var cellWidth = 34;
+    var currentPage = '0';
     var font;
-    var fontScale;
-    var fontSize = 20;
     var fontBaseline;
+    var fontSize = 20;
+    var fontScale;
+    var glyphBaseline;
+    var glyphMargin = 5;
     var glyphScale;
     var glyphSize;
-    var glyphBaseline;
-    var previewWidth;
-
     var ignoreChars = [
       '.notdef',
-      'NULL',
-      'uni0002',
+      'nonbreakingspace',
       'nonmarkingreturn',
       'space',
-      'nonbreakingspace',
+      'uni0009',
+      'uni0002',
       'uni2000',
       'uni2001',
       'uni2002',
@@ -94,55 +64,78 @@ angular.module('kibibitCodeEditor')
       'uni200A',
       'uni200B',
       'uniFEFF',
-      'NULL.001',
-      'uni0009'
+      'NULL',
+      'NULL.001'
     ];
+    var pageSelected;
+    var pixelRatio = window.devicePixelRatio || 1;
+    var previewWidth;
+    var selectedGlyphIndex;
+    var selectedGlyphPageIndex = '0';
 
-    vm.fixPreviewCanvasSize = function(previewWidth) {
-      // var previewInput = document.getElementById('preview-input');
-      // previewWidth = previewInput.offsetWidth;
-      var previewCanvas = document.getElementById('preview-canvas');
-      previewCanvas.width = previewWidth;
-    }
 
-    function enableHighDPICanvas(canvas) {
-      if (typeof canvas === 'string') {
-        canvas = document.getElementById(canvas);
+    vm.drawPreviewText = drawPreviewText;
+    vm.fixPreviewCanvasSize = fixPreviewCanvasSize;
+    vm.measureText = measureText;
+    vm.updateFontView = updateFontView;
+
+
+    enableHighDPICanvas('glyph-bg');
+    enableHighDPICanvas('glyph');
+    prepareGlyphList();
+
+
+    function cellSelect(event) {
+      if (!vm.font) { return; }
+      var firstGlyphIndex = pageSelected * cellCount;
+      var cellIndex = +event.target.id.substr(1);
+      var glyphIndex = firstGlyphIndex + cellIndex;
+
+      selectCurrentGlyph(glyphIndex);
+      if (glyphIndex < vm.font.numGlyphs) {
+        displayGlyph(glyphIndex);
+        displayGlyphData(glyphIndex);
       }
-      var pixelRatio = window.devicePixelRatio || 1;
-      if (pixelRatio === 1) { return; }
-      var oldWidth = canvas.width;
-      var oldHeight = canvas.height;
-      canvas.width = oldWidth * pixelRatio;
-      canvas.height = oldHeight * pixelRatio;
-      canvas.style.width = oldWidth + 'px';
-      canvas.style.height = oldHeight + 'px';
-      canvas.getContext('2d').scale(pixelRatio, pixelRatio);
     }
 
-    function pathCommandToString(cmd) {
-      var str = '<strong>' + cmd.type + '</strong> ' +
-        ((cmd.x !== undefined) ? 'x=' + cmd.x + ' y=' + cmd.y + ' ' : '') +
-        ((cmd.x1 !== undefined) ? 'x1=' + cmd.x1 + ' y1=' + cmd.y1 + ' ' : '') +
-        ((cmd.x2 !== undefined) ? 'x2=' + cmd.x2 + ' y2=' + cmd.y2 : '');
-      return str;
-    }
-
-    function contourToString(contour) {
-      return '<pre class="contour">' + contour.map(function(point) {
-          return '<span class="' +
-                 (point.onCurve ? 'on' : 'off') +
-                 'curve">x=' + point.x + ' y=' + point.y + '</span>';
-        }).join('\n') + '</pre>';
-    }
-
-    function formatUnicode(unicode) {
-      unicode = unicode.toString(16);
-      if (unicode.length > 4) {
-        return ('000000' + unicode.toUpperCase()).substr(-6);
-      } else {
-        return ('0000' + unicode.toUpperCase()).substr(-4);
+    function deselectCurrentGlyph() {
+      var glyphToDeselect = document.getElementsByClassName('selected-glyph');
+      if (glyphToDeselect[0]) {
+        glyphToDeselect[0].className = 'item';
       }
+    }
+
+    function displayGlyph(glyphIndex) {
+      var canvas = document.getElementById('glyph');
+      var ctx = canvas.getContext('2d');
+      var width = canvas.width / pixelRatio;
+      var height = canvas.height / pixelRatio;
+
+      ctx.clearRect(0, 0, width, height);
+      if (glyphIndex < 0) { return; }
+
+      var glyph = vm.font.glyphs.get(glyphIndex);
+      var glyphWidth = glyph.advanceWidth * glyphScale;
+      var xmin = (width - glyphWidth) / 2;
+      var xmax = (width + glyphWidth) / 2;
+      var x0 = xmin;
+      var markSize = 10;
+
+      ctx.fillStyle = '#606060';
+      ctx.fillRect(xmin - markSize + 1, glyphBaseline, markSize, 1);
+      ctx.fillRect(xmin, glyphBaseline, 1, markSize);
+      ctx.fillRect(xmax, glyphBaseline, markSize, 1);
+      ctx.fillRect(xmax, glyphBaseline, 1, markSize);
+      ctx.textAlign = 'center';
+      ctx.fillText('0', xmin, glyphBaseline + markSize + 10);
+      ctx.fillText(glyph.advanceWidth, xmax, glyphBaseline + markSize + 10);
+
+      ctx.fillStyle = '#000000';
+      var path = glyph.getPath(x0, glyphBaseline, glyphSize);
+      path.fill = '#808080';
+      path.stroke = '#000000';
+      path.strokeWidth = 1.5;
+      drawPathWithArrows(ctx, path);
     }
 
     function displayGlyphData(glyphIndex) {
@@ -176,10 +169,15 @@ angular.module('kibibitCodeEditor')
       glyphIndex.innerHTML = index;
     }
 
-    /**
-     * This function is Path.prototype.draw with an arrow
-     * at the end of each contour.
-     */
+    function displayGlyphPage(pageNum) {
+      pageSelected = pageNum;
+      document.getElementById('p' + pageNum).className = 'page-selected';
+      var firstGlyph = pageNum * cellCount;
+      for (var i = 0; i < cellCount; i++) {
+        renderGlyphItem(document.getElementById('g' + i), firstGlyph + i);
+      }
+    }
+
     function drawPathWithArrows(ctx, path) {
       var i;
       var cmd;
@@ -228,83 +226,51 @@ angular.module('kibibitCodeEditor')
       ctx.fillStyle = '#000000';
     }
 
-    function displayGlyph(glyphIndex) {
-      var canvas = document.getElementById('glyph');
-      var ctx = canvas.getContext('2d');
-      var width = canvas.width / pixelRatio;
-      var height = canvas.height / pixelRatio;
-
-      ctx.clearRect(0, 0, width, height);
-      if (glyphIndex < 0) { return; }
-
-      var glyph = vm.font.glyphs.get(glyphIndex);
-      var glyphWidth = glyph.advanceWidth * glyphScale;
-      var xmin = (width - glyphWidth) / 2;
-      var xmax = (width + glyphWidth) / 2;
-      var x0 = xmin;
-      var markSize = 10;
-
-      ctx.fillStyle = '#606060';
-      ctx.fillRect(xmin - markSize + 1, glyphBaseline, markSize, 1);
-      ctx.fillRect(xmin, glyphBaseline, 1, markSize);
-      ctx.fillRect(xmax, glyphBaseline, markSize, 1);
-      ctx.fillRect(xmax, glyphBaseline, 1, markSize);
-      ctx.textAlign = 'center';
-      ctx.fillText('0', xmin, glyphBaseline + markSize + 10);
-      ctx.fillText(glyph.advanceWidth, xmax, glyphBaseline + markSize + 10);
-
-      ctx.fillStyle = '#000000';
-      var path = glyph.getPath(x0, glyphBaseline, glyphSize);
-      path.fill = '#808080';
-      path.stroke = '#000000';
-      path.strokeWidth = 1.5;
-      drawPathWithArrows(ctx, path);
+    function drawPreviewText(textToRender) {
+      var snapPath = vm.font.getPath(textToRender, 0, 25, fontSize);
+      var snapCtx = document.getElementById('preview-canvas').getContext('2d');
+      snapCtx.clearRect(0, 0, previewWidth, 40);
+      snapPath.fill = 'rgb(255, 188, 0)';
+      snapPath.stroke = 'rgb(255, 188, 0)';
+      snapPath.draw(snapCtx);
     }
 
-    function renderGlyphItem(canvas, glyphIndex) {
-      var cellMarkSize = 4;
-      var ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, cellWidth, cellHeight);
-      if (glyphIndex >= vm.font.numGlyphs) { return; }
-
-      ctx.fillStyle = '#606060';
-      ctx.font = '9px sans-serif';
-      ctx.fillText(glyphIndex, 1, cellHeight - 1);
-      var glyph = vm.font.glyphs.get(glyphIndex);
-      var glyphWidth = glyph.advanceWidth * fontScale;
-      var xmin = (cellWidth - glyphWidth) / 2;
-      var xmax = (cellWidth + glyphWidth) / 2;
-      var x0 = xmin;
-
-      ctx.fillStyle = '#a0a0a0';
-      ctx.fillRect(xmin - cellMarkSize + 1, fontBaseline, cellMarkSize, 1);
-      ctx.fillRect(xmin, fontBaseline, 1, cellMarkSize);
-      ctx.fillRect(xmax, fontBaseline, cellMarkSize, 1);
-      ctx.fillRect(xmax, fontBaseline, 1, cellMarkSize);
-
-      ctx.fillStyle = '#000000';
-      glyph.draw(ctx, x0, fontBaseline, fontSize);
-    }
-
-    function displayGlyphPage(pageNum) {
-      pageSelected = pageNum;
-      document.getElementById('p' + pageNum).className = 'page-selected';
-      var firstGlyph = pageNum * cellCount;
-      for (var i = 0; i < cellCount; i++) {
-        renderGlyphItem(document.getElementById('g' + i), firstGlyph + i);
+    function enableHighDPICanvas(canvas) {
+      if (typeof canvas === 'string') {
+        canvas = document.getElementById(canvas);
       }
+      var pixelRatio = window.devicePixelRatio || 1;
+      if (pixelRatio === 1) { return; }
+      var oldWidth = canvas.width;
+      var oldHeight = canvas.height;
+      canvas.width = oldWidth * pixelRatio;
+      canvas.height = oldHeight * pixelRatio;
+      canvas.style.width = oldWidth + 'px';
+      canvas.style.height = oldHeight + 'px';
+      canvas.getContext('2d').scale(pixelRatio, pixelRatio);
     }
 
-    function pageSelect(event) {
-      currentPage = event.target.id.substr(1);
-      document.getElementsByClassName('page-selected')[0].className = '';
-      displayGlyphPage(+event.target.id.substr(1));
+    function fixPreviewCanvasSize(previewWidth) {
+      var previewCanvas = document.getElementById('preview-canvas');
+      previewCanvas.width = previewWidth;
+    }
 
-      if (currentPage === selectedGlyphPageIndex) {
-        selectCurrentGlyph(selectedGlyphIndex);
+    function formatUnicode(unicode) {
+      unicode = unicode.toString(16);
+      if (unicode.length > 4) {
+        return ('000000' + unicode.toUpperCase()).substr(-6);
       } else {
-        deselectCurrentGlyph();
+        return ('0000' + unicode.toUpperCase()).substr(-4);
       }
+    }
+
+    function getRandomGlyphIndexInclusive(min, max) {
+      do {
+        var index = Math.floor(Math.random() * (max - min)) + min;
+        var tempGlyph = vm.font.glyphs.get(index);
+      }
+      while (ignoreChars.indexOf(tempGlyph.name) != -1);
+      return index;
     }
 
     function initGlyphDisplay() {
@@ -334,6 +300,35 @@ angular.module('kibibitCodeEditor')
       hline('Baseline', 0);
       hline('Ascender', vm.font.tables.hhea.ascender);
       hline('Descender', vm.font.tables.hhea.descender);
+    }
+
+    function measureText(text) {
+      var ascent = 0;
+      var descent = 0;
+      var width = 0;
+      var scale = 1 / vm.font.unitsPerEm * fontSize;
+      var glyphs = vm.font.stringToGlyphs(text);
+
+      for (var i = 0; i < glyphs.length; i++) {
+        var glyph = glyphs[i];
+        if (glyph.advanceWidth) {
+          width += glyph.advanceWidth * scale;
+        }
+        if (i < glyphs.length - 1) {
+          var kerningValue = vm.font.getKerningValue(glyph, glyphs[i + 1]);
+          width += kerningValue * scale;
+        }
+        ascent = Math.max(ascent, glyph.yMax);
+        descent = Math.min(descent, glyph.yMin);
+      }
+
+      return {
+        width: width,
+        actualBoundingBoxAscent: ascent * scale,
+        actualBoundingBoxDescent: descent * scale,
+        fontBoundingBoxAscent: vm.font.ascender * scale,
+        fontBoundingBoxDescent: vm.font.descender * scale
+      };
     }
 
     function onFontLoaded() {
@@ -380,42 +375,15 @@ angular.module('kibibitCodeEditor')
       displayGlyphData(selectedGlyphIndex);
     }
 
-    function getRandomGlyphIndexInclusive(min, max) {
-      do {
-        var index = Math.floor(Math.random() * (max - min)) + min;
-        var tempGlyph = vm.font.glyphs.get(index);
-      }
-      while (ignoreChars.indexOf(tempGlyph.name) != -1);
-      return index;
-    }
+    function pageSelect(event) {
+      currentPage = event.target.id.substr(1);
+      document.getElementsByClassName('page-selected')[0].className = '';
+      displayGlyphPage(+event.target.id.substr(1));
 
-    function cellSelect(event) {
-      if (!vm.font) { return; }
-      var firstGlyphIndex = pageSelected * cellCount;
-      var cellIndex = +event.target.id.substr(1);
-      var glyphIndex = firstGlyphIndex + cellIndex;
-
-      selectCurrentGlyph(glyphIndex);
-      if (glyphIndex < vm.font.numGlyphs) {
-        displayGlyph(glyphIndex);
-        displayGlyphData(glyphIndex);
-      }
-    }
-
-    function selectCurrentGlyph(index) {
-      //we use mod100 in order to get the right index(0-99) after the 1st page
-      index %= 100;
-      selectedGlyphIndex = index;
-      selectedGlyphPageIndex = currentPage;
-      deselectCurrentGlyph();
-      var selectedGlyph = document.getElementById('g' + index);
-      selectedGlyph.className += ' selected-glyph';
-    }
-
-    function deselectCurrentGlyph() {
-      var glyphToDeselect = document.getElementsByClassName('selected-glyph');
-      if (glyphToDeselect[0]) {
-        glyphToDeselect[0].className = 'item';
+      if (currentPage === selectedGlyphPageIndex) {
+        selectCurrentGlyph(selectedGlyphIndex);
+      } else {
+        deselectCurrentGlyph();
       }
     }
 
@@ -435,51 +403,54 @@ angular.module('kibibitCodeEditor')
       }
     }
 
-    vm.drawPreviewText = function(textToRender) {
-      var snapPath = vm.font.getPath(textToRender, 0, 25, fontSize);
-      var snapCtx = document.getElementById('preview-canvas').getContext('2d');
-      snapCtx.clearRect(0, 0, previewWidth, 40);
-      snapPath.fill = 'rgb(255, 188, 0)';
-      snapPath.stroke = 'rgb(255, 188, 0)';
-      snapPath.draw(snapCtx);
+    function renderGlyphItem(canvas, glyphIndex) {
+      var cellMarkSize = 4;
+      var ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, cellWidth, cellHeight);
+      if (glyphIndex >= vm.font.numGlyphs) { return; }
 
-    };
+      ctx.fillStyle = '#606060';
+      ctx.font = '9px sans-serif';
+      ctx.fillText(glyphIndex, 1, cellHeight - 1);
+      var glyph = vm.font.glyphs.get(glyphIndex);
+      var glyphWidth = glyph.advanceWidth * fontScale;
+      var xmin = (cellWidth - glyphWidth) / 2;
+      var xmax = (cellWidth + glyphWidth) / 2;
+      var x0 = xmin;
 
+      ctx.fillStyle = '#a0a0a0';
+      ctx.fillRect(xmin - cellMarkSize + 1, fontBaseline, cellMarkSize, 1);
+      ctx.fillRect(xmin, fontBaseline, 1, cellMarkSize);
+      ctx.fillRect(xmax, fontBaseline, cellMarkSize, 1);
+      ctx.fillRect(xmax, fontBaseline, 1, cellMarkSize);
 
-    vm.measureText = function(text) {
-      var ascent = 0;
-      var descent = 0;
-      var width = 0;
-      var scale = 1 / vm.font.unitsPerEm * fontSize;
-      var glyphs = vm.font.stringToGlyphs(text);
+      ctx.fillStyle = '#000000';
+      glyph.draw(ctx, x0, fontBaseline, fontSize);
+    }
 
-      for (var i = 0; i < glyphs.length; i++) {
-        var glyph = glyphs[i];
-        if (glyph.advanceWidth) {
-          width += glyph.advanceWidth * scale;
+    function selectCurrentGlyph(index) {
+      //we use mod100 in order to get the right index(0-99) after the 1st page
+      index %= 100;
+      selectedGlyphIndex = index;
+      selectedGlyphPageIndex = currentPage;
+      deselectCurrentGlyph();
+      var selectedGlyph = document.getElementById('g' + index);
+      selectedGlyph.className += ' selected-glyph';
+    }
+
+    function updateFontView(fontObject) {
+      var path = '/api/download/' + encodeURIComponent(fontObject.path);
+      opentype.load(path, function(err, font) {
+        if (err) {
+          alert('Font could not be loaded: ' + err);
+        } else {
+          vm.font = font;
+          onFontLoaded();
+          QuotesService.getQuotes().then(function(quoteList) {
+            vm.previewText = quoteList[0];
+          })
         }
-        if (i < glyphs.length - 1) {
-          var kerningValue = vm.font.getKerningValue(glyph, glyphs[i + 1]);
-          width += kerningValue * scale;
-        }
-        ascent = Math.max(ascent, glyph.yMax);
-        descent = Math.min(descent, glyph.yMin);
-      }
-
-      return {
-        width: width,
-        actualBoundingBoxAscent: ascent * scale,
-        actualBoundingBoxDescent: descent * scale,
-        fontBoundingBoxAscent: vm.font.ascender * scale,
-        fontBoundingBoxDescent: vm.font.descender * scale
-      };
-    };
-
-    // fixPreviewCanvasSize();
-
-    enableHighDPICanvas('glyph-bg');
-    enableHighDPICanvas('glyph');
-
-    prepareGlyphList();
+      });
+    }
   }
 ]);
