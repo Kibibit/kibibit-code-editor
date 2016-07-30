@@ -96,12 +96,11 @@ kb-font-viewer {
     height: 150px;
     padding: 10px;
 
-
     .compiled-text-container {
       border: 1px solid;
       overflow: hidden;
       padding: 0;
-      
+
       .padding {
         overflow-x: auto;
         overflow-y: hidden;
