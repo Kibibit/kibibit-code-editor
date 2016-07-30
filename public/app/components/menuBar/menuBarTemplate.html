@@ -3,13 +3,24 @@
         <kb-user-avatar></kb-user-avatar>
         <md-toolbar-filler layout layout-align="center center" class="project-logo-container">
             <div class="logo">
+
                 <kb-moving-gears ng-if="main.buildTaskRunning"></kb-moving-gears>
-                <i class="material-icons folder" ng-if="main.projectFolderPath">folder</i>
+
+                <img style="width: 75%"
+                ng-src="/api/download/{{main.projectLogoUrl}}"
+                ng-if="main.projectLogoUrl"
+                color-thief
+                color-thief-dominant="themeCtrl.myDominantColor"
+                color-thief-palette="themeCtrl.palette"
+                color-thief-palette-count="2">
+
+                <i class="material-icons folder" ng-if="!main.projectLogoUrl && main.projectFolderPath">folder</i>
+
                 <div class="kibibit-logo" ng-if="!main.projectFolderPath"></div>
             </div>
         </md-toolbar-filler>
         <div>
-            <h2 class="md-toolbar-tools">{{main.projectFolderPath}}</h2>
+            <h2 class="md-toolbar-tools">{{main.projectName}}</h2>
             <md-menu-bar>
                 <md-menu>
                     <button ng-click="$mdOpenMenu()">
@@ -22,7 +33,7 @@
                                 <md-button ng-click="$mdOpenMenu()">New</md-button>
                                 <md-menu-content>
                                     <md-menu-item>
-                                        <md-button ng-click="main.emptyEditor()">Empty Editor</md-button>
+                                        <md-button ng-click="main.emptyEditor(); themeCtrl.theme = undefined">Empty Editor</md-button>
                                     </md-menu-item>
                                     <md-menu-item>
                                         <md-button ng-click="menuBarCtrl.sampleAction('New Spreadsheet', $event)">Spreadsheet</md-button>

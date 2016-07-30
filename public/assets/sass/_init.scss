@@ -346,33 +346,33 @@ h1 {
   font-weight: 400;
   letter-spacing: -0.005em;
   line-height: $display-3-font-size-base;
-  color: rgb(255, 188, 0);
+  color: $primary;
 }
 h2 {
   font-size: $display-2-font-size-base;
   font-weight: 400;
   line-height: rem(6.4);
-  color: rgb(255, 188, 0);
+  color: $primary;
 }
 h3 {
   font-size: $display-1-font-size-base;
   font-weight: 400;
   line-height: rem(4);
-  color: rgb(255, 188, 0);
+  color: $primary;
 }
 h4 {
   font-size: $headline-font-size-base;
   font-weight: 400;
   line-height: rem(3.2);
-  color: rgb(255, 188, 0);
+  color: $primary;
 }
 h5 {
   @include md-title();
-  color: rgb(255, 188, 0);
+  color: $primary;
 }
 h6 {
   @include md-subhead();
-  color: rgb(255, 188, 0);
+  color: $primary;
 }
 /************
  * Body Copy
