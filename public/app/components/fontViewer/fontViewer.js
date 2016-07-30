@@ -15,6 +15,8 @@ angular.module('kibibitCodeEditor')
       });
       scope.$watch('fontViewerCtrl.previewText', function(textToRender) {
         if (fontViewerCtrl.font) {
+          var fontMeasures = fontViewerCtrl.measureText(textToRender);
+          fontViewerCtrl.fixPreviewCanvasSize(fontMeasures.width);
           fontViewerCtrl.drawPreviewText(textToRender);
         }
       });
@@ -26,8 +28,6 @@ angular.module('kibibitCodeEditor')
   'QuotesService',
   function(QuotesService) {
     var vm = this;
-
-    vm.fontSize = 100;
 
     vm.updateFontView = function(fontObject) {
       var path = '/api/download/' + encodeURIComponent(fontObject.path);
@@ -67,7 +67,7 @@ angular.module('kibibitCodeEditor')
     var pageSelected;
     var font;
     var fontScale;
-    var fontSize;
+    var fontSize = 20;
     var fontBaseline;
     var glyphScale;
     var glyphSize;
@@ -98,9 +98,9 @@ angular.module('kibibitCodeEditor')
       'uni0009'
     ];
 
-    function fixPreviewCanvasSize() {
-      var previewInput = document.getElementById('preview-input');
-      previewWidth = previewInput.offsetWidth;
+    vm.fixPreviewCanvasSize = function(previewWidth) {
+      // var previewInput = document.getElementById('preview-input');
+      // previewWidth = previewInput.offsetWidth;
       var previewCanvas = document.getElementById('preview-canvas');
       previewCanvas.width = previewWidth;
     }
@@ -348,7 +348,6 @@ angular.module('kibibitCodeEditor')
       var maxHeight = head.yMax - head.yMin;
 
       fontScale = Math.min(w / (head.xMax - head.xMin), h / maxHeight);
-      fontSize = fontScale * vm.font.unitsPerEm;
       fontBaseline = cellMarginTop + h * head.yMax / maxHeight;
 
       var pagination = document.getElementsByClassName('pagination')[0];
@@ -437,7 +436,7 @@ angular.module('kibibitCodeEditor')
     }
 
     vm.drawPreviewText = function(textToRender) {
-      var snapPath = vm.font.getPath(textToRender, 10, 25, 20);
+      var snapPath = vm.font.getPath(textToRender, 0, 25, fontSize);
       var snapCtx = document.getElementById('preview-canvas').getContext('2d');
       snapCtx.clearRect(0, 0, previewWidth, 40);
       snapPath.fill = 'rgb(255, 188, 0)';
@@ -446,7 +445,37 @@ angular.module('kibibitCodeEditor')
 
     };
 
-    fixPreviewCanvasSize();
+
+    vm.measureText = function(text) {
+      var ascent = 0;
+      var descent = 0;
+      var width = 0;
+      var scale = 1 / vm.font.unitsPerEm * fontSize;
+      var glyphs = vm.font.stringToGlyphs(text);
+
+      for (var i = 0; i < glyphs.length; i++) {
+        var glyph = glyphs[i];
+        if (glyph.advanceWidth) {
+          width += glyph.advanceWidth * scale;
+        }
+        if (i < glyphs.length - 1) {
+          var kerningValue = vm.font.getKerningValue(glyph, glyphs[i + 1]);
+          width += kerningValue * scale;
+        }
+        ascent = Math.max(ascent, glyph.yMax);
+        descent = Math.min(descent, glyph.yMin);
+      }
+
+      return {
+        width: width,
+        actualBoundingBoxAscent: ascent * scale,
+        actualBoundingBoxDescent: descent * scale,
+        fontBoundingBoxAscent: vm.font.ascender * scale,
+        fontBoundingBoxDescent: vm.font.descender * scale
+      };
+    };
+
+    // fixPreviewCanvasSize();
 
     enableHighDPICanvas('glyph-bg');
     enableHighDPICanvas('glyph');

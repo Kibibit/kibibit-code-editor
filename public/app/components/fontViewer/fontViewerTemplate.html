@@ -24,6 +24,11 @@
   </div>
 </div>
 <div class="footer">
-  <canvas id="preview-canvas" height="40"></canvas>
-  <input id="preview-input" ng-model="fontViewerCtrl.previewText">
+  <div class="compiled-text-container">
+    <div class="padding">
+      <canvas id="preview-canvas" class="preview-canvas" height="40"></canvas>
+    </div>
+  </div>
+  <input id="preview-input" class="preview-input"
+         ng-model="fontViewerCtrl.previewText">
 </div>

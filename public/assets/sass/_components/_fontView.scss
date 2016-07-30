@@ -38,7 +38,7 @@ kb-font-viewer {
         }
 
         &.selected-glyph {
-          background: $candy-yellow;
+          background: $primary;
         }
       }
     }
@@ -52,7 +52,7 @@ kb-font-viewer {
         margin: 0 0.3em;
 
         &.page-selected {
-          color: $candy-yellow;
+          color: $primary;
           font-weight: bold;
         }
       }
@@ -96,20 +96,29 @@ kb-font-viewer {
     height: 150px;
     padding: 10px;
 
-    input {
+
+    .compiled-text-container {
+      border: 1px solid;
+      padding: 0;
+      overflow: hidden;
+
+      .padding {
+        overflow-y: hidden;
+        overflow-x: auto;
+        margin:8px
+      }
+    }
+
+    .preview-input {
       background-color: lighten($black, 15%);
       border: 0;
-      border-bottom: 2px solid $candy-yellow;
-      color: $candy-yellow;
+      border-bottom: 2px solid $primary;
+      color: $primary;
       font-size: 200%;
       height: 50px;
       outline: none;
       padding: 10px;
       width: 100%;
-    }
-
-    canvas {
-      border: 1px solid;
     }
   }
 }
