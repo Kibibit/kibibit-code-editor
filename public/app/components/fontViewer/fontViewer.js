@@ -373,16 +373,16 @@ angular.module('kibibitCodeEditor')
       displayGlyphPage(0);
 
       var glyphRange = vm.font.numGlyphs > 100 ? 100 : vm.font.numGlyphs;
-      selectedGlyphIndex = getRandomIntInclusive(0, glyphRange);
+      selectedGlyphIndex = getRandomGlyphIndexInclusive(0, glyphRange);
       selectCurrentGlyph(selectedGlyphIndex);
 
       displayGlyph(selectedGlyphIndex);
       displayGlyphData(selectedGlyphIndex);
     }
 
-    function getRandomIntInclusive(min, max) {
+    function getRandomGlyphIndexInclusive(min, max) {
       do {
-        var index = Math.floor(Math.random() * (max - min + 1)) + min;
+        var index = Math.floor(Math.random() * (max - min)) + min;
         var tempGlyph = vm.font.glyphs.get(index);
       }
       while (ignoreChars.indexOf(tempGlyph.name) != -1);
