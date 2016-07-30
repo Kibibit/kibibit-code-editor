@@ -15,9 +15,11 @@ angular.module('kibibitCodeEditor')
 
     $window.themeCtrl = vm;
 
-    if (SessionStorageService.theme) {
-      vm.theme = SessionStorageService.theme;
-    }
+    vm.theme = ProjectService.theme;
+
+    ProjectService.onSetTheme = function(newTheme) {
+      vm.theme = newTheme;
+    };
 
     $scope.$watch(function() {
       return vm.myDominantColor;
@@ -71,6 +73,9 @@ angular.module('kibibitCodeEditor')
           }, function(error) {
             console.error(error);
           });
+      } else {
+        vm.theme = undefined;
+        SessionStorageService.removeItem('theme');
       }
     });
 

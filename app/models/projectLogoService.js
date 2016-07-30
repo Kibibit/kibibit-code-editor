@@ -16,7 +16,7 @@ projectLogoService.get = function(req, res) {
   } catch (error) {
     res.json({
       content: 'no logo',
-      errno: -1
+      errno: 100
     });
     console.error(error);
   }

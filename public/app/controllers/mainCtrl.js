@@ -70,7 +70,9 @@ angular.module('kibibitCodeEditor')
       }).closePromise.then(function(selectedProjectFolderPath) {
         if (!vm.isModalCancel(selectedProjectFolderPath.value)) {
           vm.projectFolderPath = selectedProjectFolderPath.value;
-          vm.projectName = vm.projectFolderPath.split(/\/|\\/).reverse()[0];
+          vm.projectName = vm.projectFolderPath ?
+            vm.projectFolderPath.split(/\/|\\/).reverse()[0] :
+            '';
           SessionStorageService.projectName = vm.projectName;
           SessionStorageService.projectFolderPath = vm.projectFolderPath;
           console.debug('project path saved to session storage');
@@ -84,7 +86,11 @@ angular.module('kibibitCodeEditor')
               vm.projectLogoUrl = encodeURIComponent(res.logoPath);
               SessionStorageService.projectLogoUrl = vm.projectLogoUrl;
             }, function(error) {
-              console.error('no logo for this project');
+              console.debug('no logo for this project');
+              vm.projectLogoUrl = undefined;
+              ProjectService.setTheme(undefined);
+              SessionStorageService.removeItem('projectLogoUrl');
+              SessionStorageService.removeItem('theme');
             });
         }
       });
