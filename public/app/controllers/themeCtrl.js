@@ -6,7 +6,14 @@ angular.module('kibibitCodeEditor')
   '$window',
   'ProjectService',
   'SessionStorageService',
-  function($scope, $timeout, $window, ProjectService, SessionStorageService) {
+  'TinyColorService',
+  function(
+    $scope,
+    $timeout,
+    $window,
+    ProjectService,
+    SessionStorageService,
+    TinyColorService) {
 
     var vm = this;
 
@@ -26,7 +33,7 @@ angular.module('kibibitCodeEditor')
     }, function(newVal) {
       if (newVal) {
         // main color
-        var projectColor = new tinycolor({
+        var projectColor = new TinyColorService.TinyColor({
           r: newVal[0],
           g: newVal[1],
           b: newVal[2]
@@ -36,7 +43,7 @@ angular.module('kibibitCodeEditor')
         var anotherColor;
 
         if (vm.palette && vm.palette[1]) {
-          anotherColor = new tinycolor({
+          anotherColor = new TinyColorService.TinyColor({
             r: vm.palette[1][0],
             g: vm.palette[1][1],
             b: vm.palette[1][2],
