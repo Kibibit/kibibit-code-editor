@@ -81,7 +81,7 @@ angular.module('kibibitCodeEditor')
     enableHighDPICanvas('glyph-bg');
     enableHighDPICanvas('glyph');
     prepareGlyphList();
-    
+
     function cellSelect(event) {
       if (!vm.font) { return; }
       var firstGlyphIndex = pageSelected * cellCount;
