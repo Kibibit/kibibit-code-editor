@@ -73,13 +73,11 @@ angular.module('kibibitCodeEditor')
     var selectedGlyphIndex;
     var selectedGlyphPageIndex = '0';
 
-
     vm.drawPreviewText = drawPreviewText;
     vm.fixPreviewCanvasSize = fixPreviewCanvasSize;
     vm.measureText = measureText;
     vm.updateFontView = updateFontView;
-
-
+    
     enableHighDPICanvas('glyph-bg');
     enableHighDPICanvas('glyph');
     prepareGlyphList();
@@ -448,7 +446,7 @@ angular.module('kibibitCodeEditor')
           onFontLoaded();
           QuotesService.getQuotes().then(function(quoteList) {
             vm.previewText = quoteList[0];
-          })
+          });
         }
       });
     }

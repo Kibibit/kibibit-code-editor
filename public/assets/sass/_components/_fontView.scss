@@ -99,13 +99,13 @@ kb-font-viewer {
 
     .compiled-text-container {
       border: 1px solid;
-      padding: 0;
       overflow: hidden;
-
+      padding: 0;
+      
       .padding {
-        overflow-y: hidden;
         overflow-x: auto;
-        margin:8px
+        overflow-y: hidden;
+        margin:8px;
       }
     }
 
