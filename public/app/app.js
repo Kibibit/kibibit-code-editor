@@ -15,7 +15,8 @@ angular.module('kibibitCodeEditor',
   'emoji',
   'jsonFormatter',
   'ngclipboard',
-  'ng.deviceDetector'])
+  'ng.deviceDetector',
+  'ngColorThief'])
 
 .config(['$compileProvider', function($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
