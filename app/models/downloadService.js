@@ -9,8 +9,8 @@ downloadService.get = function(req, res) {
   } catch (err) {
     console.error('Couldn\'t send file to client', err);
     res.json({
-    	errno: 5,
-    	message: 'something went wroooong!'
+      errno: 5,
+      message: 'something went wroooong!'
     });
   }
 };
