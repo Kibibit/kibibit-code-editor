@@ -46,7 +46,7 @@
                     </kb-file-tree>
                 </div>
               </div>
-              <div ui-layout-container class="main-view-container">
+              <div ui-layout-container class="main-view-container" kb-render-on-resize>
                 <div class="tabs"></div>
                 <div class="main-view" ng-view></div>
               </div>
@@ -113,6 +113,7 @@
     <script src="assets/lib/highlight/highlight.pack.js"></script>
     <script src="assets/lib/bower_components/angular-emoji/dist/emoji.min.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/viewerjs/dist/viewer.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/underscore/underscore-min.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/opentype.js/dist/opentype.min.js"></script>
 
     <!-- Kibibit Code Editor -->
@@ -138,6 +139,7 @@
     <script type="text/javascript" src="app/components/fullImageView/fullImageView.js"></script>
     <script type="text/javascript" src="app/components/fontViewer/fontViewer.js"></script>
     <script type="text/javascript" src="app/components/searchProject/searchProject.js"></script>
+    <script type="text/javascript" src="app/components/renderOnResize/renderOnResize.js"></script>
     <!-- Services -->
     <!-- <script src="app/services/authService.js"></script> -->
     <script type="text/javascript" src="app/services/userService.js"></script>
@@ -147,6 +149,7 @@
     <script type="text/javascript" src="app/services/toastService.js"></script>
     <script type="text/javascript" src="app/services/sessionStorageService.js"></script>
     <script type="text/javascript" src="app/services/quotesService.js"></script>
+    <script type="text/javascript" src="app/services/eventManagerService.js"></script>
 </body>
 
 </html>

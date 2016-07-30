@@ -13,6 +13,10 @@ kb-view-by-file {
       vertical-align: top; /* inner img is centered horizontally */
       width: 100%; /* needed */
 
+      .viewer-container {
+        background-color: $transparent;
+      }
+
       .img-view{
         bottom: 0;
         left: 0;
