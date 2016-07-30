@@ -35,6 +35,11 @@ angular.module('kibibitCodeEditor')
       console.debug('last file loaded from session storage');
     }
 
+    if (SessionStorageService.projectLogoUrl) {
+      vm.projectLogoUrl = SessionStorageService.projectLogoUrl;
+      console.debug('last project logo loaded from session storage');
+    }
+
     $scope.$watch(function() {
       return vm.openFile;
     }, function(newVal) {
@@ -65,6 +70,8 @@ angular.module('kibibitCodeEditor')
       }).closePromise.then(function(selectedProjectFolderPath) {
         if (!vm.isModalCancel(selectedProjectFolderPath.value)) {
           vm.projectFolderPath = selectedProjectFolderPath.value;
+          vm.projectName = vm.projectFolderPath.split(/\/|\\/).reverse()[0];
+          SessionStorageService.projectName = vm.projectName;
           SessionStorageService.projectFolderPath = vm.projectFolderPath;
           console.debug('project path saved to session storage');
           vm.settings.recentlyOpen.push(vm.projectFolderPath);
@@ -74,7 +81,8 @@ angular.module('kibibitCodeEditor')
 
           ProjectService.getProjectLogo(vm.projectFolderPath)
             .then(function(res) {
-              vm.projectLogoUrl = encodeURIComponent(res.data.logoPath);
+              vm.projectLogoUrl = encodeURIComponent(res.logoPath);
+              SessionStorageService.projectLogoUrl = vm.projectLogoUrl;
             }, function(error) {
               console.error('no logo for this project');
             });
@@ -100,8 +108,10 @@ angular.module('kibibitCodeEditor')
 
     vm.emptyEditor = function() {
       vm.projectFolderPath = '';
-      SessionStorageService.projectFolderPath = vm.projectFolderPath;
       vm.openFile = '';
-      SessionStorageService.theme = undefined;
+      vm.projectLogoUrl = undefined;
+      SessionStorageService.removeItem('theme');
+      SessionStorageService.removeItem('projectFolderPath');
+      SessionStorageService.removeItem('projectLogoUrl');
     };
   }]);
