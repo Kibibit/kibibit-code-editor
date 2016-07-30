@@ -7,13 +7,15 @@ angular.module('kibibitCodeEditor')
   'ProjectService',
   'SessionStorageService',
   'TinyColorService',
+  'ToastService',
   function(
     $scope,
     $timeout,
     $window,
     ProjectService,
     SessionStorageService,
-    TinyColorService) {
+    TinyColorService,
+    ToastService) {
 
     var vm = this;
 
@@ -76,6 +78,15 @@ angular.module('kibibitCodeEditor')
             } else {
               vm.theme = res.data.themeName;
               SessionStorageService.theme = vm.theme;
+              ToastService.showActionToast({
+                text: 'color matched to project logo',
+                action: 'UNDO'
+              }).then(function(respond) {
+                if (respond === 'ok') {
+                  vm.theme = undefined;
+                  SessionStorageService.removeItem('theme');
+                }
+              });
             }
           }, function(error) {
             console.error(error);
