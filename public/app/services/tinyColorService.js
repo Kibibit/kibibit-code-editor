@@ -4,4 +4,4 @@ angular.module('kibibitCodeEditor')
   return {
     TinyColor: tinycolor
   };
- }]);
+}]);
