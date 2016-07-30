@@ -116,6 +116,7 @@ angular.module('kibibitCodeEditor')
       vm.projectFolderPath = '';
       vm.openFile = '';
       vm.projectLogoUrl = undefined;
+      ProjectService.setTheme(undefined);
       SessionStorageService.removeItem('theme');
       SessionStorageService.removeItem('projectFolderPath');
       SessionStorageService.removeItem('projectLogoUrl');

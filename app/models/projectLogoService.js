@@ -3,8 +3,6 @@ var console = require('./consoleService')('PROJECT LOGO', ['blue', 'inverse']);
 
 var projectLogoService = {};
 
-var FRONTEND_SASS = ['./public/assets/sass/**/*.scss'];
-
 projectLogoService.get = function(req, res) {
   var fileFullPath = req.params.file_id;
   fileFullPath += '/logo.png';
