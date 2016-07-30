@@ -58,7 +58,7 @@ module.exports = function(app, express) {
   apiRouter.route('/quotes/:num?')
     .get(quotesService.get);
 
-  apiRouter.route('/createTheme/:color_hex')
+  apiRouter.route('/createTheme/:color_hex/:project_name')
     .put(colorThemeService.put);
 
   apiRouter.route('/projectLogo/:file_id')
