@@ -49,12 +49,12 @@ angular.module('kibibitCodeEditor')
           anotherColor : projectColor;
 
         // if color is still dark, lighten it
-        while(projectColor.isDark()) {
+        while (projectColor.isDark()) {
           projectColor.lighten();
         }
 
         // if color is still light, lighten it
-        while(projectColor.getBrightness() > 200) {
+        while (projectColor.getBrightness() > 200) {
           projectColor.darken();
         }
 
