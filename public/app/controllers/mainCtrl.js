@@ -40,6 +40,11 @@ angular.module('kibibitCodeEditor')
       console.debug('last project logo loaded from session storage');
     }
 
+    if (SessionStorageService.projectName) {
+      vm.projectName = SessionStorageService.projectName;
+      console.debug('last project name loaded from session storage');
+    }
+
     $scope.$watch(function() {
       return vm.openFile;
     }, function(newVal) {
