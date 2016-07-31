@@ -1,0 +1,34 @@
+<h3 class="font-view-header" id="font-name"></h3>
+<div class="main-section">
+  <div class="glyph-view-container">
+    <div class="glyph-description">
+      <span class="info" id="selected-glyph-name"></span>
+      <span class="info unicode" id="selected-glyph-unicode"></span>
+    </div>
+    <div id="glyph-display" class="glyph-display">
+      <canvas class="glyph-bg" id="glyph-bg" width="250" height="250"></canvas>
+      <canvas class="glyph" id="glyph" width="250" height="250"></canvas>
+    </div>
+    <div class="glyph-data">
+      <span class="info" id="selected-glyph-width"></span>
+      <span class="info index" id="selected-glyph-index"></span>
+    </div>
+  </div>
+
+  <div class="glyphs-table-container">
+    Glyphs
+    <div class="glyphs-table">
+      <div id="glyph-list-end" class="glyph-list-end"></div>
+    </div>
+    Page <span class="pagination"></span>
+  </div>
+</div>
+<div class="footer">
+  <div class="compiled-text-container">
+    <div class="padding">
+      <canvas id="preview-canvas" class="preview-canvas" height="40"></canvas>
+    </div>
+  </div>
+  <input id="preview-input" class="preview-input"
+         ng-model="fontViewerCtrl.previewText">
+</div>
