@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kibibit Code Editor</title>
     <!-- FOR ANGULAR ROUTING -->
     <base href="/">
@@ -37,14 +38,14 @@
           <div ui-layout-container size="104px" class="menu-bar-container">
             <kb-menu-bar></kb-menu-bar>
           </div>
-          
-          <div ui-layout-container="central" style="z-index: 6;"> 
+          <div ui-layout-container="central" class="main-area" style="z-index: 6;"> 
             <div ui-layout="{ flow : 'column', dividerSize: '10' }">
               <div ui-layout-container class="sidebar-container" size="20%">
-                  <div class="sidebar" ng-scrollbars>
+                  <div class="sidebar mobile-sidebar" ng-class="{'open': main.isSidebarOpen}" ng-scrollbars>
                     <kb-file-tree 
                       kb-file-tree-path="main.projectFolderPath"
-                      kb-file-tree-selection="main.openFile">
+                      kb-file-tree-selection="main.openFile"
+                      kb-on-file-selection="main.isSidebarOpen = false;">
                     </kb-file-tree>
                 </div>
               </div>
@@ -120,6 +121,8 @@
     <script src="assets/lib/bower_components/ngColorThief/angular-colorthief.min.js"></script>
     <script src="assets/lib/bower_components/tinycolor/dist/tinycolor-min.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/opentype.js/dist/opentype.min.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/angular-material-icons/angular-material-icons.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/svg-morpheus/compile/minified/svg-morpheus.js"></script>
 
     <!-- Kibibit Code Editor -->
     <!-- Initialize -->

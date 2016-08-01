@@ -9,6 +9,10 @@ kb-font-viewer {
 
   .main-section {
     display: flex;
+
+    @include phone {
+      flex-wrap: wrap;
+    }
   }
 
   .glyphs-table-container {
@@ -20,6 +24,10 @@ kb-font-viewer {
       height: 250px;
       overflow-y: auto;
       padding-bottom: 1px;
+
+      @include phone {
+        height: auto;
+      }
 
       .glyph-list-end {
         clear: both;
