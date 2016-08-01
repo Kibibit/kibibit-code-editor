@@ -22,10 +22,14 @@ angular.module('kibibitCodeEditor')
 
 .controller('fileTreeController', [
   'FolderService',
+  'deviceDetector',
   function(
-    FolderService) {
+    FolderService,
+    deviceDetector) {
 
     var vm = this;
+
+    vm.browserClass = deviceDetector.raw.browser.firefox ? 'firefox' : undefined;
 
     vm.treeOptions = {
       nodeChildren: 'children',

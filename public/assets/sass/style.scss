@@ -189,6 +189,16 @@ treecontrol {
   }
 }
 
+.firefox treecontrol {
+  .tree-expanded .tree-branch-head {
+   display: none;
+  }
+
+  .tree-collapsed .tree-branch-head {
+    display: none;
+  }
+}
+
 .ngdialog {
   overflow: hidden;
 
