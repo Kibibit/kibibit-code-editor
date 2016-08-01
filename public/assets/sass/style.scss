@@ -144,48 +144,15 @@ body,
   }
 }
 
-.hamburger {
+.menu-button {
   display: none;
+  color: $primary;
+  fill: $primary;
 
   @include phone {
     display: inline-block;
     position: relative;
     top: 9px;
-  }
-}
-
-.mobile-sidebar {
-  color: $primary;
-  display: none;
-
-  @include phone {
-    background: $color1;
-    bottom: 0;
-    display: block;
-    height: 100vh;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transform: translateX(-150vw);
-    transition: transform ease-in-out 250ms;
-    width: 100vw;
-    z-index: 91;
-
-    &.open {
-      transform: none;
-    }
-
-    .tree-container {
-      padding: 24px;
-    }
-
-    .close {
-      color: $primary;
-      padding: 5px;
-      position: fixed;
-      right: 10px;
-      top: 10px;
-    }
   }
 }
 

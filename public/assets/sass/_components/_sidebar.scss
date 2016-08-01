@@ -4,6 +4,36 @@
   height: 100%;
   white-space: nowrap;
   width: 100%;
+
+  @include phone {
+    background: $color1;
+    bottom: 0;
+    display: block;
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    top: 45px;
+    transform: translateX(-150vw);
+    transition: transform ease-in-out 250ms;
+    width: 100vw;
+    z-index: 91;
+
+    &.open {
+      transform: none;
+    }
+
+    .tree-container {
+      padding: 24px;
+    }
+
+    .close {
+      color: $primary;
+      padding: 5px;
+      position: fixed;
+      right: 10px;
+      top: 10px;
+    }
+  }
 }
 
 .sidebar-container {
@@ -11,4 +41,8 @@
   color: $primary;
   overflow: hidden;
   padding: 10px;
+
+  @include phone {
+  	overflow: auto;
+  }
 }
