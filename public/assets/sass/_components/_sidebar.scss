@@ -6,17 +6,19 @@
   width: 100%;
 
   @include phone {
+    // scss-lint:disable ImportantRule
     background: $color1;
     bottom: 0;
     display: block;
     height: 100vh;
     left: 0;
-    position: fixed;
+    position: fixed !important;
     top: 45px;
     transform: translateX(-150vw);
     transition: transform ease-in-out 250ms;
     width: 100vw;
     z-index: 91;
+    // scss-lint:enable ImportantRule
 
     &.open {
       transform: none;
