@@ -106,16 +106,20 @@ body,
   overflow: hidden;
 
   @include phone {
+    // scss-lint:disable ImportantRule
     height: 48px !important;
     overflow: hidden;
+    // scss-lint:enable ImportantRule
   }
 }
 
 @include phone {
+  // scss-lint:disable ImportantRule
   .main-area {
     height: calc(100vh - 52px - 30px) !important;
     top: 52px !important;
   }
+  // scss-lint:enable ImportantRule
 }
 
 .main-view-container {
@@ -151,8 +155,8 @@ body,
 }
 
 .mobile-sidebar {
-  display: none;
   color: $primary;
+  display: none;
 
   @include phone {
     background: $color1;
