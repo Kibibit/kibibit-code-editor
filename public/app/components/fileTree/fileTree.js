@@ -29,7 +29,8 @@ angular.module('kibibitCodeEditor')
 
     var vm = this;
 
-    vm.browserClass = deviceDetector.raw.browser.firefox ? 'firefox' : undefined;
+    vm.browserClass =
+      deviceDetector.raw.browser.firefox ? 'firefox' : undefined;
 
     vm.treeOptions = {
       nodeChildren: 'children',
