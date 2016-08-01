@@ -10,6 +10,7 @@ angular.module('kibibitCodeEditor')
     controllerAs: 'fontViewerCtrl',
     templateUrl: 'app/components/fontViewer/fontViewerTemplate.html',
     link: function(scope, element, attrs, fontViewerCtrl) {
+      var _element = element;
       scope.$watch('fontViewerCtrl.openFont', function(newOpenFont) {
         fontViewerCtrl.updateFontView(newOpenFont);
       });
@@ -17,7 +18,7 @@ angular.module('kibibitCodeEditor')
         if (fontViewerCtrl.font) {
           var fontMeasures = fontViewerCtrl.measureText(textToRender);
           fontViewerCtrl.fixPreviewCanvasSize(fontMeasures.width);
-          fontViewerCtrl.drawPreviewText(textToRender);
+          fontViewerCtrl.drawPreviewText(textToRender, _element.css('color'));
         }
       });
     }
@@ -223,12 +224,13 @@ angular.module('kibibitCodeEditor')
       ctx.fillStyle = '#000000';
     }
 
-    function drawPreviewText(textToRender) {
+    function drawPreviewText(textToRender, color) {
+      vm.color = color;
       var snapPath = vm.font.getPath(textToRender, 0, 25, fontSize);
       var snapCtx = document.getElementById('preview-canvas').getContext('2d');
       snapCtx.clearRect(0, 0, previewWidth, 40);
-      snapPath.fill = 'rgb(255, 188, 0)';
-      snapPath.stroke = 'rgb(255, 188, 0)';
+      snapPath.fill = vm.color;
+      snapPath.stroke = vm.color;
       snapPath.draw(snapCtx);
     }
 
