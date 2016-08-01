@@ -43,6 +43,15 @@ $color1: rgb(70, 70, 70);
 $color2: #808080;
 $color3: rgb(38, 38, 38);
 
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+@mixin phone {
+  @media (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
 .main-app-container {
   opacity: 0;
   transition: opacity 0.5s ease;
@@ -95,6 +104,22 @@ body,
 .menu-bar-container {
   background: $color1;
   overflow: hidden;
+
+  @include phone {
+    // scss-lint:disable ImportantRule
+    height: 48px !important;
+    overflow: hidden;
+    // scss-lint:enable ImportantRule
+  }
+}
+
+@include phone {
+  // scss-lint:disable ImportantRule
+  .main-area {
+    height: calc(100vh - 52px - 30px) !important;
+    top: 52px !important;
+  }
+  // scss-lint:enable ImportantRule
 }
 
 .main-view-container {
@@ -104,6 +129,31 @@ body,
   flex-direction: column;
   flex-wrap: nowrap;
   overflow: hidden;
+
+  @include phone {
+    // scss-lint:disable ImportantRule
+    border-left: 10px solid $color1;
+    bottom: 0;
+    left: 0 !important;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100% !important;
+    z-index: 90;
+    // scss-lint:enable ImportantRule
+  }
+}
+
+.menu-button {
+  color: $primary;
+  display: none;
+  fill: $primary;
+
+  @include phone {
+    display: inline-block;
+    position: relative;
+    top: 9px;
+  }
 }
 
 .tabs {
@@ -126,6 +176,10 @@ md-toolbar {
   h2 {
     &.md-toolbar-tools {
       color: $primary;
+
+      @include phone {
+        display: none;
+      }
     }
   }
 }
@@ -182,11 +236,12 @@ treecontrol {
 
   &.ngdialog-theme-default .ngdialog-content {
     bottom: 0;
-    left: calc(50vw - 225px);
+    left: 0;
     margin: auto;
     max-height: 600px;
     overflow: hidden;
     position: absolute;
+    right: 0;
     top: 0;
     z-index: 10;
 
@@ -292,3 +347,4 @@ md-input-container {
 // scss-lint:enable IdSelector
 // scss-lint:enable NestingDepth
 // scss-lint:enable SelectorDepth
+

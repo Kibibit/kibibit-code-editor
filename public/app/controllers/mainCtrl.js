@@ -19,6 +19,7 @@ angular.module('kibibitCodeEditor')
 
     vm.openFile = '';
     vm.openProject = {};
+    vm.isSidebarOpen = false; // for mobile view
 
     vm.settings = SettingsService.settings;
 

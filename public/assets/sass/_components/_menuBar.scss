@@ -2,9 +2,27 @@
 // scss-lint:disable SelectorDepth
 // scss-lint:disable ColorVariable
 kb-menu-bar {
+  @include phone {
+    md-menu-bar {
+      padding: 0;
+    }
+  }
+
   .project-logo-container {
     height: 105px;
     width: 105px;
+
+    @include phone {
+      height: 46px;
+      margin-left: 7px;
+      width: 46px;
+
+      .logo {
+        margin-top: 11px;
+        // TODO(@thatkookooguy): need to change this at some point since it's bad practice ?
+        zoom: 47%;
+      }
+    }
 
     .logo {
       align-items: center;
