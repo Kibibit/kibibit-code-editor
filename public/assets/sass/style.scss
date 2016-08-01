@@ -145,8 +145,8 @@ body,
 }
 
 .menu-button {
-  display: none;
   color: $primary;
+  display: none;
   fill: $primary;
 
   @include phone {
