@@ -6,7 +6,8 @@ angular.module('kibibitCodeEditor')
     bindToController: {
       path: '=kbFileTreePath',
       selection: '=kbFileTreeSelection',
-      userOptions: '=kbFileTreeOptions'
+      userOptions: '=kbFileTreeOptions',
+      onFileSelection: '&kbOnFileSelection'
     },
     controller: 'fileTreeController',
     controllerAs: 'fileTreeCtrl',
@@ -71,11 +72,13 @@ angular.module('kibibitCodeEditor')
 
         if (vm.options.selectionMode == 'folder') {
           vm.selection = folder.path;
+          vm.onFileSelection();
         }
       } else {
         file = treeNode;
         if (vm.options.selectionMode == 'file') {
           vm.selection =  file.path;
+          vm.onFileSelection();
         }
       }
     };

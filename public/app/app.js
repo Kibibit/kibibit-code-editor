@@ -1,20 +1,21 @@
 angular.module('kibibitCodeEditor',
-	['angular-loading-bar',
-	'ngAnimate',
-	'app.routes',
-	'treeControl',
-	'ui.ace',
-	'ngDialog',
-	'ngMaterial',
-	'FBAngular',
-	'ui.layout',
-	'ngScrollbars',
+  ['angular-loading-bar',
+  'ngAnimate',
+  'app.routes',
+  'treeControl',
+  'ui.ace',
+  'ngDialog',
+  'ngMaterial',
+  'FBAngular',
+  'ui.layout',
+  'ngScrollbars',
   'ngSanitize',
   'hc.marked',
   'emoji',
   'jsonFormatter',
   'ngclipboard',
-  'ng.deviceDetector'])
+  'ng.deviceDetector',
+  'ngMdIcons'])
 
 .config(['$compileProvider', function($compileProvider) {
   $compileProvider.debugInfoEnabled(false);

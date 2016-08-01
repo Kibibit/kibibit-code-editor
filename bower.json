@@ -21,7 +21,9 @@
     "ng-device-detector": "~3.0.1",
     "viewerjs": "fengyuanchen/viewerjs#~0.4.0",
     "opentype.js": "^0.6.3",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "angular-material-icons": "^0.7.1",
+    "svg-morpheus": "^0.3.2"
   },
   "resolutions": {
     "angular": "1.5.8"

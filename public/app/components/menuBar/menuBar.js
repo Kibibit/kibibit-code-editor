@@ -38,6 +38,10 @@ angular.module('kibibitCodeEditor')
 
   var vm = this;
 
+  vm.svgMorphOptions = {
+    duration: 375
+  };
+
   vm.sampleAction = function(name, ev) {
     ngDialog.open({
       template: '<p>You triggered the "' + name + '" action</p>',
