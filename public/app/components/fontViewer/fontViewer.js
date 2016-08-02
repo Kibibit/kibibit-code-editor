@@ -11,6 +11,7 @@ angular.module('kibibitCodeEditor')
     templateUrl: 'app/components/fontViewer/fontViewerTemplate.html',
     link: function(scope, element, attrs, fontViewerCtrl) {
       var _element = element;
+
       scope.$watch('fontViewerCtrl.openFont', function(newOpenFont) {
         fontViewerCtrl.updateFontView(newOpenFont);
       });
