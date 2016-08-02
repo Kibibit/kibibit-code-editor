@@ -33,6 +33,11 @@ angular.module('kibibitCodeEditor')
       console.debug('last file loaded from session storage');
     }
 
+    if (SessionStorageService.projectName) {
+      vm.projectName = SessionStorageService.projectName;
+      console.debug('last project name loaded from session storage');
+    }
+
     $scope.$watch(function() {
       return vm.openFile;
     }, function(newVal) {
@@ -63,6 +68,9 @@ angular.module('kibibitCodeEditor')
       }).closePromise.then(function(selectedProjectFolderPath) {
         if (!vm.isModalCancel(selectedProjectFolderPath.value)) {
           vm.projectFolderPath = selectedProjectFolderPath.value;
+          vm.projectName = getFolderNameFromPath(vm.projectFolderPath);
+
+          SessionStorageService.projectName = vm.projectName;
           SessionStorageService.projectFolderPath = vm.projectFolderPath;
           console.debug('project path saved to session storage');
           vm.settings.recentlyOpen.push(vm.projectFolderPath);
@@ -91,7 +99,17 @@ angular.module('kibibitCodeEditor')
 
     vm.emptyEditor = function() {
       vm.projectFolderPath = '';
-      SessionStorageService.projectFolderPath = vm.projectFolderPath;
+      vm.projectName = undefined;
       vm.openFile = '';
+      SessionStorageService.removeItem('projectFolderPath');
+      SessionStorageService.removeItem('projectName');
     };
+
+    function getFolderNameFromPath(path) {
+      if (!path) {
+        return '';
+      }
+
+      return path.split(/\/|\\/).reverse()[0];
+    }
   }]);
