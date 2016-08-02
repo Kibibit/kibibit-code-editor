@@ -15,6 +15,7 @@ angular.module('kibibitCodeEditor',
   'jsonFormatter',
   'ngclipboard',
   'ng.deviceDetector',
+  'ngColorThief',
   'ngMdIcons'])
 
 .config(['$compileProvider', function($compileProvider) {
