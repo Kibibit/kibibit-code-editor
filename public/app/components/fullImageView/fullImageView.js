@@ -1,11 +1,15 @@
 angular.module('kibibitCodeEditor')
 
-.directive('kbFullImageView', function() {
+.directive('kbFullImageView', ['deviceDetector', function(deviceDetector) {
   return {
     scope: {},
     controller: 'fullImageViewController',
     controllerAs: 'fullImageViewCtrl',
     link: function(scope, element, attrs, fullImageViewCtrl) {
+      if (deviceDetector.raw.browser.firefox) {
+        return;
+      }
+
       fullImageViewCtrl.addFullImageView(element);
 
       scope.$watch(function() {
@@ -17,7 +21,7 @@ angular.module('kibibitCodeEditor')
       });
     }
   };
-})
+}])
 
 .controller('fullImageViewController', [
   '$scope',
