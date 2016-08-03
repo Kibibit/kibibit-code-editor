@@ -65,6 +65,16 @@ angular.module('kibibitCodeEditor')
       vm.undoManager = editor.getSession().getUndoManager();
       SettingsService.settings.currentUndoManager = vm.undoManager;
       SettingsService.settings.currentEditor = editor;
+      /* This is temporarily needed to remove the console.warning ace.js shows
+       * that will be removed in the next version.
+       *
+       * This message is:
+       *
+       * "Automatically scrolling cursor into view after selection change
+       * this will be disabled in the next version
+       * set editor.$blockScrolling = Infinity to disable this message"
+       */
+      editor.$blockScrolling = Infinity;
       initEditor(editor, editorSettings);
     }
 
@@ -139,7 +149,8 @@ angular.module('kibibitCodeEditor')
         'fontSize': settings.fontSize,
         'showGutter': settings.isGutter,
         'useSoftTabs': settings.isSoftTabs,
-        'showPrintMargin': settings.ruler
+        'showPrintMargin': settings.ruler,
+        'scrollPastEnd': true
       });
     }
 

@@ -287,7 +287,7 @@ angular.module('kibibitCodeEditor')
               var session = settings.currentEditor.getSession();
               session.setMode(matchedMode.mode);
             }
-            syntaxMode = newValue;
+            syntaxMode = matchedMode.name;
           }
         });
 

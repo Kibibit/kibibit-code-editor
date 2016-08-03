@@ -29,19 +29,10 @@
                                 <md-button ng-click="$mdOpenMenu()">New</md-button>
                                 <md-menu-content>
                                     <md-menu-item>
-                                        <md-button ng-click="main.emptyEditor()">Empty Editor</md-button>
+                                        <md-button ng-click="main.openFile = ''; menuBarCtrl.focusEditor();">File</md-button>
                                     </md-menu-item>
                                     <md-menu-item>
-                                        <md-button ng-click="menuBarCtrl.sampleAction('New Spreadsheet', $event)">Spreadsheet</md-button>
-                                    </md-menu-item>
-                                    <md-menu-item>
-                                        <md-button ng-click="menuBarCtrl.sampleAction('New Presentation', $event)">Presentation</md-button>
-                                    </md-menu-item>
-                                    <md-menu-item>
-                                        <md-button ng-click="menuBarCtrl.sampleAction('New Form', $event)">Form</md-button>
-                                    </md-menu-item>
-                                    <md-menu-item>
-                                        <md-button ng-click="menuBarCtrl.sampleAction('New Drawing', $event)">Drawing</md-button>
+                                        <md-button ng-click="main.emptyEditor(); menuBarCtrl.focusEditor();">Empty Editor</md-button>
                                     </md-menu-item>
                                 </md-menu-content>
                             </md-menu>
@@ -62,7 +53,7 @@
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item class="md-indent">
                             <md-icon class="material-icons">print</md-icon>
-                            <md-button ng-click="menuBarCtrl.sampleAction('Print', $event)">
+                            <md-button ng-click="menuBarCtrl.openPrintDialog()">
                                 Print
                                 <span class="md-alt-text">{{ 'M-P' | keyboardShortcut }}</span>
                             </md-button>
@@ -113,16 +104,32 @@
                         <md-menu-item class="md-indent">
                             <md-icon class="material-icons" style="color: rgba(0, 0, 0, 0.258824)">content_paste</md-icon>
                             <md-button ng-click="menuBarCtrl.paste()" disabled="disabled">
-                                Paste
+                                Paste 
+                                <md-icon
+                                class="material-icons"
+                                ng-mouseenter="infoHover = true"
+                                ng-mouseleave="infoHover = false">
+                                    {{ infoHover ? 'info' : 'info_outline' }}
+                                    <md-tooltip md-direction="right">
+                                        Web browsers don't allow sites to paste content. You can use the keyboard shortcut
+                                    </md-tooltip>
+                                </md-icon>
                                 <span class="md-alt-text">{{ 'M-P' | keyboardShortcut }}</span>
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item class="md-indent">
+                            <md-icon class="material-icons">select_all</md-icon>
+                            <md-button ng-click="menuBarCtrl.execEditorCommand('selectall')">
+                                Select All
+                                <span class="md-alt-text">{{ 'M-A' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item class="md-indent">
                             <md-icon class="material-icons">find_in_page</md-icon>
-                            <md-button ng-click="menuBarCtrl.sampleAction('Find and replace', $event)">
+                            <md-button ng-click="menuBarCtrl.execEditorCommand('replace')">
                                 Find and replace...
-                                <span class="md-alt-text">{{ 'M-S-H' | keyboardShortcut }}</span>
+                                <span class="md-alt-text">{{ 'M-A-H' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
                     </md-menu-content>
@@ -229,50 +236,70 @@
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
-                <md-menu>
-                    <button ng-click="$mdOpenMenu()">
-                        Format
+                <md-menu
+                ng-if="menuBarCtrl.isSelectionExists()">
+                    <button ng-click="$mdOpenMenu();
+                    canChangeCase = menuBarCtrl.canChangeCase();
+                    isMultiLineSelection = menuBarCtrl.isMultiLineSelection();">
+                        Selection
                     </button>
                     <md-menu-content>
                         <md-menu-item>
-                            <md-button ng-click="menuBarCtrl.sampleAction('bold', $event)">
-                                Bold
-                                <span class="md-alt-text"> {{ 'M-B' | keyboardShortcut }}</span>
+                            <md-button ng-click="menuBarCtrl.execEditorCommand('touppercase')">
+                                UPPERCASE
+                                <span class="md-alt-text"> {{ '_Ctrl-U' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
                         <md-menu-item>
-                            <md-button ng-click="menuBarCtrl.sampleAction('italic', $event)">
-                                Italic
-                                <span class="md-alt-text">{{ 'M-I' | keyboardShortcut }}</span>
+                            <md-button ng-click="menuBarCtrl.execEditorCommand('tolowercase')">
+                                lowercase
+                                <span class="md-alt-text">{{ '_Ctrl-S-U' | keyboardShortcut }}</span>
                             </md-button>
                         </md-menu-item>
-                        <md-menu-item>
-                            <md-button ng-click="menuBarCtrl.sampleAction('underline', $event)">
-                                Underline
-                                <span class="md-alt-text">{{ 'M-U' | keyboardShortcut }}</span>
+                        <md-menu-item ng-if="canChangeCase">
+                            <md-button
+                            ng-click="menuBarCtrl.changeSelectionToCamelCase()">
+                                camelCase
                             </md-button>
                         </md-menu-item>
-                        <md-menu-item>
-                            <md-button ng-click="menuBarCtrl.sampleAction('strikethrough', $event)">
-                                Strikethrough
-                                <span class="md-alt-text">{{ 'A-S-5' | keyboardShortcut }}</span>
+                        <md-menu-item ng-if="canChangeCase">
+                            <md-button
+                            ng-click="menuBarCtrl.changeSelectionToTitleCase()">
+                                Title Case
                             </md-button>
                         </md-menu-item>
-                        <md-menu-item>
-                            <md-button ng-click="menuBarCtrl.sampleAction('superscript', $event)">
-                                Superscript
-                                <span class="md-alt-text">{{ 'M-.' | keyboardShortcut }}</span>
+                        <md-menu-item ng-if="canChangeCase">
+                            <md-button
+                            ng-click="menuBarCtrl.changeSelectionToKebabCase()">
+                                kebab-case
                             </md-button>
                         </md-menu-item>
-                        <md-menu-item>
-                            <md-button ng-click="menuBarCtrl.sampleAction('subscript', $event)">
-                                Subscript
-                                <span class="md-alt-text">{{ 'M-,' | keyboardShortcut }}</span>
-                            </md-button>
+                        <md-menu-item ng-if="canChangeCase">
+                            <md-button
+                            ng-click="menuBarCtrl.changeSelectionToSnakeCase()">snake_case</md-button>
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item>
-                            <md-button ng-click="menuBarCtrl.toggleSetting('clearFormatting')">Clear Formatting</md-button>
+                            <md-button
+                            ng-click="menuBarCtrl.execEditorCommand('togglecomment')">
+                                Toggle Comment
+                                <span class="md-alt-text">{{ 'M-/' | keyboardShortcut }}</span>
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button
+                            ng-click="menuBarCtrl.execEditorCommand('toggleBlockComment')">
+                                Toggle Block Comment
+                                <span class="md-alt-text">{{ 'M-S-/' | keyboardShortcut }}</span>
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-divider ng-if="isMultiLineSelection"></md-menu-divider>
+                        <md-menu-item ng-if="isMultiLineSelection">
+                            <md-button
+                            ng-click="menuBarCtrl.execEditorCommand('sortlines')">
+                                Sort Lines
+                                <span class="md-alt-text">{{ 'M-A-S' | keyboardShortcut }}</span>
+                            </md-button>
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
