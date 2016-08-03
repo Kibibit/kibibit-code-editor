@@ -22,7 +22,21 @@ angular.module('kibibitCodeEditor')
   function(FileService) {
     var vm = this;
 
-    vm.updateFileContent = function(filePath) {
+    vm.updateFileContent = updateFileContent;
+
+    ////////////
+    
+    function getFileTypeFromMimeType(mimeType) {
+      if (mimeType.indexOf('image') !== -1) {
+        return 'image';
+      } else if (mimeType.indexOf('font') !== -1) {
+        return 'font';
+      } else {
+        return 'code';
+      }
+    }
+
+    function updateFileContent(filePath) {
       if (filePath !== '') {
         FileService.getFile(filePath, function(fileInfo) {
           if (fileInfo.data.errno) {
@@ -37,16 +51,6 @@ angular.module('kibibitCodeEditor')
       } else {
         vm.fileType = 'code';
         vm.fileInfo = undefined;
-      }
-    };
-
-    function getFileTypeFromMimeType(mimeType) {
-      if (mimeType.indexOf('image') !== -1) {
-        return 'image';
-      } else if (mimeType.indexOf('font') !== -1) {
-        return 'font';
-      } else {
-        return 'code';
       }
     }
 

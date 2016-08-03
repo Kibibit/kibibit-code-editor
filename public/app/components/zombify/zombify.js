@@ -54,14 +54,14 @@ angular.module('kibibitCodeEditor')
     zombieCount--;
     score++;
     /*chrome.extension.sendMessage({score: score}, function (response) {
-    	    if (response.message) {
-    	      showText(response.message);
-    	    }
-    	  });*/
+      if (response.message) {
+        showText(response.message);
+      }
+    });*/
   }
 
   function addZombie() {
-    if (end) {
+    if(end) {
       return;
     }
 
@@ -75,13 +75,13 @@ angular.module('kibibitCodeEditor')
     });
 
     zombiesHolderDiv.appendChild(div);
-    if (zombiesToCreate > 0) {
+    if(zombiesToCreate > 0) {
       zombiesToCreate--;
       window.setTimeout(addZombie, random(2, 5));
     }
 
     zombieCount++;
-    if (zombieCount > 20) {
+    if(zombieCount > 20) {
       gameOver();
     }
   }
