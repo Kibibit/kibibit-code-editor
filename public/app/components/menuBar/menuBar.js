@@ -38,78 +38,44 @@ angular.module('kibibitCodeEditor')
 
   var vm = this;
 
-  vm.svgMorphOptions = {
+  var svgMorphOptions = {
     duration: 375
   };
 
-  vm.sampleAction = function(name, ev) {
-    ngDialog.open({
-      template: '<p>You triggered the "' + name + '" action</p>',
-      plain: true
-    });
-  };
+  ////////////
 
+  vm.canChangeCase = canChangeCase;
+  vm.changeSelectionToCamelCase = changeSelectionToCamelCase;
+  vm.changeSelectionToKebabCase = changeSelectionToKebabCase;
+  vm.changeSelectionToSnakeCase = changeSelectionToSnakeCase;
+  vm.changeSelectionToTitleCase = changeSelectionToTitleCase;
+  vm.cutSelection = cutSelection;
+  vm.execEditorCommand = execEditorCommand;
+  vm.focusEditor = focusEditor;
+  vm.hasRedo = hasRedo;
+  vm.hasUndo = hasUndo;
+  vm.isMultiLineSelection = isMultiLineSelection;
+  vm.isSelectionExists = isSelectionExists;
+  vm.openPrintDialog = openPrintDialog;
+  vm.sampleAction = sampleAction;
+  vm.saveCurrentEditor = saveCurrentEditor;
   vm.settings = SettingsService.settings;
+  vm.svgMorphOptions = svgMorphOptions;
+  vm.toggleFullscreen = toggleFullscreen;
+  vm.toggleGutter = toggleGutter;
+  vm.toggleLineWrap = toggleLineWrap;
+  vm.toggleSoftTabs = toggleSoftTabs;
 
-  vm.saveCurrentEditor = function(openFilePath) {
-    var currentEditor = vm.settings.currentEditor;
-    if (currentEditor && openFilePath) {
-      FileService.saveFile(openFilePath,
-        currentEditor.getSession().getDocument().getValue(),
-        function() {
-          ToastService.showSimpleToast('success-toast',
-            'File successfully saved');
-        }
-      );
-    }
-  };
+  ////////////
 
-  vm.hasUndo = function() {
-    if (vm.settings.currentUndoManager &&
-        vm.settings.currentUndoManager.hasUndo) {
-      vm.enableUndo = vm.settings.currentUndoManager.hasUndo();
-      return vm.enableUndo;
-    } else {
-      return false;
-    }
-  };
+  function canChangeCase() {
+    var selectionText = vm.settings.currentEditor ?
+      vm.settings.currentEditor.getSelectedText() : '';
 
-  vm.hasRedo = function() {
-    if (vm.settings.currentUndoManager &&
-        vm.settings.currentUndoManager.hasRedo) {
-      vm.enableRedo = vm.settings.currentUndoManager.hasRedo();
-      return vm.enableRedo;
-    } else {
-      return false;
-    }
-  };
+    return /[-_\sA-Z]/.test(selectionText);
+  }
 
-  vm.cutSelection = function(e) {
-    vm.settings.currentEditor.session.replace(
-      vm.settings.currentEditor.selection.getRange(), '');
-
-    vm.settings.currentEditor.focus();
-  };
-
-  vm.toggleFullscreen = function() {
-    vm.settings.isFullscreen = !vm.settings.isFullscreen;
-  };
-
-  vm.toggleLineWrap = function() {
-    vm.settings.editorSettings.lineWrap = !vm.settings.editorSettings.lineWrap;
-  };
-
-  vm.toggleSoftTabs = function() {
-    var editorSettings = vm.settings.editorSettings;
-    editorSettings.isSoftTabs = !editorSettings.isSoftTabs;
-  };
-
-  vm.toggleGutter = function() {
-    var editorSettings = vm.settings.editorSettings;
-    editorSettings.isGutter = !editorSettings.isGutter;
-  };
-
-  vm.changeSelectionToCamelCase = function() {
+  function changeSelectionToCamelCase() {
     var editor = vm.settings.currentEditor;
     var selectionText = editor.getSelectedText();
     var selection = vm.settings.currentEditor.selection.getRange();
@@ -124,29 +90,9 @@ angular.module('kibibitCodeEditor')
     selection, camelCased);
 
     editor.focus();
-  };
+  }
 
-  vm.changeSelectionToTitleCase = function() {
-    var editor = vm.settings.currentEditor;
-    var selectionText = editor.getSelectedText();
-    var selection = vm.settings.currentEditor.selection.getRange();
-    var titleCased = selectionText.replace(
-      /[_-\s]([a-zA-Z])|([a-z])([A-Z])/g,
-      function(g, singleLetter, firstLetter, secondLetter) {
-        return secondLetter ?
-          firstLetter + ' ' + secondLetter.toUpperCase() :
-          ' ' + singleLetter.toUpperCase();
-      }
-    );
-
-    titleCased = titleCased[0].toUpperCase() + titleCased.substring(1);
-    vm.settings.currentEditor.session.replace(
-    selection, titleCased);
-
-    editor.focus();
-  };
-
-  vm.changeSelectionToKebabCase = function() {
+  function changeSelectionToKebabCase() {
     var editor = vm.settings.currentEditor;
     var selectionText = editor.getSelectedText();
     var selection = vm.settings.currentEditor.selection.getRange();
@@ -164,9 +110,9 @@ angular.module('kibibitCodeEditor')
     selection, kebabCased);
 
     editor.focus();
-  };
+  }
 
-  vm.changeSelectionToSnakeCase = function() {
+  function changeSelectionToSnakeCase() {
     var editor = vm.settings.currentEditor;
     var selectionText = editor.getSelectedText();
     var selection = vm.settings.currentEditor.selection.getRange();
@@ -184,30 +130,69 @@ angular.module('kibibitCodeEditor')
     selection, snakeCased);
 
     editor.focus();
-  };
+  }
 
-  vm.execEditorCommand = function(command) {
+  function changeSelectionToTitleCase() {
+    var editor = vm.settings.currentEditor;
+    var selectionText = editor.getSelectedText();
+    var selection = vm.settings.currentEditor.selection.getRange();
+    var titleCased = selectionText.replace(
+      /[_-\s]([a-zA-Z])|([a-z])([A-Z])/g,
+      function(g, singleLetter, firstLetter, secondLetter) {
+        return secondLetter ?
+          firstLetter + ' ' + secondLetter.toUpperCase() :
+          ' ' + singleLetter.toUpperCase();
+      }
+    );
+
+    titleCased = titleCased[0].toUpperCase() + titleCased.substring(1);
+    vm.settings.currentEditor.session.replace(
+    selection, titleCased);
+
+    editor.focus();
+  }
+
+  function cutSelection(e) {
+    vm.settings.currentEditor.session.replace(
+      vm.settings.currentEditor.selection.getRange(), '');
+
+    vm.settings.currentEditor.focus();
+  }
+
+  function execEditorCommand(command) {
     var editor = vm.settings.currentEditor;
     if (editor) {
       editor.execCommand(command);
       editor.focus();
     }
-  };
+  }
 
-  vm.isSelectionExists = function() {
+  function focusEditor() {
     var editor = vm.settings.currentEditor;
-    return editor ? editor.getSelectedText() !== '' : false;
-  };
+    editor.focus();
+  }
 
-  vm.canChangeCase = function() {
-    var selectionText = vm.settings.currentEditor ?
-      vm.settings.currentEditor.getSelectedText() : '';
+  function hasRedo() {
+    if (vm.settings.currentUndoManager &&
+        vm.settings.currentUndoManager.hasRedo) {
+      vm.enableRedo = vm.settings.currentUndoManager.hasRedo();
+      return vm.enableRedo;
+    } else {
+      return false;
+    }
+  }
 
-    return /[-_\sA-Z]/.test(selectionText);
+  function hasUndo() {
+    if (vm.settings.currentUndoManager &&
+        vm.settings.currentUndoManager.hasUndo) {
+      vm.enableUndo = vm.settings.currentUndoManager.hasUndo();
+      return vm.enableUndo;
+    } else {
+      return false;
+    }
+  }
 
-  };
-
-  vm.isMultiLineSelection = function() {
+  function isMultiLineSelection() {
     var selectionRange = vm.settings.currentEditor ?
       vm.settings.currentEditor.getSelectionRange() : undefined;
 
@@ -219,18 +204,57 @@ angular.module('kibibitCodeEditor')
     var endLine = selectionRange.end.row;
 
     return endLine > startLine;
-  };
+  }
 
-  vm.openPrintDialog = function() {
+  function isSelectionExists() {
+    var editor = vm.settings.currentEditor;
+    return editor ? editor.getSelectedText() !== '' : false;
+  }
+
+  function openPrintDialog() {
     // timeout to let the menu close before the print dialog appears
     $timeout(function() {
       $window.print();
     });
-  };
+  }
 
-  vm.focusEditor = function() {
-    var editor = vm.settings.currentEditor;
-    editor.focus();
-  };
+  // should be deleted eventually
+  function sampleAction(name, ev) {
+    ngDialog.open({
+      template: '<p>You triggered the "' + name + '" action</p>',
+      plain: true
+    });
+  }
+
+  function saveCurrentEditor(openFilePath) {
+    var currentEditor = vm.settings.currentEditor;
+    if (currentEditor && openFilePath) {
+      FileService.saveFile(openFilePath,
+        currentEditor.getSession().getDocument().getValue(),
+        function() {
+          ToastService.showSimpleToast('success-toast',
+            'File successfully saved');
+        }
+      );
+    }
+  }
+
+  function toggleFullscreen() {
+    vm.settings.isFullscreen = !vm.settings.isFullscreen;
+  }
+
+  function toggleGutter() {
+    var editorSettings = vm.settings.editorSettings;
+    editorSettings.isGutter = !editorSettings.isGutter;
+  }
+
+  function toggleLineWrap() {
+    vm.settings.editorSettings.lineWrap = !vm.settings.editorSettings.lineWrap;
+  }
+
+  function toggleSoftTabs() {
+    var editorSettings = vm.settings.editorSettings;
+    editorSettings.isSoftTabs = !editorSettings.isSoftTabs;
+  }
 
 });

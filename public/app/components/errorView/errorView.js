@@ -24,8 +24,8 @@ angular.module('kibibitCodeEditor')
     var input = $('.404-input');
     input.focus();
     $('.container').on('click', function(e) {
-  		input.focus();
-	});
+      input.focus();
+    });
 
     input.on('keyup', function(e) {
       $('.new-output').text(input.val());
@@ -33,52 +33,52 @@ angular.module('kibibitCodeEditor')
     });
 
     $('.four-oh-four-form').on('submit', function(e) {
-  e.preventDefault();
-  var val = $(this).children($('.404-input')).val().toLowerCase();
-  var href;
+      e.preventDefault();
+      var val = $(this).children($('.404-input')).val().toLowerCase();
+      var href;
 
-  if (val === 'kittens') {
-    showKittens();
-  }else {
-    resetForm();
-  }
-});
+      if(val === 'kittens') {
+        showKittens();
+      } else {
+        resetForm();
+      }
+    });
 
     function resetForm(withKittens) {
-  var message = 'Sorry that command is not recognized.';
-  var input = $('.404-input');
+      var message = 'Sorry that command is not recognized.';
+      var input = $('.404-input');
 
-  if (withKittens) {
-    $('.kittens').removeClass('kittens');
-    message = 'Huzzzzzah Kittehs!';
-  }
+      if(withKittens) {
+        $('.kittens').removeClass('kittens');
+        message = 'Huzzzzzah Kittehs!';
+      }
 
-  $('.new-output').removeClass('new-output');
-  input.val('');
-  $('.terminal').append('<p class="prompt">' + message + '</p><p class="prompt output new-output"></p>');
+      $('.new-output').removeClass('new-output');
+      input.val('');
+      $('.terminal').append('<p class="prompt">' + message + '</p><p class="prompt output new-output"></p>');
 
-  $('.new-output').velocity(
-    'scroll'
-  ), {duration: 100};
-}
+      $('.new-output').velocity(
+        'scroll'
+      ), { duration: 100 };
+    }
 
     function showKittens() {
       $('.terminal').append('<div class=\'kittens\'>' +
-      '<p class=\'prompt\'>	                             ,----,         ,----,                                          ,---,</p>' +
-      '<p class=\'prompt\'>       ,--.                ,/   .`|       ,/   .`|                     ,--.              ,`--.\' |</p>' +
-      '<p class=\'prompt\'>   ,--/  /|    ,---,     ,`   .\'  :     ,`   .\'  :     ,---,.        ,--.\'|   .--.--.    |   :  :</p>' +
-      '<p class=\'prompt\'>,---,\': / \' ,`--.\' |   ;    ;     /   ;    ;     /   ,\'  .\' |    ,--,:  : |  /  /    \'.  \'   \'  ;</p>' +
-      '<p class=\'prompt\'>:   : \'/ /  |   :  : .\'___,/    ,\'  .\'___,/    ,\'  ,---.\'   | ,`--.\'`|  \' : |  :  /`. /  |   |  |</p>' +
-      '<p class=\'prompt\'>|   \'   ,   :   |  \' |    :     |   |    :     |   |   |   .\' |   :  :  | | ;  |  |--`   \'   :  ;</p>' +
-      '<p class=\'prompt\'>\'   |  /    |   :  | ;    |.\';  ;   ;    |.\';  ;   :   :  |-, :   |   \\ | : |  :  ;_     |   |  \'</p>' +
-      '<p class=\'prompt\'>|   ;  ;    \'   \'  ; `----\'  |  |   `----\'  |  |   :   |  ;/| |   : \'  \'; |  \\  \\    `.  \'   :  |</p>' +
-      '<p class=\'prompt\'>:   \'   \\   |   |  |     \'   :  ;       \'   :  ;   |   :   .\' \'   \' ;.    ;   `----.   \\ ;   |  ;</p>' +
-      '<p class=\'prompt\'>\'   : |.  \\ |   |  \'     \'   :  |       \'   :  |   \'   :  ;/| \'   : |  ; .\'  /  /`--\'  /  `--..`;  </p>' +
-      '<p class=\'prompt\'>|   | \'_\\.\' \'   :  |     ;   |.\'        ;   |.\'    |   |    \\ |   | \'`--\'   \'--\'.     /  .--,_   </p>' +
-      '<p class=\'prompt\'>\'   : |     ;   |.\'      \'---\'          \'---\'      |   :   .\' \'   : |         `--\'---\'   |    |`.  </p>' +
-      '<p class=\'prompt\'>;   |,\'     \'---\'                                  |   | ,\'   ;   |.\'                    `-- -`, ; </p>' +
-      '<p class=\'prompt\'>\'---\'                                              `----\'     \'---\'                        \'---`\'</p>' +
-      '<p class=\'prompt\'>                                                              </p></div>');
+        '<p class=\'prompt\'>                              ,----,         ,----,                                          ,---,</p>' +
+        '<p class=\'prompt\'>       ,--.                ,/   .`|       ,/   .`|                     ,--.              ,`--.\' |</p>' +
+        '<p class=\'prompt\'>   ,--/  /|    ,---,     ,`   .\'  :     ,`   .\'  :     ,---,.        ,--.\'|   .--.--.    |   :  :</p>' +
+        '<p class=\'prompt\'>,---,\': / \' ,`--.\' |   ;    ;     /   ;    ;     /   ,\'  .\' |    ,--,:  : |  /  /    \'.  \'   \'  ;</p>' +
+        '<p class=\'prompt\'>:   : \'/ /  |   :  : .\'___,/    ,\'  .\'___,/    ,\'  ,---.\'   | ,`--.\'`|  \' : |  :  /`. /  |   |  |</p>' +
+        '<p class=\'prompt\'>|   \'   ,   :   |  \' |    :     |   |    :     |   |   |   .\' |   :  :  | | ;  |  |--`   \'   :  ;</p>' +
+        '<p class=\'prompt\'>\'   |  /    |   :  | ;    |.\';  ;   ;    |.\';  ;   :   :  |-, :   |   \\ | : |  :  ;_     |   |  \'</p>' +
+        '<p class=\'prompt\'>|   ;  ;    \'   \'  ; `----\'  |  |   `----\'  |  |   :   |  ;/| |   : \'  \'; |  \\  \\    `.  \'   :  |</p>' +
+        '<p class=\'prompt\'>:   \'   \\   |   |  |     \'   :  ;       \'   :  ;   |   :   .\' \'   \' ;.    ;   `----.   \\ ;   |  ;</p>' +
+        '<p class=\'prompt\'>\'   : |.  \\ |   |  \'     \'   :  |       \'   :  |   \'   :  ;/| \'   : |  ; .\'  /  /`--\'  /  `--..`;  </p>' +
+        '<p class=\'prompt\'>|   | \'_\\.\' \'   :  |     ;   |.\'        ;   |.\'    |   |    \\ |   | \'`--\'   \'--\'.     /  .--,_   </p>' +
+        '<p class=\'prompt\'>\'   : |     ;   |.\'      \'---\'          \'---\'      |   :   .\' \'   : |         `--\'---\'   |    |`.  </p>' +
+        '<p class=\'prompt\'>;   |,\'     \'---\'                                  |   | ,\'   ;   |.\'                    `-- -`, ; </p>' +
+        '<p class=\'prompt\'>\'---\'                                              `----\'     \'---\'                        \'---`\'</p>' +
+        '<p class=\'prompt\'>                                                              </p></div>');
 
       var lines = $('.kittens p');
       $.each(lines, function(index, line) {
@@ -92,8 +92,8 @@ angular.module('kibibitCodeEditor')
       });
 
       $('.new-output').velocity(
-      'scroll'
-      ), {duration: 100};
+        'scroll'
+      ), { duration: 100 };
 
       setTimeout(function() {
         var gif;
@@ -129,7 +129,7 @@ angular.module('kibibitCodeEditor')
 
         setTimeout(function() {
           fromUnderscore(copyString, splitString, newChar, line);
-        },i * animationSpeed);
+        }, i * animationSpeed);
       });
     }
 
@@ -144,7 +144,7 @@ angular.module('kibibitCodeEditor')
     }
 
     function shuffle(o) {
-      for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+      for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
       return o;
     };
   }

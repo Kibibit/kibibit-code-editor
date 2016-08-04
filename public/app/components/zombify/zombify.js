@@ -54,10 +54,10 @@ angular.module('kibibitCodeEditor')
     zombieCount--;
     score++;
     /*chrome.extension.sendMessage({score: score}, function (response) {
-    	    if (response.message) {
-    	      showText(response.message);
-    	    }
-    	  });*/
+      if (response.message) {
+        showText(response.message);
+      }
+    });*/
   }
 
   function addZombie() {
@@ -88,3 +88,4 @@ angular.module('kibibitCodeEditor')
 
   create();
 });
+
