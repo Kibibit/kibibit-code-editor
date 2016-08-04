@@ -30,12 +30,10 @@ angular.module('kibibitCodeEditor')
   function($scope, SettingsService, EventManagerService) {
     var vm = this;
 
-    SettingsService.settings.canCurrentViewSave = false;
-
     vm.addFullImageView = addFullImageView;
 
+    SettingsService.settings.canCurrentViewSave = false;
     EventManagerService.on('resized', resizeFullImageView);
-
     EventManagerService.onComponentDestroy($scope, function() {
       EventManagerService.off('resized', resizeFullImageView);
     });

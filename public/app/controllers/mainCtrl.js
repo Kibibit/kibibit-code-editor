@@ -15,46 +15,91 @@ angular.module('kibibitCodeEditor')
 
     var vm = this;
 
-    window.mainCtrl = vm;
+    window.mainCtrl = vm; // for debugging
 
-    vm.openFile = '';
-    vm.openProject = {};
+    vm.emptyEditor = emptyEditor;
+    vm.isModalCancel = isModalCancel;
     vm.isSidebarOpen = false; // for mobile view
-
+    vm.openFile = '';
+    vm.openProject = openProject;
     vm.settings = SettingsService.settings;
+    vm.showProjectSelectModal = showProjectSelectModal;
 
-    if (SessionStorageService.projectFolderPath) {
-      vm.projectFolderPath = sessionStorage.projectFolderPath;
-      console.debug('last project loaded from session storage');
+    init();
+
+    ////////////
+
+    function emptyEditor() {
+      vm.projectFolderPath = '';
+      vm.projectName = undefined;
+      vm.openFile = '';
+      SessionStorageService.removeItem('projectFolderPath');
+      SessionStorageService.removeItem('projectName');
     }
 
-    if (SessionStorageService.openFile) {
-      vm.openFile = sessionStorage.openFile;
-      console.debug('last file loaded from session storage');
+    function getFolderNameFromPath(path) {
+      if (!path) {
+        return '';
+      }
+
+      return path.split(/\/|\\/).reverse()[0];
     }
 
-    if (SessionStorageService.projectName) {
-      vm.projectName = SessionStorageService.projectName;
-      console.debug('last project name loaded from session storage');
-    }
+    function init() {
+      if (SessionStorageService.projectFolderPath) {
+        vm.projectFolderPath = sessionStorage.projectFolderPath;
+        console.debug('last project loaded from session storage');
+      }
 
-    $scope.$watch(function() {
-      return vm.openFile;
-    }, function(newVal) {
-      SessionStorageService.openFile = newVal;
-      console.debug('last file saved to session storage');
-    });
+      if (SessionStorageService.openFile) {
+        vm.openFile = sessionStorage.openFile;
+        console.debug('last file loaded from session storage');
+      }
 
-    vm.showAModal = function() {
-      ngDialog.open({
-        template: 'app/components/yesnoModal/yesnoModalTemplate.html',
-        controller: 'yesnoModalController',
-        controllerAs: 'yesnoModalCtrl',
-        scope: $scope
+      if (SessionStorageService.projectName) {
+        vm.projectName = SessionStorageService.projectName;
+        console.debug('last project name loaded from session storage');
+      }
+
+      $scope.$watch(function() {
+        return vm.openFile;
+      }, function(newVal) {
+        SessionStorageService.openFile = newVal;
+        console.debug('last file saved to session storage');
       });
-    };
+    }
 
-    vm.showProjectSelectModal = function() {
+    function isModalCancel(closeValue) {
+      return (angular.isNumber(closeValue) && closeValue === 0)
+              || (angular.isString(closeValue)
+                && (closeValue === '$document'
+                  || closeValue === '$closeButton'));
+    }
+
+    function openProject() {
+      $http.get('/api/userHomeDirectory/')
+        .then(function(res) {
+          vm.userHomeDirectoryPath = res.data;
+          vm.showProjectSelectModal();
+        });
+    }
+
+    function setOpenProject(selectedProjectFolderPath) {
+      if (!vm.isModalCancel(selectedProjectFolderPath.value)) {
+        vm.projectFolderPath = selectedProjectFolderPath.value;
+        vm.projectName = getFolderNameFromPath(vm.projectFolderPath);
+
+        SessionStorageService.projectName = vm.projectName;
+        SessionStorageService.projectFolderPath = vm.projectFolderPath;
+        console.debug('project path saved to session storage');
+        vm.settings.recentlyOpen.push(vm.projectFolderPath);
+        if (vm.openFile !== '') {
+          vm.openFile = '';
+        }
+      }
+    }
+
+    function showProjectSelectModal() {
       ngDialog.open({
         template:
           'app/components/projectFolderModal/projectFolderModalTemplate.html',
@@ -65,51 +110,7 @@ angular.module('kibibitCodeEditor')
         data: {
           userHomeDirectoryPath: vm.userHomeDirectoryPath
         }
-      }).closePromise.then(function(selectedProjectFolderPath) {
-        if (!vm.isModalCancel(selectedProjectFolderPath.value)) {
-          vm.projectFolderPath = selectedProjectFolderPath.value;
-          vm.projectName = getFolderNameFromPath(vm.projectFolderPath);
-
-          SessionStorageService.projectName = vm.projectName;
-          SessionStorageService.projectFolderPath = vm.projectFolderPath;
-          console.debug('project path saved to session storage');
-          vm.settings.recentlyOpen.push(vm.projectFolderPath);
-          if (vm.openFile !== '') {
-            vm.openFile = '';
-          }
-        }
-      });
-    };
-
-    vm.isModalCancel = function(closeValue) {
-      return (angular.isNumber(closeValue) && closeValue === 0)
-              || (angular.isString(closeValue)
-                && (closeValue === '$document'
-                  || closeValue === '$closeButton'));
-    };
-
-    // show the default projects directory to choose a folder from
-    vm.openProject = function() {
-      $http.get('/api/userHomeDirectory/')
-              .then(function(res) {
-                vm.userHomeDirectoryPath = res.data;
-                vm.showProjectSelectModal();
-              });
-    };
-
-    vm.emptyEditor = function() {
-      vm.projectFolderPath = '';
-      vm.projectName = undefined;
-      vm.openFile = '';
-      SessionStorageService.removeItem('projectFolderPath');
-      SessionStorageService.removeItem('projectName');
-    };
-
-    function getFolderNameFromPath(path) {
-      if (!path) {
-        return '';
-      }
-
-      return path.split(/\/|\\/).reverse()[0];
+      }).closePromise.then(setOpenProject);
     }
+
   }]);
