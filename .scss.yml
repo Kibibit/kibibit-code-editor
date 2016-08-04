@@ -10,10 +10,6 @@ plugin_gems: []
 # Default severity of all linters.
 severity: warning
 
-exclude:
-  - "public/app/components/zombify/**"
-  - "public/app/components/errorView/**"
-
 linters:
   BangFormat:
     enabled: true
