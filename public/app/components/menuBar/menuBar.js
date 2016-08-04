@@ -67,7 +67,7 @@ angular.module('kibibitCodeEditor')
   vm.toggleSoftTabs = toggleSoftTabs;
 
   ////////////
-  
+
   function canChangeCase() {
     var selectionText = vm.settings.currentEditor ?
       vm.settings.currentEditor.getSelectedText() : '';

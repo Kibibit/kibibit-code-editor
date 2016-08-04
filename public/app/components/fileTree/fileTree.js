@@ -44,7 +44,6 @@ angular.module('kibibitCodeEditor')
       }
     };
     vm.updateTreePath = updateTreePath;
-    
 
     angular.extend(vm.options, vm.userOptions || {});
 

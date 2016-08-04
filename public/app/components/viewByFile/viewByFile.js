@@ -25,7 +25,7 @@ angular.module('kibibitCodeEditor')
     vm.updateFileContent = updateFileContent;
 
     ////////////
-    
+
     function getFileTypeFromMimeType(mimeType) {
       if (mimeType.indexOf('image') !== -1) {
         return 'image';
