@@ -1,9 +1,14 @@
 angular.module('kibibitCodeEditor')
 
 .service('ToastService', ['$mdToast', function($mdToast) {
+
   var vm = this;
 
-  vm.showSimpleToast = function(type, text) {
+  vm.showSimpleToast = showSimpleToast;
+
+  ////////////
+
+  function showSimpleToast(type, text) {
     $mdToast.show(
       $mdToast.simple()
         .textContent(text)
@@ -11,5 +16,5 @@ angular.module('kibibitCodeEditor')
         .theme(type ? type : '')
         .hideDelay(3000)
     );
-  };
+  }
 }]);
