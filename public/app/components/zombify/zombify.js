@@ -61,7 +61,7 @@ angular.module('kibibitCodeEditor')
   }
 
   function addZombie() {
-    if(end) {
+    if (end) {
       return;
     }
 
@@ -75,16 +75,17 @@ angular.module('kibibitCodeEditor')
     });
 
     zombiesHolderDiv.appendChild(div);
-    if(zombiesToCreate > 0) {
+    if (zombiesToCreate > 0) {
       zombiesToCreate--;
       window.setTimeout(addZombie, random(2, 5));
     }
 
     zombieCount++;
-    if(zombieCount > 20) {
+    if (zombieCount > 20) {
       gameOver();
     }
   }
 
   create();
 });
+
