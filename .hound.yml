@@ -6,6 +6,3 @@ javascript:
   enabled: false
 scss:
   config_file: .scss.yml
-exclude:
-  - "public/app/components/zombify/**"
-  - "public/app/components/errorView/**"
