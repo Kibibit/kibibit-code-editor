@@ -335,6 +335,8 @@ angular.module('kibibitCodeEditor')
         });
 
         editorSettings.init = function(savedEditorSettings) {
+          savedEditorSettings = savedEditorSettings || {};
+
           theme = savedEditorSettings.theme || 'monokai';
           ruler = savedEditorSettings.ruler;
           tabWidth = savedEditorSettings.tabWidth || 4;
