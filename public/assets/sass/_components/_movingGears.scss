@@ -5,9 +5,17 @@ kb-moving-gears {
   z-index: 3;
   opacity: 0.8;
 
+  @include phone {
+    background: $black;
+  }
+
   .load {
     width: 100px;
     height: 80px;
+
+    @include phone {
+      margin: 1px;
+    }
   }
 
   .gear {
