@@ -13,19 +13,16 @@ angular.module('kibibitCodeEditor')
 
     var vm = this;
 
-    /* init */
+    vm.saveToServer = saveToServer;
     vm.settings = new Settings();
+
     getSavedSettingsFromServer();
 
-    vm.saveToServer = function() {
-      var data = {
-        newContent: vm.settings.save()
-      };
-      $http.put('/api/settings/', data)
-        .then(function(res) {
-          // print error if needed
-        });
-    };
+    ////////////
+
+    function currentFullscreenState() {
+      return $(window).data('fullscreen-state');
+    }
 
     function getSavedSettingsFromServer() {
       $http.get('/api/settings/')
@@ -34,6 +31,20 @@ angular.module('kibibitCodeEditor')
           if (!angular.isString(savedSettings)) {
             vm.settings.init(savedSettings);
           }
+        });
+    }
+
+    function isBoolean(value) {
+      return value === true || value === false;
+    }
+
+    function saveToServer() {
+      var data = {
+        newContent: vm.settings.save()
+      };
+      $http.put('/api/settings/', data)
+        .then(function(res) {
+          // print error if needed
         });
     }
 
@@ -349,14 +360,6 @@ angular.module('kibibitCodeEditor')
         };
 
       }
-    }
-
-    function isBoolean(value) {
-      return value === true || value === false;
-    }
-
-    function currentFullscreenState() {
-      return $(window).data('fullscreen-state');
     }
   }
 ]);

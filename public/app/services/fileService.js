@@ -1,9 +1,15 @@
 angular.module('kibibitCodeEditor')
 
 .service('FileService', ['$http', function($http) {
+
   var vm = this;
 
-  vm.getFile = function(folderToGet, callback) {
+  vm.getFile = getFile;
+  vm.saveFile = saveFile;
+
+  ////////////
+
+  function getFile(folderToGet, callback) {
     $http.get('/api/file/' + encodeURIComponent(folderToGet))
       .then(function(res) {
         if (res.errno !== null) {
@@ -14,9 +20,9 @@ angular.module('kibibitCodeEditor')
           callback(res);
         }
       });
-  };
+  }
 
-  vm.saveFile = function(fileFullpath, newFileContent, callback) {
+  function saveFile(fileFullpath, newFileContent, callback) {
     var data = {
       newContent: newFileContent
     };
@@ -27,5 +33,6 @@ angular.module('kibibitCodeEditor')
           callback(res);
         }
       });
-  };
+  }
+
 }]);

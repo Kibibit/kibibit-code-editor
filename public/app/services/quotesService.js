@@ -1,9 +1,14 @@
 angular.module('kibibitCodeEditor')
 
 .service('QuotesService', ['$http', '$q', function($http, $q) {
+
   var vm = this;
 
-  vm.getQuotes = function(numberOfQuotes) {
+  vm.getQuotes = getQuotes;
+
+  ////////////
+
+  function getQuotes(numberOfQuotes) {
     var deferred = $q.defer();
 
     $http.get('/api/quotes/' + (numberOfQuotes || '')).then(function(res) {
@@ -18,6 +23,6 @@ angular.module('kibibitCodeEditor')
     });
 
     return deferred.promise;
-  };
+  }
 
 }]);
