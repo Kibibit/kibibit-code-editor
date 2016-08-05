@@ -6,7 +6,8 @@
   "scripts": {
     "postinstall": "node ./node_modules/bower/lib/bin/bower install && node ./node_modules/gulp/bin/gulp styles",
     "start": "node server.js",
-    "test": "gulp test"
+    "test": "gulp test",
+    "dev-up": "gulp"
   },
   "repository": {
     "type": "git",
