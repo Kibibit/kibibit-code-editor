@@ -31,6 +31,8 @@ angular.module('kibibitCodeEditor')
         return 'image';
       } else if (mimeType.indexOf('font') !== -1) {
         return 'font';
+      } else if (mimeType.indexOf('audio') !== -1) {
+        return 'audio';
       } else {
         return 'code';
       }
