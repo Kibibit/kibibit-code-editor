@@ -16,12 +16,12 @@ kb-audio-player {
     background-color: $candy-blue;
   }
 
-  md-slider .md-thumb:after {
-    border-color: $candy-blue;
+  md-slider .md-thumb::after {
     background-color: $candy-blue;
+    border-color: $candy-blue;
   }
 
-  md-slider .md-sign:after {
+  md-slider .md-sign::after {
     border-top-color: $candy-blue;
   }
 

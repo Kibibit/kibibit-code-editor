@@ -35,7 +35,10 @@ fileService.get = function(req, res) {
     });
   } else if (isFileOfType('audio')) {
     console.info('audio requested. Serving data info');
-    id3({ file: fileFullPath, type: id3.OPEN_LOCAL }, function(err, tags) {
+    id3({
+      file: fileFullPath,
+      type: id3.OPEN_LOCAL
+    }, function(err, tags) {
       if (err) {
         var file = {
           url: 'api/download/' + encodeURIComponent(fileFullPath),
