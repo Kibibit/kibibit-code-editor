@@ -61,6 +61,12 @@ angular.module('kibibitCodeEditor',
   };
 }])
 
+.filter('secondsToDateTime', [function() {
+  return function(seconds) {
+    return new Date(1970, 0, 1).setSeconds(seconds);
+  };
+}])
+
 .constant('CODE_EDITOR', {
   'MODE_LIST': ace.require('ace/ext/modelist'),
   'THEME_LIST': ace.require('ace/ext/themelist')

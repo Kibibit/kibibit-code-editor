@@ -12,6 +12,27 @@ kb-audio-player {
     color: black;
   }
 
+  md-slider.md-default-theme .md-track.md-track-fill,
+  md-slider .md-track.md-track-fill {
+    background-color: $candy-blue;
+  }
+
+  md-slider.md-default-theme .md-thumb:after,
+  md-slider .md-thumb:after {
+    border-color: $candy-blue;
+    background-color: $candy-blue;
+  }
+
+  md-slider.md-default-theme .md-sign:after,
+  md-slider .md-sign:after {
+    border-top-color: $candy-blue;
+  }
+
+  md-slider.md-default-theme .md-sign,
+  md-slider .md-sign {
+    background-color: $candy-blue;
+  }
+
   input[type=range] {
     appearance: none;
     background-color: #feebc5;
@@ -79,9 +100,10 @@ input[type=range]::-moz-range-thumb {
   button {
     background: $color2;
     border-radius: 2px;
-    height: 30px;
     margin: 2px;
-    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   md-slider {
@@ -96,6 +118,16 @@ input[type=range]::-moz-range-thumb {
 
   .time-controls {
     flex-direction: column;
+    .current-time {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+
+      .time {
+        padding-left: 12px;
+      }
+    }
   }
 
   .song-info {
@@ -103,8 +135,39 @@ input[type=range]::-moz-range-thumb {
   }
 
   .cover-art {
+    position: relative;
+
     .cover-image {
       width: 100%;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity linear 250ms;
+
+      .play-pause {
+        border-radius: 50%;
+        opacity: 0.7;
+        transition: opacity linear 150ms;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        .material-icons {
+          font-size: 90px;
+        }
+
+      }
+
     }
   }
 
@@ -120,5 +183,9 @@ input[type=range]::-moz-range-thumb {
     position: relative;
     top: 50px;
     width: 300px;
+
+    &:hover .overlay {
+      opacity: 1;
+    }
   }
 }
