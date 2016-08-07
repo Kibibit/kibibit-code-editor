@@ -1,6 +1,8 @@
 var fs = require('fs'),
     util = require('util'),
-    mime = require('mime-types');
+    mime = require('mime-types'),
+    id3 = require('id3js'),
+    base64 = require('base64-arraybuffer');
 var console = require('./consoleService')('FILE CONTENT', ['blue', 'inverse']);
 
 var fileService = {};
@@ -30,6 +32,35 @@ fileService.get = function(req, res) {
       content: 'awww man... we can\'t show ' + mimeType + ' yet :-(',
       mimeType: 'text/text',
       errno: -1
+    });
+  } else if (isFileOfType('audio')) {
+    console.info('audio requested. Serving data info');
+    id3({ file: fileFullPath, type: id3.OPEN_LOCAL }, function(err, tags) {
+      if (err) {
+        var file = {
+          url: 'api/download/' + encodeURIComponent(fileFullPath),
+          mimeType: mimeType,
+          path: fileFullPath
+        };
+
+        res.json(file);
+
+        return;
+      }
+      // get album cover as base64 encoded dataURI
+      var album = tags.v2.image ? converterToBase64(tags.v2.image) : undefined;
+
+      var file = {
+        url: 'api/download/' + encodeURIComponent(fileFullPath),
+        mimeType: mimeType,
+        path: fileFullPath,
+        artist: tags.artist,
+        album: tags.album,
+        name: tags.title,
+        albumArt: album,
+        albumArtFormat: tags.v2.image ? tags.v2.image.mime : undefined
+      };
+      res.json(file);
     });
   } else if (isFileOfType('image')) {
     console.info('image requested. Serving data URI');
@@ -214,5 +245,9 @@ function extraTypes(filepath) {
     return undefined;
   }
 }
+
+function converterToBase64(pic) { // fn BLOB => Binary => Base64 ?
+    return 'data:' + pic.mime + ';base64,' + base64.encode(pic.data);
+};
 
 module.exports = fileService;
