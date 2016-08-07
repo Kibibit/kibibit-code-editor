@@ -12,24 +12,24 @@ kb-audio-player {
     color: black;
   }
 
-  md-slider.md-default-theme .md-track.md-track-fill,
   md-slider .md-track.md-track-fill {
     background-color: $candy-blue;
   }
 
-  md-slider.md-default-theme .md-thumb:after,
   md-slider .md-thumb:after {
     border-color: $candy-blue;
     background-color: $candy-blue;
   }
 
-  md-slider.md-default-theme .md-sign:after,
   md-slider .md-sign:after {
     border-top-color: $candy-blue;
   }
 
-  md-slider.md-default-theme .md-sign,
   md-slider .md-sign {
+    background-color: $candy-blue;
+  }
+
+  md-slider .md-focus-ring {
     background-color: $candy-blue;
   }
 

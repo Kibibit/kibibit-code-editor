@@ -31,15 +31,6 @@ angular.module('kibibitCodeEditor')
     vm.updatePlayer = updatePlayer;
     vm.start = start;
 
-    function toImage(imageData, format) {
-      var base64String = "";
-      for (var i = 0; i < imageData.length; i++) {
-          base64String += String.fromCharCode(imageData[i]);
-      }
-      var base64 = "data:" + format + ";base64," +
-              window.btoa(base64String);
-    }
-
     function updatePlayer() {
       var volume = 1;
       if (vm.audio) {

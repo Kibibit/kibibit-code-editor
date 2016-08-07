@@ -247,7 +247,7 @@ function extraTypes(filepath) {
 }
 
 function converterToBase64(pic) { // fn BLOB => Binary => Base64 ?
-    return 'data:' + pic.mime + ';base64,' + base64.encode(pic.data);
+  return 'data:' + pic.mime + ';base64,' + base64.encode(pic.data);
 };
 
 module.exports = fileService;
