@@ -15,7 +15,8 @@ angular.module('kibibitCodeEditor',
   'jsonFormatter',
   'ngclipboard',
   'ng.deviceDetector',
-  'ngMdIcons'])
+  'ngMdIcons',
+  'ngAudio'])
 
 .config(['$compileProvider', function($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
