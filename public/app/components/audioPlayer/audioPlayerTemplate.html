@@ -1,7 +1,7 @@
 <div class="audio-player">
 	<div class="controls song-info">
-		<div>{{ audioPlayerCtrl.audioFile.name }}</div>
-		<div>{{ audioPlayerCtrl.audioFile.artist }} - {{ audioPlayerCtrl.audioFile.album }}</div>
+		<div>{{ audioPlayerCtrl.audioFile.name || audioPlayerCtrl.fileName }}</div>
+		<div>{{ audioPlayerCtrl.audioFile.artist || 'unknown artist' }} - {{ audioPlayerCtrl.audioFile.album || 'unknown album' }}</div>
 	</div>
 	<div class="controls cover-art">
 		<img class="cover-image" ng-src="{{ audioPlayerCtrl.image }}">

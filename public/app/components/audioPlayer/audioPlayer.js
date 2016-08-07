@@ -30,6 +30,9 @@ angular.module('kibibitCodeEditor')
     vm.audio.playbackRate = 1;
     vm.image = vm.audioFile.albumArt;
 
+    var filenameRegex = /[\\\/]([^\\\/]+)$/;
+    vm.fileName = filenameRegex.exec(vm.audioFile.path)[1];
+
     vm.updatePlayer = function() {
       
     };

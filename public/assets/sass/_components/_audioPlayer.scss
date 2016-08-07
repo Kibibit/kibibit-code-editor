@@ -13,12 +13,8 @@ kb-audio-player {
   }
 
   input[type=range] {
-    -webkit-appearance: none;
+    appearance: none;
     background-color: #feebc5;
-    background-image: -moz-linear-gradient(#473e4f, #51475a);
-    background-image: -o-linear-gradient(#473e4f, #51475a);
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #473e4f), color-stop(100%, #51475a));
-    background-image: -webkit-linear-gradient(#473e4f, #51475a);
     background-image: linear-gradient(#9e6957, #9e6957);
     background-repeat: no-repeat;
     background-size: 50% 100%;
@@ -29,18 +25,31 @@ kb-audio-player {
     outline: none;
     padding: 0;
     width: 50%;
+
+    &::-webkit-slider-runnable-track {
+      appearance: none;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+    }
+
+    &::-moz-range-track {
+      box-shadow: none;
+      border: 0;
+      background: transparent;
+    }
 }
 
 input[type=range]::-webkit-slider-runnable-track {
-    -webkit-appearance: none;
+    appearance: none;
     background: transparent;
-    border: none;
+    border: 0;
     box-shadow: none;
 }
 
 input[type=range]::-moz-range-track {
     box-shadow: none;
-    border: none;
+    border: 0;
     background: transparent;
 }
 
@@ -49,7 +58,7 @@ input[type=range]::-moz-focus-outer {
 }
 
 input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
+    appearance: none;
     background: $white;
     border-radius: 100%;
     border: 0;
