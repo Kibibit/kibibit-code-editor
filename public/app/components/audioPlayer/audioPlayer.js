@@ -28,7 +28,7 @@ angular.module('kibibitCodeEditor')
 
     vm.audio = ngAudio.load(vm.audioFile.url);
     vm.audio.playbackRate = 1;
-    vm.image = vm.audioFile.albumArt;
+    vm.image = vm.audioFile.albumArt || 'assets/images/no-cover-large.png';
 
     var filenameRegex = /[\\\/]([^\\\/]+)$/;
     vm.fileName = filenameRegex.exec(vm.audioFile.path)[1];
