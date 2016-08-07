@@ -1,6 +1,6 @@
 kb-audio-player {
   align-items: center;
-  background: black;
+  background: $black;
   display: flex;
   height: 100%;
   justify-content: center;
@@ -9,28 +9,7 @@ kb-audio-player {
   width: 100%;
 
   * {
-    color: black;
-  }
-
-  md-slider .md-track.md-track-fill {
-    background-color: $candy-blue;
-  }
-
-  md-slider .md-thumb::after {
-    background-color: $candy-blue;
-    border-color: $candy-blue;
-  }
-
-  md-slider .md-sign::after {
-    border-top-color: $candy-blue;
-  }
-
-  md-slider .md-sign {
-    background-color: $candy-blue;
-  }
-
-  md-slider .md-focus-ring {
-    background-color: $candy-blue;
+    color: $black;
   }
 
   button {
@@ -44,6 +23,27 @@ kb-audio-player {
 
   md-slider {
     width: 100%;
+
+    .md-track.md-track-fill {
+      background-color: $candy-blue;
+    }
+
+    .md-thumb::after {
+      background-color: $candy-blue;
+      border-color: $candy-blue;
+    }
+
+    .md-sign {
+      background-color: $candy-blue;
+
+      &::after {
+        border-top-color: $candy-blue;
+      }
+    }
+
+    .md-focus-ring {
+      background-color: $candy-blue;
+    }
   }
 
   .controls {
