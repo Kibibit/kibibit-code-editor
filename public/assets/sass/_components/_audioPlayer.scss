@@ -1,41 +1,41 @@
 kb-audio-player {
-  position: absolute;
-  background: black;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  background: black;
+  display: flex;
+  height: 100%;
+  justify-content: center;
   overflow: auto;
+  position: absolute;
+  width: 100%;
 
   * {
     color: black;
   }
 
   input[type=range] {
+    -webkit-appearance: none;
+    background-color: #feebc5;
+    background-image: -moz-linear-gradient(#473e4f, #51475a);
+    background-image: -o-linear-gradient(#473e4f, #51475a);
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #473e4f), color-stop(100%, #51475a));
+    background-image: -webkit-linear-gradient(#473e4f, #51475a);
+    background-image: linear-gradient(#9e6957, #9e6957);
+    background-repeat: no-repeat;
+    background-size: 50% 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 6px;
     margin: auto;
     outline: none;
     padding: 0;
     width: 50%;
-    height: 6px;
-    background-color: #feebc5;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #473e4f), color-stop(100%, #51475a));
-    background-image: -webkit-linear-gradient(#473e4f, #51475a);
-    background-image: -moz-linear-gradient(#473e4f, #51475a);
-    background-image: -o-linear-gradient(#473e4f, #51475a);
-    background-image: linear-gradient(#9e6957, #9e6957);
-    background-size: 50% 100%;
-    background-repeat: no-repeat;
-    border-radius: 10px;
-    cursor: pointer;
-    -webkit-appearance: none;
 }
 
 input[type=range]::-webkit-slider-runnable-track {
-    box-shadow: none;
-    border: none;
-    background: transparent;
     -webkit-appearance: none;
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
 input[type=range]::-moz-range-track {
@@ -49,30 +49,30 @@ input[type=range]::-moz-focus-outer {
 }
 
 input[type=range]::-webkit-slider-thumb {
-    width: 14px;
-    height: 14px;
-    border: 0;
-    background: #fff;
-    border-radius: 100%;
-    box-shadow: 0 0 1px 0px rgba(0,0,0,0.1);
     -webkit-appearance: none;
+    background: $white;
+    border-radius: 100%;
+    border: 0;
+    box-shadow: 0 0 1px 0px rgba($black,0.1);
+    height: 14px;
+    width: 14px;
 }
 
 input[type=range]::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    border: 0;
-    background: #fff;
+    background: $white;
     border-radius: 100%;
-    box-shadow: 0 0 1px 0px rgba(0,0,0,0.1);
+    border: 0;
+    box-shadow: 0 0 1px 0px rgba($black,0.1);
+    height: 14px;
+    width: 14px;
 }
 
   button {
-    height: 30px;
-    width: 30px;
-    background: grey;
+    background: $color2;
     border-radius: 2px;
+    height: 30px;
     margin: 2px;
+    width: 30px;
   }
 
   md-slider {
@@ -80,9 +80,9 @@ input[type=range]::-moz-range-thumb {
   }
 
   .controls {
+    align-items: center;
     display: flex;
     justify-content: center;
-    align-items: center;
   }
 
   .time-controls {
@@ -99,12 +99,13 @@ input[type=range]::-moz-range-thumb {
     }
   }
 
-  .volume-controls, .time-controls {
+  .volume-controls,
+  .time-controls {
     padding: 10px;
   }
 
   .audio-player {
-    background: rgba(white, 0.8);
+    background: rgba($white, 0.8);
     border-radius: 5px;
     margin: 20px;
     position: relative;
