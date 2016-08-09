@@ -90,7 +90,7 @@
         ,$window = $(window)
     ;
     
-    var thisKeys = keys[BrowserDetect.browser][BrowserDetect.OS];
+    var thisKeys = keys[BrowserDetect.browser] ? keys[BrowserDetect.browser][BrowserDetect.OS] : keys["Chrome"][BrowserDetect.OS];
     var shortcut = { shortcut: thisKeys.string, longform: thisKeys.alt };
 
     $window
