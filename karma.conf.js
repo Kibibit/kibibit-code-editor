@@ -16,7 +16,6 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
     'public/assets/lib/bower_components/jquery/dist/jquery.min.js',
-    'public/assets/lib/jquery.fullscreen.js',
     'public/assets/lib/bower_components/angular/angular.js',
     'public/assets/lib/bower_components/clipboard/dist/clipboard.js',
     'public/assets/lib/bower_components/re-tree/re-tree.js',
