@@ -1,4 +1,5 @@
 *~
+/coverage/**
 /logs/**
 /node_modules/**
 /public/assets/css/style.css

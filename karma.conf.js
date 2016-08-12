@@ -15,6 +15,26 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+    'public/assets/lib/bower_components/jquery/dist/jquery.min.js',
+    'public/assets/lib/bower_components/angular/angular.js',
+    'public/assets/lib/bower_components/clipboard/dist/clipboard.js',
+    'public/assets/lib/bower_components/re-tree/re-tree.js',
+    'public/assets/lib/bower_components/ng-device-detector/ng-device-detector.js',
+    'public/assets/lib/bower_components/angular-sanitize/angular-sanitize.js',
+    'public/assets/lib/bower_components/angular-route/angular-route.js',
+    'public/assets/lib/bower_components/angular-animate/angular-animate.js',
+    'public/assets/lib/bower_components/angular-aria/angular-aria.js',
+    'public/assets/lib/bower_components/angular-material/angular-material.js',
+    'public/assets/lib/bower_components/ng-dialog/js/ngDialog.js',
+    'public/assets/lib/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
+    'public/assets/lib/bower_components/ng-scrollbars/dist/scrollbars.min.js',
+    'public/assets/lib/bower_components/angular-fullscreen/src/angular-fullscreen.js',
+    'public/assets/lib/bower_components/angular-loading-bar/build/loading-bar.min.js',
+    'public/assets/lib/angular-tree-control.js',
+    'https://cdn.rawgit.com/ajaxorg/ace-builds/master/src-noconflict/ace.js',
+    'https://cdn.rawgit.com/ajaxorg/ace-builds/master/src-noconflict/ext-modelist.js',
+    'https://cdn.rawgit.com/ajaxorg/ace-builds/master/src-noconflict/ext-themelist.js',
+    'public/app/**/*.js',
     'test/hello.js'
     ],
 
@@ -27,13 +47,23 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+        'public/app/**/*.js': ['coverage']
+    },
+
+    coverageReporter: {
+        reporters: [{
+            type : 'html',
+            dir : 'coverage/'
+        }, {
+            type: 'text-summary'
+        }]
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
 
     // web server port
