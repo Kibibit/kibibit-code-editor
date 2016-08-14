@@ -10,11 +10,14 @@ var express = require('express'), // call express
     favicon = require('serve-favicon'), // set favicon
     bodyParser = require('body-parser'),
     colors = require('colors'),
-    logo = require('./printLogo');
+    logo = require('./printLogo'),
+    ngrok = require('ngrok');
 var app = express(); // define our app using express
 var scribe = require('scribe-js')(); // used for logs
 var console = require('./app/models/consoleService')
   ('MAIN PROCESS', ['magenta', 'inverse']);
+
+var token = '5C5bdsspjuX5ybwtJvG83_2Fu1kWsGrEkmt7xL7Wb93';
 
 // hook helmet to our express app. This adds some protection to each communication with the server
 // read more at https://github.com/helmetjs/helmet
@@ -103,3 +106,18 @@ app.listen(config.port, function() {
   console.info('Server listening at port ' +
     colors.bgBlue.white.bold(' ' + config.port + ' '));
 });
+
+if (token) {
+    ngrok.authtoken(token, function(err, token) {
+        if (err) {
+            console.error(err);
+        }
+    });
+    ngrok.connect(config.port, function (err, url) {
+        if (err) {
+            console.error(err);
+        } else {
+            console.info(colors.cyan('ngrok') + ' - serving your site from ' + colors.yellow(url));
+        }
+    });
+}
