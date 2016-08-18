@@ -18,7 +18,11 @@ jscs = require('gulp-jscs'),
 argv = require('yargs').argv,
 cache = require('gulp-cached'),
 gutil = require('gulp-util'),
-depcheck = require('gulp-depcheck');
+depcheck = require('gulp-depcheck'),
+jscpd = require('gulp-jscpd'),
+complexity = require('gulp-complexity'),
+buddyjs = require('gulp-buddy.js'),
+size = require('gulp-filesize');
 
 var karma = require('karma').server;
 
@@ -129,6 +133,33 @@ gulp.task('serve', 'start the Kibibit Code Editor server', ['styles'], function(
 
 gulp.task('debug', 'debug the project using ​' + colors.blue('~= node-inspector =~'), ['styles'], shell.task(['node-debug server.js']));
 
+gulp.task('jscpd', function() {
+  return gulp.src(FILES.LINT)
+    .pipe(jscpd({
+      'min-lines': 10,
+      verbose    : true
+    }));
+});
+
+gulp.task('complexity', function(){
+  return gulp.src(FILES.JS_ALL)
+      .pipe(complexity());
+});
+
+gulp.task('magicNumbers', function () {
+  return gulp.src(FILES.JS_ALL)
+    .pipe(buddyjs({
+      reporter: 'detailed'
+    }));
+});
+
+gulp.task('sizes', function() {
+  return gulp.src('./public/app/**/*')
+    //all your gulp tasks
+    // .pipe(gulp.dest('./dist/')
+    .pipe(size()) // [gulp] Size example.css: 265.32 kB  
+});
+
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', 'first, will compile SASS and run the server.\n' + indent +
     'Then, it watches changes and do the following things when needed:\n' + indent +
@@ -150,6 +181,7 @@ gulp.task('watch', 'first, will compile SASS and run the server.\n' + indent +
       }
 
       gulp.watch(argv.lint ? FILES.LINT : [], ['lint-js']);
+      gulp.watch(FILES.JS_ALL, ['jscpd', 'magicNumbers']);
       gulp.watch(FILES.FRONTEND_SASS, ['styles']);
       gulp.watch(FILES.SERVER_JS).on('change', restart);
       gulp.watch(FILES.FRONTEND_ALL).on('change', function(file) {
