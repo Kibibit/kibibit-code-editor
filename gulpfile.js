@@ -133,7 +133,7 @@ gulp.task('serve', 'start the Kibibit Code Editor server', ['styles'], function(
 
 gulp.task('debug', 'debug the project using ​' + colors.blue('~= node-inspector =~'), ['styles'], shell.task(['node-debug server.js']));
 
-gulp.task('jscpd', function() {
+gulp.task('jscpd', 'finds out duplicate part of codes inside your project', function() {
   return gulp.src(FILES.LINT)
     .pipe(jscpd({
       'min-lines': 10,
@@ -141,17 +141,19 @@ gulp.task('jscpd', function() {
     }));
 });
 
-gulp.task('complexity', function(){
+gulp.task('complexity', 'shows you some statistics about your code\'s complexity', function(){
   return gulp.src(FILES.JS_ALL)
       .pipe(complexity());
 });
 
-gulp.task('magicNumbers', function () {
+gulp.task('magicNumbers', 'shows you if you have any magic numbers (numbers that are used inline in javascript)', function () {
   return gulp.src(FILES.JS_ALL)
     .pipe(buddyjs({
       reporter: 'detailed'
     }));
 });
+
+gulp.task('analyzeCode', 'run all sort of checks on styleguides and complexity', [/*'complexity', */'jscpd', 'magicNumbers'], function() {});
 
 gulp.task('sizes', function() {
   return gulp.src('./public/app/**/*')
