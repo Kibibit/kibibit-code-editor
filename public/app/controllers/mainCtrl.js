@@ -6,12 +6,14 @@ angular.module('kibibitCodeEditor')
   'ngDialog',
   'SettingsService',
   'SessionStorageService',
+  '$auth',
   function(
     $scope,
     $http,
     ngDialog,
     SettingsService,
-    SessionStorageService) {
+    SessionStorageService,
+    $auth) {
 
     var vm = this;
 
@@ -24,10 +26,29 @@ angular.module('kibibitCodeEditor')
     vm.openProject = openProject;
     vm.settings = SettingsService.settings;
     vm.showProjectSelectModal = showProjectSelectModal;
+    vm.isAuthenticated = isAuthenticated;
+    vm.authenticate = authenticate;
 
     init();
+    getUser();
 
     ////////////
+    
+    function authenticate(provider) {
+      $auth.authenticate('github').then(function(data) {
+        getUser();
+      });
+    }
+
+    function isAuthenticated() {
+      return $auth.isAuthenticated();
+    };
+
+    function getUser() {
+      $http.get('/auth/getUser').then(function(res) {
+        vm.user = res.data.user;
+      });
+    }
 
     function emptyEditor() {
       vm.projectFolderPath = '';
@@ -70,8 +91,8 @@ angular.module('kibibitCodeEditor')
     }
 
     function isModalCancel(closeValue) {
-      return (angular.isNumber(closeValue) && closeValue === 0)
-              || (angular.isString(closeValue)
+      return (_.isNumber(closeValue) && closeValue === 0)
+              || (_.isString(closeValue)
                 && (closeValue === '$document'
                   || closeValue === '$closeButton'));
     }

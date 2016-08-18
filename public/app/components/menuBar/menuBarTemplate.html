@@ -1,6 +1,9 @@
 <md-toolbar class="md-menu-dark">
     <div layout="row">
         <kb-user-avatar></kb-user-avatar>
+        <img ng-src="{{ main.user.picture }}" style="width: 40px; height: 40px; border-radius: 50%; position: absolute; right: 10px; top: 10px;">
+        <span ng-if="main.isAuthenticated()" class="pull-right"><a href="/#/logout">Logout</a></span>
+        <span ng-if="!main.isAuthenticated()" class="pull-right"><div ng-click="main.authenticate('github')">Login</div></span>
         <md-toolbar-filler layout layout-align="center center" class="project-logo-container">
             <div class="logo">
                 <kb-moving-gears ng-if="main.buildTaskRunning"></kb-moving-gears>

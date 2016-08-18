@@ -15,11 +15,31 @@ angular.module('kibibitCodeEditor',
   'jsonFormatter',
   'ngclipboard',
   'ng.deviceDetector',
-  'ngMdIcons'])
+  'ngMdIcons',
+  'satellizer'])
+
+// application configuration to integrate token into requests
+.config(function($httpProvider) {
+  // attach our auth interceptor to the http requests
+  $httpProvider.interceptors.push('AuthInterceptor');
+})
 
 .config(['$compileProvider', function($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
 }])
+
+.config(function($authProvider) {
+  $authProvider.github({
+    clientId: 'e4c42e628b792e23f268'
+  });
+
+  $authProvider.tokenName = 'token';
+  $authProvider.tokenPrefix = 'kibibit';
+  $authProvider.tokenHeader = 'Authorization';
+  $authProvider.tokenType = 'Bearer';
+  $authProvider.storageType = 'localStorage';
+  //$authProvider.redirectUri = window.location.origin;
+})
 
 .config(['ScrollBarsProvider', function(ScrollBarsProvider) {
   // the following settings are defined for all scrollbars unless the

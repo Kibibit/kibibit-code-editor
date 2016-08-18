@@ -83,6 +83,8 @@ app.use(favicon(path.join(__dirname,
  */
 var apiRoutes = require('./app/routes/api')(app, express);
 app.use('/api', jsonParser, apiRoutes);
+var authRoutes = require('./app/routes/auth')(app, express);
+app.use('/auth', jsonParser, authRoutes);
 
 /** =============
  *   = FRONT-END =

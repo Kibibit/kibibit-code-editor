@@ -79,13 +79,7 @@ angular.module('kibibitCodeEditor')
     var editor = vm.settings.currentEditor;
     var selectionText = editor.getSelectedText();
     var selection = vm.settings.currentEditor.selection.getRange();
-    var camelCased = selectionText.replace(
-      /[_-\s]([a-zA-Z])/g,
-      function(g) {
-        return g[1].toUpperCase();
-      }
-    );
-    camelCased = camelCased[0].toLowerCase() + camelCased.substring(1);
+    var camelCased =  _.camelCase(selectionText);
     vm.settings.currentEditor.session.replace(
     selection, camelCased);
 
@@ -96,16 +90,7 @@ angular.module('kibibitCodeEditor')
     var editor = vm.settings.currentEditor;
     var selectionText = editor.getSelectedText();
     var selection = vm.settings.currentEditor.selection.getRange();
-    var kebabCased = selectionText.replace(
-      /[_-\s]([a-zA-Z])|([a-z])([A-Z])/g,
-      function(g, singleLetter, firstLetter, secondLetter) {
-        return secondLetter ?
-          firstLetter + '-' + secondLetter.toLowerCase() :
-          '-' + singleLetter.toLowerCase();
-      }
-    );
-
-    kebabCased = kebabCased.toLowerCase();
+    var kebabCased = _.kebabCase(selectionText);
     vm.settings.currentEditor.session.replace(
     selection, kebabCased);
 
@@ -116,16 +101,8 @@ angular.module('kibibitCodeEditor')
     var editor = vm.settings.currentEditor;
     var selectionText = editor.getSelectedText();
     var selection = vm.settings.currentEditor.selection.getRange();
-    var snakeCased = selectionText.replace(
-      /[_-\s]([a-zA-Z])|([a-z])([A-Z])/g,
-      function(g, singleLetter, firstLetter, secondLetter) {
-        return secondLetter ?
-          firstLetter + '_' + secondLetter.toLowerCase() :
-          '_' + singleLetter.toLowerCase();
-      }
-    );
+    var snakeCased =  _.snakeCase(selectionText);
 
-    snakeCased = snakeCased.toLowerCase();
     vm.settings.currentEditor.session.replace(
     selection, snakeCased);
 

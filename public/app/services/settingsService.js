@@ -28,14 +28,10 @@ angular.module('kibibitCodeEditor')
       $http.get('/api/settings/')
         .then(function(res) {
           var savedSettings = res.data;
-          if (!angular.isString(savedSettings)) {
+          if (!_.isString(savedSettings)) {
             vm.settings.init(savedSettings);
           }
         });
-    }
-
-    function isBoolean(value) {
-      return value === true || value === false;
     }
 
     function saveToServer() {
@@ -74,7 +70,7 @@ angular.module('kibibitCodeEditor')
 
       settings.__defineSetter__('currentOpenFolder', function(newValue) {
 
-        console.assert(angular.isString(newValue), {
+        console.assert(_.isString(newValue), {
           'message': ERROR_MSGS
             .TYPE_ERROR('currentOpenFolder', 'boolean', typeof newValue),
           'currentValue': currentOpenFolder,
@@ -92,7 +88,7 @@ angular.module('kibibitCodeEditor')
 
       settings.__defineSetter__('isFullscreen', function(newValue) {
 
-        console.assert(isBoolean(newValue), {
+        console.assert(_.isBoolean(newValue), {
           'message': ERROR_MSGS
             .TYPE_ERROR('isFullscreen', 'boolean', typeof newValue),
           'currentValue': isFullscreen,
@@ -146,7 +142,7 @@ angular.module('kibibitCodeEditor')
         });
 
         editorSettings.__defineSetter__('ruler', function(newValue) {
-          console.assert(Number.isInteger(newValue), {
+          console.assert(_.isInteger(newValue), {
             'message': ERROR_MSGS
               .TYPE_ERROR('ruler', 'integer', typeof newValue),
             'currentValue': ruler,
@@ -168,7 +164,7 @@ angular.module('kibibitCodeEditor')
         });
 
         editorSettings.__defineSetter__('lineWrap', function(newValue) {
-          console.assert(isBoolean(newValue), {
+          console.assert(_.isBoolean(newValue), {
             'message': ERROR_MSGS
               .TYPE_ERROR('lineWrap', 'boolean', typeof newValue),
             'currentValue': lineWrap,
@@ -189,7 +185,7 @@ angular.module('kibibitCodeEditor')
         });
 
         editorSettings.__defineSetter__('fontSize', function(newValue) {
-          console.assert(Number.isInteger(newValue), {
+          console.assert(_.isInteger(newValue), {
             'message': ERROR_MSGS
               .TYPE_ERROR('fontSize', 'integer', typeof newValue),
             'currentValue': fontSize,
@@ -211,7 +207,7 @@ angular.module('kibibitCodeEditor')
         });
 
         editorSettings.__defineSetter__('tabWidth', function(newValue) {
-          console.assert(Number.isInteger(newValue), {
+          console.assert(_.isInteger(newValue), {
             'message': ERROR_MSGS
               .TYPE_ERROR('tabWidth', 'integer', typeof newValue),
             'currentValue': tabWidth,
@@ -233,7 +229,7 @@ angular.module('kibibitCodeEditor')
         });
 
         editorSettings.__defineSetter__('isSoftTabs', function(newValue) {
-          console.assert(isBoolean(newValue), {
+          console.assert(_.isBoolean(newValue), {
             'message': ERROR_MSGS
               .TYPE_ERROR('isSoftTabs', 'integer', typeof newValue),
             'currentValue': isSoftTabs,
@@ -255,7 +251,7 @@ angular.module('kibibitCodeEditor')
         });
 
         editorSettings.__defineSetter__('isGutter', function(newValue) {
-          console.assert(isBoolean(newValue), {
+          console.assert(_.isBoolean(newValue), {
             'message': ERROR_MSGS
               .TYPE_ERROR('isGutter', 'boolean', typeof newValue),
             'currentValue': isGutter,
@@ -331,7 +327,7 @@ angular.module('kibibitCodeEditor')
         });
 
         editorSettings.__defineSetter__('isReadOnly', function(newValue) {
-          console.assert(isBoolean(newValue), {
+          console.assert(_.isBoolean(newValue), {
             'message': ERROR_MSGS
               .TYPE_ERROR('isReadOnly', 'boolean', typeof newValue),
             'currentValue': isReadOnly,

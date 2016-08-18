@@ -2,18 +2,44 @@ angular.module('app.routes', ['ngRoute'])
 
 .config(function($routeProvider, $locationProvider) {
 
+  /**
+   * Helper auth functions
+   */
+  var skipIfLoggedIn = function($q, $auth) {
+    var deferred = $q.defer();
+    if ($auth.isAuthenticated()) {
+      deferred.reject();
+    } else {
+      deferred.resolve();
+    }
+    return deferred.promise;
+  };
+
+  var loginRequired = function($q, $location, $auth) {
+    var deferred = $q.defer();
+    if ($auth.isAuthenticated()) {
+      deferred.resolve();
+    } else {
+      $location.path('/login');
+    }
+    return deferred.promise;
+  };
+
   $routeProvider
 
   // route for the home page
-        .when('/', {
-          templateUrl: 'app/views/home.html'
-        })
+    .when('/', {
+      templateUrl: 'app/views/home.html'
+    })
 
-        // login page
+    // login page
     .when('/login', {
       templateUrl: 'app/views/login.html',
       controller: 'mainController',
-      controllerAs: 'login'
+      controllerAs: 'login',
+      resolve: {
+        skipIfLoggedIn: skipIfLoggedIn
+      }
     })
 
     // show all users

@@ -1,0 +1,2 @@
+<span ng-if="main.isAuthenticated()" class="pull-right"><a href="/#/logout">Logout</a></span>
+<span ng-if="!main.isAuthenticated()" class="pull-right"><div ng-click="main.authenticate('github')">Login</div></span>
