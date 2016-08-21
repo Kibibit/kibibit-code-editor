@@ -1,6 +1,7 @@
 var fs = require('fs'),
     path = require('path'),
-    fileService = require('./fileService.js');
+    fileService = require('./fileService.js'),
+    STATUS_CODES = require('http-status-codes');
 var console = require('./consoleService')
   ('DIRECTORY CONTENT', ['green', 'inverse']);
 
@@ -10,6 +11,12 @@ folderService.get = function(req, res) {
   var output = {};
   var directoryFullPath = req.params.dir_id;
   fs.readdir(directoryFullPath, function(err, items) {
+    if (err) {
+      res.status(STATUS_CODES.BAD_REQUEST).send({
+        message: ['couldn\'t find the requested directory'].join('')
+      });
+      return;
+    }
     try {
       output.path = directoryFullPath;
       output.name = directoryFullPath.split(/\/|\\/).reverse()[0];
@@ -39,7 +46,10 @@ folderService.get = function(req, res) {
       res.json(output);
     } catch (error) {
       res.json(error);
-      console.error('directory requested not found: ' + directoryFullPath);
+      res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).send({
+        message: ['oops. something horrible happened'].join('')
+      });
+      console.error('oops. something horrible happened: ' + directoryFullPath);
     }
   });
 
@@ -98,8 +108,12 @@ folderService.delete = function(req, res) {
   var directoryFullPath = req.params.dir_id;
   fs.rmdir(directoryFullPath, function(err) {
     if (err && err.code == 'ENOTEMPTY') {
-      // couldn't delete file
+      // couldn't delete the folder
       console.error(err);
+      res.status(STATUS_CODES.BAD_REQUEST).send({
+        message: ['In order to delete a full folder,',
+          'call delete with true as a 2nd parameter'].join('')
+      });
     }
   });
   res.json(directoryFullPath);
@@ -111,7 +125,9 @@ folderService.putExtraArg = function(req, res) {
   var newDirectoryFullPath = req.params.extra_arg;
   fs.rename(directoryFullPath, newDirectoryFullPath, function(err) {
     if (err) {
-      res.json(err);
+      res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).send({
+        message: 'Kibibit couldn\'t rename the folder'
+      });
     } else {
       console.info('directory renamed from: ' +
               directoryFullPath +
@@ -155,12 +171,14 @@ folderService.deleteExtraArg = function(req, res) {
       console.info('directory deleted (recursively) successfully: ' +
               directoryFullPath);
     } else {
-      res.json({
+      res.status(STATUS_CODES.BAD_REQUEST).send({
         message: 'For a hard delete, 2nd param should be: True'
       });
     }
   } catch (err) {
-    res.json(err);
+    res.status(STATUS_CODES.BAD_REQUEST).send({
+      message: 'directory wasn\'t found: ' + directoryFullPath
+    });
     console.error('directory wasn\'t found: ' + directoryFullPath);
   }
 

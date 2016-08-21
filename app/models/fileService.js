@@ -1,6 +1,7 @@
 var fs = require('fs'),
     util = require('util'),
-    mime = require('mime-types');
+    mime = require('mime-types'),
+    STATUS_CODES = require('http-status-codes');
 var console = require('./consoleService')('FILE CONTENT', ['blue', 'inverse']);
 
 var fileService = {};
@@ -27,9 +28,8 @@ fileService.get = function(req, res) {
   // temprorary solution until we have a view selector on the FRONT-END
   if (showNoContent) {
     res.json({
-      content: 'awww man... we can\'t show ' + mimeType + ' yet :-(',
-      mimeType: 'text/text',
-      errno: -1
+      errno: STATUS_CODES.FORBIDDEN,
+      message: 'Kibibit don\'t support ' + mimeType + ' yet'
     });
   } else if (isFileOfType('image')) {
     console.info('image requested. Serving data URI');
@@ -49,7 +49,9 @@ fileService.get = function(req, res) {
   } else {
     fs.readFile(fileFullPath, 'utf8', function(err, data) {
       if (err) {
-        res.json(err);
+        res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).send({
+          message: 'Kibibit wasn\'t able to read the requested file'
+        });
         console.error('file-get returned an error: ' + err);
       } else {
         fs.stat(fileFullPath, function(err, stats) {
@@ -76,13 +78,18 @@ fileService.put = function(req, res) {
       'code': 'File already exists',
       'path': fileFullPath
     });
+    res.status(STATUS_CODES.CONFLICT).send({
+      message: 'The file you want to save already exists'
+    });
     console.error('file couldn\'t be saved: ' + fileFullPath);
   } catch (err) {
     if (req.body.newContent) {
       fs.writeFile(fileFullPath,
         req.body.newContent, 'utf8', function(err) {
         if (err) {
-          res.json(err);
+          res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).send({
+            message: 'Kibibit wasn\'t able to save the file'
+          });
           console.error('file couldn\'t be saved: ' + err);
         } else {
           res.json({
@@ -90,6 +97,10 @@ fileService.put = function(req, res) {
           });
           console.info('file saved: ' + fileFullPath);
         }
+      });
+    } else {
+      res.status(STATUS_CODES.BAD_REQUEST).send({
+        message: 'you have to include a body with newContent'
       });
     }
   }
@@ -105,7 +116,9 @@ fileService.delete = function(req, res) {
     });
     console.info('file deleted: ' + fileFullPath);
   } catch (err) {
-    res.json(err);
+    res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).send({
+      message: 'couldn\'t delete file: ' + fileFullPath
+    });
     console.error('couldn\'t delete file: ' + fileFullPath);
   }
 };
@@ -127,12 +140,12 @@ fileService.putExtraArg = function(req, res) {
         }
       });
     } else {
-      res.json({
+      res.status(STATUS_CODES.BAD_REQUEST).send({
         message: 'you have to include a body with newContent'
       });
     }
   } else {
-    res.json({
+    res.status(STATUS_CODES.BAD_REQUEST).send({
       message: 'For a hard save, 2nd param should be: True'
     });
   }

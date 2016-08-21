@@ -26,6 +26,8 @@
     "compression": "^1.6.2",
     "express": "^4.13.4",
     "helmet": "^2.1.1",
+    "http-status-codes": "^1.0.6",
+    "lodash": "^4.15.0",
     "mime-types": "^2.1.11",
     "ngrok": "^2.2.2",
     "scribe-js": "^2.0.4",

@@ -1,3 +1,4 @@
+var STATUS_CODES = require('http-status-codes');
 var console = require('./consoleService')('DOWNLOAD', ['inverse']);
 
 var downloadService = {};
@@ -8,8 +9,7 @@ downloadService.get = function(req, res) {
     res.download(fileFullPath);
   } catch (err) {
     console.error('Couldn\'t send file to client', err);
-    res.json({
-      errno: 5,
+    res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).send({
       message: 'something went wroooong!'
     });
   }

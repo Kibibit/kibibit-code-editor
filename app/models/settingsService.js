@@ -1,5 +1,6 @@
 var fs = require('fs'),
-    userHomeDirectory = require('user-home');
+    userHomeDirectory = require('user-home'),
+    STATUS_CODES = require('http-status-codes');
 var console = require('./consoleService')
   ('SETTINGS SERVICE', ['rainbow', 'inverse']);
 
@@ -16,7 +17,9 @@ settingsService.get = function(req, res) {
     console.info('settings sent: ' + settingsLocation);
 
   } catch (err) {
-    res.json(err);
+    res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).send({
+      message: 'Kibibit couldn\'t read the local settings file'
+    });
     console.error('local settings returned an error: ' + err);
 
   }
@@ -30,6 +33,9 @@ settingsService.put = function(req, res) {
       function(err) {
         if (err) {
           res.json(err);
+          res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).send({
+            message: 'Kibibit wasn\'t able to save settings localy'
+          });
           console.error('settings couldn\'t be saved: ' + err);
         } else {
           res.json({
@@ -39,6 +45,10 @@ settingsService.put = function(req, res) {
         }
       }
     );
+  } else {
+    res.status(STATUS_CODES.BAD_REQUEST).send({
+      message: 'Kibibit expects a newContent variable in the request body'
+    });
   }
 };
 
