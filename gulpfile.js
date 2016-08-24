@@ -83,6 +83,10 @@ gulp.task('lint-js', 'lint ' + colors.blue('all JS') + ' files in the following 
           //.pipe(jscs())
           //.pipe(jscs.reporter())
           //.pipe(jscs.reporter('fail'));
+    }, {
+      options: {
+        'format': 'fix lint problems that can be fixed automatically'
+      }
     });
 
 gulp.task('lint-sass', 'lint ' + colors.blue('all SASS') + ' files in the following paths:\n' + indent +
