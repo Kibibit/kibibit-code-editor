@@ -71,14 +71,14 @@ gulp.task('depcheck',
 gulp.task('lint-js', 'lint ' + colors.blue('all JS') + ' files in the following paths:\n' + indent +
     colors.yellow(FILES.JS_ALL.join(',\n' + indent)),
     function() {
-      return gulp.src(FILES.JS_ALL)
+      return gulp.src(FILES.JS_ALL, { base: '.'})
           .pipe(cache('linting'))
           .pipe(eslint({
             fix: true
           }))
           .pipe(eslint.format())
           // if fixed, write the file to dest
-          .pipe(gulpIf(isFixed, gulp.dest('./testies/fixtures')))
+          .pipe(gulpIf(isFixed, gulp.dest('.')))
           .pipe(eslint.failAfterError());
           //.pipe(jscs())
           //.pipe(jscs.reporter())
