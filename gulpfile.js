@@ -74,7 +74,7 @@ gulp.task('lint-js', 'lint ' + colors.blue('all JS') + ' files in the following 
       return gulp.src(FILES.JS_ALL, { base: '.'})
           .pipe(cache('linting'))
           .pipe(eslint({
-            fix: true
+            fix: argv.format ? true : false
           }))
           .pipe(eslint.format())
           // if fixed, write the file to dest
