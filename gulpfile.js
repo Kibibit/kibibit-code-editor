@@ -1,12 +1,14 @@
 // grab our packages
 var gulp = require('gulp-help')(require('gulp'), {
   description: 'you are looking at it.',
-  aliases: ['h']
+  aliases: ['h'],
+  hideEmpty: true
 }),
 colors = require('colors'),
 beautify = require('gulp-jsbeautifier'),
 sourcemaps = require('gulp-sourcemaps'),
 sass = require('gulp-sass'),
+sassLint = require('gulp-sass-lint'),
 cssnano = require('gulp-cssnano'),
 rename = require('gulp-rename'),
 prettify = require('gulp-jsbeautifier'),
@@ -80,9 +82,6 @@ gulp.task('lint-js', 'lint ' + colors.blue('all JS') + ' files in the following 
           // if fixed, write the file to dest
           .pipe(gulpIf(isFixed, gulp.dest('.')))
           .pipe(eslint.failAfterError());
-          //.pipe(jscs())
-          //.pipe(jscs.reporter())
-          //.pipe(jscs.reporter('fail'));
     }, {
       options: {
         'format': 'fix lint problems that can be fixed automatically'
@@ -94,7 +93,9 @@ gulp.task('lint-sass', 'lint ' + colors.blue('all SASS') + ' files in the follow
     function() {
       return gulp.src(FILES.FRONTEND_SASS)
           .pipe(cache('linting'))
-          .pipe(sass().on('error', sass.logError));
+          .pipe(sassLint())
+          .pipe(sassLint.format())
+          .pipe(sassLint.failOnError());
     });
 
 gulp.task('lint', 'lint ' + colors.blue('all javascript and sass') + ' files', ['lint-js', 'lint-sass']);
