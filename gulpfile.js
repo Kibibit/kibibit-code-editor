@@ -15,6 +15,7 @@ livereload = require('gulp-livereload'),
 server = require('gulp-develop-server'),
 shell = require('gulp-shell'),
 jscs = require('gulp-jscs'),
+eslint = require('gulp-eslint'),
 argv = require('yargs').argv,
 cache = require('gulp-cached'),
 gutil = require('gulp-util'),
@@ -22,7 +23,8 @@ depcheck = require('gulp-depcheck'),
 jscpd = require('gulp-jscpd'),
 complexity = require('gulp-complexity'),
 buddyjs = require('gulp-buddy.js'),
-size = require('gulp-filesize');
+size = require('gulp-filesize'),
+gulpIf = require('gulp-if');
 
 var karma = require('karma').server;
 
@@ -71,9 +73,16 @@ gulp.task('lint-js', 'lint ' + colors.blue('all JS') + ' files in the following 
     function() {
       return gulp.src(FILES.JS_ALL)
           .pipe(cache('linting'))
-          .pipe(jscs())
-          .pipe(jscs.reporter())
-          .pipe(jscs.reporter('fail'));
+          .pipe(eslint({
+            fix: true
+          }))
+          .pipe(eslint.format())
+          // if fixed, write the file to dest
+          .pipe(gulpIf(isFixed, gulp.dest('./testies/fixtures')))
+          .pipe(eslint.failAfterError());
+          //.pipe(jscs())
+          //.pipe(jscs.reporter())
+          //.pipe(jscs.reporter('fail'));
     });
 
 gulp.task('lint-sass', 'lint ' + colors.blue('all SASS') + ' files in the following paths:\n' + indent +
@@ -194,3 +203,8 @@ gulp.task('watch', 'first, will compile SASS and run the server.\n' + indent +
         'lint': 'will include output from linter only for changed files'
       }
     });
+
+function isFixed(file) {
+  // Has ESLint fixed the file contents?
+  return file.eslint != null && file.eslint.fixed;
+}
