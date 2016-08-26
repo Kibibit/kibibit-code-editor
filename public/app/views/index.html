@@ -7,9 +7,14 @@
     <title>Kibibit Code Editor</title>
     <!-- FOR ANGULAR ROUTING -->
     <base href="/">
-    <!-- CSS Libraries  -->
+
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.1/paper/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/ui-layout/ui-layout.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min.css">
+    <!-- build:css styles/dependencies.css -->
+    <!-- CSS Libraries  -->
     <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/angular-material/angular-material.css">
     <link rel='stylesheet' type="text/css" href='assets/lib/bower_components/angular-loading-bar/build/loading-bar.min.css'>
     <link rel="stylesheet" type="text/css" href="assets/lib/tree-control.css">
@@ -19,16 +24,16 @@
     <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/octicons/build/font/octicons.css">
     <link rel="stylesheet" type="text/css" href="assets/lib/glyphter-font/css/Glyphter.css">
     <link rel="stylesheet" type="text/css" href="assets/lib/pictonic/css/pictonic.css">
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="https://rawgit.com/Kibibit/ui-layout/v1-0-5/src/ui-layout.css">
     <link rel="stylesheet" href="assets/lib/bower_components/json-formatter/dist/json-formatter.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css"/>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min.css">
     <link rel="stylesheet" href="assets/lib/bower_components/angular-emoji/dist/emoji.min.css">
     <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/viewerjs/dist/viewer.css">
     <link href='//goo.gl/QatcDl' rel='stylesheet' type='text/css'>
+    <!-- endbuild -->
+    <!-- build:css styles/kibibit.css -->
     <link rel="stylesheet" type="text/css" href="assets/fonts/fonts.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!-- endbuild -->
 </head>
 
 <body ng-app="kibibitCodeEditor">
@@ -86,9 +91,14 @@
     <!-- JS -->
     <!-- BOWER COMPONENTS -->
     <!-- <script type="text/javascript" src="assets/lib/bower_components/emitter/emitter.js"></script> -->
+    <!-- build:js scripts/dependencies.js -->
     <script type="text/javascript" src="assets/lib/bower_components/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/lib/jquery.fullscreen.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/ace-builds/src-noconflict/ace.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/ace-builds/src-noconflict/ext-modelist.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/ace-builds/src-noconflict/ext-themelist.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/ui-layout/ui-layout.js"></script>
+    <script type="text/javascript" src="assets/lib/jquery.fullscreen.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/clipboard/dist/clipboard.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/ngclipboard/dist/ngclipboard.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/re-tree/re-tree.js"></script>
@@ -104,10 +114,6 @@
     <script type="text/javascript" src="assets/lib/bower_components/angular-fullscreen/src/angular-fullscreen.js"></script>
     <script type='text/javascript' src='assets/lib/bower_components/angular-loading-bar/build/loading-bar.min.js'></script>
     <script type="text/javascript" src="assets/lib/angular-tree-control.js"></script>
-    <script type="text/javascript" src="//cdn.rawgit.com/ajaxorg/ace-builds/master/src-noconflict/ace.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/ajaxorg/ace-builds/master/src-noconflict/ext-modelist.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/ajaxorg/ace-builds/master/src-noconflict/ext-themelist.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/Kibibit/ui-layout/v1-0-5/src/ui-layout.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/json-formatter/dist/json-formatter.js"></script>
     <script type="text/javascript" src="assets/lib/ui-ace.js"></script>
     <script src="assets/lib/bower_components/marked/lib/marked.js"></script>
@@ -119,12 +125,14 @@
     <script type="text/javascript" src="assets/lib/bower_components/opentype.js/dist/opentype.min.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/angular-material-icons/angular-material-icons.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/svg-morpheus/compile/minified/svg-morpheus.js"></script>
+    <!-- endbuild -->
 
+    <!-- build:js scripts/kibibit.js -->
     <!-- Kibibit Code Editor -->
-    <!-- Initialize -->
-    <script type="text/javascript" src="app/app.js"></script>
     <!-- Routes -->
     <script type="text/javascript" src="app/app.routes.js"></script>
+    <!-- Initialize -->
+    <script type="text/javascript" src="app/app.js"></script>
     <!-- Views -->
     <script type="text/javascript" src="app/controllers/mainCtrl.js"></script>
     <!-- <script src="app/controllers/userCtrl.js"></script> -->
@@ -154,6 +162,7 @@
     <script type="text/javascript" src="app/services/sessionStorageService.js"></script>
     <script type="text/javascript" src="app/services/quotesService.js"></script>
     <script type="text/javascript" src="app/services/eventManagerService.js"></script>
+    <!-- endbuild -->
 </body>
 
 </html>
