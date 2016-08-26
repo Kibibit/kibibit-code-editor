@@ -9,7 +9,7 @@ beautify = require('gulp-jsbeautifier'),
 sourcemaps = require('gulp-sourcemaps'),
 sass = require('gulp-sass'),
 sassLint = require('gulp-sass-lint'),
-cssnano = require('gulp-cssnano'),
+csso = require('gulp-csso'),
 rename = require('gulp-rename'),
 prettify = require('gulp-jsbeautifier'),
 concat = require('gulp-concat'),
@@ -23,9 +23,9 @@ cache = require('gulp-cached'),
 gutil = require('gulp-util'),
 depcheck = require('gulp-depcheck'),
 jscpd = require('gulp-jscpd'),
-complexity = require('gulp-complexity'),
 buddyjs = require('gulp-buddy.js'),
 size = require('gulp-filesize'),
+useref = require('gulp-useref'),
 gulpIf = require('gulp-if');
 
 var karma = require('karma').server;
@@ -39,7 +39,7 @@ var options = {
 var FILES = {};
 FILES.FRONTEND_JS = ['./public/app/**/*.js'];
 FILES.FRONTEND_HTML = ['./public/app/**/*.html'];
-FILES.FRONTEND_SASS = ['./public/assets/sass/**/*.scss'];
+FILES.FRONTEND_SASS = ['./public/assets/sass/**/*.scss', '!**/_init.scss'];
 FILES.FRONTEND_ALL = [].concat(FILES.FRONTEND_JS, FILES.FRONTEND_HTML, FILES.FRONTEND_SASS);
 FILES.SERVER_MAIN = ['./server.js'];
 FILES.SERVER_JS_WITHOUT_MAIN = ['./app/**/*.js', './config.js'];
@@ -64,7 +64,7 @@ gulp.task('test', 'run all tests using karma locally, and travis-ci on GitHub',
 gulp.task('depcheck',
   'checks for unused dependencies ' + colors.blue('(including devs)'),
   depcheck({
-    ignoreDirs: ['test', 'logs'],
+    ignoreDirs: ['test', 'logs', 'node_modules', 'lib'],
     ignoreMatches: ['karma-*', 'jscs-*', 'jasmine-*']
   })
 );
@@ -135,10 +135,20 @@ gulp.task('styles', 'compile SASS to CSS', function() {
       .pipe(sourcemaps.init())
       .pipe(concat('style.css'))
       .pipe(sass().on('error', sass.logError))
-      //.pipe(cssnano())
+      //.pipe(csso({ usage: true }))
       .pipe(sourcemaps.write())
       //.pipe(rename({ suffix: '.min' }))
       .pipe(gulp.dest('./public/assets/css/'));
+});
+
+gulp.task('dist', function () {
+    return gulp.src('./public/app/views/index.html')
+        .pipe(useref({
+          searchPath: './public/'
+        }))
+        //.pipe(gulpif('*.js', uglify()))
+        .pipe(gulpIf('*.css', csso({ usage: true })))
+        .pipe(gulp.dest('public/dist'));
 });
 
 gulp.task('serve', 'start the Kibibit Code Editor server', ['styles'], function() {
@@ -155,11 +165,6 @@ gulp.task('jscpd', 'finds out duplicate part of codes inside your project', func
     }));
 });
 
-gulp.task('complexity', 'shows you some statistics about your code\'s complexity', function(){
-  return gulp.src(FILES.JS_ALL)
-      .pipe(complexity());
-});
-
 gulp.task('magicNumbers', 'shows you if you have any magic numbers (numbers that are used inline in javascript)', function () {
   return gulp.src(FILES.JS_ALL)
     .pipe(buddyjs({
@@ -167,7 +172,7 @@ gulp.task('magicNumbers', 'shows you if you have any magic numbers (numbers that
     }));
 });
 
-gulp.task('analyzeCode', 'run all sort of checks on styleguides and complexity', [/*'complexity', */'jscpd', 'magicNumbers'], function() {});
+gulp.task('analyzeCode', 'run all sort of checks on styleguides and complexity', ['jscpd', 'magicNumbers'], function() {});
 
 gulp.task('sizes', function() {
   return gulp.src('./public/app/**/*')
