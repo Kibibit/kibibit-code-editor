@@ -26,7 +26,30 @@ jscpd = require('gulp-jscpd'),
 buddyjs = require('gulp-buddy.js'),
 size = require('gulp-filesize'),
 useref = require('gulp-useref'),
+flatten = require('gulp-flatten'),
+replace = require('gulp-replace'),
 gulpIf = require('gulp-if');
+
+var server  = require('gulp-develop-server');
+var bs      = require('browser-sync').create();
+
+var optionsSync = {
+  server: {
+    path: '.',
+    execArgv: ['--harmony']
+  },
+  bs: {
+    proxy: {
+      target: 'http://localhost:3141',
+      middleware: function (req, res, next) {
+        console.log(req.url);
+        next();
+      }
+    },
+    files: ['./public/**/*'], // files to watch with bs instantly (.ejs & .css)
+    logLevel: 'silent'
+  }
+};
 
 var karma = require('karma').server;
 
@@ -50,6 +73,19 @@ FILES.LINT = [].concat(FILES.FRONTEND_JS, FILES.SERVER_JS_WITHOUT_MAIN);
 
 // define the default task and add the watch task to it
 gulp.task('default', colors.bgCyan.black('gulp') + ' === ' + colors.bgCyan.black('gulp watch'), ['watch']);
+
+gulp.task('start', ['styles'], function () {
+  server.listen(optionsSync.server, function (error) {
+    if (!error)
+      bs.init(optionsSync.bs);
+  });
+
+  gulp.watch(FILES.FRONTEND_SASS, ['styles']);
+
+  gulp.watch(FILES.FRONTEND_JS).on('change', bs.reload);
+
+  gulp.watch(FILES.FRONTEND_HTML).on('change', bs.reload);
+});
 
 gulp.task('test', 'run all tests using karma locally, and travis-ci on GitHub',
   function(done) {
@@ -141,7 +177,14 @@ gulp.task('styles', 'compile SASS to CSS', function() {
       .pipe(gulp.dest('./public/assets/css/'));
 });
 
-gulp.task('dist', function () {
+gulp.task('dist', ['buildDist'], function() {
+  return gulp.src('public/dist/index.html')
+    .pipe(replace(/href="(styles\/.*?)"/g, 'href="dist/$1"'))
+    .pipe(replace(/src="(scripts\/.*?)"/g, 'src="dist/$1"'))
+    .pipe(gulp.dest('public/dist/'));
+});
+
+gulp.task('buildDist', ['copyFonts', 'copyImages'], function () {
     return gulp.src('./public/app/views/index.html')
         .pipe(useref({
           searchPath: './public/'
@@ -149,6 +192,17 @@ gulp.task('dist', function () {
         //.pipe(gulpif('*.js', uglify()))
         .pipe(gulpIf('*.css', csso({ usage: true })))
         .pipe(gulp.dest('public/dist'));
+});
+
+gulp.task('copyFonts', function() {
+  return gulp.src(['public/**/fonts/*', 'public/**/font/*'])
+    .pipe(flatten())
+    .pipe(gulp.dest('./public/dist/fonts'));
+});
+
+gulp.task('copyImages', function() {
+  return gulp.src('public/assets/images/*')
+    .pipe(gulp.dest('./public/dist/images'));
 });
 
 gulp.task('serve', 'start the Kibibit Code Editor server', ['styles'], function() {
