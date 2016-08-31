@@ -4,7 +4,6 @@ var gulp = require('gulp-help')(require('gulp'), {
     aliases: ['h'],
     hideEmpty: true
   });
-var SubTask = require('gulp-subtask')(require('gulp'));
 var plugins = require('gulp-load-plugins')({
   rename: {
     'gulp-buddy.js': 'buddy'
@@ -18,6 +17,13 @@ var colors = require('colors'),
   fs = require('fs');
 
 var bs = require('browser-sync').create();
+
+var buildConfig = {
+  flags: {
+    watch: false,
+    build: false
+  }
+};
 
 var options = {
   server: {
@@ -35,6 +41,19 @@ var options = {
     files: ['./public/**/*'], // files to watch with bs instantly (.ejs & .css)
     logLevel: 'silent'
   }
+};
+
+var preCacheGulpCached = function (src, cacheId, cb) {
+  /* Pre-build a cache for gulp-cached plugin */
+  var callCallback = true;
+  return gulp.src(src)
+    .pipe(plugins.cached(cacheId))
+    .pipe(plugins.callback(function() {
+      if (callCallback && cb) {
+        cb();
+        callCallback = false;
+      }
+    }));
 };
 
 var karma = require('karma').server;
@@ -80,8 +99,22 @@ gulp.task('watch', 'first, will compile SASS and run the server.\n' + indent +
       }
 
       function reloadBrowser(message, path) {
-        gutil.log(message ? message : 'Something changed.', gutil.colors.bgBlue.white.bold('Reloading browser...'));
+        plugins.util.log(message ? message : 'Something changed.', plugins.util.colors.bgBlue.white.bold('Reloading browser...'));
         plugins.livereload.changed(path);
+      }
+
+      buildConfig.flags.watch = true;
+
+      preCacheGulpCached(FILES.JS_ALL, 'jscpd', function() {
+        console.log('gulp-cached pre-cache complete for JSCPD');
+      });
+      preCacheGulpCached(FILES.JS_ALL, 'magicNumbers', function() {
+        console.log('gulp-cached pre-cache complete for MAGIC NUMBERS');
+      });
+      if (argv.lint) {
+        preCacheGulpCached(FILES.LINT, 'linting', function() {
+        console.log('gulp-cached pre-cache complete for LINTING');
+      });
       }
 
       gulp.watch(argv.lint ? FILES.LINT : [], ['lint-js']);
@@ -223,6 +256,7 @@ gulp.task('analyzeCode', 'run all sort of checks on styleguides and complexity',
 
 gulp.task('jscpd', 'finds out duplicate part of codes inside your project', function() {
   return gulp.src([].concat(FILES.LINT, FILES.FRONTEND_SASS))
+    .pipe(plugins.if(buildConfig.flags.watch, plugins.cached('jscpd')))
     .pipe(plugins.jscpd({
       'min-lines': 10,
       verbose    : true
@@ -231,6 +265,7 @@ gulp.task('jscpd', 'finds out duplicate part of codes inside your project', func
 
 gulp.task('magicNumbers', 'shows you if you have any magic numbers (numbers that are used inline in javascript)', function () {
   return gulp.src(FILES.JS_ALL)
+    .pipe(plugins.if(buildConfig.flags.watch, plugins.cached('magicNumbers')))
     .pipe(plugins.buddy({
       reporter: 'detailed'
     }));
@@ -242,7 +277,7 @@ gulp.task('lint-js', 'lint ' + colors.blue('all JS') + ' files in the following 
   colors.yellow(FILES.JS_ALL.join(',\n' + indent)),
 function() {
   return gulp.src(FILES.JS_ALL, { base: '.'})
-      .pipe(plugins.cached('linting'))
+      .pipe(plugins.if(buildConfig.flags.watch, plugins.cached('linting')))
       .pipe(plugins.eslint({
         fix: argv.format ? true : false
       }))
