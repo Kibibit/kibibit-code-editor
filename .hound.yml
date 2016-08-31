@@ -1,7 +1,7 @@
 fail_on_violations: true
-jscs:
+eslint:
   enabled: true
-  config_file: .jscsrc_hound
+  config_file: .eslintrc
 javascript:
   enabled: false
 scss:

@@ -1,0 +1,9 @@
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+// Apply specific styles when the device is a phone
+@mixin phone {
+  @media (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}

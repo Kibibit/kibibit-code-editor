@@ -4,3 +4,4 @@
 /node_modules/**
 /public/assets/css/style.css
 /public/assets/lib/bower_components/**
+/public/dist/**

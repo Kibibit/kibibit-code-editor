@@ -3,21 +3,28 @@
 
 // CALL THE PACKAGES --------------------
 var express = require('express'), // call express
-    compression = require('compression'),
-    helmet = require('helmet'),
-    config = require('./config'),
-    path = require('path'),
-    favicon = require('serve-favicon'), // set favicon
-    bodyParser = require('body-parser'),
-    colors = require('colors'),
-    logo = require('./printLogo'),
-    ngrok = require('ngrok');
+  compression = require('compression'),
+  helmet = require('helmet'),
+  config = require('./config'),
+  path = require('path'),
+  favicon = require('serve-favicon'), // set favicon
+  bodyParser = require('body-parser'),
+  colors = require('colors'),
+  logo = require('./printLogo'),
+  fs = require('fs'),
+  argv = require('yargs').argv,
+  ngrok = require('ngrok');
 var app = express(); // define our app using express
 var scribe = require('scribe-js')(); // used for logs
-var console = require('./app/models/consoleService')
-  ('MAIN PROCESS', ['magenta', 'inverse']);
+var console = require('./app/models/consoleService')('MAIN PROCESS', ['magenta', 'inverse']);
 
 var token = '';
+
+var publicFolder = __dirname + (argv.dist ? '/public/dist' : '/public');
+
+if (argv.dist) {
+  console.info('!!PRODUCTION!!');
+}
 
 // hook helmet to our express app. This adds some protection to each communication with the server
 // read more at https://github.com/helmetjs/helmet
@@ -41,7 +48,7 @@ var jsonParser = bodyParser.json();
  *   don't log at all (TODO: make an exception for basic stuff
  *   like: listening on port: XXXX)
  */
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development' || !argv.dist) {
     // remove logging completely
     /*var noop = function() {
         return console;
@@ -69,7 +76,7 @@ app.use('/logs', scribe.webPanel());
  *   = ==============
  *   set static files location used for requests that our frontend will make
  */
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(publicFolder));
 
 /** =================
  *   = SERVE FAVICON =
@@ -94,7 +101,7 @@ app.use('/api', jsonParser, apiRoutes);
  */
 /* NOTE(thatkookooguy): has to be registered after API ROUTES */
 app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
+    res.sendFile(path.join(publicFolder + '/index.html'));
 });
 
 /** ==========
@@ -108,16 +115,17 @@ app.listen(config.port, function() {
 });
 
 if (token) {
-    ngrok.authtoken(token, function(err, token) {
-        if (err) {
-            console.error(err);
-        }
-    });
-    ngrok.connect(config.port, function (err, url) {
-        if (err) {
-            console.error(err);
-        } else {
-            console.info(colors.cyan('ngrok') + ' - serving your site from ' + colors.yellow(url));
-        }
-    });
+  ngrok.authtoken(token, function(err, token) {
+    if (err) {
+      console.error(err);
+    }
+  });
+  ngrok.connect(config.port, function (err, url) {
+    if (err) {
+      console.error(err);
+    } else {
+      console.info(colors.cyan('ngrok') + ' - serving your site from ' + colors.yellow(url));
+      console.info('Extra info on traffic on ' + colors.yellow('http://localhost:4040'))
+    }
+  });
 }

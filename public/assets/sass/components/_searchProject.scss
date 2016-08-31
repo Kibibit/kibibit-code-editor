@@ -1,9 +1,31 @@
+// blah blah
+// 
+// . this is some documentation
+//
+// :hover             - Subtle hover highlight.
+// .stars-given       - A highlight indicating you’ve already given a star.
+// .stars-given:hover - Subtle hover highlight on top of stars-given styling.
+// .disabled          - Dims the button to indicate it cannot be used.
+//
+// Styleguide 2.0
+
 $active-color: $primary;
 $bounce: cubic-bezier(0.87, -0.41, 0.19, 1.44);
 $font-size: 16px;
 $inactive-color: $grey4;
 $search-width: $font-size * 20;
 
+// blah blah. this is some documentation
+//
+// markup:
+// <kb-search-project>
+//   <button class="search-btn">
+//     <i class="material-icons search-icon">search</i>
+//   </button>
+//   <input class="search-input" placeholder="Search Project" spellcheck="false">
+// </kb-search-project>
+//
+// Styleguide 2.1
 kb-search-project {
   display: inline-block;
   height: auto;

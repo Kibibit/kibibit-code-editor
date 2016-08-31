@@ -1,6 +1,6 @@
 angular.module('app.routes', ['ngRoute'])
 
-.config(function($routeProvider, $locationProvider) {
+.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 
   $routeProvider
 
@@ -40,4 +40,4 @@ angular.module('app.routes', ['ngRoute'])
 
   $locationProvider.html5Mode(true);
 
-});
+}]);
