@@ -17,7 +17,7 @@ var scribe = require('scribe-js')(); // used for logs
 var console = require('./app/models/consoleService')
   ('MAIN PROCESS', ['magenta', 'inverse']);
 
-var token = '5C5bdsspjuX5ybwtJvG83_2Fu1kWsGrEkmt7xL7Wb93';
+var token = '';
 
 // hook helmet to our express app. This adds some protection to each communication with the server
 // read more at https://github.com/helmetjs/helmet
