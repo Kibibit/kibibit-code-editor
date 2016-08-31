@@ -122,16 +122,16 @@ gulp.task('debug', 'debug the project using ​' + colors.blue('~= node-inspecto
  *   Main 'catch-all' route to send users to frontend
  */
 /* NOTE(thatkookooguy): has to be registered after API ROUTES */
-gulp.task('dist', ['buildDist'], function() {
+gulp.task('dist', ['replaceRelative'], function() {
   return gulp.src('public/dist/**/kibibit.js', { base: '.'})
     //.pipe(plugins.uglify())
     .pipe(gulp.dest('.'));
 });
 
-gulp.task('check', function() {
-  return gulp.src('public/dist/assets/lib/**/*.css', { base: './public/dist' })
+gulp.task('replaceRelative', ['buildDist'], function() {
+  return gulp.src('public/dist/assets/fonts/fonts.css')
   .pipe(plugins.replace(/(['"]).*?\/font[s]?\//g, '$1'))
-  .pipe(gulp.dest('test'));
+  .pipe(gulp.dest('.'));
 });
 
 gulp.task('buildDist', ['copyAssets', 'copyFonts', 'copyImages', 'templateCache'], function () {
@@ -153,7 +153,7 @@ gulp.task('buildDist', ['copyAssets', 'copyFonts', 'copyImages', 'templateCache'
 });
 
 gulp.task('copyFonts', function() {
-  return gulp.src(['public/**/fonts/*', 'public/**/font/*'])
+  return gulp.src(['public/**/fonts/*', 'public/**/font/*', '!**/*.{css,scss,less,sass,json}'])
     .pipe(plugins.flatten())
     .pipe(gulp.dest('./public/dist/assets/fonts'));
 });
