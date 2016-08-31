@@ -66,6 +66,7 @@
     "gulp-livereload": "~3.8.1",
     "gulp-load-plugins": "^1.2.4",
     "gulp-nodemon": "^2.1.0",
+    "gulp-notify": "^2.2.0",
     "gulp-rename": "~1.2.2",
     "gulp-replace": "^0.5.4",
     "gulp-sass": "^2.3.2",

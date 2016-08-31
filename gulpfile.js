@@ -157,7 +157,7 @@ gulp.task('debug', 'debug the project using ​' + colors.blue('~= node-inspecto
 /* NOTE(thatkookooguy): has to be registered after API ROUTES */
 gulp.task('dist', ['replaceRelative'], function() {
   return gulp.src('public/dist/**/kibibit.js', { base: '.'})
-    //.pipe(plugins.uglify())
+    .pipe(plugins.uglify())
     .pipe(gulp.dest('.'));
 });
 
@@ -363,34 +363,52 @@ function isFixed(file) {
   return file.eslint != null && file.eslint.fixed;
 }
 
-function replaceWithMin(entireMatch, replaceText) {
-  if (replaceText.endsWith('min.js') || entireMatch.indexOf('bower_components') === -1) {
+function replaceWithMin(entireMatch, pathToFile) {
+  if (pathToFile.endsWith('min.js') || entireMatch.indexOf('bower_components') === -1) {
     return entireMatch;
   }
-  //console.log('seeing ' + replaceText);
-  //console.log('looking for ' + __dirname + '/public/' + replaceText.replace('.js', '.min.js'))
-  var minVersion = replaceText.replace('.js', '.min.js');
-  if ( fs.existsSync(__dirname + '/public/' + minVersion) ) {
-    //console.log('Found something EASILY!');
-    return 'src="' + replaceText.replace('.js', '.min.js') + '"';
-  } else {
-    var folder = /^(.*\/bower_components\/.*?\/)/.exec(replaceText);
-    folder = folder ? folder[0]: undefined;
-    var filename = minVersion.replace(/^.*\//, '');
-    //console.log('looking for ' + filename);
-    var results = search.recursiveSearchSync(filename, __dirname + '/public/' + folder);
-    if (results.length > 0) {
-      //console.log('Found something THE HARD WAY! ' + results[0]);
-      return 'src="' + results[0].replace(__dirname + '/public/', '') + '"';
-    } else {
-      var results2 = search.recursiveSearchSync(filename.replace('.min', ''), __dirname + '/public/' + folder);
+  
+  var pathPrefix = __dirname + '/public/'
+  var minVersion = pathToFile.replace('.js', '.min.js');
+  var minifiedSameFolder = minifiedVersionInSameFolder(pathToFile);
+
+  if (minifiedSameFolder) { // LOOK FOR MINIFIED VERSION IN SAME FOLDER as <name>.min.js
+    return buildSrcString(minifiedSameFolder);
+  } else { // LOOK FOR MINIFIED VERSION IN SAME PLUGIN FOLDER as <name>.min.js
+    var minifiedVersionFilename = minVersion.replace(/^.*\//, '');
+    var folder = getBowerComponentMainPluginFolder(pathToFile);
+
+    var searchMinifiedVersionResults = search.recursiveSearchSync(minifiedVersionFilename, pathPrefix + folder);
+
+    if (searchMinifiedVersionResults.length > 0) {
+      return buildSrcString(searchMinifiedVersionResults[0].replace(pathPrefix, ''));
+    } else { // LOOK FOR MINIFIED VERSION AS SAME NAME IN MIN FOLDER as <name>.js
+      var results2 = search.recursiveSearchSync(minifiedVersionFilename.replace('.min', ''), pathPrefix + folder);
       for (var i = 0; i < results2.length; i++) {
         if (results2[i] && (results2[i].indexOf('minified') !== -1 || results2[i].indexOf('-min-') !== -1)) {
-          return 'src="' + results2[i].replace(__dirname + '/public/', '') + '"';
+          return buildSrcString(results2[i].replace(pathPrefix, ''));
         }
       }
     }
   }
-  //console.log('found nothing :-(');
+  // DON'T REPLACE AT ALL
   return entireMatch;
+}
+
+function minifiedVersionInSameFolder(pathToFile) {
+  var pathPrefix = __dirname + '/public/'
+  var minVersion = pathToFile.replace('.js', '.min.js');
+
+  return fs.existsSync(pathPrefix + minVersion) ? minVersion : undefined;
+}
+
+function getBowerComponentMainPluginFolder(pathToFile) {
+  var folder = /^(.*\/bower_components\/.*?\/)/.exec(pathToFile);
+  folder = folder ? folder[0]: undefined;
+
+  return folder;
+}
+
+function buildSrcString(pathToFile) {
+  return 'src="' + pathToFile + '"';
 }
