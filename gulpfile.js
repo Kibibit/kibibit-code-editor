@@ -1,41 +1,27 @@
 // grab our packages
 var gulp = require('gulp-help')(require('gulp'), {
-  description: 'you are looking at it.',
-  aliases: ['h'],
-  hideEmpty: true
-}),
-colors = require('colors'),
-beautify = require('gulp-jsbeautifier'),
-sourcemaps = require('gulp-sourcemaps'),
-sass = require('gulp-sass'),
-sassLint = require('gulp-sass-lint'),
-csso = require('gulp-csso'),
-rename = require('gulp-rename'),
-prettify = require('gulp-jsbeautifier'),
-concat = require('gulp-concat'),
-livereload = require('gulp-livereload'),
-server = require('gulp-develop-server'),
-shell = require('gulp-shell'),
-jscs = require('gulp-jscs'),
-eslint = require('gulp-eslint'),
-argv = require('yargs').argv,
-cache = require('gulp-cached'),
-gutil = require('gulp-util'),
-depcheck = require('gulp-depcheck'),
-jscpd = require('gulp-jscpd'),
-buddyjs = require('gulp-buddy.js'),
-size = require('gulp-filesize'),
-useref = require('gulp-useref'),
-flatten = require('gulp-flatten'),
-replace = require('gulp-replace'),
-gulpIf = require('gulp-if');
+    description: 'you are looking at it.',
+    aliases: ['h'],
+    hideEmpty: true
+  });
+var SubTask = require('gulp-subtask')(require('gulp'));
+var plugins = require('gulp-load-plugins')({
+  rename: {
+    'gulp-buddy.js': 'buddy'
+  }
+});
 
-var server  = require('gulp-develop-server');
-var bs      = require('browser-sync').create();
+var colors = require('colors'),
+  styleguide = require('sc5-styleguide'),
+  argv = require('yargs').argv,
+  search = require('recursive-search'),
+  fs = require('fs');
 
-var optionsSync = {
+var bs = require('browser-sync').create();
+
+var options = {
   server: {
-    path: '.',
+    path: './server.js',
     execArgv: ['--harmony']
   },
   bs: {
@@ -56,13 +42,11 @@ var karma = require('karma').server;
 var isTravis = process.env.TRAVIS || false;
 
 var indent = '                        ';
-var options = {
-  path: './server.js'
-};
 var FILES = {};
 FILES.FRONTEND_JS = ['./public/app/**/*.js'];
 FILES.FRONTEND_HTML = ['./public/app/**/*.html'];
 FILES.FRONTEND_SASS = ['./public/assets/sass/**/*.scss', '!**/_init.scss'];
+FILES.MAIN_SASS = ['./public/assets/sass/style.scss'];
 FILES.FRONTEND_ALL = [].concat(FILES.FRONTEND_JS, FILES.FRONTEND_HTML, FILES.FRONTEND_SASS);
 FILES.SERVER_MAIN = ['./server.js'];
 FILES.SERVER_JS_WITHOUT_MAIN = ['./app/**/*.js', './config.js'];
@@ -88,7 +72,7 @@ gulp.task('watch', 'first, will compile SASS and run the server.\n' + indent +
     colors.yellow('  3.') + ' reload browser', ['serve'],
     function() {
       function restart(file) {
-        server.changed(function(error) {
+        plugins.developServer.changed(function(error) {
           if (!error) {
             reloadBrowser('Backend file changed.', file.path);
           }
@@ -97,7 +81,7 @@ gulp.task('watch', 'first, will compile SASS and run the server.\n' + indent +
 
       function reloadBrowser(message, path) {
         gutil.log(message ? message : 'Something changed.', gutil.colors.bgBlue.white.bold('Reloading browser...'));
-        livereload.changed(path);
+        plugins.livereload.changed(path);
       }
 
       gulp.watch(argv.lint ? FILES.LINT : [], ['lint-js']);
@@ -114,9 +98,9 @@ gulp.task('watch', 'first, will compile SASS and run the server.\n' + indent +
     });
 
 gulp.task('start', ['styles'], function () {
-  server.listen(optionsSync.server, function (error) {
+  plugins.developServer.listen(options.server, function (error) {
     if (!error)
-      bs.init(optionsSync.bs);
+      bs.init(options.bs);
   });
 
   gulp.watch(FILES.FRONTEND_SASS, ['styles']);
@@ -127,10 +111,10 @@ gulp.task('start', ['styles'], function () {
 });
 
 gulp.task('serve', 'start the Kibibit Code Editor server', ['styles'], function() {
-  server.listen(options, livereload.listen);
+  plugins.developServer.listen(options.server, plugins.livereload.listen);
 });
 
-gulp.task('debug', 'debug the project using ​' + colors.blue('~= node-inspector =~'), ['styles'], shell.task(['node-debug server.js']));
+gulp.task('debug', 'debug the project using ​' + colors.blue('~= node-inspector =~'), ['styles'], plugins.shell.task(['node-debug server.js']));
 
 /**  ===============
  *   = BUILD TASKS =
@@ -139,40 +123,92 @@ gulp.task('debug', 'debug the project using ​' + colors.blue('~= node-inspecto
  */
 /* NOTE(thatkookooguy): has to be registered after API ROUTES */
 gulp.task('dist', ['buildDist'], function() {
-  return gulp.src('public/dist/index.html')
-    .pipe(replace(/href="(styles\/.*?)"/g, 'href="dist/$1"'))
-    .pipe(replace(/src="(scripts\/.*?)"/g, 'src="dist/$1"'))
-    .pipe(gulp.dest('public/dist/'));
+  return gulp.src('public/dist/**/kibibit.js', { base: '.'})
+    //.pipe(plugins.uglify())
+    .pipe(gulp.dest('.'));
 });
 
-gulp.task('buildDist', ['copyFonts', 'copyImages'], function () {
-    return gulp.src('./public/app/views/index.html')
-        .pipe(useref({
+gulp.task('check', function() {
+  return gulp.src('public/dist/assets/lib/**/*.css', { base: './public/dist' })
+  .pipe(plugins.replace(/(['"]).*?\/font[s]?\//g, '$1'))
+  .pipe(gulp.dest('test'));
+});
+
+gulp.task('buildDist', ['copyAssets', 'copyFonts', 'copyImages', 'templateCache'], function () {
+    var sources = gulp.src(['./public/dist/app/templates.js'], {read: false});
+    return gulp.src('./public/index.html')
+        .pipe(plugins.replace(/src="(.*?\.js)"/g, replaceWithMin))
+        .pipe(plugins.inject(sources, {
+          transform: function (filepath) {
+              return '<script type="text/javascript" src="' + filepath.replace('/public/', '') + '"></script>';
+          }
+        }))
+        .pipe(plugins.useref({
           searchPath: './public/'
         }))
         //.pipe(gulpif('*.js', uglify()))
-        .pipe(gulpIf('*.css', csso({ usage: true })))
+        .pipe(plugins.if('*.css', plugins.csso({ usage: true })))
+        //.pipe(plugins.if('*.js', plugins.uglify()))
         .pipe(gulp.dest('public/dist'));
 });
 
 gulp.task('copyFonts', function() {
   return gulp.src(['public/**/fonts/*', 'public/**/font/*'])
-    .pipe(flatten())
-    .pipe(gulp.dest('./public/dist/fonts'));
+    .pipe(plugins.flatten())
+    .pipe(gulp.dest('./public/dist/assets/fonts'));
 });
 
 gulp.task('copyImages', function() {
   return gulp.src('public/assets/images/*')
-    .pipe(gulp.dest('./public/dist/images'));
+    .pipe(gulp.dest('./public/dist/assets/images'));
 });
 
-gulp.task('styles', 'compile SASS to CSS', function() {
+gulp.task('templateCache', function() {
+  return gulp.src('public/app/**/*.html', { base: './public/app'})
+    .pipe(plugins.angularTemplatecache('templates.js', {
+      module: 'kibibitCodeEditor',
+      transformUrl: function(url) {
+        return url.replace(/^.*?\/public\//, '');
+      }
+    }))
+    .pipe(gulp.dest('./public/dist/app'));
+});
+
+//temp
+gulp.task('copyAssets', ['copyAce'], function() {
+  return gulp.src(['public/assets/lib/**/*', '!public/assets/lib/bower_components', '!public/assets/lib/bower_components/**/*'], { base: './public/assets'})
+    .pipe(gulp.dest('./public/dist/assets'));
+});
+
+gulp.task('copyAce', function() {
+  return gulp.src('public/assets/lib/bower_components/ace-builds/**/*', { base: './public/assets'})
+    .pipe(gulp.dest('./public/dist/assets'));
+});
+
+gulp.task('cleanDist', function () {
+    return gulp.src('public/dist', {read: false})
+        .pipe(plugins.clean());
+});
+
+gulp.task('styleguide', function() {
   return gulp.src(FILES.FRONTEND_SASS)
-      .pipe(sourcemaps.init())
-      .pipe(concat('style.css'))
-      .pipe(sass().on('error', sass.logError))
+    .pipe(styleguide.generate({
+        title: 'Kibibit Styleguide',
+        server: true,
+        rootPath: './public/assets/sass/',
+        overviewPath: 'README.md',
+        port: 3133
+      }))
+    .pipe(gulp.dest('./public/assets/sass/'));
+});
+
+gulp.task('styles', 'compile SASS to CSS'/*, ['styleguide']*/, function() {
+  return gulp.src(FILES.MAIN_SASS)
+      .pipe(plugins.sourcemaps.init())
+      .pipe(plugins.sass().on('error', plugins.sass.logError))
+      //.pipe(styleguide.applyStyles())
       //.pipe(csso({ usage: true }))
-      .pipe(sourcemaps.write())
+      .pipe(plugins.sourcemaps.write())
       //.pipe(rename({ suffix: '.min' }))
       .pipe(gulp.dest('./public/assets/css/'));
 });
@@ -186,8 +222,8 @@ gulp.task('styles', 'compile SASS to CSS', function() {
 gulp.task('analyzeCode', 'run all sort of checks on styleguides and complexity', ['jscpd', 'magicNumbers'], function() {});
 
 gulp.task('jscpd', 'finds out duplicate part of codes inside your project', function() {
-  return gulp.src(FILES.LINT)
-    .pipe(jscpd({
+  return gulp.src([].concat(FILES.LINT, FILES.FRONTEND_SASS))
+    .pipe(plugins.jscpd({
       'min-lines': 10,
       verbose    : true
     }));
@@ -195,7 +231,7 @@ gulp.task('jscpd', 'finds out duplicate part of codes inside your project', func
 
 gulp.task('magicNumbers', 'shows you if you have any magic numbers (numbers that are used inline in javascript)', function () {
   return gulp.src(FILES.JS_ALL)
-    .pipe(buddyjs({
+    .pipe(plugins.buddy({
       reporter: 'detailed'
     }));
 });
@@ -206,14 +242,14 @@ gulp.task('lint-js', 'lint ' + colors.blue('all JS') + ' files in the following 
   colors.yellow(FILES.JS_ALL.join(',\n' + indent)),
 function() {
   return gulp.src(FILES.JS_ALL, { base: '.'})
-      .pipe(cache('linting'))
-      .pipe(eslint({
+      .pipe(plugins.cached('linting'))
+      .pipe(plugins.eslint({
         fix: argv.format ? true : false
       }))
-      .pipe(eslint.format())
+      .pipe(plugins.eslint.format())
       // if fixed, write the file to dest
-      .pipe(gulpIf(isFixed, gulp.dest('.')))
-      .pipe(eslint.failAfterError());
+      .pipe(plugins.if(isFixed, gulp.dest('.')))
+      .pipe(plugins.eslint.failAfterError());
 }, {
   options: {
     'format': 'fix lint problems that can be fixed automatically'
@@ -224,15 +260,15 @@ gulp.task('lint-sass', 'lint ' + colors.blue('all SASS') + ' files in the follow
     colors.yellow(FILES.FRONTEND_SASS.join(',\n' + indent)),
     function() {
       return gulp.src(FILES.FRONTEND_SASS)
-          .pipe(cache('linting'))
-          .pipe(sassLint())
-          .pipe(sassLint.format())
-          .pipe(sassLint.failOnError());
+          .pipe(plugins.cached('linting'))
+          .pipe(plugins.sassLint())
+          .pipe(plugins.sassLint.format())
+          .pipe(plugins.sassLint.failOnError());
     });
 
 gulp.task('depcheck',
   'checks for unused dependencies ' + colors.blue('(including devs)'),
-  depcheck({
+  plugins.depcheck({
     ignoreDirs: ['test', 'logs', 'node_modules', 'lib'],
     ignoreMatches: ['karma-*', 'jscs-*', 'jasmine-*']
   })
@@ -246,7 +282,7 @@ gulp.task('format-front-end', 'formats the FE files in the following paths:\n' +
       return gulp.src([].concat(FILES.FRONTEND_JS), {
         base: 'public'
       })
-      .pipe(cache('formating'))
+      .pipe(plugins.cached('formating'))
             .pipe(jscs({
               fix: true
             }))
@@ -260,7 +296,7 @@ gulp.task('format-server', 'formats the BE files in the following paths:\n' + in
       return gulp.src([].concat(FILES.SERVER_JS, FILES.BUILD_FILES), {
         base: '.'
       })
-      .pipe(cache('formating'))
+      .pipe(plugins.cached('formating'))
             .pipe(jscs({
               fix: true
             }))
@@ -269,10 +305,12 @@ gulp.task('format-server', 'formats the BE files in the following paths:\n' + in
     });
 
 gulp.task('sizes', function() {
-  return gulp.src('./public/app/**/*')
+  return gulp.src('./public/app/**/*.js')
     //all your gulp tasks
     // .pipe(gulp.dest('./dist/')
-    .pipe(size()) // [gulp] Size example.css: 265.32 kB  
+    .pipe(plugins.filesize({
+      showFiles: false
+    })) // [gulp] Size example.css: 265.32 kB  
 });
 
 gulp.task('test', 'run all tests using karma locally, and travis-ci on GitHub',
@@ -288,4 +326,36 @@ gulp.task('test', 'run all tests using karma locally, and travis-ci on GitHub',
 function isFixed(file) {
   // Has ESLint fixed the file contents?
   return file.eslint != null && file.eslint.fixed;
+}
+
+function replaceWithMin(entireMatch, replaceText) {
+  if (replaceText.endsWith('min.js') || entireMatch.indexOf('bower_components') === -1) {
+    return entireMatch;
+  }
+  //console.log('seeing ' + replaceText);
+  //console.log('looking for ' + __dirname + '/public/' + replaceText.replace('.js', '.min.js'))
+  var minVersion = replaceText.replace('.js', '.min.js');
+  if ( fs.existsSync(__dirname + '/public/' + minVersion) ) {
+    //console.log('Found something EASILY!');
+    return 'src="' + replaceText.replace('.js', '.min.js') + '"';
+  } else {
+    var folder = /^(.*\/bower_components\/.*?\/)/.exec(replaceText);
+    folder = folder ? folder[0]: undefined;
+    var filename = minVersion.replace(/^.*\//, '');
+    //console.log('looking for ' + filename);
+    var results = search.recursiveSearchSync(filename, __dirname + '/public/' + folder);
+    if (results.length > 0) {
+      //console.log('Found something THE HARD WAY! ' + results[0]);
+      return 'src="' + results[0].replace(__dirname + '/public/', '') + '"';
+    } else {
+      var results2 = search.recursiveSearchSync(filename.replace('.min', ''), __dirname + '/public/' + folder);
+      for (var i = 0; i < results2.length; i++) {
+        if (results2[i] && (results2[i].indexOf('minified') !== -1 || results2[i].indexOf('-min-') !== -1)) {
+          return 'src="' + results2[i].replace(__dirname + '/public/', '') + '"';
+        }
+      }
+    }
+  }
+  //console.log('found nothing :-(');
+  return entireMatch;
 }
