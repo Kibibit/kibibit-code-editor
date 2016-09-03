@@ -6,15 +6,16 @@ angular.module('kibibitCodeEditor')
   function(
     $q,
     SessionStorageService) {
-
     var vm = this;
+
+    var DRAFT_PREFIX = 'draft-';
 
     vm.draftsObject = {};
 
     init();
 
     vm.deleteDraft = function(filePath) {
-      var objectKey = 'draft-' + filePath;
+      var objectKey = DRAFT_PREFIX + filePath;
       vm.draftsObject[objectKey] = undefined;
       SessionStorageService.removeItem(objectKey);
     };
@@ -22,7 +23,7 @@ angular.module('kibibitCodeEditor')
     vm.getDraft = function(filePath) {
       var requestedFile = vm.draftsObject[filePath];
       if (requestedFile) {
-        return $q.when(JSON.parse(requestedFile));
+        return $q.when(requestedFile);
       }
       else {
         return $q.reject('requested file is not in sessionStorage');
@@ -32,11 +33,11 @@ angular.module('kibibitCodeEditor')
     ////////////
 
     vm.saveDraft = function(fileObject) {
-      var fileObjectKey = 'draft-' + fileObject.path;
+      var fileObjectKey = DRAFT_PREFIX + fileObject.path;
 
       fileObject.lastModified = new Date().getTime();
 
-      vm.draftsObject[fileObjectKey] = fileObject;
+      vm.draftsObject[fileObject.path] = fileObject;
       SessionStorageService[fileObjectKey] = JSON.stringify(fileObject);
     };
 
@@ -45,9 +46,9 @@ angular.module('kibibitCodeEditor')
       var sessionStorageKeys = Object.keys(sessionStorage);
 
       sessionStorageKeys.forEach(function checkIfDraft(key) {
-        if (key.startsWith('draft-')) {
-          var slicedKey = key.replace('draft-', '');
-          vm.draftsObject[slicedKey] = sessionStorage[key];
+        if (key.startsWith(DRAFT_PREFIX)) {
+          var slicedKey = key.replace(DRAFT_PREFIX, '');
+          vm.draftsObject[slicedKey] = JSON.parse(sessionStorage[key]);
         }
       });
     }

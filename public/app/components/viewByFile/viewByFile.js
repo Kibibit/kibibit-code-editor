@@ -31,7 +31,7 @@ angular.module('kibibitCodeEditor')
     ////////////
 
     function analyzeFile(fileInfo) {
-      vm.fileInfo = fileInfo.data;
+      vm.fileInfo = fileInfo;
       vm.fileType = getFileTypeFromMimeType(vm.fileInfo.mimeType);
       vm.imageUri = vm.fileType === 'image' ?
         vm.fileInfo.content : undefined;
@@ -58,7 +58,7 @@ angular.module('kibibitCodeEditor')
               if (fileInfo.data.errno) {
                 vm.fileType = 'error';
               } else {
-                analyzeFile(fileInfo);
+                analyzeFile(fileInfo.data);
               }
             });
           } else {
