@@ -29,7 +29,10 @@ fileService.get = function(req, res) {
     res.json({
       content: 'awww man... we can\'t show ' + mimeType + ' yet :-(',
       mimeType: 'text/text',
-      errno: -1
+      errno: -1,
+      path: fileFullPath,
+      type: fileService.getFileExtension(fileFullPath),
+      name: fileService.getFileName(fileFullPath)
     });
   } else if (isFileOfType('image')) {
     console.info('image requested. Serving data URI');
@@ -37,13 +40,17 @@ fileService.get = function(req, res) {
     var file = {
       content: dataUri,
       mimeType: mimeType,
-      path: fileFullPath
+      path: fileFullPath,
+      type: fileService.getFileExtension(fileFullPath),
+      name: fileService.getFileName(fileFullPath)
     };
     res.json(file);
   } else if (isFileOfType('font')) {
     var file = {
       mimeType: mimeType,
-      path: fileFullPath
+      path: fileFullPath,
+      type: fileService.getFileExtension(fileFullPath),
+      name: fileService.getFileName(fileFullPath)
     };
     res.json(file);
   } else {
@@ -57,7 +64,9 @@ fileService.get = function(req, res) {
             content: data,
             mimeType: mimeType,
             lastModified: stats.mtime,
-            path: fileFullPath
+            path: fileFullPath,
+            type: fileService.getFileExtension(fileFullPath),
+            name: fileService.getFileName(fileFullPath)
           };
           res.json(file);
           console.info('file requested: ' + fileFullPath);
@@ -136,6 +145,19 @@ fileService.putExtraArg = function(req, res) {
       message: 'For a hard save, 2nd param should be: True'
     });
   }
+};
+
+fileService.getFileName = function(filepath) {
+  var a = filepath.split(/\\|\//).reverse()[0];
+  return a;
+};
+
+fileService.getFileExtension = function(filename) {
+  var a = filename.split('.');
+  if (a.length === 1 || (a[0] === '' && a.length === 2)) {
+    return '';
+  }
+  return a.pop().toLowerCase();
 };
 
 fileService.getFileTags = function(filepath) {

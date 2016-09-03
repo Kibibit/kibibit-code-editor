@@ -10,8 +10,8 @@ angular.module('kibibitCodeEditor')
     controllerAs: 'viewByFileCtrl',
     templateUrl: 'app/components/viewByFile/viewByFileTemplate.html',
     link: function(scope, element, attrs, viewByFileCtrl) {
-      scope.$watch('viewByFileCtrl.openFile', function(newOpenFile) {
-        viewByFileCtrl.updateFileContent(newOpenFile);
+      scope.$watch('viewByFileCtrl.openFile.path', function() {
+        viewByFileCtrl.updateFileContent();
       });
     }
   };
@@ -36,7 +36,12 @@ angular.module('kibibitCodeEditor')
       }
     }
 
-    function updateFileContent(filePath) {
+    function updateFileContent() {
+      var file = vm.openFile;
+      if (!file || !_.isObject(file)) {
+        return;
+      }
+      var filePath = file.path;
       if (filePath !== '') {
         FileService.getFile(filePath, function(fileInfo) {
           if (fileInfo.data.errno) {

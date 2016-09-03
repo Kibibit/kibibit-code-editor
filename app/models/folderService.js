@@ -30,7 +30,7 @@ folderService.get = function(req, res) {
             name: items[i],
             path: directoryFullPath + '/' + items[i],
             tags: fileService.getFileTags(directoryFullPath + '/' + items[i]),
-            type: folderService.getFileExtension(items[i])
+            type: fileService.getFileExtension(items[i])
           });
         }
       }
@@ -70,14 +70,6 @@ folderService.get = function(req, res) {
       }
     }
   }
-};
-
-folderService.getFileExtension = function(filename) {
-  var a = filename.split('.');
-  if (a.length === 1 || (a[0] === '' && a.length === 2)) {
-    return '';
-  }
-  return a.pop().toLowerCase();
 };
 
 folderService.put = function(req, res) {

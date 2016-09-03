@@ -226,7 +226,8 @@ angular.module('kibibitCodeEditor')
     });
   }
 
-  function saveCurrentEditor(openFilePath) {
+  function saveCurrentEditor(openFile) {
+    var openFilePath = openFile.path;
     var currentEditor = vm.settings.currentEditor;
     if (currentEditor && openFilePath) {
       FileService.saveFile(openFilePath,

@@ -84,9 +84,10 @@ angular.module('kibibitCodeEditor')
         });
     }
 
-    function setOpenProject(selectedProjectFolderPath) {
-      if (!vm.isModalCancel(selectedProjectFolderPath.value)) {
-        vm.projectFolderPath = selectedProjectFolderPath.value;
+    function setOpenProject(selectedProjectFolder) {
+      if (!vm.isModalCancel(selectedProjectFolder.value)) {
+        vm.selectedProjectFolder = selectedProjectFolder.value;
+        vm.projectFolderPath = vm.selectedProjectFolder.path;
         vm.projectName = getFolderNameFromPath(vm.projectFolderPath);
 
         SessionStorageService.projectName = vm.projectName;

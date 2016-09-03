@@ -60,4 +60,4 @@
 
 	<span ng-switch-when="directory" class="entypo-folder primary-color-icon" aria-hidden="true"></span>
     <span ng-switch-default class="entypo-newspaper granny-smith-icon" aria-hidden="true"></span>
-</span> {{fileNameCtrl.file.name}}
+</span> {{ fileNameCtrl.file.name ? fileNameCtrl.file.name : 'UNTITLED' }}

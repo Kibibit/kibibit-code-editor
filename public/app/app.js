@@ -18,7 +18,7 @@ angular.module('kibibitCodeEditor',
   'ngMdIcons'])
 
 .config(['$compileProvider', function($compileProvider) {
-  $compileProvider.debugInfoEnabled(false);
+  $compileProvider.debugInfoEnabled(true);
 }])
 
 .config(['ScrollBarsProvider', function(ScrollBarsProvider) {
