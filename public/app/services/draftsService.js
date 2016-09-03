@@ -29,6 +29,8 @@ angular.module('kibibitCodeEditor')
       }
     };
 
+    ////////////
+
     vm.saveDraft = function(fileObject) {
       var fileObjectKey = 'draft-' + fileObject.path;
 

@@ -19,12 +19,23 @@ angular.module('kibibitCodeEditor')
 
 .controller('viewByFileController', [
   'FileService',
-  function(FileService) {
+  'DraftsService',
+  function(
+    FileService,
+    DraftsService) {
+
     var vm = this;
 
     vm.updateFileContent = updateFileContent;
 
     ////////////
+
+    function analyzeFile(fileInfo) {
+      vm.fileInfo = fileInfo.data;
+      vm.fileType = getFileTypeFromMimeType(vm.fileInfo.mimeType);
+      vm.imageUri = vm.fileType === 'image' ?
+        vm.fileInfo.content : undefined;
+    }
 
     function getFileTypeFromMimeType(mimeType) {
       if (mimeType.indexOf('image') !== -1) {
@@ -37,22 +48,25 @@ angular.module('kibibitCodeEditor')
     }
 
     function updateFileContent(filePath) {
-      if (filePath !== '') {
-        FileService.getFile(filePath, function(fileInfo) {
-          if (fileInfo.data.errno) {
-            vm.fileType = 'error';
+      DraftsService.getDraft(filePath).then(
+        function success(fileInfo) {
+          analyzeFile(fileInfo);
+        },
+        function fail() {
+          if (filePath !== '') {
+            FileService.getFile(filePath, function(fileInfo) {
+              if (fileInfo.data.errno) {
+                vm.fileType = 'error';
+              } else {
+                analyzeFile(fileInfo);
+              }
+            });
           } else {
-            vm.fileInfo = fileInfo.data;
-            vm.fileType = getFileTypeFromMimeType(vm.fileInfo.mimeType);
-            vm.imageUri = vm.fileType === 'image' ?
-              vm.fileInfo.content : undefined;
+            vm.fileType = 'code';
+            vm.fileInfo = undefined;
           }
-        });
-      } else {
-        vm.fileType = 'code';
-        vm.fileInfo = undefined;
-      }
+        }
+      );
     }
-
   }
 ]);
