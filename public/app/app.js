@@ -15,7 +15,8 @@ angular.module('kibibitCodeEditor',
   'jsonFormatter',
   'ngclipboard',
   'ng.deviceDetector',
-  'ngMdIcons'])
+  'ngMdIcons',
+  'ngAudio'])
 
 .config(['$compileProvider', function($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
@@ -57,6 +58,12 @@ angular.module('kibibitCodeEditor',
 .filter('marked', ['marked', function(marked) {
   return function(input) {
     return marked(input || '');
+  };
+}])
+
+.filter('secondsToDateTime', [function() {
+  return function(seconds) {
+    return new Date(1970, 0, 1).setSeconds(seconds);
   };
 }])
 

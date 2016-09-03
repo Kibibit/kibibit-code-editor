@@ -1,0 +1,128 @@
+kb-audio-player {
+  align-items: center;
+  background: $black;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  overflow: auto;
+  position: absolute;
+  width: 100%;
+
+  * {
+    color: $black;
+  }
+
+  button {
+    align-items: center;
+    background: $color2;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    margin: 2px;
+  }
+
+  md-slider {
+    width: 100%;
+
+    .md-track.md-track-fill {
+      background-color: $candy-blue;
+    }
+
+    .md-thumb::after {
+      background-color: $candy-blue;
+      border-color: $candy-blue;
+    }
+
+    .md-sign {
+      background-color: $candy-blue;
+
+      &::after {
+        border-top-color: $candy-blue;
+      }
+    }
+
+    .md-focus-ring {
+      background-color: $candy-blue;
+    }
+  }
+
+  .controls {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .time-controls {
+    flex-direction: column;
+
+    .current-time {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+
+      .time {
+        padding-left: 12px;
+      }
+    }
+  }
+
+  .song-info {
+    flex-direction: column;
+  }
+
+  .cover-art {
+    position: relative;
+
+    .cover-image {
+      width: 100%;
+    }
+
+    .overlay {
+      align-items: center;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      left: 0;
+      opacity: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: opacity linear 250ms;
+
+      .play-pause {
+        border-radius: 50%;
+        opacity: 0.7;
+        transition: opacity linear 150ms;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        .material-icons {
+          font-size: 90px;
+        }
+
+      }
+
+    }
+  }
+
+  .volume-controls,
+  .time-controls {
+    padding: 10px;
+  }
+
+  .audio-player {
+    background: rgba($white, 0.8);
+    border-radius: 5px;
+    margin: 20px;
+    position: relative;
+    top: 50px;
+    width: 300px;
+
+    &:hover .overlay {
+      opacity: 1;
+    }
+  }
+}

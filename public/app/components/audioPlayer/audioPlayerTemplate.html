@@ -1,0 +1,28 @@
+<div class="audio-player">
+	<div class="controls song-info">
+		<div>{{ audioPlayerCtrl.audioFile.name || audioPlayerCtrl.fileName }}</div>
+		<div>{{ audioPlayerCtrl.audioFile.artist || 'unknown artist' }} - {{ audioPlayerCtrl.audioFile.album || 'unknown album' }}</div>
+	</div>
+	<div class="controls cover-art">
+		<div class="overlay">
+			<button class="play-pause" ng-click='audioPlayerCtrl.audio.paused ?
+			  audioPlayerCtrl.audio.play() : audioPlayerCtrl.audio.pause()'>
+				<i class="material-icons">{{ audioPlayerCtrl.audio.paused ? 'play_arrow' : 'pause' }}</i>
+			</button>
+		</div>
+		<img class="cover-image" ng-src="{{ audioPlayerCtrl.image }}">
+	</div>
+	<div class="controls volume-controls">
+		<button ng-click='audioPlayerCtrl.audio.muting = !audioPlayerCtrl.audio.muting'>
+			<i class="material-icons">{{ audioPlayerCtrl.audio.muting || audioPlayerCtrl.audio.volume === 0 ? 'volume_off' : 'volume_up' }}</i>
+		</button>
+		<md-slider ng-model="audioPlayerCtrl.audio.volume" step="0.01" min="0" max="1"></md-slider>
+	</div>
+	<div class="controls time-controls">
+		<div class="current-time">
+			<md-slider ng-model="audioPlayerCtrl.audio.progress" step="0.01" min="0" max="1"></md-slider>
+			<div class="time">{{ audioPlayerCtrl.audio.currentTime | number: 0 | secondsToDateTime | date:'mm:ss' }}</div>
+		</div>
+		<md-slider md-discrete ng-model="audioPlayerCtrl.audio.playbackRate" step="0.05" min="0.5" max="1.5"></md-slider>
+	</div>
+ </div>
