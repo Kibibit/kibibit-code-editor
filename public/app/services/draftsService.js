@@ -27,17 +27,20 @@ angular.module('kibibitCodeEditor')
     }
 
     function getDraft(filePath) {
+      var deferred = $q.defer();
       var requestedFile = vm.draftsObject[filePath];
+
       if (requestedFile) {
-        return $q.when(requestedFile);
+        deferred.resolve(requestedFile);
       } else {
-        return $q.reject('requested file is not in sessionStorage');
+        deferred.reject('requested file is not in sessionStorage');
       }
+      return deferred.promise;
     }
 
     function init() {
       var sessionStorage = SessionStorageService;
-      var sessionStorageKeys = Object.keys(sessionStorage);
+      var sessionStorageKeys = _.keys(sessionStorage);
 
       sessionStorageKeys.forEach(function checkIfDraft(key) {
         if (key.startsWith(DRAFTS.DRAFT_PREFIX)) {
