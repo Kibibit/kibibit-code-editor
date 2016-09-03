@@ -20,12 +20,14 @@ angular.module('kibibitCodeEditor')
 .controller('codeEditorController', [
   '$timeout',
   'FileService',
+  'DraftsService',
   'SettingsService',
   'JSONFormatterConfig',
   'ToastService',
   function(
     $timeout,
     FileService,
+    DraftsService,
     SettingsService,
     JSONFormatterConfig,
     ToastService) {
@@ -167,6 +169,8 @@ angular.module('kibibitCodeEditor')
 
     function updateFileContent(fileObject) {
       if (fileObject) {
+        DraftsService.saveDraft(fileObject);
+
         vm.fileInfo = fileObject;
         vm.code = vm.fileInfo.content;
         var fileMode = getModeFromMimeType(vm.fileInfo);
