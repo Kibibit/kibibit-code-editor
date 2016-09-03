@@ -22,6 +22,7 @@ angular.module('kibibitCodeEditor')
     vm.isSidebarOpen = false; // for mobile view
     vm.openFile = '';
     vm.openProject = openProject;
+    vm.saveCurrentEditor = saveCurrentEditor;
     vm.settings = SettingsService.settings;
     vm.showProjectSelectModal = showProjectSelectModal;
 
@@ -83,6 +84,35 @@ angular.module('kibibitCodeEditor')
           vm.showProjectSelectModal();
         });
     }
+    
+    function saveAsModal() {
+      ngDialog.open({
+        template:
+          'app/components/saveAsModal/saveAsModalTemplate.html',
+        controller: 'saveAsModalController',
+        controllerAs: 'saveAsModalCtrl',
+        className: 'ngdialog-theme-default',
+        scope: $scope,
+        data: {
+          savePath: vm.projectFolderPath || vm.userHomeDirectoryPath
+        }
+      }).closePromise.then();
+    }
+
+    function saveCurrentEditor(openFilePath) {
+      var currentEditor = vm.settings.currentEditor;
+      if (currentEditor && openFilePath) {
+        FileService.saveFile(openFilePath,
+          currentEditor.getSession().getDocument().getValue(),
+          function() {
+            ToastService.showSimpleToast('success-toast',
+              'File successfully saved');
+          }
+        );
+      } else if (currentEditor) {
+        // open the modal shit
+      }
+    }
 
     function setOpenProject(selectedProjectFolderPath) {
       if (!vm.isModalCancel(selectedProjectFolderPath.value)) {
@@ -112,5 +142,5 @@ angular.module('kibibitCodeEditor')
         }
       }).closePromise.then(setOpenProject);
     }
-
+    
   }]);

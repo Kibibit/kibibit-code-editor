@@ -1,0 +1,15 @@
+<div class="project-tree-container" ng-if="ngDialogData.savePath" ng-scrollbars>
+  <kb-file-tree
+    kb-file-tree-path="ngDialogData.savePath"
+    kb-file-tree-options="{selectionMode: 'folder', theme: 'tree'}"
+    kb-file-tree-selection="ngDialogData.selectedFolder">
+  </kb-file-tree>
+</div>
+<div class="buttons">
+  <button
+    class="btn"
+    ng-click="closeThisDialog(ngDialogData.selectedFolder)">
+    Save
+  </button>
+  <button class="btn" ng-click="closeThisDialog(0)">Close</button>
+</div>

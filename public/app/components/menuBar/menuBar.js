@@ -58,7 +58,6 @@ angular.module('kibibitCodeEditor')
   vm.isSelectionExists = isSelectionExists;
   vm.openPrintDialog = openPrintDialog;
   vm.sampleAction = sampleAction;
-  vm.saveCurrentEditor = saveCurrentEditor;
   vm.settings = SettingsService.settings;
   vm.svgMorphOptions = svgMorphOptions;
   vm.toggleFullscreen = toggleFullscreen;
@@ -224,19 +223,6 @@ angular.module('kibibitCodeEditor')
       template: '<p>You triggered the "' + name + '" action</p>',
       plain: true
     });
-  }
-
-  function saveCurrentEditor(openFilePath) {
-    var currentEditor = vm.settings.currentEditor;
-    if (currentEditor && openFilePath) {
-      FileService.saveFile(openFilePath,
-        currentEditor.getSession().getDocument().getValue(),
-        function() {
-          ToastService.showSimpleToast('success-toast',
-            'File successfully saved');
-        }
-      );
-    }
   }
 
   function toggleFullscreen() {
