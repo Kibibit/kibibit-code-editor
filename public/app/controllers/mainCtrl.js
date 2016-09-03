@@ -4,12 +4,16 @@ angular.module('kibibitCodeEditor')
   '$scope',
   '$http',
   'ngDialog',
+  'FileService',
+  'ToastService',
   'SettingsService',
   'SessionStorageService',
   function(
     $scope,
     $http,
     ngDialog,
+    FileService,
+    ToastService,
     SettingsService,
     SessionStorageService) {
 
@@ -84,20 +88,6 @@ angular.module('kibibitCodeEditor')
           vm.showProjectSelectModal();
         });
     }
-    
-    function saveAsModal() {
-      ngDialog.open({
-        template:
-          'app/components/saveAsModal/saveAsModalTemplate.html',
-        controller: 'saveAsModalController',
-        controllerAs: 'saveAsModalCtrl',
-        className: 'ngdialog-theme-default',
-        scope: $scope,
-        data: {
-          savePath: vm.projectFolderPath || vm.userHomeDirectoryPath
-        }
-      }).closePromise.then();
-    }
 
     function saveCurrentEditor(openFilePath) {
       var currentEditor = vm.settings.currentEditor;
@@ -110,7 +100,7 @@ angular.module('kibibitCodeEditor')
           }
         );
       } else if (currentEditor) {
-        // open the modal shit
+        showSaveAsModal();
       }
     }
 
@@ -141,6 +131,32 @@ angular.module('kibibitCodeEditor')
           userHomeDirectoryPath: vm.userHomeDirectoryPath
         }
       }).closePromise.then(setOpenProject);
+    }
+
+    function showSaveAsModal() {
+      ngDialog.open({
+        template:
+          'app/components/saveAsModal/saveAsModalTemplate.html',
+        controller: 'saveAsModalController',
+        controllerAs: 'saveAsModalCtrl',
+        className: 'ngdialog-theme-default',
+        scope: $scope,
+        data: {
+          savePath: vm.projectFolderPath || vm.userHomeDirectoryPath
+        }
+      }).closePromise.then(
+        function(res) {
+          var saveFilePath = res.value + '/test.txt';
+          var currentEditor = vm.settings.currentEditor;
+          FileService.saveFile(saveFilePath,
+            currentEditor.getSession().getDocument().getValue(),
+            function() {
+              ToastService.showSimpleToast('success-toast',
+                'File successfully saved');
+            }
+          );
+        }
+      );
     }
     
   }]);

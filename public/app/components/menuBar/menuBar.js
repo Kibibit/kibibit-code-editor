@@ -32,9 +32,7 @@ angular.module('kibibitCodeEditor')
   $window,
   $timeout,
   SettingsService,
-  ngDialog,
-  FileService,
-  ToastService) {
+  ngDialog) {
 
   var vm = this;
 
