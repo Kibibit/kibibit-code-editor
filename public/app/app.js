@@ -64,7 +64,11 @@ angular.module('kibibitCodeEditor',
   'MODE_LIST': ace.require('ace/ext/modelist'),
   'THEME_LIST': ace.require('ace/ext/themelist')
 })
-
+  
+.constant('DRAFTS', {
+  'DRAFT_PREFIX' : 'draft-'
+})  
+  
 .constant('ERROR_MSGS', {
   'TYPE_ERROR': function(varName, typeExpected, typeRecieved) {
     return [

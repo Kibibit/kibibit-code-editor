@@ -2,13 +2,13 @@ angular.module('kibibitCodeEditor')
 
 .service('DraftsService', [
   '$q',
+  'DRAFTS',
   'SessionStorageService',
   function(
     $q,
+    DRAFTS,
     SessionStorageService) {
     var vm = this;
-
-    var DRAFT_PREFIX = 'draft-';
 
     vm.draftsObject = {};
 
@@ -17,14 +17,14 @@ angular.module('kibibitCodeEditor')
     vm.saveDraft = saveDraft;
 
     init();
-    
+
     //TODO: move DRAFT_PREFIX to consts -> DRAFTS.DRAFT_PREFIX
 
 
     ////////////
 
     function deleteDraft(filePath) {
-      var objectKey = DRAFT_PREFIX + filePath;
+      var objectKey = DRAFTS.DRAFT_PREFIX + filePath;
       vm.draftsObject[objectKey] = undefined;
       SessionStorageService.removeItem(objectKey);
     }
@@ -44,15 +44,15 @@ angular.module('kibibitCodeEditor')
       var sessionStorageKeys = Object.keys(sessionStorage);
 
       sessionStorageKeys.forEach(function checkIfDraft(key) {
-        if (key.startsWith(DRAFT_PREFIX)) {
-          var slicedKey = key.replace(DRAFT_PREFIX, '');
+        if (key.startsWith(DRAFTS.DRAFT_PREFIX)) {
+          var slicedKey = key.replace(DRAFTS.DRAFT_PREFIX, '');
           vm.draftsObject[slicedKey] = JSON.parse(sessionStorage[key]);
         }
       });
     }
 
     function saveDraft(fileObject) {
-      var fileObjectKey = DRAFT_PREFIX + fileObject.path;
+      var fileObjectKey = DRAFTS.DRAFT_PREFIX + fileObject.path;
 
       fileObject.lastModified = new Date().getTime();
 
