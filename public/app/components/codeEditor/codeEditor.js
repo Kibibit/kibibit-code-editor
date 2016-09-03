@@ -170,7 +170,7 @@ angular.module('kibibitCodeEditor')
     function updateFileContent(fileObject) {
       if (fileObject) {
         DraftsService.saveDraft(fileObject);
-        
+
         vm.fileInfo = fileObject;
         vm.code = vm.fileInfo.content;
         var fileMode = getModeFromMimeType(vm.fileInfo);

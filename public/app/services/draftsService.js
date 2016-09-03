@@ -30,8 +30,7 @@ angular.module('kibibitCodeEditor')
       var requestedFile = vm.draftsObject[filePath];
       if (requestedFile) {
         return $q.when(requestedFile);
-      }
-      else {
+      } else {
         return $q.reject('requested file is not in sessionStorage');
       }
     }
@@ -56,5 +55,5 @@ angular.module('kibibitCodeEditor')
       vm.draftsObject[fileObject.path] = fileObject;
       SessionStorageService[fileObjectKey] = JSON.stringify(fileObject);
     }
-
-}]);
+  }
+]);

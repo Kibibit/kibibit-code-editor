@@ -6,7 +6,7 @@ angular.module('kibibitCodeEditor')
 })
 
 .constant('DRAFTS', {
-  'DRAFT_PREFIX' : 'draft-'
+  'DRAFT_PREFIX': 'draft-'
 })
 
 .constant('ERROR_MSGS', {
