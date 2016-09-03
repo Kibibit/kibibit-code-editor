@@ -18,9 +18,6 @@ angular.module('kibibitCodeEditor')
 
     init();
 
-    //TODO: move DRAFT_PREFIX to consts -> DRAFTS.DRAFT_PREFIX
-
-
     ////////////
 
     function deleteDraft(filePath) {
