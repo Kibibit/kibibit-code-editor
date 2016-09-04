@@ -94,7 +94,7 @@ app.use('/api', jsonParser, apiRoutes);
  */
 /* NOTE(thatkookooguy): has to be registered after API ROUTES */
 app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
+  res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
 /** ==========
