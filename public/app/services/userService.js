@@ -1,6 +1,6 @@
 angular.module('kibibitCodeEditor')
 
-.factory('UserService', function($http) {
+.factory('UserService', ['$http', function($http) {
 
   // create a new object
   var userFactory = {};
@@ -33,4 +33,4 @@ angular.module('kibibitCodeEditor')
   // return our entire userFactory object
   return userFactory;
 
-});
+}]);
