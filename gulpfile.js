@@ -35,7 +35,8 @@ var options = {
 var FILES = {};
 FILES.FRONTEND_JS = ['./public/app/**/*.js'];
 FILES.FRONTEND_HTML = ['./public/app/**/*.html'];
-FILES.FRONTEND_SASS = ['./public/assets/sass/**/*.scss'];
+FILES.FRONTEND_SASS = ['./public/assets/sass/**/*.scss', '!**/_init.scss'];
+FILES.MAIN_SASS = ['./public/assets/sass/style.scss'];
 FILES.FRONTEND_ALL = [].concat(FILES.FRONTEND_JS, FILES.FRONTEND_HTML, FILES.FRONTEND_SASS);
 FILES.SERVER_MAIN = ['./server.js'];
 FILES.SERVER_JS_WITHOUT_MAIN = ['./app/**/*.js', './config.js'];
@@ -117,9 +118,8 @@ gulp.task('format-server', 'formats the BE files in the following paths:\n' + in
 gulp.task('format', 'formats ' + colors.blue('all') + ' the project\'s javascript files', ['format-server', 'format-front-end']);
 
 gulp.task('styles', 'compile SASS to CSS', function() {
-  return gulp.src(FILES.FRONTEND_SASS)
+  return gulp.src(FILES.MAIN_SASS)
       .pipe(sourcemaps.init())
-      .pipe(concat('style.css'))
       .pipe(sass().on('error', sass.logError))
       //.pipe(cssnano())
       .pipe(sourcemaps.write())
