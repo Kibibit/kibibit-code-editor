@@ -6,7 +6,7 @@ angular.module('kibibitCodeEditor')
 // inject $q to return promise objects
 // inject AuthToken to manage tokens
 // ===================================================
-.factory('Auth', function($http, $q, AuthToken) {
+.factory('Auth', ['$http', '$q', 'AuthToken', function($http, $q, AuthToken) {
 
   // create auth factory object
   var authFactory = {};
@@ -61,13 +61,13 @@ angular.module('kibibitCodeEditor')
   // return auth factory object
   return authFactory;
 
-})
+}])
 
 // ===================================================
 // factory for handling tokens
 // inject $window to store token client-side
 // ===================================================
-.factory('AuthToken', function($window) {
+.factory('AuthToken', ['$window', function($window) {
 
   var authTokenFactory = {};
 
@@ -89,42 +89,50 @@ angular.module('kibibitCodeEditor')
 
   return authTokenFactory;
 
-})
+}])
 
 // ===================================================
 // application configuration to integrate token into requests
 // ===================================================
-.factory('AuthInterceptor', function($q, $location, AuthToken) {
+.factory('AuthInterceptor', [
+  '$q',
+  '$location',
+  'AuthToken',
+  function(
+    $q,
+    $location,
+    AuthToken) {
 
-  var interceptorFactory = {};
+    var interceptorFactory = {};
 
-  // this will happen on all HTTP requests
-  interceptorFactory.request = function(config) {
+    // this will happen on all HTTP requests
+    interceptorFactory.request = function(config) {
 
-    // grab the token
-    var token = AuthToken.getToken();
+      // grab the token
+      var token = AuthToken.getToken();
 
-    // if the token exists, add it to the header as x-access-token
-    if (token) {
-      config.headers['x-access-token'] = token;
-    }
+      // if the token exists, add it to the header as x-access-token
+      if (token) {
+        config.headers['x-access-token'] = token;
+      }
 
-    return config;
-  };
+      return config;
+    };
 
-  // happens on response errors
-  interceptorFactory.responseError = function(response) {
+    // happens on response errors
+    interceptorFactory.responseError = function(response) {
 
-    // if our server returns a 403 forbidden response
-    if (response.status == 403) {
-      AuthToken.setToken();
-      $location.path('/login');
-    }
+      // if our server returns a 403 forbidden response
+      if (response.status == 403) {
+        AuthToken.setToken();
+        $location.path('/login');
+      }
 
-    // return the errors from the server as a promise
-    return $q.reject(response);
-  };
+      // return the errors from the server as a promise
+      return $q.reject(response);
+    };
 
-  return interceptorFactory;
+    return interceptorFactory;
 
-});
+  }
+]);
