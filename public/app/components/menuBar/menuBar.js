@@ -256,7 +256,8 @@ angular.module('kibibitCodeEditor')
     }
 
     function toggleLineWrap() {
-      vm.settings.editorSettings.lineWrap = !vm.settings.editorSettings.lineWrap;
+      vm.settings.editorSettings.lineWrap =
+        !vm.settings.editorSettings.lineWrap;
     }
 
     function toggleSoftTabs() {

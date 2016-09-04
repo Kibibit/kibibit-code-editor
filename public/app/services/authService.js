@@ -94,37 +94,45 @@ angular.module('kibibitCodeEditor')
 // ===================================================
 // application configuration to integrate token into requests
 // ===================================================
-.factory('AuthInterceptor', ['$q', '$location', 'AuthToken', function($q, $location, AuthToken) {
+.factory('AuthInterceptor', [
+  '$q',
+  '$location',
+  'AuthToken',
+  function(
+    $q,
+    $location,
+    AuthToken) {
 
-  var interceptorFactory = {};
+    var interceptorFactory = {};
 
-  // this will happen on all HTTP requests
-  interceptorFactory.request = function(config) {
+    // this will happen on all HTTP requests
+    interceptorFactory.request = function(config) {
 
-    // grab the token
-    var token = AuthToken.getToken();
+      // grab the token
+      var token = AuthToken.getToken();
 
-    // if the token exists, add it to the header as x-access-token
-    if (token) {
-      config.headers['x-access-token'] = token;
-    }
+      // if the token exists, add it to the header as x-access-token
+      if (token) {
+        config.headers['x-access-token'] = token;
+      }
 
-    return config;
-  };
+      return config;
+    };
 
-  // happens on response errors
-  interceptorFactory.responseError = function(response) {
+    // happens on response errors
+    interceptorFactory.responseError = function(response) {
 
-    // if our server returns a 403 forbidden response
-    if (response.status == 403) {
-      AuthToken.setToken();
-      $location.path('/login');
-    }
+      // if our server returns a 403 forbidden response
+      if (response.status == 403) {
+        AuthToken.setToken();
+        $location.path('/login');
+      }
 
-    // return the errors from the server as a promise
-    return $q.reject(response);
-  };
+      // return the errors from the server as a promise
+      return $q.reject(response);
+    };
 
-  return interceptorFactory;
+    return interceptorFactory;
 
-}]);
+  }
+]);
