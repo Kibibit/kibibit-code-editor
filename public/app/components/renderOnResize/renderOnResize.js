@@ -1,6 +1,6 @@
 angular.module('kibibitCodeEditor')
 
-.directive('kbRenderOnResize', function(EventManagerService) {
+.directive('kbRenderOnResize', ['EventManagerService', function(EventManagerService) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
@@ -11,4 +11,4 @@ angular.module('kibibitCodeEditor')
       }, 500));
     }
   };
-});
+}]);
