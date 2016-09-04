@@ -1,20 +1,20 @@
-@import 'mixin';
- @import 'colors';
- @import 'init';
- @import 'modal';
- @import 'components/codeEditor';
- @import 'components/errorView';
- @import 'components/fileName';
- @import 'components/fontView';
- @import 'components/mdToast';
- @import 'components/menuBar';
- @import 'components/movingGears';
- @import 'components/projectTree';
- @import 'components/searchProject';
- @import 'components/sidebar';
- @import 'components/statusBar';
- @import 'components/viewByFile';
- @import 'components/zombify';
+@import "mixin";
+@import "colors";
+@import "init";
+@import "modal";
+@import "components/codeEditor";
+@import "components/errorView";
+@import "components/fileName";
+@import "components/fontView";
+@import "components/mdToast";
+@import "components/menuBar";
+@import "components/movingGears";
+@import "components/projectTree";
+@import "components/searchProject";
+@import "components/sidebar";
+@import "components/statusBar";
+@import "components/viewByFile";
+@import "components/zombify";
 
 // scss-lint:disable NestingDepth
 // scss-lint:disable SelectorDepth
