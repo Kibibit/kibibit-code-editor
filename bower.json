@@ -23,7 +23,9 @@
     "opentype.js": "^0.6.3",
     "underscore": "^1.8.3",
     "angular-material-icons": "^0.7.1",
-    "svg-morpheus": "^0.3.2"
+    "svg-morpheus": "^0.3.2",
+    "ui-layout": "Kibibit/ui-layout#~1.0.5",
+    "ace-builds": "git://github.com/ajaxorg/ace-builds#master"
   },
   "resolutions": {
     "angular": "1.5.8"
