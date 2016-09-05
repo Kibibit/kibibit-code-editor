@@ -5,3 +5,4 @@
 /public/assets/css/style.css
 /public/assets/lib/bower_components/**
 /.idea/**
+/public/dist/**
