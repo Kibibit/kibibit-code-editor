@@ -1,7 +1,8 @@
 // grab our packages
 var gulp = require('gulp-help')(require('gulp'), {
   description: 'you are looking at it.',
-  aliases: ['h']
+  aliases: ['h'],
+  hideEmpty: true
 }),
 colors = require('colors'),
 beautify = require('gulp-jsbeautifier'),
@@ -24,6 +25,8 @@ complexity = require('gulp-complexity'),
 buddyjs = require('gulp-buddy.js'),
 size = require('gulp-filesize');
 
+var buildConfig = require('./buildConfig');
+
 var karma = require('karma').server;
 
 var isTravis = process.env.TRAVIS || false;
@@ -32,100 +35,20 @@ var indent = '                        ';
 var options = {
   path: './server.js'
 };
-var FILES = {};
-FILES.FRONTEND_JS = ['./public/app/**/*.js'];
-FILES.FRONTEND_HTML = ['./public/app/**/*.html'];
-FILES.FRONTEND_SASS = ['./public/assets/sass/**/*.scss', '!**/_init.scss'];
-FILES.MAIN_SASS = ['./public/assets/sass/style.scss'];
-FILES.FRONTEND_ALL = [].concat(FILES.FRONTEND_JS, FILES.FRONTEND_HTML, FILES.FRONTEND_SASS);
-FILES.SERVER_MAIN = ['./server.js'];
-FILES.SERVER_JS_WITHOUT_MAIN = ['./app/**/*.js', './config.js'];
-FILES.SERVER_JS = [].concat(FILES.SERVER_MAIN, FILES.SERVER_JS_WITHOUT_MAIN);
-FILES.BUILD_FILES = ['./gulpfile.js'];
-FILES.JS_ALL = [].concat(FILES.FRONTEND_JS, FILES.SERVER_JS);
-FILES.LINT = [].concat(FILES.FRONTEND_JS, FILES.SERVER_JS_WITHOUT_MAIN);
 
-// define the default task and add the watch task to it
-gulp.task('default', colors.bgCyan.black('gulp') + ' === ' + colors.bgCyan.black('gulp watch'), ['watch']);
+require('./gulp-tasks/test')();
+require('./gulp-tasks/lint')();
+require('./gulp-tasks/styles')();
+require('./gulp-tasks/analyzeCode')();
+require('./gulp-tasks/dist')();
 
-gulp.task('test', 'run all tests using karma locally, and travis-ci on GitHub',
-  function(done) {
-    console.log('isTravis', isTravis);
-    karma.start({
-      configFile: __dirname + '/karma.conf.js',
-      singleRun: isTravis
-    }, done);
-  }
-);
-
-gulp.task('depcheck',
-  'checks for unused dependencies ' + colors.blue('(including devs)'),
-  depcheck({
-    ignoreDirs: ['test', 'logs'],
-    ignoreMatches: ['karma-*', 'jscs-*', 'jasmine-*']
-  })
-);
-
-// configure the jshint task
-gulp.task('lint-js', 'lint ' + colors.blue('all JS') + ' files in the following paths:\n' + indent +
-    colors.yellow(FILES.JS_ALL.join(',\n' + indent)),
-    function() {
-      return gulp.src(FILES.JS_ALL)
-          .pipe(cache('linting'))
-          .pipe(jscs())
-          .pipe(jscs.reporter())
-          .pipe(jscs.reporter('fail'));
-    });
-
-gulp.task('lint-sass', 'lint ' + colors.blue('all SASS') + ' files in the following paths:\n' + indent +
-    colors.yellow(FILES.FRONTEND_SASS.join(',\n' + indent)),
-    function() {
-      return gulp.src(FILES.FRONTEND_SASS)
-          .pipe(cache('linting'))
-          .pipe(sass().on('error', sass.logError));
-    });
-
-gulp.task('lint', 'lint ' + colors.blue('all javascript and sass') + ' files', ['lint-js', 'lint-sass']);
-
-gulp.task('format-front-end', 'formats the FE files in the following paths:\n' + indent +
-    colors.yellow(FILES.FRONTEND_JS.join(',\n' + indent)),
-    function() {
-      return gulp.src([].concat(FILES.FRONTEND_JS), {
-        base: 'public'
-      })
-      .pipe(cache('formating'))
-            .pipe(jscs({
-              fix: true
-            }))
-            .pipe(jscs.reporter())
-            .pipe(gulp.dest('./public')); // add this to a different folder in order to test first
-    });
-
-gulp.task('format-server', 'formats the BE files in the following paths:\n' + indent +
-    colors.yellow([].concat(FILES.SERVER_JS, FILES.BUILD_FILES).join(',\n' + indent)),
-    function() {
-      return gulp.src([].concat(FILES.SERVER_JS, FILES.BUILD_FILES), {
-        base: '.'
-      })
-      .pipe(cache('formating'))
-            .pipe(jscs({
-              fix: true
-            }))
-            .pipe(jscs.reporter())
-            .pipe(gulp.dest('.'));
-    });
-
-gulp.task('format', 'formats ' + colors.blue('all') + ' the project\'s javascript files', ['format-server', 'format-front-end']);
-
-gulp.task('styles', 'compile SASS to CSS', function() {
-  return gulp.src(FILES.MAIN_SASS)
-      .pipe(sourcemaps.init())
-      .pipe(sass().on('error', sass.logError))
-      //.pipe(cssnano())
-      .pipe(sourcemaps.write())
-      //.pipe(rename({ suffix: '.min' }))
-      .pipe(gulp.dest('./public/assets/css/'));
-});
+// gulp.task('depcheck',
+//   'checks for unused dependencies ' + colors.blue('(including devs)'),
+//   depcheck({
+//     ignoreDirs: ['test', 'logs'],
+//     ignoreMatches: ['karma-*', 'jscs-*', 'jasmine-*']
+//   })
+// );
 
 gulp.task('serve', 'start the Kibibit Code Editor server', ['styles'], function() {
   server.listen(options, livereload.listen);
@@ -133,34 +56,15 @@ gulp.task('serve', 'start the Kibibit Code Editor server', ['styles'], function(
 
 gulp.task('debug', 'debug the project using ​' + colors.blue('~= node-inspector =~'), ['styles'], shell.task(['node-debug server.js']));
 
-gulp.task('jscpd', 'finds out duplicate part of codes inside your project', function() {
-  return gulp.src(FILES.LINT)
-    .pipe(jscpd({
-      'min-lines': 10,
-      verbose    : true
-    }));
-});
-
-gulp.task('complexity', 'shows you some statistics about your code\'s complexity', function(){
-  return gulp.src(FILES.JS_ALL)
-      .pipe(complexity());
-});
-
-gulp.task('magicNumbers', 'shows you if you have any magic numbers (numbers that are used inline in javascript)', function () {
-  return gulp.src(FILES.JS_ALL)
-    .pipe(buddyjs({
-      reporter: 'detailed'
-    }));
-});
-
-gulp.task('analyzeCode', 'run all sort of checks on styleguides and complexity', [/*'complexity', */'jscpd', 'magicNumbers'], function() {});
-
 gulp.task('sizes', function() {
   return gulp.src('./public/app/**/*')
     //all your gulp tasks
     // .pipe(gulp.dest('./dist/')
     .pipe(size()) // [gulp] Size example.css: 265.32 kB  
 });
+
+// define the default task and add the watch task to it
+gulp.task('default', colors.bgCyan.black('gulp') + ' === ' + colors.bgCyan.black('gulp watch'), ['watch']);
 
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', 'first, will compile SASS and run the server.\n' + indent +
@@ -182,11 +86,11 @@ gulp.task('watch', 'first, will compile SASS and run the server.\n' + indent +
         livereload.changed(path);
       }
 
-      gulp.watch(argv.lint ? FILES.LINT : [], ['lint-js']);
-      gulp.watch(FILES.JS_ALL, ['jscpd', 'magicNumbers']);
-      gulp.watch(FILES.FRONTEND_SASS, ['styles']);
-      gulp.watch(FILES.SERVER_JS).on('change', restart);
-      gulp.watch(FILES.FRONTEND_ALL).on('change', function(file) {
+      gulp.watch(argv.lint ? buildConfig.FILES.LINT : [], ['lint-js']);
+      gulp.watch(buildConfig.FILES.JS_ALL, ['jscpd', 'magicNumbers']);
+      gulp.watch(buildConfig.FILES.FRONTEND_SASS, ['styles']);
+      gulp.watch(buildConfig.FILES.SERVER_JS).on('change', restart);
+      gulp.watch(buildConfig.FILES.FRONTEND_ALL).on('change', function(file) {
         reloadBrowser('Frontend file changed.', file.path);
       });
     }, {
