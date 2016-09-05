@@ -25,7 +25,8 @@
     "angular-material-icons": "^0.7.1",
     "svg-morpheus": "^0.3.2",
     "ui-layout": "Kibibit/ui-layout#~1.0.5",
-    "ace-builds": "git://github.com/ajaxorg/ace-builds#master"
+    "ace-builds": "git://github.com/ajaxorg/ace-builds#master",
+    "highlight.js": "git://github.com/isagalaev/highlight.js#9.2.0"
   },
   "resolutions": {
     "angular": "1.5.8"

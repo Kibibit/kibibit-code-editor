@@ -5,28 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kibibit Code Editor</title>
+
     <!-- FOR ANGULAR ROUTING -->
     <base href="/">
-    <!-- CSS Libraries  -->
+
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.1/paper/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+    <!-- FONTS -->
+    <!-- build:css assets/fonts/fonts.css -->
+    <link rel="stylesheet" type="text/css" href="assets/fonts/fonts.css">
+    <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/octicons/build/font/octicons.css">
+    <link rel="stylesheet" type="text/css" href="assets/lib/glyphter-font/css/Glyphter.css">
+    <link rel="stylesheet" type="text/css" href="assets/lib/pictonic/css/pictonic.css">
+    <!-- endbuild -->
+    <!-- build:css styles/dependencies.css -->
+    <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/highlight.js/src/styles/default.css">
     <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/angular-material/angular-material.css">
     <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/angular-loading-bar/build/loading-bar.min.css">
     <link rel="stylesheet" type="text/css" href="assets/lib/tree-control.css">
     <link rel="stylesheet" type="text/css" href="assets/lib/tree-control-attribute.css">
     <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/ng-dialog/css/ngDialog.css">
     <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/ng-dialog/css/ngDialog-theme-default.css">
-    <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/octicons/build/font/octicons.css">
-    <link rel="stylesheet" type="text/css" href="assets/lib/glyphter-font/css/Glyphter.css">
-    <link rel="stylesheet" type="text/css" href="assets/lib/pictonic/css/pictonic.css">
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/ui-layout/ui-layout.css">
     <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/json-formatter/dist/json-formatter.css"/>
     <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css"/>
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min.css">
     <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/angular-emoji/dist/emoji.min.css">
     <link rel="stylesheet" type="text/css" href="assets/lib/bower_components/viewerjs/dist/viewer.css">
-    <link rel="stylesheet" type="text/css" href="assets/fonts/fonts.css">
+    <!-- endbuild -->
+    <!-- build:css assets/css/kibibit.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!-- endbuild -->
 </head>
 
 <body ng-app="kibibitCodeEditor">
@@ -76,14 +84,12 @@
     <div class="loading-logo" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: 5; display: flex; align-items: center; justify-content: center;" ng-class="{'app-initiated':true}">
         <div class="kibibit-logo" style="font-size: 800%; color: #353535; text-shadow: 0px 1px 1px #5b5b5b;"></div>
     </div>
-    <!-- <main>
-        <menu-bar></menu-bar> -->
-        <!-- ANGULAR VIEWS -->
-        <!-- <div ng-view></div>
-    </main> -->
-    <!-- JS -->
-    <!-- BOWER COMPONENTS -->
-    <!-- <script type="text/javascript" src="assets/lib/bower_components/emitter/emitter.js"></script> -->
+
+    <script type="text/javascript" src="assets/lib/bower_components/ace-builds/src-noconflict/ace.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/ace-builds/src-noconflict/ext-modelist.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/ace-builds/src-noconflict/ext-themelist.js"></script>
+    <!-- <2script type="text/javascript" src2="assets/lib/bower_components/emitter/emitter.js"></script2> -->
+    <!-- build:js scripts/dependencies.js -->
     <script type="text/javascript" src="assets/lib/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="assets/lib/jquery.fullscreen.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/angular/angular.js"></script>
@@ -102,32 +108,34 @@
     <script type="text/javascript" src="assets/lib/bower_components/angular-fullscreen/src/angular-fullscreen.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
     <script type="text/javascript" src="assets/lib/angular-tree-control.js"></script>
-    <script type="text/javascript" src="assets/lib/bower_components/ace-builds/src-noconflict/ace.js"></script>
-    <script type="text/javascript" src="assets/lib/bower_components/ace-builds/src-noconflict/ext-modelist.js"></script>
-    <script type="text/javascript" src="assets/lib/bower_components/ace-builds/src-noconflict/ext-themelist.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/ui-layout/ui-layout.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/json-formatter/dist/json-formatter.js"></script>
     <script type="text/javascript" src="assets/lib/ui-ace.js"></script>
-    <script src="assets/lib/bower_components/marked/lib/marked.js"></script>
-    <script src="assets/lib/bower_components/angular-marked/dist/angular-marked.js"></script>
-    <script src="assets/lib/highlight/highlight.pack.js"></script>
-    <script src="assets/lib/bower_components/angular-emoji/dist/emoji.min.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/marked/lib/marked.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/angular-marked/dist/angular-marked.js"></script>
+    <script type="text/javascript" src="assets/lib/highlight/highlight.pack.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/angular-emoji/dist/emoji.min.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/viewerjs/dist/viewer.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/underscore/underscore-min.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/opentype.js/dist/opentype.min.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/angular-material-icons/angular-material-icons.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/svg-morpheus/compile/minified/svg-morpheus.js"></script>
+    <!-- endbuild -->
 
     <!-- Kibibit Code Editor -->
+    <!-- build:js scripts/kibibit.js -->
+
     <!-- Initialize -->
     <script type="text/javascript" src="app/app.js"></script>
+    <!-- inject:js -->
+    <!-- contents of html partials will be injected here -->
+    <!-- endinject -->
     <!-- Routes -->
     <script type="text/javascript" src="app/app.routes.js"></script>
     <!-- Constants -->
     <script type="text/javascript" src="app/constants.js"></script>
     <!-- Views -->
     <script type="text/javascript" src="app/controllers/mainCtrl.js"></script>
-    <!-- <script src="app/controllers/userCtrl.js"></script> -->
     <!-- Components -->
     <script type="text/javascript" src="app/components/linksOpenNewTab/linksOpenNewTab.js"></script>
     <script type="text/javascript" src="app/components/yesnoModal/yesnoModal.js"></script>
@@ -155,6 +163,7 @@
     <script type="text/javascript" src="app/services/quotesService.js"></script>
     <script type="text/javascript" src="app/services/eventManagerService.js"></script>
     <script type="text/javascript" src="app/services/draftsService.js"></script>
+    <!-- endbuild -->
 </body>
 
 </html>
