@@ -79,7 +79,7 @@ module.exports = function() {
 
   // CHANGE HTML
   
-  gulp.task('dist:parseHtml', ['dist:copy', 'dist:templateCache', 'dist:clean'], function () {
+  gulp.task('dist:parseHtml', ['styles', 'dist:copy', 'dist:templateCache', 'dist:clean'], function () {
       var sources = gulp.src(['./public/dist/app/templates.js'], {read: false});
       return gulp.src('./public/index.html')
           .pipe(plugins.replace(/src="(.*?\.js)"/g, replaceWithMin))
