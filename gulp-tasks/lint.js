@@ -10,9 +10,19 @@ var buildConfig = require('../buildConfig');
 var colors = require('colors');
 
 module.exports = function() {
-  gulp.task('lint', 'lint ' + colors.blue('all javascript and sass') + ' files', ['lint:js', 'lint:sass']);
+  gulp.task('lint',
+    'lint ' + colors.blue('all javascript and sass') + ' files',
+    ['lint:js', 'lint:sass'],
+    function() {},
+    {
+      options: {
+        'format': '  fix lint problems that can be fixed automatically'
+      }
+    }
+  );
 
-  gulp.task('lint:js', 'lint ' + colors.blue('all JS') + ' files',
+  gulp.task('lint:js',
+    'lint ' + colors.blue('all JS') + ' files',
     function() {
       return gulp.src(buildConfig.FILES.JS_ALL)
         .pipe(plugins.if(buildConfig.flags.watch, plugins.cached('linting')))
@@ -25,18 +35,21 @@ module.exports = function() {
         .pipe(plugins.eslint.failAfterError());
     }, {
       options: {
-        'format': 'fix lint problems that can be fixed automatically'
+        'format': '  fix lint problems that can be fixed automatically'
       }
-    });
+    }
+  );
 
-  gulp.task('lint:sass', 'lint ' + colors.blue('all SASS') + ' files',
+  gulp.task('lint:sass',
+    'lint ' + colors.blue('all SASS') + ' files',
     function() {
-      return gulp.src(FILES.FRONTEND_SASS)
+      return gulp.src(buildConfig.FILES.FRONTEND_SASS)
           .pipe(plugins.if(buildConfig.flags.watch, plugins.cached('linting')))
           .pipe(plugins.sassLint())
           .pipe(plugins.sassLint.format())
           .pipe(plugins.sassLint.failOnError());
-    });
+    }
+  );
 
   function isFixed(file) {
     // Has ESLint fixed the file contents?

@@ -3,43 +3,22 @@ var gulp = require('gulp-help')(require('gulp'), {
   description: 'you are looking at it.',
   aliases: ['h'],
   hideEmpty: true
-}),
-colors = require('colors'),
-beautify = require('gulp-jsbeautifier'),
-sourcemaps = require('gulp-sourcemaps'),
-sass = require('gulp-sass'),
-cssnano = require('gulp-cssnano'),
-rename = require('gulp-rename'),
-prettify = require('gulp-jsbeautifier'),
-concat = require('gulp-concat'),
-livereload = require('gulp-livereload'),
-server = require('gulp-develop-server'),
-shell = require('gulp-shell'),
-jscs = require('gulp-jscs'),
-argv = require('yargs').argv,
-cache = require('gulp-cached'),
-gutil = require('gulp-util'),
-depcheck = require('gulp-depcheck'),
-jscpd = require('gulp-jscpd'),
-complexity = require('gulp-complexity'),
-buddyjs = require('gulp-buddy.js'),
-size = require('gulp-filesize');
-
+});
+var colors = require('colors');
+var plugins = require('gulp-load-plugins')({
+  rename: {
+    'gulp-buddy.js': 'buddy'
+  }
+});
+var argv = require('yargs').argv;
 var buildConfig = require('./buildConfig');
-
-var karma = require('karma').server;
-
-var isTravis = process.env.TRAVIS || false;
-
-var indent = '                        ';
-var options = {
-  path: './server.js'
-};
 
 require('./gulp-tasks/test')();
 require('./gulp-tasks/lint')();
 require('./gulp-tasks/styles')();
 require('./gulp-tasks/analyzeCode')();
+require('./gulp-tasks/serve')();
+require('./gulp-tasks/size')();
 require('./gulp-tasks/dist')();
 
 // gulp.task('depcheck',
@@ -50,48 +29,75 @@ require('./gulp-tasks/dist')();
 //   })
 // );
 
-gulp.task('serve', 'start the Kibibit Code Editor server', ['styles'], function() {
-  server.listen(options, livereload.listen);
-});
-
-gulp.task('debug', 'debug the project using ​' + colors.blue('~= node-inspector =~'), ['styles'], shell.task(['node-debug server.js']));
-
-gulp.task('sizes', function() {
-  return gulp.src('./public/app/**/*')
-    //all your gulp tasks
-    // .pipe(gulp.dest('./dist/')
-    .pipe(size()) // [gulp] Size example.css: 265.32 kB  
-});
-
 // define the default task and add the watch task to it
 gulp.task('default', colors.bgCyan.black('gulp') + ' === ' + colors.bgCyan.black('gulp watch'), ['watch']);
+
+gulp.task( 'server:start', function() {
+    plugins.developServer.listen( buildConfig.options.server );
+});
 
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', 'first, will compile SASS and run the server. ' +
     'Then, it watches changes and do some live dev work',
+    ['server:start', 'cache:jscpd', 'cache:magicNumbers', 'cache:linting'],
     function() {
-      function restart(file) {
-        server.changed(function(error) {
-          if (!error) {
-            reloadBrowser('Backend file changed.', file.path);
-          }
-        });
-      }
 
       function reloadBrowser(message, path) {
-        gutil.log(message ? message : 'Something changed.', gutil.colors.bgBlue.white.bold('Reloading browser...'));
-        livereload.changed(path);
+        plugins.util.log(message ? message : 'Something changed.',
+          plugins.util.colors.bgBlue.white.bold('Reloading browser...'));
+        plugins.livereload.changed(path);
       }
 
-      gulp.watch(argv.lint ? buildConfig.FILES.LINT : [], ['lint-js']);
-      gulp.watch(buildConfig.FILES.JS_ALL, ['jscpd', 'magicNumbers']);
-      gulp.watch(buildConfig.FILES.FRONTEND_SASS, ['styles']);
-      gulp.watch(buildConfig.FILES.SERVER_JS).on('change', restart);
+      buildConfig.flags.watch = true;
+
+      gulp.watch(argv.lint ? buildConfig.FILES.LINT : [], ['lint:js']);
+      gulp.watch(buildConfig.FILES.JS_ALL, ['analyzeCode']);
+      gulp.watch(buildConfig.FILES.FRONTEND_SASS, ['styles', 'lint:sass']);
+      gulp.watch(buildConfig.FILES.SERVER_JS).on('change', plugins.developServer.restart);
       gulp.watch(buildConfig.FILES.FRONTEND_ALL).on('change', function(file) {
         reloadBrowser('Frontend file changed.', file.path);
       });
     }, {
       options: {
-        'lint': 'will include output from linter only for changed files'
+        'lint': '  will include output from linter only for changed files'
       }
     });
+
+gulp.task( 'cache:jscpd',
+  preCacheGulpCached(buildConfig.FILES.JS_ALL, 'jscpd', function() {
+    plugins.util.log('gulp-cached pre-cache complete for '
+      + plugins.util.colors.blue('jscpd'.toUpperCase()));
+  })
+);
+
+gulp.task( 'cache:magicNumbers',
+  preCacheGulpCached(buildConfig.FILES.JS_ALL, 'magicNumbers', function() {
+    plugins.util.log('gulp-cached pre-cache complete for '
+      + plugins.util.colors.blue('magicNumbers'.toUpperCase()));
+  })
+);
+
+gulp.task( 'cache:linting',
+  preCacheGulpCached(buildConfig.FILES.LINT, 'linting', function() {
+    plugins.util.log('gulp-cached pre-cache complete for '
+      + plugins.util.colors.blue('linting'.toUpperCase()));
+  }, !argv.lint)
+);
+
+function preCacheGulpCached(src, cacheId, cb, skip) {
+  return function preCache() {
+    if (skip) {
+      return;
+    }
+    /* Pre-build a cache for gulp-cached plugin */
+    var callCallback = true;
+    return gulp.src(src)
+      .pipe(plugins.cached(cacheId))
+      .pipe(plugins.callback(function() {
+        if (callCallback && cb) {
+          cb();
+          callCallback = false;
+        }
+      }));
+  };
+};
