@@ -25,6 +25,7 @@ module.exports = function() {
   gulp.task('lint:js',
     'lint ' + colors.blue('all JS') + ' files',
     function() {
+      plugins.notify.logLevel(0);
       return gulp.src(buildConfig.FILES.JS_ALL)
         .pipe(plugins.plumber(buildConfig.options.plumber))
         .pipe(plugins.if(buildConfig.flags.watch, plugins.cached('linting')))
@@ -49,6 +50,7 @@ module.exports = function() {
   gulp.task('lint:sass',
     'lint ' + colors.blue('all SASS') + ' files',
     function() {
+      plugins.notify.logLevel(0);
       return gulp.src(buildConfig.FILES.FRONTEND_SASS)
         .pipe(plugins.plumber(buildConfig.options.plumber))
         .pipe(plugins.if(buildConfig.flags.watch, plugins.cached('linting')))
