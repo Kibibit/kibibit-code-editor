@@ -1,7 +1,8 @@
+var config = require('./config');
+
 var buildConfig = {
   flags: {
-    watch: false,
-    build: false
+    watch: false
   },
   options: {
     server: {
@@ -13,15 +14,24 @@ var buildConfig = {
       args: ['--dist']
     },
     bs: {
+      port: config.port + 1,
+      ui: {
+        port: config.port + 2
+      },
       proxy: {
-        target: 'http://localhost:3141',
+        target: 'http://localhost:' + config.port,
         middleware: function (req, res, next) {
           //console.log(req.url);
           next();
         }
       },
       files: ['./public/**/*.css'], // files to watch with bs instantly (.ejs & .css)
-      logLevel: 'silent'
+      logLevel: 'silent',
+      ghostMode: {
+        clicks: true,
+        forms: true,
+        scroll: true
+      }
     }
   },
   indent: '                        ',

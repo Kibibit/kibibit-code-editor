@@ -8,7 +8,8 @@ var bs = require('browser-sync').create();
 
 var buildConfig = require('../buildConfig');
 var colors = require('colors');
-var config = require('../config')
+var argv = require('yargs').argv;
+var config = require('../config');
 
 module.exports = function() {
 
@@ -51,7 +52,16 @@ module.exports = function() {
       plugins.developServer.listen(buildConfig.options.server,
         function (error) {
           if (!error)
-            bs.init(buildConfig.options.bs);
+            bs.init(buildConfig.options.bs, function() {
+              plugins.util.log(
+                plugins.util.colors.bold('browser-sync: '),
+                plugins.util.colors.magenta('http://localhost:'
+                  + buildConfig.options.bs.port));
+              plugins.util.log(
+                plugins.util.colors.bold('browser-sync Management: '),
+                plugins.util.colors.magenta('http://localhost:'
+                  + buildConfig.options.bs.ui.port));
+            });
         }
       );
 
