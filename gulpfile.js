@@ -13,6 +13,7 @@ var plugins = require('gulp-load-plugins')({
 var argv = require('yargs').argv;
 var buildConfig = require('./buildConfig');
 
+require('./gulp-tasks/cache')();
 require('./gulp-tasks/test')();
 require('./gulp-tasks/lint')();
 require('./gulp-tasks/styles')();
@@ -32,8 +33,8 @@ require('./gulp-tasks/dist')();
 // define the default task and add the watch task to it
 gulp.task('default', colors.bgCyan.black('gulp') + ' === ' + colors.bgCyan.black('gulp watch'), ['watch']);
 
-gulp.task( 'server:start', function() {
-    plugins.developServer.listen( buildConfig.options.server );
+gulp.task( 'server:start', ['styles'], function() {
+    plugins.developServer.listen( buildConfig.options.server, plugins.livereload.listen );
 });
 
 // configure which files to watch and what tasks to use on file changes
@@ -62,42 +63,3 @@ gulp.task('watch', 'first, will compile SASS and run the server. ' +
         'lint': '  will include output from linter only for changed files'
       }
     });
-
-gulp.task( 'cache:jscpd',
-  preCacheGulpCached(buildConfig.FILES.JS_ALL, 'jscpd', function() {
-    plugins.util.log('gulp-cached pre-cache complete for '
-      + plugins.util.colors.blue('jscpd'.toUpperCase()));
-  })
-);
-
-gulp.task( 'cache:magicNumbers',
-  preCacheGulpCached(buildConfig.FILES.JS_ALL, 'magicNumbers', function() {
-    plugins.util.log('gulp-cached pre-cache complete for '
-      + plugins.util.colors.blue('magicNumbers'.toUpperCase()));
-  })
-);
-
-gulp.task( 'cache:linting',
-  preCacheGulpCached(buildConfig.FILES.LINT, 'linting', function() {
-    plugins.util.log('gulp-cached pre-cache complete for '
-      + plugins.util.colors.blue('linting'.toUpperCase()));
-  }, !argv.lint)
-);
-
-function preCacheGulpCached(src, cacheId, cb, skip) {
-  return function preCache() {
-    if (skip) {
-      return;
-    }
-    /* Pre-build a cache for gulp-cached plugin */
-    var callCallback = true;
-    return gulp.src(src)
-      .pipe(plugins.cached(cacheId))
-      .pipe(plugins.callback(function() {
-        if (callCallback && cb) {
-          cb();
-          callCallback = false;
-        }
-      }));
-  };
-};
