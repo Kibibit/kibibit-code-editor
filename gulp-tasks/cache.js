@@ -24,10 +24,15 @@ module.exports = function() {
   );
 
   gulp.task( 'cache:linting',
-    preCacheGulpCached(buildConfig.FILES.LINT_JS, 'linting', function() {
-      plugins.util.log('gulp-cached pre-cache complete for '
-        + plugins.util.colors.blue('linting'.toUpperCase()));
-    }, argv.disableLint)
+    preCacheGulpCached(
+      buildConfig.FILES.LINT_JS.concat(buildConfig.FILES.FRONTEND_SASS),
+      'linting',
+      function() {
+        plugins.util.log('gulp-cached pre-cache complete for '
+          + plugins.util.colors.blue('linting'.toUpperCase()));
+      },
+      argv.disableLint
+    )
   );
 
   function preCacheGulpCached(src, cacheId, cb, skip) {

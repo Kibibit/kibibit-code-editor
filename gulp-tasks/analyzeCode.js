@@ -7,6 +7,7 @@ var plugins = require('gulp-load-plugins')({
 
 var buildConfig = require('../buildConfig');
 var colors = require('colors');
+var stripAnsi = require('strip-ansi');
 
 module.exports = function() {
   gulp.task('analyzeCode',
@@ -17,6 +18,7 @@ module.exports = function() {
   gulp.task('jscpd',
     //'finds out duplicate part of codes inside your project',
     function() {
+      plugins.notify.logLevel(0);
       return gulp.src(
         [].concat(
           buildConfig.FILES.LINT_JS,
@@ -27,7 +29,11 @@ module.exports = function() {
         .pipe(plugins.jscpd({
           'min-lines': 10,
           verbose    : true
-        }));
+        }))
+        .on('error', buildConfig.flags.watch
+          ? plugins.notify.onError(function(error) {
+          return stripAnsi(error.message);
+        }) : function() {});
     }
   );
 
@@ -41,7 +47,11 @@ module.exports = function() {
           plugins.cached('magicNumbers')))
         .pipe(plugins.buddy({
           reporter: 'detailed'
-        }));
+        }))
+        .on('error', buildConfig.flags.watch
+          ? plugins.notify.onError(function(error) {
+          return "found new magic numbers!";
+        }) : function() {});
     }
   );
 
