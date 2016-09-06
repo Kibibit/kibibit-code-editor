@@ -10,7 +10,7 @@ var buildConfig = {
     },
     distServer: {
       path: './server.js',
-      execArgv: ['--dist']
+      args: ['--dist']
     },
     bs: {
       proxy: {
