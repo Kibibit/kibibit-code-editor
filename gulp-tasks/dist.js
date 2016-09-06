@@ -18,7 +18,14 @@ module.exports = function() {
     'dist:templateCache',
     'dist:parseHtml',
     'dist:afterBuild'
-    ]);
+    ], function() {
+      return gulp.src('./public/dist/index.html', { base: '.' })
+        .pipe(plugins.htmlmin({
+          collapseWhitespace: true,
+          removeComments: true
+        }))
+        .pipe(gulp.dest('.'))
+    });
 
   // CLEAN
 
