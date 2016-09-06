@@ -67,11 +67,8 @@ gulp.task('sizes', function() {
 gulp.task('default', colors.bgCyan.black('gulp') + ' === ' + colors.bgCyan.black('gulp watch'), ['watch']);
 
 // configure which files to watch and what tasks to use on file changes
-gulp.task('watch', 'first, will compile SASS and run the server.\n' + indent +
-    'Then, it watches changes and do the following things when needed:\n' + indent +
-    colors.yellow('  1.') + ' compile SASS\n' + indent +
-    colors.yellow('  2.') + ' restart server\n' + indent +
-    colors.yellow('  3.') + ' reload browser', ['serve'],
+gulp.task('watch', 'first, will compile SASS and run the server. ' +
+    'Then, it watches changes and do some live dev work',
     function() {
       function restart(file) {
         server.changed(function(error) {
