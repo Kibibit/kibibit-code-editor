@@ -37,4 +37,12 @@ module.exports = function() {
     }
   );
 
+  // gulp.task('depcheck',
+  //   'checks for unused dependencies ' + colors.blue('(including devs)'),
+  //   depcheck({
+  //     ignoreDirs: ['test', 'logs'],
+  //     ignoreMatches: ['karma-*', 'jscs-*', 'jasmine-*']
+  //   })
+  // );
+
 };

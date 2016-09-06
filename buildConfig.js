@@ -6,8 +6,7 @@ var buildConfig = {
   },
   options: {
     server: {
-      path: './server.js'//,
-      //execArgv: ['--harmony']
+      path: './server.js'
     },
     distServer: {
       path: './server.js',
