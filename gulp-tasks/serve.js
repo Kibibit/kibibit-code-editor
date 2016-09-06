@@ -8,6 +8,7 @@ var bs = require('browser-sync').create();
 
 var buildConfig = require('../buildConfig');
 var colors = require('colors');
+var config = require('../config')
 
 module.exports = function() {
 
@@ -16,6 +17,9 @@ module.exports = function() {
     ['styles'],
     function() {
       plugins.developServer.listen(buildConfig.options.server);
+
+      return gulp.src(__filename)
+        .pipe(plugins.open({uri: 'http://localhost:' + config.port}));
     }
   );
 
@@ -24,6 +28,9 @@ module.exports = function() {
     ['dist'],
     function() {
       plugins.developServer.listen(buildConfig.options.distServer);
+
+      return gulp.src(__filename)
+        .pipe(plugins.open({uri: 'http://localhost:' + config.port}));
     }
   );
 
