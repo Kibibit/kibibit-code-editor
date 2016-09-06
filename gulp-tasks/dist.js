@@ -111,6 +111,7 @@ module.exports = function() {
 
   gulp.task('dist:afterBuild:uglify', ['dist:parseHtml', 'dist:clean'], function() {
     return gulp.src('public/dist/**/kibibit.js', { base: '.'})
+      .pipe(plugins.stripDebug())
       .pipe(plugins.uglify())
       .pipe(gulp.dest('.'));
   });
