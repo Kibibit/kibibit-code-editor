@@ -17,7 +17,7 @@ module.exports = function() {
   gulp.task('jscpd',
     //'finds out duplicate part of codes inside your project',
     function() {
-      return gulp.src([].concat(buildConfig.FILES.LINT, buildConfig.FILES.FRONTEND_SASS))
+      return gulp.src([].concat(buildConfig.FILES.LINT_JS, buildConfig.FILES.FRONTEND_SASS))
         .pipe(plugins.if(buildConfig.flags.watch, plugins.cached('jscpd')))
         .pipe(plugins.jscpd({
           'min-lines': 10,
