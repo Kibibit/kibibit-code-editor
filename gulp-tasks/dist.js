@@ -12,19 +12,67 @@ var search = require('recursive-search');
 var mainPath = __dirname.replace('/gulp-tasks', '');
 
 module.exports = function() {
-  gulp.task('dist', 'Create a distribution Folder for our Front-End', ['dist:replaceRelativePathsForFonts'], function() {
-    return gulp.src('public/dist/**/kibibit.js', { base: '.'})
-      .pipe(plugins.uglify())
-      .pipe(gulp.dest('.'));
+  gulp.task('dist', 'Create a distribution Folder for our Front-End', [
+    'dist:clean',
+    'dist:copy',
+    'dist:templateCache',
+    'dist:parseHtml',
+    'dist:afterBuild'
+    ]);
+
+  // CLEAN
+
+  gulp.task('dist:clean', function () {
+      return gulp.src('public/dist', {read: false})
+          .pipe(plugins.clean());
   });
 
-  gulp.task('dist:replaceRelativePathsForFonts', ['dist:parseHtml'], function() {
-    return gulp.src('public/dist/assets/fonts/fonts.css')
-    .pipe(plugins.replace(/(['"]).*?\/font[s]?\//g, '$1'))
-    .pipe(gulp.dest('.'));
+  // COPY
+
+  gulp.task('dist:copy', [
+    'dist:copy:ace',
+    'dist:copy:assets',
+    'dist:copy:fonts',
+    'dist:copy:images'
+    ]);
+
+  gulp.task('dist:copy:ace', ['dist:clean'], function() {
+    return gulp.src('public/assets/lib/bower_components/ace-builds/**/*', { base: './public/assets'})
+      .pipe(gulp.dest('./public/dist/assets'));
   });
 
-  gulp.task('dist:parseHtml', ['dist:copy', 'dist:templateCache'], function () {
+  gulp.task('dist:copy:assets', ['dist:clean'], function() {
+    return gulp.src(['public/assets/lib/**/*', '!public/assets/lib/bower_components', '!public/assets/lib/bower_components/**/*'], { base: './public/assets'})
+      .pipe(gulp.dest('./public/dist/assets'));
+  });
+
+  gulp.task('dist:copy:fonts', ['dist:clean'], function() {
+    return gulp.src(['public/**/fonts/*', 'public/**/font/*', '!**/*.{css,scss,less,sass,json}'])
+      .pipe(plugins.flatten())
+      .pipe(gulp.dest('./public/dist/assets/fonts'));
+  });
+
+  gulp.task('dist:copy:images', ['dist:clean'], function() {
+    return gulp.src('public/assets/images/*')
+      .pipe(gulp.dest('./public/dist/assets/images'));
+  });
+
+  // TEMPLATE CACHE
+
+  gulp.task('dist:templateCache', ['dist:clean'], function() {
+    return gulp.src('public/app/**/*.html', { base: './public/app'})
+      .pipe(plugins.angularTemplatecache('templates.js', {
+        module: 'kibibitCodeEditor',
+        transformUrl: function(url) {
+          return url.replace(/^.*?\/public\//, '');
+        }
+      }))
+      .pipe(gulp.dest('./public/dist/app'));
+  });
+
+  // CHANGE HTML
+  
+  gulp.task('dist:parseHtml', ['dist:copy', 'dist:templateCache', 'dist:clean'], function () {
       var sources = gulp.src(['./public/dist/app/templates.js'], {read: false});
       return gulp.src('./public/index.html')
           .pipe(plugins.replace(/src="(.*?\.js)"/g, replaceWithMin))
@@ -41,56 +89,26 @@ module.exports = function() {
           .pipe(gulp.dest('public/dist'));
   });
 
-  gulp.task('dist:copy', [
-    'dist:copy:ace',
-    'dist:copy:assets',
-    'dist:copy:fonts',
-    'dist:copy:images'
-    ]);
+  // AFTER MATH
+  
+  gulp.task('dist:afterBuild', [
+    'dist:afterBuild:replaceRelativePathsForFonts',
+    'dist:afterBuild:uglify'
+  ]);
 
-  gulp.task('dist:copy:ace', function() {
-    return gulp.src('public/assets/lib/bower_components/ace-builds/**/*', { base: './public/assets'})
-      .pipe(gulp.dest('./public/dist/assets'));
+  gulp.task('dist:afterBuild:replaceRelativePathsForFonts', ['dist:parseHtml', 'dist:clean'], function() {
+    return gulp.src('public/dist/assets/fonts/fonts.css')
+    .pipe(plugins.replace(/(['"]).*?\/font[s]?\//g, '$1'))
+    .pipe(gulp.dest('.'));
   });
 
-  gulp.task('dist:copy:assets', ['dist:copy:ace'], function() {
-    return gulp.src(['public/assets/lib/**/*', '!public/assets/lib/bower_components', '!public/assets/lib/bower_components/**/*'], { base: './public/assets'})
-      .pipe(gulp.dest('./public/dist/assets'));
-  });
-
-  gulp.task('dist:copy:fonts', function() {
-    return gulp.src(['public/**/fonts/*', 'public/**/font/*', '!**/*.{css,scss,less,sass,json}'])
-      .pipe(plugins.flatten())
-      .pipe(gulp.dest('./public/dist/assets/fonts'));
-  });
-
-  gulp.task('dist:copy:images', function() {
-    return gulp.src('public/assets/images/*')
-      .pipe(gulp.dest('./public/dist/assets/images'));
-  });
-
-  gulp.task('dist:templateCache', function() {
-    return gulp.src('public/app/**/*.html', { base: './public/app'})
-      .pipe(plugins.angularTemplatecache('templates.js', {
-        module: 'kibibitCodeEditor',
-        transformUrl: function(url) {
-          return url.replace(/^.*?\/public\//, '');
-        }
-      }))
-      .pipe(gulp.dest('./public/dist/app'));
-  });
-
-  gulp.task('dist:uglify', function() {
+  gulp.task('dist:afterBuild:uglify', ['dist:parseHtml', 'dist:clean'], function() {
     return gulp.src('public/dist/**/kibibit.js', { base: '.'})
       .pipe(plugins.uglify())
       .pipe(gulp.dest('.'));
   });
 
-  gulp.task('cleanDist', function () {
-      return gulp.src('public/dist', {read: false})
-          .pipe(plugins.clean());
-  });
-
+  ////////
 
   function replaceWithMin(entireMatch, pathToFile) {
     if (pathToFile.endsWith('min.js') || entireMatch.indexOf('bower_components') === -1) {
