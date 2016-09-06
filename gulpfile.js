@@ -21,7 +21,7 @@ require('./gulp-tasks/size')();
 require('./gulp-tasks/dist')();
 
 gulp.task('default',
-  plugins.utils.colors.bgCyan.black('gulp')
+  plugins.util.colors.bgCyan.black('gulp')
     + ' === '
-    + plugins.utils.colors.bgCyan.black('gulp watch'),
+    + plugins.util.colors.bgCyan.black('gulp watch'),
   ['watch']);
