@@ -26,91 +26,91 @@ rules:
     - 0
     - max-depth: 1
   border-zero:
-    - 1
+    - 2
     - convention: zero
   brace-style:
-    - 1
+    - 2
     - allow-single-line: true
   class-name-format:
-    - 1
+    - 2
     - convention: hyphenatedlowercase
   clean-import-paths:
-    - 1
+    - 2
     - filename-extension: false
       leading-underscore: false
   empty-line-between-blocks:
-    - 1
+    - 2
     - ignore-single-line-rulesets: true
   extends-before-declarations: 1
   extends-before-mixins: 1
   final-newline:
-    - 1
+    - 2
     - include: true
   force-attribute-nesting: 1
   force-element-nesting: 1
   force-pseudo-nesting: 1
   function-name-format:
-    - 1
+    - 2
     - allow-leading-underscore: true
       convention: hyphenatedlowercase
   hex-length:
     - 0
     - style: short
   hex-notation:
-    - 1
+    - 2
     - style: lowercase
   id-name-format:
-    - 1
+    - 2
     - convention: hyphenatedlowercase
   indentation:
-    - 1
+    - 2
     - size: 2
   leading-zero:
-    - 1
+    - 2
     - include: true
   mixin-name-format:
-    - 1
+    - 2
     - allow-leading-underscore: true
       convention: hyphenatedlowercase
   mixins-before-declarations: 1
   nesting-depth:
-    - 1
+    - 2
     - max-depth: 4
-  no-color-keywords: 1
-  no-color-literals: 1
-  no-css-comments: 1
-  no-debug: 1
-  no-duplicate-properties: 1
-  no-empty-rulesets: 1
+  no-color-keywords: 2
+  no-color-literals: 2
+  no-css-comments: 2
+  no-debug: 2
+  no-duplicate-properties: 2
+  no-empty-rulesets: 2
   no-extends: 0
-  no-ids: 1
-  no-important: 1
-  no-invalid-hex: 1
-  no-mergeable-selectors: 1
+  no-ids: 2
+  no-important: 2
+  no-invalid-hex: 2
+  no-mergeable-selectors: 2
   no-misspelled-properties:
-    - 1
+    - 2
     - extra-properties: []
   no-qualifying-elements:
-    - 1
+    - 2
     - allow-element-with-attribute: false
       allow-element-with-class: false
       allow-element-with-id: false
-  no-trailing-zero: 1
+  no-trailing-zero: 2
   no-transition-all: 0
-  no-url-protocols: 1
+  no-url-protocols: 2
   no-vendor-prefixes:
-    - 1
+    - 2
     - additional-identifiers: []
       excluded-identifiers: []
   placeholder-in-extend: 0
   placeholder-name-format:
-    - 1
+    - 2
     - convention: hyphenatedlowercase
   property-sort-order:
-    - 1
+    - 2
     - ignore-custom-properties: false
   property-units:
-    - 1
+    - 2
     - global:
         - ch
         - em
@@ -141,33 +141,33 @@ rules:
         - '%'
       per-property: {}
   quotes:
-    - 1
+    - 2
     - style: single
   shorthand-values:
-    - 1
+    - 2
     - allowed-shorthands:
         - 1
         - 2
         - 3
   single-line-per-selector: 1
   space-after-bang:
-    - 1
+    - 2
     - include: false
   space-after-colon:
-    - 1
+    - 2
     - include: true
   space-after-comma:
-    - 1
+    - 2
     - include: true
   space-before-bang:
-    - 1
+    - 2
     - include: true
   space-before-brace:
-    - 1
+    - 2
     - include: true
   space-before-colon: 1
   space-between-parens:
-    - 1
+    - 2
     - include: false
   trailing-semicolon: 1
   url-quotes: 1
@@ -175,7 +175,7 @@ rules:
     - 0
     - properties: []
   variable-name-format:
-    - 1
+    - 2
     - allow-leading-underscore: true
       convention: hyphenatedlowercase
   zero-unit: 1
