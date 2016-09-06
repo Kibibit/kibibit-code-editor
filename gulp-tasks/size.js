@@ -24,6 +24,7 @@ module.exports = function() {
 
 	gulp.task('size:dev', function() {
 	  return gulp.src('./public/index.html')
+	  	.pipe(plugins.plumber(buildConfig.options.plumber))
 	    .pipe(plugins.assets({
 	      js: true,
 	      css: true
@@ -37,6 +38,7 @@ module.exports = function() {
 
 	gulp.task('size:dist', function() {
 	  return gulp.src('./public/dist/index.html')
+	  	.pipe(plugins.plumber(buildConfig.options.plumber))
 	    .pipe(plugins.assets({
 	      js: true,
 	      css: true

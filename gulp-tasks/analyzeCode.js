@@ -18,6 +18,7 @@ module.exports = function() {
     //'finds out duplicate part of codes inside your project',
     function() {
       return gulp.src([].concat(buildConfig.FILES.LINT_JS, buildConfig.FILES.FRONTEND_SASS))
+        .pipe(plugins.plumber(buildConfig.options.plumber))
         .pipe(plugins.if(buildConfig.flags.watch, plugins.cached('jscpd')))
         .pipe(plugins.jscpd({
           'min-lines': 10,
@@ -30,6 +31,7 @@ module.exports = function() {
     //'shows you if you have any magic numbers (numbers that are used inline in javascript)',
     function () {
       return gulp.src(buildConfig.FILES.JS_ALL)
+        .pipe(plugins.plumber(buildConfig.options.plumber))
         .pipe(plugins.if(buildConfig.flags.watch, plugins.cached('magicNumbers')))
         .pipe(plugins.buddy({
           reporter: 'detailed'

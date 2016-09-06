@@ -25,6 +25,7 @@ module.exports = function() {
     'lint ' + colors.blue('all JS') + ' files',
     function() {
       return gulp.src(buildConfig.FILES.JS_ALL)
+        .pipe(plugins.plumber(buildConfig.options.plumber))
         .pipe(plugins.if(buildConfig.flags.watch, plugins.cached('linting')))
         .pipe(plugins.eslint({
           fix: argv.format ? true : false
@@ -44,10 +45,11 @@ module.exports = function() {
     'lint ' + colors.blue('all SASS') + ' files',
     function() {
       return gulp.src(buildConfig.FILES.FRONTEND_SASS)
-          .pipe(plugins.if(buildConfig.flags.watch, plugins.cached('linting')))
-          .pipe(plugins.sassLint())
-          .pipe(plugins.sassLint.format())
-          .pipe(plugins.sassLint.failOnError());
+        .pipe(plugins.plumber(buildConfig.options.plumber))
+        .pipe(plugins.if(buildConfig.flags.watch, plugins.cached('linting')))
+        .pipe(plugins.sassLint())
+        .pipe(plugins.sassLint.format())
+        .pipe(plugins.sassLint.failOnError());
     }
   );
 

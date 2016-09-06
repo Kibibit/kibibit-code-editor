@@ -31,6 +31,12 @@ var buildConfig = {
         forms: true,
         scroll: true
       }
+    },
+    plumber: {
+      handleError: function (err) {
+        console.log(err);
+        this.emit('end');
+      }
     }
   },
   indent: '                        ',

@@ -15,6 +15,7 @@ var mainPath = __dirname.replace('/gulp-tasks', '');
 module.exports = function() {
   gulp.task('styles', 'compile SASS to CSS', function() {
     return gulp.src(buildConfig.FILES.MAIN_SASS)
+      .pipe(plugins.plumber(buildConfig.options.plumber))
       .pipe(plugins.sourcemaps.init())
       .pipe(plugins.sass().on('error', plugins.sass.logError))
       //.pipe(styleguide.applyStyles())

@@ -38,6 +38,7 @@ module.exports = function() {
       /* Pre-build a cache for gulp-cached plugin */
       var callCallback = true;
       return gulp.src(src)
+        .pipe(plugins.plumber(buildConfig.options.plumber))
         .pipe(plugins.cached(cacheId))
         .pipe(plugins.callback(function() {
           if (callCallback && cb) {

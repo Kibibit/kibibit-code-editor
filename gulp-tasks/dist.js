@@ -20,6 +20,7 @@ module.exports = function() {
     'dist:afterBuild'
     ], function() {
       return gulp.src('./public/dist/index.html', { base: '.' })
+        .pipe(plugins.plumber(buildConfig.options.plumber))
         .pipe(plugins.htmlmin({
           collapseWhitespace: true,
           removeComments: true
@@ -31,7 +32,8 @@ module.exports = function() {
 
   gulp.task('dist:clean', function () {
       return gulp.src('public/dist', {read: false})
-          .pipe(plugins.clean());
+        .pipe(plugins.plumber(buildConfig.options.plumber))
+        .pipe(plugins.clean());
   });
 
   // COPY
@@ -68,6 +70,7 @@ module.exports = function() {
 
   gulp.task('dist:templateCache', ['dist:clean'], function() {
     return gulp.src('public/app/**/*.html', { base: './public/app'})
+      .pipe(plugins.plumber(buildConfig.options.plumber))
       .pipe(plugins.angularTemplatecache('templates.js', {
         module: 'kibibitCodeEditor',
         transformUrl: function(url) {
@@ -82,18 +85,19 @@ module.exports = function() {
   gulp.task('dist:parseHtml', ['styles', 'dist:copy', 'dist:templateCache', 'dist:clean'], function () {
       var sources = gulp.src(['./public/dist/app/templates.js'], {read: false});
       return gulp.src('./public/index.html')
-          .pipe(plugins.replace(/src="(.*?\.js)"/g, replaceWithMin))
-          .pipe(plugins.inject(sources, {
-            transform: function (filepath) {
-                return '<script type="text/javascript" src="' + filepath.replace('/public/', '') + '"></script>';
-            }
-          }))
-          .pipe(plugins.useref({
-            searchPath: './public/'
-          }))
-          .pipe(plugins.if('*.css', plugins.csso({ usage: true })))
-          //.pipe(plugins.if('*.js', plugins.uglify()))
-          .pipe(gulp.dest('public/dist'));
+        .pipe(plugins.plumber(buildConfig.options.plumber))
+        .pipe(plugins.replace(/src="(.*?\.js)"/g, replaceWithMin))
+        .pipe(plugins.inject(sources, {
+          transform: function (filepath) {
+              return '<script type="text/javascript" src="' + filepath.replace('/public/', '') + '"></script>';
+          }
+        }))
+        .pipe(plugins.useref({
+          searchPath: './public/'
+        }))
+        .pipe(plugins.if('*.css', plugins.csso({ usage: true })))
+        //.pipe(plugins.if('*.js', plugins.uglify()))
+        .pipe(gulp.dest('public/dist'));
   });
 
   // AFTER MATH
@@ -105,12 +109,14 @@ module.exports = function() {
 
   gulp.task('dist:afterBuild:replaceRelativePathsForFonts', ['dist:parseHtml', 'dist:clean'], function() {
     return gulp.src('public/dist/assets/fonts/fonts.css')
-    .pipe(plugins.replace(/(['"]).*?\/font[s]?\//g, '$1'))
-    .pipe(gulp.dest('.'));
+      .pipe(plugins.plumber(buildConfig.options.plumber))
+      .pipe(plugins.replace(/(['"]).*?\/font[s]?\//g, '$1'))
+      .pipe(gulp.dest('.'));
   });
 
   gulp.task('dist:afterBuild:uglify', ['dist:parseHtml', 'dist:clean'], function() {
     return gulp.src('public/dist/**/kibibit.js', { base: '.'})
+      .pipe(plugins.plumber(buildConfig.options.plumber))
       .pipe(plugins.stripDebug())
       .pipe(plugins.uglify())
       .pipe(gulp.dest('.'));
