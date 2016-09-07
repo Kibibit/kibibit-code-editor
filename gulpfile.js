@@ -19,6 +19,7 @@ require('./gulp-tasks/analyzeCode')();
 require('./gulp-tasks/serve')();
 require('./gulp-tasks/size')();
 require('./gulp-tasks/dist')();
+require('./gulp-tasks/docs')();
 
 gulp.task('default',
   plugins.util.colors.bgCyan.black('gulp')

@@ -12,6 +12,9 @@ var buildConfig = {
       path: './server.js',
       args: ['--dist']
     },
+    styleguide: {
+      port: config.port - 1
+    },
     bs: {
       port: config.port + 1,
       ui: {

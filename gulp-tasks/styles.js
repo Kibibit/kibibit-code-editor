@@ -7,7 +7,6 @@ var plugins = require('gulp-load-plugins')({
 
 var argv = require('yargs').argv;
 var buildConfig = require('../buildConfig');
-var colors = require('colors');
 
 var isTravis = process.env.TRAVIS || false;
 var mainPath = __dirname.replace('/gulp-tasks', '');
@@ -18,7 +17,6 @@ module.exports = function() {
       .pipe(plugins.plumber(buildConfig.options.plumber))
       .pipe(plugins.sourcemaps.init())
       .pipe(plugins.sass().on('error', plugins.sass.logError))
-      //.pipe(styleguide.applyStyles())
       .pipe(plugins.sourcemaps.write())
       //.pipe(rename({ suffix: '.min' }))
       .pipe(gulp.dest('./public/assets/css/'));

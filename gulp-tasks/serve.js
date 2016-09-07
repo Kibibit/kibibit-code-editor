@@ -45,7 +45,11 @@ module.exports = function() {
     'start the Kibibit Code Editor '
       + colors.blue('Development')
       + ' server',
-    ['styles', 'cache:jscpd', 'cache:magicNumbers', 'cache:linting'],
+    ['styles',
+    'styleguide',
+    'cache:jscpd',
+    'cache:magicNumbers',
+    'cache:linting'],
     function () {
       buildConfig.flags.watch = true;
 
@@ -65,7 +69,7 @@ module.exports = function() {
         }
       );
 
-      gulp.watch(buildConfig.FILES.FRONTEND_SASS, ['styles']);
+      gulp.watch(buildConfig.FILES.FRONTEND_SASS, ['styleguide', 'styles']);
       gulp.watch(buildConfig.FILES.JS_ALL, ['analyzeCode']);
       gulp.watch(!argv.disableLint ?
         buildConfig.FILES.LINT_JS : [], ['lint:js']);
