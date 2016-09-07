@@ -50,8 +50,8 @@ module.exports = function() {
         }))
         .on('error', buildConfig.flags.watch ?
           plugins.notify.onError(function(error) {
-          return "found new magic numbers!";
-        }) : function() {});
+            return 'found new magic numbers!';
+          }) : function() {});
     }
   );
 
