@@ -146,15 +146,18 @@ angular.module('kibibitCodeEditor')
         }
       }).closePromise.then(
         function(res) {
-          var saveFilePath = res.value + '/test.txt';
-          var currentEditor = vm.settings.currentEditor;
-          FileService.saveFile(saveFilePath,
-            currentEditor.getSession().getDocument().getValue(),
-            function() {
-              ToastService.showSimpleToast('success-toast',
-                'File successfully saved');
-            }
-          );
+          console.log('res: ', res);
+          if (!vm.isModalCancel(res.value)) {
+            var saveFilePath = res.value + '/test.txt';
+            var currentEditor = vm.settings.currentEditor;
+            FileService.saveFile(saveFilePath,
+              currentEditor.getSession().getDocument().getValue(),
+              function() {
+                ToastService.showSimpleToast('success-toast',
+                  'File successfully saved');
+              }
+            );
+          }
         }
       );
     }

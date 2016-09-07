@@ -8,7 +8,7 @@
 <div class="buttons">
   <button
     class="btn"
-    ng-click="closeThisDialog(ngDialogData.selectedFolder)">
+    ng-click="closeThisDialog(ngDialogData.selectedFolder || ngDialogData.savePath)">
     Save
   </button>
   <button class="btn" ng-click="closeThisDialog(0)">Close</button>
