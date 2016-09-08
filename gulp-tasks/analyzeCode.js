@@ -7,6 +7,7 @@ var plugins = require('gulp-load-plugins')({
 
 var buildConfig = require('../buildConfig');
 var stripAnsi = require('strip-ansi');
+var _ = require('lodash');
 
 module.exports = function() {
   gulp.task('analyzeCode',
@@ -30,10 +31,10 @@ module.exports = function() {
           'min-lines': 10,
           verbose: true
         }))
-        .on('error', buildConfig.flags.watch
-          ? plugins.notify.onError(function(error) {
+        .on('error', buildConfig.flags.watch ?
+          plugins.notify.onError(function(error) {
             return stripAnsi(error.message);
-          }) : function() {});
+          }) : _.noop);
     }
   );
 
@@ -49,9 +50,9 @@ module.exports = function() {
           reporter: 'detailed'
         }))
         .on('error', buildConfig.flags.watch ?
-          plugins.notify.onError(function(error) {
-          return "found new magic numbers!";
-        }) : function() {});
+          plugins.notify.onError(function() {
+            return 'found new magic numbers!';
+          }) : _.noop);
     }
   );
 

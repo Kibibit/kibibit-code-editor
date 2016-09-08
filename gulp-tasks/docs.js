@@ -4,10 +4,10 @@ var plugins = require('gulp-load-plugins')({
     'gulp-buddy.js': 'buddy'
   }
 });
-var argv = require('yargs').argv;
 var buildConfig = require('../buildConfig');
 var styleguide = require('sc5-styleguide');
 var outputPath = 'public/assets/styleguide';
+var config = require('../config');
 
 module.exports = function() {
 
@@ -19,18 +19,33 @@ module.exports = function() {
   gulp.task('styleguide:generate', function() {
     plugins.util.log(
       plugins.util.colors.bold('style-guide: '),
-      plugins.util.colors.magenta('http://localhost:'
-        + buildConfig.options.styleguide.port));
+      plugins.util.colors.magenta('http://localhost:' +
+        buildConfig.options.styleguide.port));
     return gulp.src(buildConfig.FILES.FRONTEND_SASS)
       .pipe(styleguide.generate({
-          title: 'Kibibit Styleguide',
-          server: true,
-          rootPath: outputPath,
-          overviewPath: 'README.md',
-          port: buildConfig.options.styleguide.port,
-          extraHead: '<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">'
-        }))
-      .pipe(gulp.dest(outputPath))
+        title: 'Kibibit Styleguide',
+        server: true,
+        rootPath: outputPath,
+        overviewPath: 'README.md',
+        port: buildConfig.options.styleguide.port,
+        disableEncapsulation: true,
+        extraHead: [
+          '<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.css">',
+          '<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">',
+          '<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js">'
+        ],
+        "filesConfig": [
+          {
+            "name": "kibibitCodeEditor",
+            "files": [
+              //"http://localhost:" + config.port + "/assets/lib/bower_components/angular-material/angular-material.min.js",
+              "http://localhost:" + config.port + "/assets/kibibit.styleguide.js",
+              "http://localhost:" + config.port + "/app/components/searchProject/searchProject.js"
+            ]
+          }
+        ]
+      }))
+      .pipe(gulp.dest(outputPath));
   });
 
   gulp.task('styleguide:applyStyles', function() {
