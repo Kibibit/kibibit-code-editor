@@ -2,6 +2,8 @@
 /coverage/**
 /logs/**
 /node_modules/**
-/public/assets/css/style.css
 /public/assets/lib/bower_components/**
 /.idea/**
+/public/dist/**
+/public/assets/styleguide/**
+/public/assets/css/**
