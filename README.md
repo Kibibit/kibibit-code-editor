@@ -15,3 +15,8 @@ Your help is appreciated! If you've found a bug or if something is not clear, pl
 Ideally, if you've found an issue, you can submit a PR that meets our [contributor guidelines](CONTRIBUTING.md).
 
 [![Throughput Graph](https://graphs.waffle.io/Kibibit/kibibit-code-editor/throughput.svg)](https://waffle.io/Kibibit/kibibit-code-editor/metrics)
+
+## Support on Beerpay
+Hey dude! Help me out for a couple of :beers:!
+
+[![Beerpay](https://beerpay.io/Kibibit/kibibit-code-editor/badge.svg?style=beer-square)](https://beerpay.io/Kibibit/kibibit-code-editor)  [![Beerpay](https://beerpay.io/Kibibit/kibibit-code-editor/make-wish.svg?style=flat-square)](https://beerpay.io/Kibibit/kibibit-code-editor?focus=wish)
