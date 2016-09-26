@@ -24,6 +24,7 @@ angular.module('kibibitCodeEditor')
     vm.openProject = openProject;
     vm.settings = SettingsService.settings;
     vm.showProjectSelectModal = showProjectSelectModal;
+    vm.showPreferences = showPreferences;
 
     init();
 
@@ -97,6 +98,20 @@ angular.module('kibibitCodeEditor')
           vm.openFile = '';
         }
       }
+    }
+
+    function showPreferences() {
+      ngDialog.open({
+        template:
+          'app/components/preferences/preferencesTemplate.html',
+        controller: 'preferencesController',
+        controllerAs: 'preferencesCtrl',
+        className: 'ngdialog-theme-default',
+        scope: $scope,
+        data: {
+          userHomeDirectoryPath: vm.userHomeDirectoryPath
+        }
+      }).closePromise.then(setOpenProject);
     }
 
     function showProjectSelectModal() {

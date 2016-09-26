@@ -1,0 +1,93 @@
+<div class="settings-container">
+  <md-tabs md-selected="data.selectedIndex" md-align-tabs="{{ data.bottom ? 'bottom' : 'top' }}">
+    <md-tab id="user">
+      <md-tab-label>Admin Settings</md-tab-label>
+      <md-tab-body>
+        <md-list>
+          <md-subheader class="md-no-sticky">Logged in users (visible only for admin)</md-subheader>
+          <md-list-item ng-repeat="person in preferencesCtrl.people" ng-click="goToPerson(person.name, $event)" class="noright">
+            <img alt="{{ person.name }}" ng-src="{{ person.avatar }}" class="md-avatar">
+            <p>{{ person.name }}</p>
+            <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
+            <md-icon class="material-icons md-secondary md-hue-3" ng-click="doSecondaryAction($event)" aria-label="Send Email">email</md-icon>
+            <md-icon class="material-icons md-secondary" ng-click="doSecondaryAction($event)" aria-label="Chat" ">message</md-icon>
+    </md-list-item>
+  </md-list>
+  </md-tab-body>
+</md-tab>
+<md-tab id="user ">
+  <md-tab-label>General Settings</md-tab-label>
+  <md-tab-body>
+    
+  <md-list ng-cloak=" ">
+    <md-subheader class="md-no-sticky ">Single Action Checkboxes</md-subheader>
+    <md-list-item ng-repeat="topping in preferencesCtrl.toppings ">
+      <p> {{ topping.name }} </p>
+      <md-checkbox class="md-secondary " ng-model="topping.wanted "></md-checkbox>
+    </md-list-item>
+    <md-divider></md-divider>
+    <md-subheader class="md-no-sticky ">Secondary Buttons</md-subheader>
+    <md-list-item class="md-list-item-padding ">
+      <p>Clicking the button to the right will fire the secondary action</p>
+      <md-button class="md-secondary " ng-click="doSecondaryAction($event) ">More Info</md-button>
+    </md-list-item>
+    <md-list-item class="md-list-item-padding " ng-click="doPrimaryAction($event) ">
+      <p>Click anywhere to fire the primary action, or the button to fire the secondary</p>
+      <md-button class="md-secondary " ng-click="doSecondaryAction($event) ">More Info</md-button>
+    </md-list-item>
+    <md-divider></md-divider>
+    <md-subheader class="md-no-sticky ">Secondary Menus</md-subheader>
+    <md-list-item>
+      <p>Click anywhere to fire the secondary action</p>
+      <md-menu class="md-secondary ">
+        <md-button class="md-icon-button ">
+          <md-icon md-svg-icon="communication:message "></md-icon>
+        </md-button>
+        <md-menu-content width="4 ">
+          <md-menu-item>
+            <md-button>
+              Redial
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button>
+              Check voicemail
+            </md-button>
+          </md-menu-item>
+          <md-menu-divider></md-menu-divider>
+          <md-menu-item>
+            <md-button>
+              Notifications
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </md-list-item>
+    <md-divider></md-divider>
+    <md-subheader class="md-no-sticky ">Clickable Items with Secondary Controls</md-subheader>
+    <md-list-item ng-click="navigateTo(setting.extraScreen, $event) " ng-repeat="setting in preferencesCtrl.settings ">
+      <md-icon class="material-icons ">{{setting.icon}}</md-icon>
+      <p> {{ setting.name }} </p>
+      <md-switch class="md-secondary " ng-model="setting.enabled "></md-switch>
+    </md-list-item>
+    <md-list-item ng-click="navigateTo( 'data usage', $event) ">
+      <md-icon class="material-icons ">data_usage</md-icon>
+      <p>Data Usage</p>
+    </md-list-item>
+    <md-divider></md-divider>
+    <md-subheader class="md-no-sticky ">Checkbox with Secondary Action</md-subheader>
+    <md-list-item ng-repeat="message in preferencesCtrl.messages ">
+      <md-checkbox ng-model="message.selected "></md-checkbox>
+      <p>{{message.title}}</p>
+      <md-icon class="material-icons md-secondary " ng-click="doSecondaryAction($event) " aria-label="Chat ">message</md-icon>
+    </md-list-item>
+    <md-divider></md-divider>
+        </md-list>
+      </md-tab-body>
+    </md-tab>
+  </md-tabs>
+  <!--
+Copyright 2016 Google Inc. All Rights Reserved. 
+Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
+-->
+</div>
