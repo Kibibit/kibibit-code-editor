@@ -12,6 +12,6 @@ Currently, we're focusing on web related programming (but requests are welcome! 
 
 Your help is appreciated! If you've found a bug or if something is not clear, please raise an issue.
 
-Ideally, if you've found an issue, you can submit a PR that meets our [contributor guidelines](CONTRIBUTING.md).
+Ideally, if you've found an issue, you22can submit a PR that meets our [contributor guidelines](CONTRIBUTING.md).
 
 [![Throughput Graph](https://graphs.waffle.io/Kibibit/kibibit-code-editor/throughput.svg)](https://waffle.io/Kibibit/kibibit-code-editor/metrics)
