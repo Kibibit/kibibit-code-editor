@@ -36,6 +36,47 @@ angular.module('kibibitCodeEditor',
   };
 }])
 
+.run(function() {
+  _.mixin({
+    'first': function(array, n) {
+      var element = _.take(array, n);
+      return element.length <= 1 ? element[0] : element;
+    },
+    'last': function(array, n) {
+      var element = _.takeRight(array, n);
+      return element.length <= 1 ? element[0] : element;
+    },
+    'isPromise': function(value) {
+      return value && _.isFunction(value.then);
+    },
+    'color': function(value) {
+      return tinycolor(value);
+    },
+    'pluck': _.map,
+    'where': _.filter,
+    'findWhere': _.find
+  });
+
+  chance.mixin({
+    'user': function() {
+      return {
+        name: chance.name(),
+        email: chance.email(),
+        newMessage: chance.bool(),
+        avatar: chance.avatar({fileExtension: 'jpeg'}) + '?d=identicon'
+      };
+    },
+    'file': function() {
+      return {
+        content: chance.unique(chance.paragraph, 10).join('\n'),
+        mimeType: chance.string({pool: 'abcdefghijklmnop', length: 5}) + '/' + chance.string({pool: 'abcdefghijklmnop', length: 5}),
+        path: chance.string({pool: 'abcdefghijklmnop', length: 5}) + '/' + chance.string({pool: 'abcdefghijklmnop', length: 5})
+      };
+    }
+  });
+})
+
+
 .config(['markedProvider', function(markedProvider) {
   markedProvider.setOptions({
     gfm: true,

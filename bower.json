@@ -26,7 +26,9 @@
     "svg-morpheus": "^0.3.2",
     "ui-layout": "Kibibit/ui-layout#~1.0.5",
     "ace-builds": "git://github.com/ajaxorg/ace-builds#master",
-    "highlight.js": "git://github.com/isagalaev/highlight.js#9.2.0"
+    "highlight.js": "git://github.com/isagalaev/highlight.js#9.2.0",
+    "chance": "^1.0.3",
+    "tinycolor": "^1.4.1"
   },
   "resolutions": {
     "angular": "1.5.8"
