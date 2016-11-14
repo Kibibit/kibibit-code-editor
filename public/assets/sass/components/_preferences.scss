@@ -1,0 +1,41 @@
+.settings-container {
+  overflow: auto;
+  height: 100%;
+  margin-top: 15px;
+  md-tabs {
+    height: 100%;
+  }
+  p {
+    font-size: 15px;
+    color: initial;
+  }
+  md-divider {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  md-list {
+    padding-top: 0;
+  }
+  md-list-item > p,
+  md-list-item > .md-list-item-inner > p,
+  md-list-item .md-list-item-inner > p,
+  md-list-item .md-list-item-inner > .md-list-item-inner > p {
+    -webkit-user-select: none;
+    /* Chrome all / Safari all */
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+    /* Likely future */
+  }
+  md-list-item.md-list-item-padding {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  /*
+    Copyright 2016 Google Inc. All Rights Reserved. 
+    Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
+    */
+}
+

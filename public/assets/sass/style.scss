@@ -15,6 +15,7 @@
 @import "components/statusBar";
 @import "components/viewByFile";
 @import "components/zombify";
+@import "components/preferences";
 
 // scss-lint:disable NestingDepth
 // scss-lint:disable SelectorDepth
@@ -221,6 +222,7 @@ treecontrol {
     right: 0;
     top: 0;
     z-index: 10;
+    background: $white;
 
     .project-tree-container {
       bottom: 50px;
