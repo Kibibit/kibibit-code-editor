@@ -31,7 +31,7 @@ angular.module('kibibitCodeEditor')
 
     vm.browserClass =
       deviceDetector.raw.browser.firefox ? 'firefox' : undefined;
-    vm.onSelection = onSelection;
+
     vm.options = {
       selectionMode: 'file',
       theme: 'tree-dark'
@@ -43,24 +43,22 @@ angular.module('kibibitCodeEditor')
         return node.type !== 'directory';
       }
     };
-    vm.updateTreePath = updateTreePath;
-    vm.$onInit = onInit;
 
+    vm.$onInit = onInit;
+    vm.onSelection = onSelection;
+    vm.updateTreePath = updateTreePath;
 
     ////////////
 
-    function onInit() {
-      angular.extend(vm.options, vm.userOptions || {});
+    function closeFolder(folder) {
+      vm.expandedNodes = vm.expandedNodes.filter(function(node) {
+        return !node.path.startsWith(folder.path);
+      });
     }
 
-    // Handle the updated treePath
-    function updateTreePath(path) {
-      if (typeof path === 'string' || path instanceof String) {
-        FolderService.getFolder(path, function(folderContent) {
-          vm.folderContent = folderContent.data;
-        });
-        vm.expandedNodes = [];
-      }
+    // executed after the controller initiated
+    function onInit() {
+      angular.extend(vm.options, vm.userOptions || {});
     }
 
     // get file from the server and update the ace session content
@@ -94,10 +92,14 @@ angular.module('kibibitCodeEditor')
       }
     }
 
-    function closeFolder(folder) {
-      vm.expandedNodes = vm.expandedNodes.filter(function(node) {
-        return !node.path.startsWith(folder.path);
-      });
+    // Handle the updated treePath
+    function updateTreePath(path) {
+      if (typeof path === 'string' || path instanceof String) {
+        FolderService.getFolder(path, function(folderContent) {
+          vm.folderContent = folderContent.data;
+        });
+        vm.expandedNodes = [];
+      }
     }
 
   }]);
