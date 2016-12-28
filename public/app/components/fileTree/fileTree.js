@@ -44,10 +44,14 @@ angular.module('kibibitCodeEditor')
       }
     };
     vm.updateTreePath = updateTreePath;
+    vm.$onInit = onInit;
 
-    angular.extend(vm.options, vm.userOptions || {});
 
     ////////////
+
+    function onInit() {
+      angular.extend(vm.options, vm.userOptions || {});
+    }
 
     // Handle the updated treePath
     function updateTreePath(path) {
