@@ -2,11 +2,11 @@
   "name": "kibibit-code-editor",
   "ignore": [],
   "dependencies": {
-    "angular": "^1.5.7",
-    "angular-animate": "^1.5.7",
-    "angular-aria": "^1.5.7",
+    "angular": "~1.6.1",
+    "angular-animate": "~1.6.1",
+    "angular-aria": "~1.6.1",
     "angular-material": "^1.0.9",
-    "angular-route": "^1.5.7",
+    "angular-route": "~1.6.1",
     "angular-loading-bar": "^0.9.0",
     "octicons": "^4.3.0",
     "ng-dialog": "^0.6.2",
@@ -14,21 +14,21 @@
     "angular-ui-layout": "~1.4.2",
     "ng-scrollbars": "^0.0.10",
     "angular-marked": "^1.2.2",
-    "angular-emoji": "angular-emoji-filter#~0.0.2",
-    "angular-sanitize": "~1.5.0",
+    "angular-sanitize": "~1.6.1",
     "json-formatter": "^0.6.0",
     "ngclipboard": "~1.1.1",
     "ng-device-detector": "~3.0.1",
-    "viewerjs": "fengyuanchen/viewerjs#~0.4.0",
     "opentype.js": "^0.6.3",
     "underscore": "^1.8.3",
     "angular-material-icons": "^0.7.1",
     "svg-morpheus": "^0.3.2",
-    "ui-layout": "Kibibit/ui-layout#~1.0.5",
+    "angular-emoji": "angular-emoji-filter#~0.0.2",
+    "viewerjs": "fengyuanchen/viewerjs#~0.4.0",
     "ace-builds": "git://github.com/ajaxorg/ace-builds#master",
-    "highlight.js": "git://github.com/isagalaev/highlight.js#9.2.0"
+    "highlight.js": "git://github.com/isagalaev/highlight.js#9.2.0",
+    "ui-layout": "Kibibit/ui-layout#~1.0.5"
   },
   "resolutions": {
-    "angular": "1.5.8"
+    "angular": "1.6.1"
   }
 }
