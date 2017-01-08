@@ -43,11 +43,11 @@
           <div ui-layout-container size="104px" class="menu-bar-container">
             <kb-menu-bar></kb-menu-bar>
           </div>
-          <div ui-layout-container="central" class="main-area" style="z-index: 6;"> 
+          <div ui-layout-container="central" class="main-area" style="z-index: 6;">
             <div ui-layout="{ flow : 'column', dividerSize: '10' }">
               <div ui-layout-container class="sidebar-container" size="20%">
                   <div class="sidebar mobile-sidebar" ng-class="{'open': main.isSidebarOpen}" ng-scrollbars>
-                    <kb-file-tree 
+                    <kb-file-tree
                       kb-file-tree-path="main.projectFolderPath"
                       kb-file-tree-selection="main.openFile"
                       kb-on-file-selection="main.isSidebarOpen = false;">
@@ -116,7 +116,8 @@
     <script type="text/javascript" src="assets/lib/highlight/highlight.pack.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/angular-emoji/dist/emoji.min.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/viewerjs/dist/viewer.js"></script>
-    <script type="text/javascript" src="assets/lib/bower_components/underscore/underscore-min.js"></script>
+    <script type="text/javascript" src="assets/lib/lodash/lodash.min.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/chance/dist/chance.min.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/opentype.js/dist/opentype.min.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/angular-material-icons/angular-material-icons.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/svg-morpheus/compile/minified/svg-morpheus.js"></script>
