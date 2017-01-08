@@ -26,7 +26,8 @@
     "viewerjs": "fengyuanchen/viewerjs#~0.4.0",
     "ace-builds": "git://github.com/ajaxorg/ace-builds#master",
     "highlight.js": "git://github.com/isagalaev/highlight.js#9.2.0",
-    "ui-layout": "Kibibit/ui-layout#~1.0.5"
+    "ui-layout": "Kibibit/ui-layout#~1.0.5",
+    "chance": "^1.0.4"
   },
   "resolutions": {
     "angular": "1.6.1"
