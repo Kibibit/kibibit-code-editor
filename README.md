@@ -20,3 +20,4 @@ Ideally, if you've found an issue, you can submit a PR that meets our [contribut
 Hey dude! Help me out for a couple of :beers:!
 
 [![Beerpay](https://beerpay.io/Kibibit/kibibit-code-editor/badge.svg?style=beer-square)](https://beerpay.io/Kibibit/kibibit-code-editor)  [![Beerpay](https://beerpay.io/Kibibit/kibibit-code-editor/make-wish.svg?style=flat-square)](https://beerpay.io/Kibibit/kibibit-code-editor?focus=wish)
+
