@@ -51,7 +51,7 @@
     "gulp-complexity": "^0.3.2",
     "gulp-concat": "~2.6.0",
     "gulp-cssnano": "^2.1.0",
-    "gulp-csso": "^2.0.0",
+    "gulp-csso": "^3.0.0",
     "gulp-depcheck": "^1.1.0",
     "gulp-develop-server": "^0.5.2",
     "gulp-eslint": "^3.0.1",
