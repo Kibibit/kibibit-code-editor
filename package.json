@@ -76,7 +76,7 @@
     "gulp-sass": "^3.0.0",
     "gulp-sass-lint": "^1.2.0",
     "gulp-shell": "~0.5.1",
-    "gulp-size": "^2.1.0",
+    "gulp-size": "^3.0.0",
     "gulp-sourcemaps": "~2.3.0",
     "gulp-strip-debug": "^1.1.0",
     "gulp-task-loader": "^1.4.4",
