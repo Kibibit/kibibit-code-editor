@@ -26,7 +26,7 @@ $lighten-bright: lighten($dark-white, $precentage);
 $darken-bark: darken($black, $precentage);
 $dark: $black;
 $lighten-dark: lighten($black , $precentage);
-$primary: #1cd464;
+$primary: $candy-yellow;
 $darken-primary: darken($primary , $precentage);
 $lighten-primary: lighten($primary , $precentage);
 $darken-secondary: darken($transparent , $precentage);
