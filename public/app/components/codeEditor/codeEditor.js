@@ -82,9 +82,14 @@ angular.module('kibibitCodeEditor')
 
     function getModeFromMimeType(file) {
       var getModeRegex = /\/(x-)?(.*)$/;
-      return file && file.mimeType ?
+      var filename = file.path.replace(/^.*\/(.*)$/gi, '$1');
+      var modeFromExt = filename === 'Dockerfile' ? 'dockerfile' : 'text';
+      var modeFromMime = file && file.mimeType ?
         file.mimeType.match(getModeRegex)[2] :
-        'text';
+        null;
+      modeFromMime = modeFromMime === 'mp2t' ? 'typescript' : modeFromMime;
+
+      return modeFromMime || modeFromExt;
     }
 
     function initEditor(editor, settings) {
