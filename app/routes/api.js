@@ -6,7 +6,9 @@ module.exports = function(app, express) {
         require('../models/userHomeDirectoryService.js'),
       downloadService = require('../models/downloadService.js'),
       quotesService = require('../models/quotesService.js'),
-      settingsService = require('../models/settingsService.js');
+      settingsService = require('../models/settingsService.js'),
+      colorThemeService = require('../models/colorThemeService.js'),
+      projectLogoService = require('../models/projectLogoService.js');
 
   var apiRouter = express.Router();
 
@@ -55,6 +57,12 @@ module.exports = function(app, express) {
 
   apiRouter.route('/quotes/:num?')
     .get(quotesService.get);
+
+  apiRouter.route('/createTheme/:color_hex/:project_name')
+    .put(colorThemeService.put);
+
+  apiRouter.route('/projectLogo/:file_id')
+    .get(projectLogoService.get);
 
   return apiRouter;
 };

@@ -6,12 +6,14 @@ angular.module('kibibitCodeEditor')
   'ngDialog',
   'SettingsService',
   'SessionStorageService',
+  'ProjectService',
   function(
     $scope,
     $http,
     ngDialog,
     SettingsService,
-    SessionStorageService) {
+    SessionStorageService,
+    ProjectService) {
 
     var vm = this;
 
@@ -23,6 +25,7 @@ angular.module('kibibitCodeEditor')
     vm.openFile = '';
     vm.openProject = openProject;
     vm.settings = SettingsService.settings;
+    vm.projectService = ProjectService;
     vm.showProjectSelectModal = showProjectSelectModal;
 
     init();
@@ -33,7 +36,11 @@ angular.module('kibibitCodeEditor')
       vm.projectFolderPath = '';
       vm.projectName = undefined;
       vm.openFile = '';
+      vm.projectLogoUrl = undefined;
+      ProjectService.setTheme(undefined);
+      SessionStorageService.removeItem('theme');
       SessionStorageService.removeItem('projectFolderPath');
+      SessionStorageService.removeItem('projectLogoUrl');
       SessionStorageService.removeItem('projectName');
     }
 
@@ -59,6 +66,11 @@ angular.module('kibibitCodeEditor')
       if (SessionStorageService.projectName) {
         vm.projectName = SessionStorageService.projectName;
         console.debug('last project name loaded from session storage');
+      }
+
+      if (SessionStorageService.projectLogoUrl) {
+        vm.projectLogoUrl = SessionStorageService.projectLogoUrl;
+        console.debug('last project logo loaded from session storage');
       }
 
       $scope.$watch(function() {
@@ -96,6 +108,18 @@ angular.module('kibibitCodeEditor')
         if (vm.openFile !== '') {
           vm.openFile = '';
         }
+
+        ProjectService.getProjectLogo(vm.projectFolderPath)
+              .then(function(res) {
+                vm.projectLogoUrl = encodeURIComponent(res.logoPath);
+                SessionStorageService.projectLogoUrl = vm.projectLogoUrl;
+              }, function(error) {
+                console.debug('no logo for this project');
+                vm.projectLogoUrl = undefined;
+                ProjectService.setTheme(undefined);
+                SessionStorageService.removeItem('projectLogoUrl');
+                SessionStorageService.removeItem('theme');
+              });
       }
     }
 

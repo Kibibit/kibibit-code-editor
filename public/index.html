@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="kibibitCodeEditor" ng-controller="themeController as themeCtrl">
 
 <head>
     <meta charset="UTF-8">
@@ -34,10 +34,11 @@
     <!-- endbuild -->
     <!-- build:css assets/css/kibibit.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" ng-href="assets/css/style.{{themeCtrl.theme}}.css">
     <!-- endbuild -->
 </head>
 
-<body ng-app="kibibitCodeEditor">
+<body>
     <div ng-controller="mainController as main" class="main-app-container" ng-class="{'app-initiated':true}">
         <div ui-layout="{ dividerSize: '0' }"  >
           <div ui-layout-container size="104px" class="menu-bar-container">
@@ -117,6 +118,9 @@
     <script type="text/javascript" src="assets/lib/bower_components/angular-emoji/dist/emoji.min.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/viewerjs/dist/viewer.js"></script>
     <script type="text/javascript" src="assets/lib/lodash/lodash.min.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/color-thief/dist/color-thief.min.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/ngColorThief/angular-colorthief.min.js"></script>
+    <script type="text/javascript" src="assets/lib/bower_components/tinycolor/dist/tinycolor-min.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/chance/dist/chance.min.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/opentype.js/dist/opentype.min.js"></script>
     <script type="text/javascript" src="assets/lib/bower_components/angular-material-icons/angular-material-icons.js"></script>
@@ -136,6 +140,7 @@
     <!-- Constants -->
     <script type="text/javascript" src="app/constants.js"></script>
     <!-- Views -->
+    <script type="text/javascript" src="app/controllers/themeCtrl.js"></script>
     <script type="text/javascript" src="app/controllers/mainCtrl.js"></script>
     <!-- Components -->
     <script type="text/javascript" src="app/components/linksOpenNewTab/linksOpenNewTab.js"></script>
@@ -162,7 +167,9 @@
     <script type="text/javascript" src="app/services/toastService.js"></script>
     <script type="text/javascript" src="app/services/sessionStorageService.js"></script>
     <script type="text/javascript" src="app/services/quotesService.js"></script>
+    <script type="text/javascript" src="app/services/projectService.js"></script>
     <script type="text/javascript" src="app/services/eventManagerService.js"></script>
+    <script type="text/javascript" src="app/services/tinyColorService.js"></script>
     <script type="text/javascript" src="app/services/draftsService.js"></script>
     <!-- endbuild -->
 </body>

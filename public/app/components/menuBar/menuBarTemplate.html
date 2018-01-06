@@ -4,7 +4,17 @@
         <md-toolbar-filler layout layout-align="center center" class="project-logo-container">
             <div class="logo">
                 <kb-moving-gears ng-if="main.buildTaskRunning"></kb-moving-gears>
-                <i class="material-icons folder" ng-if="main.projectFolderPath">folder</i>
+
+                <img style="width: 75%"
+                ng-src="/api/download/{{main.projectLogoUrl}}"
+                ng-if="main.projectLogoUrl"
+                color-thief
+                color-thief-dominant="themeCtrl.myDominantColor"
+                color-thief-palette="themeCtrl.palette"
+                color-thief-palette-count="2">
+
+                <i class="material-icons folder" ng-if="!main.projectLogoUrl && main.projectFolderPath">folder</i>
+
                 <div class="kibibit-logo" ng-if="!main.projectFolderPath"></div>
             </div>
         </md-toolbar-filler>
