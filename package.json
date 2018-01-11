@@ -47,7 +47,7 @@
     "gulp-buddy.js": "^1.0.0",
     "gulp-cached": "^1.1.0",
     "gulp-callback": "0.0.3",
-    "gulp-clean": "^0.3.2",
+    "gulp-clean": "^0.4.0",
     "gulp-complexity": "^0.3.2",
     "gulp-concat": "~2.6.0",
     "gulp-cssnano": "^2.1.0",
