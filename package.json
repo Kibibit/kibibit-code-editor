@@ -28,7 +28,7 @@
     "helmet": "^3.1.0",
     "lodash": "^4.15.0",
     "mime-types": "^2.1.11",
-    "ngrok": "^2.2.2",
+    "ngrok": "^3.0.0",
     "scribe-js": "^2.0.4",
     "serve-favicon": "~2.4.5",
     "user-home": "^2.0.0"
