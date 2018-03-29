@@ -30,7 +30,7 @@
     "mime-types": "^2.1.11",
     "ngrok": "^2.2.2",
     "scribe-js": "^2.0.4",
-    "serve-favicon": "~2.4.5",
+    "serve-favicon": "~2.5.0",
     "user-home": "^2.0.0"
   },
   "devDependencies": {
