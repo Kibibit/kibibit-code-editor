@@ -54,7 +54,7 @@
     "gulp-csso": "^3.0.0",
     "gulp-depcheck": "^1.1.0",
     "gulp-develop-server": "^0.5.2",
-    "gulp-eslint": "^4.0.0",
+    "gulp-eslint": "^5.0.0",
     "gulp-flatten": "^0.4.0",
     "gulp-help": "^1.6.1",
     "gulp-htmlmin": "^4.0.0",
