@@ -57,7 +57,7 @@
     "gulp-eslint": "^4.0.0",
     "gulp-flatten": "^0.4.0",
     "gulp-help": "^1.6.1",
-    "gulp-htmlmin": "^4.0.0",
+    "gulp-htmlmin": "^5.0.0",
     "gulp-if": "^2.0.1",
     "gulp-inject": "^4.1.0",
     "gulp-istanbul": "^1.0.0",
