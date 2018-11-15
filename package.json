@@ -59,7 +59,7 @@
     "gulp-help": "^1.6.1",
     "gulp-htmlmin": "^4.0.0",
     "gulp-if": "^2.0.1",
-    "gulp-inject": "^4.1.0",
+    "gulp-inject": "^5.0.0",
     "gulp-istanbul": "^1.0.0",
     "gulp-jsbeautifier": "^2.0.3",
     "gulp-jscpd": "0.0.8",
