@@ -61,7 +61,7 @@
     "gulp-if": "^2.0.1",
     "gulp-inject": "^4.1.0",
     "gulp-istanbul": "^1.0.0",
-    "gulp-jsbeautifier": "^2.0.3",
+    "gulp-jsbeautifier": "^3.0.0",
     "gulp-jscpd": "0.0.8",
     "gulp-jscs": "^4.0.0",
     "gulp-jsdoc3": "^1.0.0",
