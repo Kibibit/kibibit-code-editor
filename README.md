@@ -4,9 +4,6 @@
   <h2 align="center">kibibit code editor</h2>
 </p>
 <p align="center">
-  <a href="https://probot.github.io/"><img src="https://img.shields.io/badge/Probot-b33p-00B0D8.svg?style=for-the-badge&logo=probot&logoColor=white"></a>
-</p>
-<p align="center">
   <a href="http://gulpjs.com/"><img src="https://img.shields.io/badge/gulp-all_the_builds!-eb4a4b.svg?logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAAYAAAAOCAMAAAA7QZ0XAAAABlBMVEUAAAD%2F%2F%2F%2Bl2Z%2FdAAAAAXRSTlMAQObYZgAAABdJREFUeAFjAAFGRjSSEQzwUgwQkjAFAAtaAD0Ls2nMAAAAAElFTkSuQmCC"></a>
   <a href="https://achievibit.kibibit.io/"><img src="https://achievibit.kibibit.io/achievementsShield"></a>
   <a href="https://greenkeeper.io/"><img src="https://img.shields.io/badge/greenkeeper-enabled-brightgreen.svg"></a>
