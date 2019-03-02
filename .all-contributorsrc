@@ -1,0 +1,22 @@
+{
+  "projectName": "tdd1t",
+  "projectOwner": "kibibit",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "Thatkookooguy",
+      "name": "Neil Kalman",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/10427304?v=4",
+      "profile": "http://thatkookooguy.kibibit.io",
+      "contributions": [
+        "infra"
+      ]
+    }
+  ]
+}
