@@ -33,6 +33,14 @@ If you have suggestions for how we could be improved, or want to report a bug, o
 
 For more, check out the [Contributing Guide](CONTRIBUTING.md).
 
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table><tr><td align="center"><a href="http://thatkookooguy.kibibit.io"><img src="https://avatars3.githubusercontent.com/u/10427304?v=4" width="100px;" alt="Neil Kalman"/><br /><sub><b>Neil Kalman</b></sub></a><br /><a href="#infra-Thatkookooguy" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td><td align="center"><a href="https://github.com/ortichon"><img src="https://avatars0.githubusercontent.com/u/10263615?v=4" width="100px;" alt="Or Tichon"/><br /><sub><b>Or Tichon</b></sub></a><br /><a href="#design-ortichon" title="Design">🎨</a></td></tr></table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 ## License
 
 [MIT](LICENSE) © 2019 Neil Kalman <Neilkalman@gmail.com>

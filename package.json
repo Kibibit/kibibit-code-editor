@@ -7,7 +7,9 @@
     "postinstall": "node ./node_modules/bower/lib/bin/bower install && node ./node_modules/gulp/bin/gulp styles",
     "start": "node server.js",
     "test": "gulp test",
-    "dev-up": "gulp"
+    "dev-up": "gulp",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
   },
   "repository": {
     "type": "git",
@@ -34,6 +36,7 @@
     "user-home": "^2.0.0"
   },
   "devDependencies": {
+    "all-contributors-cli": "^6.1.2",
     "bower": "^1.7.2",
     "browser-sync": "^2.14.3",
     "eslint": "^4.14.0",
