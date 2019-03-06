@@ -96,6 +96,6 @@
     "recursive-search": "^1.0.1",
     "sc5-styleguide": "^2.0.4",
     "strip-ansi": "^4.0.0",
-    "yargs": "^10.0.3"
+    "yargs": "^13.2.2"
   }
 }
