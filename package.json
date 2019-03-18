@@ -36,7 +36,7 @@
     "user-home": "^2.0.0"
   },
   "devDependencies": {
-    "all-contributors-cli": "^6.1.2",
+    "all-contributors-cli": "^6.2.0",
     "bower": "^1.7.2",
     "browser-sync": "^2.14.3",
     "eslint": "^4.14.0",
