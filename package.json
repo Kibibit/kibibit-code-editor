@@ -9,7 +9,9 @@
     "test": "gulp test",
     "dev-up": "gulp",
     "contributors:add": "all-contributors add",
-    "contributors:generate": "all-contributors generate"
+    "contributors:generate": "all-contributors generate",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -33,7 +35,8 @@
     "ngrok": "^2.2.2",
     "scribe-js": "^2.0.4",
     "serve-favicon": "~2.4.5",
-    "user-home": "^2.0.0"
+    "user-home": "^2.0.0",
+    "snyk": "^1.190.0"
   },
   "devDependencies": {
     "all-contributors-cli": "^6.1.2",
@@ -97,5 +100,6 @@
     "sc5-styleguide": "^2.0.4",
     "strip-ansi": "^4.0.0",
     "yargs": "^10.0.3"
-  }
+  },
+  "snyk": true
 }
